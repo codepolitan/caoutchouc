@@ -276,26 +276,6 @@ UI.Container = new Class({
 	},
 
 	/*
-	Method: buildScrollbar
-		private function
-
-		Creates a new scrollbar object _setEventsed to the container
-
-	Returns:
-		(void)
-	*/
-	_initScroller : function() {
-		this.scroller = new Scroller(this.content, this.options.scroller)
-		.addEvents({
-			onChange : function(x,y) {
-				this.scrollbar.update();
-			}.bind(this)
-		});
-
-		this.scroller.start();
-	},
-
-	/*
 	Method: _initOverlay
 		private function
 
