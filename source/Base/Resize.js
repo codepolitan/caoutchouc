@@ -19,8 +19,14 @@ UI.Component.implement({
 		this.resizeHandlers = [];
 
 		this.resizer = new Element('div', this.options.resizer)
-		.addEvent('click', function(e){ e.stop(); })
-		.inject(this.element, 'bottom');
+		.addEvents({
+			click: function(e){
+				e.stop();
+			},
+			mousedown: function(e) {
+				e.stop();
+			}
+		}).inject(this.element, 'bottom');
 
 		this.resizeHandlers.push(this.resizer);
 
@@ -32,8 +38,14 @@ UI.Component.implement({
 					style: border+": 0",
 					'class': 'ui-resizer-'+border
 				})
-				.addEvent('click', function(e){ e.stop(); })
-				.inject(this.element, 'bottom'));
+				.addEvents({
+					click: function(e){
+						e.stop();
+					},
+					mousedown: function(e) {
+						e.stop();
+					}
+				}).inject(this.element, 'bottom'));
 
 				this.enableResize(i+1);
 			},this);
@@ -77,3 +89,4 @@ UI.Component.implement({
 		return this;
 	}
 });
+
