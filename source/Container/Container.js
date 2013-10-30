@@ -214,8 +214,8 @@ UI.Container = new Class({
 		(void)
 	 */
 	setMenu: function(opts, comp) {
-		var self = this;
 
+		var self = this;
 		comp = comp || 'head';
 
 		if (!this.head)
@@ -224,6 +224,8 @@ UI.Container = new Class({
 		var menu = new UI.Menu(opts);
 
 		this.menu[opts.name] = menu;
+
+		console.log('setMenu', opts.name, menu);
 
 		menu.addEvents({
 			'toggle': function() {
@@ -245,6 +247,7 @@ UI.Container = new Class({
 			}
 		});
 
+		//  need to find an event driven solution
 		this.element.setStyle('padding-top', self.head.getSize().y+'px');
 
 		return menu;
