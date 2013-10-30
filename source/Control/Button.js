@@ -102,10 +102,12 @@ UI.Button = new Class({
 				e.stopPropagation();
 				if (opts.emit)
 					self.fireEvent(opts.emit);
-			},
-			mouseup: function(){
+
 				if (opts.call && self.state != 'disabled')
 					opts.call();
+			},
+			mouseup: function(){
+				
 
 				//console.log('mouseup', opts.type, self.state);
 
