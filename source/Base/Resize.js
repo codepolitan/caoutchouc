@@ -1,9 +1,3 @@
-
-
-
-
-
-
 UI.Component.implement({
 	options: {
 		// Resize options
@@ -64,15 +58,15 @@ UI.Component.implement({
 				'x': 'width',
 				'y': 'height'
 			},
-			onStart: function(){
-				self.fireEvent('resizeStart');
+			onStart: function(el){
+				self.fireEvent('resizeStart', el);
 			},
-			onDrag: function(){
-				self.fireEvent('resizeDrag');
-				self.fireEvent('resize');
+			onDrag: function(el){
+				self.fireEvent('resizeDrag', el);
+				self.fireEvent('resize', el);
 			},
-			onComplete: function(){
-				self.fireEvent('resizeComplete');
+			onComplete: function(el){
+				self.fireEvent('resizeComplete', el);
 			}
 		};
 
@@ -89,4 +83,3 @@ UI.Component.implement({
 		return this;
 	}
 });
-
