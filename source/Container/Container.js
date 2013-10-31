@@ -225,7 +225,7 @@ UI.Container = new Class({
 
 		this.menu[opts.name] = menu;
 
-		console.log('setMenu', opts.name, menu);
+		// console.log('setMenu', opts.name, menu);
 
 		menu.addEvents({
 			'toggle': function() {
