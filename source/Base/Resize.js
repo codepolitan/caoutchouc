@@ -61,8 +61,8 @@ UI.Component.implement({
 			onStart: function(el){
 				self.fireEvent('resizeStart', el);
 			},
-			onDrag: function(el){
-				self.fireEvent('resizeDrag', el);
+			onDrag: function(el, ev){
+				self.fireEvent('resizeDrag', [el, ev]);
 				self.fireEvent('resize', el);
 			},
 			onComplete: function(el){
