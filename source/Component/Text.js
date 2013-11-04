@@ -54,11 +54,13 @@ UI.Text = new Class({
 
 	options: {
 		name: 'text',
+		klass: 'ui-text',
 		tag: 'span',
 		text: 'Text',
 		emboss: false,
 		selectable: false
 	},
+
 	/*
 		Method: _initElement
 			private method
@@ -74,7 +76,7 @@ UI.Text = new Class({
 	_initElement: function(){
 		this.parent();
 
-		this.element.set('html', this.options.text)
+		this.element.set('html', this.options.text);
 	}
 });
 
