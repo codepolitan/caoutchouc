@@ -27,11 +27,9 @@ UI.Tab = new Class({
 
 
 	_initElement: function() {
-		//console.log('UI.Tab_initElement()', this.options.name, this);
 		this.parent();
+
 		this._initBar();
-		//this._initContainer();
-		//console.log('UI.Tab_initElement()', this.options.name, this);
 	},
 
 	/*
@@ -55,8 +53,6 @@ UI.Tab = new Class({
 			this.layout = {};
 
 		opts.node.each(function(node,i){
-			// console.log('TTAAABB_initComponent()',node.name,node,i);
-
 			if (!node.component)
 				node.component = 'container';
 
@@ -79,13 +75,10 @@ UI.Tab = new Class({
 			}
 
 			self.addTab(container);
+			if (i > 0 )	container.hide();
 
-			if (i > 0 ) {
-				container.hide();
-			}
 
 			self.layout[self.main][container.name] = container;
-
 			ui.node[self.main][node.name] = container;
 
 		});
@@ -109,6 +102,7 @@ UI.Tab = new Class({
 		var self = this;
 		this.bar = new UI.Component({
 			tag: 'div',
+			klass: 'tab-bar',
 			name: 'bar'
 		}).inject(this.head, 'bottom');
 
@@ -127,24 +121,18 @@ UI.Tab = new Class({
 	addTab: function(container, position){
 		var self = this;
 
-		//console.log('UI.Tab.add()',props, this.content);
-
 		var tab = new UI.Button({
 			type: 'tab',
 			text: container.options.name,
 			onClick: function(e){
 				self.activate(container);
-			},
-			mouseenter: function(e) {
-				//console.log('mouseenter',e);
 			}
 		}).inject(this.bar);
 
 		container.element.store('tab', tab);
 
-		if (this.active == container) {
+		if (this.active == container)
 			self._setActiveTab(tab);
-		}
 
 		this.element.setStyle('padding-top', this.head.getSize().y+'px');
 	},
@@ -174,9 +162,6 @@ UI.Tab = new Class({
 
 
 	activate: function(container) {
-
-		//console.log('container:',container);
-
 		if (typeOf(container) != 'object') return;
 
 		if (this.active)
@@ -188,9 +173,6 @@ UI.Tab = new Class({
 		this._setActiveTab(container.element.retrieve('tab'));
 
 		this.active = container;
-
-		//console.log(container);
-
 		container.fireEvent('resize');
 
 		return this;
@@ -236,6 +218,4 @@ UI.Tab = new Class({
 	setContent: function(method, source, options){
 		this.active.setContent(method, source, options);
 	}
-
-
 });

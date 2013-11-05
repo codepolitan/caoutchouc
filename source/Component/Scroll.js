@@ -45,6 +45,7 @@ UI.Scroll = new Class({
 
 	options: {
 		name: 'scrollbar',
+		klass: 'ui-scrollbar',
 		type: 'track',
 
 		maxThumbSize: 8,
@@ -105,7 +106,8 @@ UI.Scroll = new Class({
 		this.element.inject(this.options.container,'before');
 
 		this.thumb = new UI.Component({
-			name: 'thumb'
+			name: 'thumb',
+			klass: 'ui-thumb'
 		}).inject(this.element);
 	},
 

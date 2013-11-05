@@ -69,7 +69,7 @@ UI.Component = new Class({
 		this.element.removeClass('state-'+this.state);
 
 		this.state = state;
-		if (state != null && state != '' && state != 'undefined' && state != 'state')
+		if (state !== null && state !== '' && state !== 'undefined' && state != 'state')
 			this.element.addClass('state-'+state);
 
 		return this;
@@ -174,7 +174,9 @@ UI.Component = new Class({
 	_initClass: function() {
 		var opts = this.options;
 
-		this.element.addClass(opts.prefix + opts.name);
+		//this.element.addClass(opts.prefix + opts.name);
+		if (opts.klass)
+			this.element.addClass(opts.klass);
 
 		if (opts.type !== null && opts.type !== '')
 			this.element.addClass('type-' + opts.type);
@@ -194,24 +196,6 @@ UI.Component = new Class({
 
 		if (this.options.draggable)
 			this.enableDrag();
-
-		/*this.element.addEvents({
-			mousedown: function(e){
-				self.fireEvent('mousedown');
-			},
-			click: function(){
-				self.fireEvent('click');
-
-			},
-			mouseup: function(){
-				self.fireEvent('mouseup');
-			},
-
-			mouseenter: this.fireEvent.bind(this, 'mouseenter'),
-			mouseleave: this.fireEvent.bind(this, 'mouseleave'),
-			mouseover: this.fireEvent.bind(this, 'mouseover'),
-			mouseOut: this.fireEvent.bind(this, 'mouseOut')
-		});*/
 	},
 
 	/*

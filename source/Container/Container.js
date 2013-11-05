@@ -58,13 +58,6 @@ UI.Container = new Class({
 		foot: null,
 
 		tag: 'div',
-		contentTag: 'div',
-		//content: {},
-
-		/*
-		onLoadComplete: function(){},
-		onResize: function(){}
-		*/
 	},
 
 
