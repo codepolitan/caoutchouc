@@ -126,8 +126,8 @@ UI.Scroll = new Class({
 		if (this.isVisible())
 			this.thumb.element.setStyle('visibility', 'visible');
 		else
-			this.thumb.element.setStyle('visibility', 'hidden');
-
+			if (!this.options.virtual)
+				this.thumb.element.setStyle('visibility', 'hidden');
 
 		this.containerRatio = this.containerSize / this.containerScrollSize;
 		this.thumbSize = this.trackSize * this.containerRatio;
@@ -173,6 +173,9 @@ UI.Scroll = new Class({
 
 		var el = this.element;
 
+		if(this.options.virtual)
+			return;
+
 		if (this.options.autoHide)
 		this.timer = (function() {
 			el.fade(0);
@@ -198,7 +201,7 @@ UI.Scroll = new Class({
 		opts.container.scrollTop -= event.wheel * opts.wheel;
 		this.updateThumbFromContentScroll();
 
-		this.fireEvent('scrolling');
+		this.fireEvent('scrolling', event);
 
 		event.stop();
 	},
@@ -232,15 +235,20 @@ UI.Scroll = new Class({
 		document.removeEvent('mousemove', this.bound.drag);
 		document.removeEvent('mouseup', this.bound.end);
 		this.thumb.element.removeEvent('mouseup', this.bound.end);
+		this.fireEvent('dragCompplete');
 		event.stop();
 	},
 
 	drag: function(event){
 		this.mouse.now = event.page.y;
 
-		this.position.now = (this.position.start + (this.mouse.now - this.mouse.start)).limit(0, (this.trackSize - this.thumbSize));
-		this.updateContentFromThumbPosition();
-		this.updateThumbFromContentScroll();
+		if(this.options.virtual){
+			this.position.now = (this.position.start + (this.mouse.now - this.mouse.start)).limit(0, (this.trackSize - this.thumbSize));
+			this.updateContentFromThumbPosition();
+			this.updateThumbFromContentScroll();
+		}
+
+		this.fireEvent('onDrag', event);
 
 		event.stop();
 	},
