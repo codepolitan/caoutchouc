@@ -122,7 +122,7 @@ UI.VirtualScroll = new Class({
 		this.containerRatio = this.containerSize / this.containerScrollSize;
 		this.thumbSize = this.trackSize * this.containerRatio;
 
-		this.thumb.setSize(this.options.width, this.thumbSize);
+		this.thumb.setSize(this.options.width, this.options.thumbSize);
 
 	},
 
@@ -156,7 +156,7 @@ UI.VirtualScroll = new Class({
 		document.removeEvent('mousemove', this.bound.drag);
 		document.removeEvent('mouseup', this.bound.end);
 		this.thumb.element.removeEvent('mouseup', this.bound.end);
-		this.fireEvent('dragCompplete');
+		this.fireEvent('dragCompplete', event);
 		event.stop();
 	},
 
