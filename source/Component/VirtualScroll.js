@@ -122,6 +122,9 @@ UI.VirtualScroll = new Class({
 		this.containerRatio = this.containerSize / this.containerScrollSize;
 		this.thumbSize = this.trackSize * this.containerRatio;
 
+		if(this.options.thumbSize < 8)
+			this.options.thumbSize = 8;
+
 		this.thumb.setSize(this.options.width, this.options.thumbSize);
 
 	},
