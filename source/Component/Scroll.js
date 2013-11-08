@@ -242,13 +242,11 @@ UI.Scroll = new Class({
 	drag: function(event){
 		this.mouse.now = event.page.y;
 
-		if(this.options.virtual){
 			this.position.now = (this.position.start + (this.mouse.now - this.mouse.start)).limit(0, (this.trackSize - this.thumbSize));
 			this.updateContentFromThumbPosition();
 			this.updateThumbFromContentScroll();
-		}
 
-		this.fireEvent('onDrag', event);
+		//this.fireEvent('drag', event);
 
 		event.stop();
 	},
