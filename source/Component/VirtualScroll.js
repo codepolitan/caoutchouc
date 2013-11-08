@@ -39,7 +39,7 @@
 	based on Valerio's Mootools scrollbar plugin.
 	found in upload folder of mootools website
 */
-UI.Scroll = new Class({
+UI.VirtualScroll = new Class({
 
 	Extends: UI.Component,
 
@@ -72,7 +72,7 @@ UI.Scroll = new Class({
 			end: this.end.bind(this),
 			drag: this.drag.bind(this),
 			wheel: this.wheel.bind(this),
-			page: this.page.bind(this)
+			//page: this.page.bind(this)
 		};
 
 		//console.log('initalize',this.options.container,'before');
@@ -112,7 +112,6 @@ UI.Scroll = new Class({
 	},
 
 	update: function(){
-		//console.log(this.options.container.getSize().y, this.options.container.scrollHeight);
 
 		this.containerSize = this.options.container.getSize().y;
 
@@ -120,66 +119,10 @@ UI.Scroll = new Class({
 		this.containerScrollSize = this.options.container.scrollHeight;
 		this.trackSize = this.element.offsetHeight.toInt();
 
-		if (this.containerScrollSize === 0)
-			return;
-
-		if (this.isVisible())
-			this.thumb.element.setStyle('visibility', 'visible');
-		else
-			if (!this.options.virtual)
-				this.thumb.element.setStyle('visibility', 'hidden');
-
 		this.containerRatio = this.containerSize / this.containerScrollSize;
 		this.thumbSize = this.trackSize * this.containerRatio;
 
-		var offset;
-
-		if (this.thumbSize < this.options.maxThumbSize.toInt()) {
-			offset = this.trackSize - (this.options.maxThumbSize.toInt() - this.thumbSize);
-			this.thumbSize = this.options.maxThumbSize.toInt();
-		} else
-			if (this.thumbSize > this.trackSize)
-				this.thumbSize = this.options.maxThumbSize.toInt();
-			else
-				offset = this.trackSize;
-
-		this.scrollRatio = this.containerScrollSize / offset;
-
 		this.thumb.setSize(this.options.width, this.thumbSize);
-
-		this.updateThumbFromContentScroll();
-		this.updateContentFromThumbPosition();
-
-		var el = this.element;
-
-		if (this.options.autoHide)
-		this.timer = (function() {
-			el.fade(0);
-		}).delay(this.options.autoHide);
-	},
-
-	updateContentFromThumbPosition: function(){
-		this.options.container.scrollTop = this.position.now * this.scrollRatio;
-	},
-
-	updateThumbFromContentScroll: function(){
-		//  console.log('this.options.container', this.options.container);
-		clearTimeout(this.timer);
-		this.element.setStyle('opacity','1');
-		//this.element.set('opacity','1');
-
-		this.position.now = (this.options.container.scrollTop / this.scrollRatio).limit(0, (this.trackSize));
-		this.thumb.setStyle('top', this.position.now + 'px');
-
-		var el = this.element;
-
-		if(this.options.virtual)
-			return;
-
-		if (this.options.autoHide)
-		this.timer = (function() {
-			el.fade(0);
-		}).delay(this.options.autoHide);
 
 	},
 
@@ -193,30 +136,8 @@ UI.Scroll = new Class({
 	},
 
 	wheel: function(event){
-		var opts = this.options;
-
-		clearTimeout(this.timer);
-		this.element.setStyle('visibility','visible');
-
-		opts.container.scrollTop -= event.wheel * opts.wheel;
-		this.updateThumbFromContentScroll();
-
 		this.fireEvent('scrolling', event);
 
-		event.stop();
-	},
-
-	page: function(event){
-		var opts = this.options,
-			container = opts.container;
-
-		if (event.page.y > this.thumb.element.getPosition().y)
-			container.scrollTop += container.offsetHeight;
-		else
-			container.scrollTop -= container.offsetHeight;
-
-
-		this.updateThumbFromContentScroll();
 		event.stop();
 	},
 
@@ -240,25 +161,9 @@ UI.Scroll = new Class({
 	},
 
 	drag: function(event){
-		this.mouse.now = event.page.y;
-
-		//if(!this.options.virtual){
-			this.position.now = (this.position.start + (this.mouse.now - this.mouse.start)).limit(0, (this.trackSize - this.thumbSize));
-			this.updateContentFromThumbPosition();
-			this.updateThumbFromContentScroll();
-		//}
 
 		this.fireEvent('drag', event);
 
 		event.stop();
 	},
-
-	isVisible: function(){
-		if (this.containerSize < this.containerScrollSize) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
 });
