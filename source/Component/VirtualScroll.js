@@ -112,20 +112,21 @@ UI.VirtualScroll = new Class({
 	},
 
 	update: function(){
+		//thumbSize = this.element.getSize().y / (this.list.length * 40);
 
 		this.containerSize = this.options.container.getSize().y;
 
-		this.setSize(this.options.width.toInt(), this.containerSize);
-		this.containerScrollSize = this.options.container.scrollHeight;
-		this.trackSize = this.element.offsetHeight.toInt();
+		this.thumbSize = this.containerSize / ( this.options.listSize * this.options.elSize );
 
-		this.containerRatio = this.containerSize / this.containerScrollSize;
-		this.thumbSize = this.trackSize * this.containerRatio;
+		this.thumbSize = parseInt(this.thumbSize * this.containerSize, 10);
 
-		if(this.options.thumbSize < 8)
-			this.options.thumbSize = 8;
+		//console.debug('thumbSize', this.thumbSize);
+		
+		if(this.thumbSize < 8)
+			this.thumbSize = 8;
 
-		this.thumb.setSize(this.options.width, this.options.thumbSize);
+		if(this.thumbSize < this.containerSize)
+			this.thumb.setSize(this.options.width, this.thumbSize);
 
 	},
 
@@ -139,6 +140,7 @@ UI.VirtualScroll = new Class({
 	},
 
 	wheel: function(event){
+
 		this.fireEvent('scrolling', event);
 
 		event.stop();
@@ -164,6 +166,15 @@ UI.VirtualScroll = new Class({
 	},
 
 	drag: function(event){
+		var dragThumbSize = this.thumb.getSize().y;
+			dragThumbPos = event.page.y - this.container.getPosition().y;
+
+		if (dragThumbPos < 0)// top limit
+			this.thumb.element.setStyle('top', 0 + 'px');
+		else if (dragThumbPos + dragThumbSize >= this.container.getSize().y)// bottom limit
+			this.thumb.element.setStyle('top', (this.container.getSize().y - this.thumb.getSize().y) + 'px');
+		else
+			this.thumb.element.setStyle('top', dragThumbPos + 'px');
 
 		this.fireEvent('drag', event);
 
