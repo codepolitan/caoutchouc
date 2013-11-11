@@ -271,6 +271,10 @@ UI.Container = new Class({
 		return this;
 	},
 
+	focus: function(){
+		this.fireEvent('focus');
+	},
+
 	/*
 	Method: _initOverlay
 		private function
