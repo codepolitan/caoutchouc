@@ -61,6 +61,10 @@ UI.Tab = new Class({
 
 			var container = new UI[node.component.capitalize()](node);
 
+			container.addEvent('focus', function() {
+				self.activate(container);
+			});
+
 			self.components.push(container);
 
 			self.addEvent('resize', function() {

@@ -176,6 +176,7 @@ UI.Menu = new Class({
 		}).inject(this);
 
 		head.addEvent(trigger , function() {
+			console.log('....');
 			self.toggle();
 		});
 
@@ -316,7 +317,6 @@ UI.Menu = new Class({
 	},
 
 	select: function(menu) {
-		//console.log(typeOf(menu));
 
 		if (menu === false || menu === null) {
 			if (this.selected) {
@@ -341,6 +341,8 @@ UI.Menu = new Class({
 	},
 
 	unselect: function(menu) {
+
+		var self = this;
 		//console.log(typeOf(menu));
 
 		if (typeOf(menu) == 'string') {
@@ -354,6 +356,13 @@ UI.Menu = new Class({
 
 		menu.removeClass('selected');
 		menu.removeClass('state-checked');
+	},
+
+	deselect: function() {
+		if (!this.selected) return;
+
+		this.selected.removeClass('selected');
+		this.selected.removeClass('state-checked');
 	},
 
 	getSelected : function() {
