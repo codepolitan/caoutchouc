@@ -112,11 +112,13 @@ UI.VirtualScroll = new Class({
 	},
 
 	update: function(){
-		//thumbSize = this.element.getSize().y / (this.list.length * 40);
+		var opts = this.options;
 
-		this.containerSize = this.options.container.getSize().y;
+		this.element.setStyle('height', opts.container.getSize().y + 'px');
 
-		this.thumbSize = this.containerSize / ( this.options.listSize * this.options.elSize );
+		this.containerSize = opts.container.getSize().y;
+
+		this.thumbSize = this.containerSize / ( opts.virtual.listSize * opts.virtual.elSize );
 
 		this.thumbSize = parseInt(this.thumbSize * this.containerSize, 10);
 
@@ -125,9 +127,12 @@ UI.VirtualScroll = new Class({
 		if(this.thumbSize < 8)
 			this.thumbSize = 8;
 
-		if(this.thumbSize < this.containerSize)
-			this.thumb.setSize(this.options.width, this.thumbSize);
-
+		if(this.thumbSize < this.containerSize){
+			this.thumb.setSize(opts.width, this.thumbSize);
+			this.thumb.element.setStyle('visibility', 'visible');
+		}
+		else
+			this.thumb.element.setStyle('visibility', 'hidden');
 	},
 
 	attachEvent: function(){
@@ -140,6 +145,10 @@ UI.VirtualScroll = new Class({
 	},
 
 	wheel: function(event){
+		var thumbSize = this.thumb.content.getSize().y,
+			thumbPos = this.thumb.content.getPosition(this.options.container).y;
+
+		//console.debug('thumbPos', thumbPos, thumbSize, this.element.getSize().y);
 
 		this.fireEvent('scrolling', event);
 
@@ -166,17 +175,18 @@ UI.VirtualScroll = new Class({
 	},
 
 	drag: function(event){
-		var dragThumbSize = this.thumb.getSize().y;
-			dragThumbPos = event.page.y - this.container.getPosition().y;
+		var opts = this.options.virtual,
+			thumbSize = this.thumb.getSize().y;
+			thumbPos = event.page.y - this.container.getPosition().y;
 
-		if (dragThumbPos < 0)// top limit
+		if (thumbPos < 0)// top limit
 			this.thumb.element.setStyle('top', 0 + 'px');
-		else if (dragThumbPos + dragThumbSize >= this.container.getSize().y)// bottom limit
+		else if (thumbPos + thumbSize >= this.container.getSize().y)// bottom limit
 			this.thumb.element.setStyle('top', (this.container.getSize().y - this.thumb.getSize().y) + 'px');
 		else
-			this.thumb.element.setStyle('top', dragThumbPos + 'px');
+			this.thumb.element.setStyle('top', thumbPos + 'px');
 
-		this.fireEvent('drag', event);
+		this.fireEvent('drag');
 
 		event.stop();
 	},
