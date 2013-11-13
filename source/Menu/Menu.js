@@ -281,7 +281,10 @@ UI.Menu = new Class({
 					click: function(e) {
 						self.value = this.get('name');
 						self.fireEvent('change', this.get('name'));
-						self.hideNow();
+						if (opts.type == 'push')
+							self.fireEvent('select', this);
+						else
+							self.hideNow();
 					}
 				});
 			}
@@ -292,6 +295,8 @@ UI.Menu = new Class({
 	},
 
 	_initEvents: function() {
+
+		//console.log('_initEvents',this.options.name);
 		var self = this,
 			opts = this.options;
 
@@ -308,9 +313,11 @@ UI.Menu = new Class({
 			}
 		}
 
+
 		if (opts.type == 'push') {
+			console.log('push',this);
 			this.addEvent('select', function(menu) {
-				//console.log('mmm', menu.get('name'));
+				console.log('mmm', menu.get('name'));
 				self.select(menu.get('name'));
 			});
 		}

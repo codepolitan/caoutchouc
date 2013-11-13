@@ -109,7 +109,7 @@ UI.Selector.Border = new Class({
 				[c.top, c.left, c.right - c.left - bs, bs],
 				[c.top, c.right - bs, bs, c.bottom - c.top],
 				[c.bottom - bs, c.left + bs, c.right - c.left - (2 * bs), bs],
-				[c.top, c.left + bs, bs, c.bottom - c.top]
+				[c.top + bs, c.left, bs, c.bottom - c.top -bs]
 			];
 		} else {
 			infos = [
@@ -169,7 +169,6 @@ UI.Selector.Border = new Class({
 
 		return this;
 	},
-
 
 	setColor: function(color) {
 		this._setStyle('backgroundColor',color);
