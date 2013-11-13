@@ -109,23 +109,38 @@ UI.VirtualScroll = new Class({
 			name: 'thumb',
 			klass: 'ui-thumb'
 		}).inject(this.element);
+
+		this.index = 0;
 	},
 
 	update: function(){
+		var opts = this.options;
 
-		this.containerSize = this.options.container.getSize().y;
+		this.element.setStyle('height', opts.container.getSize().y + 'px');
 
-		this.setSize(this.options.width.toInt(), this.containerSize);
-		this.containerScrollSize = this.options.container.scrollHeight;
-		this.trackSize = this.element.offsetHeight.toInt();
+		this.containerSize = opts.container.getSize().y;
 
-		this.containerRatio = this.containerSize / this.containerScrollSize;
-		this.thumbSize = this.trackSize * this.containerRatio;
+		this.thumbSize = this.containerSize / ( opts.virtual.listSize * opts.virtual.elSize );
 
-		if(this.options.thumbSize < 8)
-			this.options.thumbSize = 8;
+		this.thumbSize = parseInt(this.thumbSize * this.containerSize, 10);
 
-		this.thumb.setSize(this.options.width, this.options.thumbSize);
+		this.thumbPos = this.index * opts.virtual.elSize * this.container.getSize().y;
+		this.thumbPos = this.thumbPos / (opts.virtual.listSize * opts.virtual.elSize);
+		//this.thumbPos = this.thumbPos - this.thumbSize;
+
+		if(this.thumbSize < 8)
+			this.thumbSize = 8;
+
+		if(this.thumbSize < this.containerSize){
+			this.thumb.setSize(opts.width, this.thumbSize);
+			this.thumb.element.setStyle('visibility', 'visible');
+		}
+		else
+			this.thumb.element.setStyle('visibility', 'hidden');
+
+		//console.debug('thumb', this.thumbSize, this.thumbPos);
+
+		this.thumb.element.setStyle('top', this.thumbPos.limit(0, this.container.getSize().y - this.thumbSize) + 'px');
 
 	},
 
@@ -139,8 +154,36 @@ UI.VirtualScroll = new Class({
 	},
 
 	wheel: function(event){
-		this.fireEvent('scrolling', event);
+		var opts = this.options.virtual,
+		thumbSize = this.thumb.getSize().y,
+		thumbPos = (this.index * opts.elSize * this.container.getSize().y) / (opts.listSize * opts.elSize);
 
+		var countLoad = opts.countLoad;
+
+		if(this.index < 0)
+			this.index = 0;
+
+		if(event.wheel == 1){
+			this.index--;
+
+			if(this.index + countLoad < opts.listSize - countLoad && this.index + 1 > countLoad)
+				this.fireEvent('scrolling', {ev: event, index: this.index});
+			else
+				this.container.scrollTop -= opts.elSize;
+		}
+		else if(this.index < opts.listSize){
+			this.index++;
+			
+			if(this.index > countLoad && this.index < opts.listSize - (countLoad * 2))
+				this.fireEvent('scrolling', {ev: event, index: this.index});
+			else
+				this.container.scrollTop += opts.elSize;
+		}
+
+		//console.debug('index', this.index);
+
+		this.thumb.element.setStyle('top', thumbPos.limit(0, this.container.getSize().y - thumbSize) + 'px');
+		
 		event.stop();
 	},
 
@@ -159,14 +202,39 @@ UI.VirtualScroll = new Class({
 		document.removeEvent('mousemove', this.bound.drag);
 		document.removeEvent('mouseup', this.bound.end);
 		this.thumb.element.removeEvent('mouseup', this.bound.end);
-		this.fireEvent('dragCompplete', event);
+		this.fireEvent('dragCompplete', this.index);
 		event.stop();
 	},
 
 	drag: function(event){
+		var opts = this.options.virtual,
+			thumbSize = this.thumb.getSize().y,
+			countLoad = opts.countLoad,
+			evPos = event.page.y - this.container.getPosition().y,
+			newIndex = evPos * (opts.listSize * opts.elSize);
+		
+		newIndex = (newIndex / this.content.getSize().y) / opts.elSize;
 
-		this.fireEvent('drag', event);
+		this.index = parseInt(newIndex, 10);
+
+		//console.debug('newIndex', this.index);
+
+		if(evPos + thumbSize >= this.container.getSize().y){// bottom limit
+			this.index = opts.listSize - countLoad;
+			this.container.scrollTop = (countLoad * 3) * opts.elSize;
+		}
+		else if(evPos <= 0){// top limit
+			this.index = 0;
+			this.container.scrollTop = 0;
+		}
+		else
+			this.container.scrollTop = countLoad * opts.elSize;
+
+		this.thumb.element.setStyle('top', evPos.limit(0, this.container.getSize().y - thumbSize) + 'px');
+
+		this.fireEvent('drag', this.index);
 
 		event.stop();
-	},
+	}
+
 });
