@@ -315,7 +315,7 @@ UI.Menu = new Class({
 
 
 		if (opts.type == 'push') {
-			console.log('push',this);
+			//console.log('push',this);
 			this.addEvent('select', function(menu) {
 				console.log('mmm', menu.get('name'));
 				self.select(menu.get('name'));

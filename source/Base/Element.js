@@ -3,6 +3,8 @@
 /*
 	Implement element method
 
+	These methods are shortcuts to access element from the UI Component
+
 */
 
 

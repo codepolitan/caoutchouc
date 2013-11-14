@@ -91,7 +91,7 @@ UI.Button = new Class({
 
 		var self = this,
 			opts = this.options,
-			state = opts.state
+			state = opts.state;
 
 		this.element.addEvents({
 			mousedown: function(e) {
@@ -107,7 +107,6 @@ UI.Button = new Class({
 					opts.call();
 			},
 			mouseup: function(){
-				
 
 				//console.log('mouseup', opts.type, self.state);
 
@@ -134,7 +133,7 @@ UI.Button = new Class({
 		if (this.options.klss)
 			this.element.addClass(this.options.klss);
 
-		this.element.addClass(opts.prefix + this.name)
+		this.element.addClass(opts.prefix + this.name);
 
 		if (opts.type !== null && opts.type !== '')
 			this.element.addClass('type-' + opts.type);
