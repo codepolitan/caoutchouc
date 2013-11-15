@@ -68,7 +68,7 @@ UI.Selector = new Class({
 		onCatch: {},
 		onDisable: {},
 		onEnable: {},
-		positionning: 'relative'
+		//positionning: 'relative'
 	},
 
 	initialize: function(options){
