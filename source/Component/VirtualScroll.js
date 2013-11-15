@@ -116,6 +116,8 @@ UI.VirtualScroll = new Class({
 	update: function(){
 		var opts = this.options;
 
+		//console.debug('update', this.options.virtual);
+
 		this.element.setStyle('height', opts.container.getSize().y + 'px');
 
 		this.containerSize = opts.container.getSize().y;
@@ -164,20 +166,24 @@ UI.VirtualScroll = new Class({
 			this.index = 0;
 
 		if(event.wheel == 1){
-			this.index--;
+			for (var i = 1; i <= opts.sensibility; i++) {
+				this.index--;
 
-			if(this.index + countLoad < opts.listSize - countLoad && this.index + 1 > countLoad)
-				this.fireEvent('scrolling', {ev: event, index: this.index});
-			else
-				this.container.scrollTop -= opts.elSize;
+				if(this.index + countLoad < opts.listSize - countLoad && this.index + 1 > countLoad)
+					this.fireEvent('scrolling', {ev: event, index: this.index});
+				else
+					this.container.scrollTop -= opts.elSize;
+			}
 		}
 		else if(this.index < opts.listSize){
-			this.index++;
-			
-			if(this.index > countLoad && this.index < opts.listSize - (countLoad * 2))
-				this.fireEvent('scrolling', {ev: event, index: this.index});
-			else
-				this.container.scrollTop += opts.elSize;
+			for (var j = 1; j <= opts.sensibility; j++) {
+				this.index++;
+				
+				if(this.index > countLoad && this.index < opts.listSize - (countLoad * 2))
+					this.fireEvent('scrolling', {ev: event, index: this.index});
+				else
+					this.container.scrollTop += opts.elSize;
+			}
 		}
 
 		//console.debug('index', this.index);
@@ -213,15 +219,14 @@ UI.VirtualScroll = new Class({
 			evPos = event.page.y - this.container.getPosition().y,
 			newIndex = evPos * (opts.listSize * opts.elSize);
 		
-		newIndex = (newIndex / this.content.getSize().y) / opts.elSize;
+		this.index = parseInt( (newIndex / this.content.getSize().y) / opts.elSize, 10 );
 
-		this.index = parseInt(newIndex, 10);
-
-		//console.debug('newIndex', this.index);
-
+		var thumbPos = (this.index * opts.elSize * this.container.getSize().y) / (opts.listSize * opts.elSize);
+		
 		if(evPos + thumbSize >= this.container.getSize().y){// bottom limit
-			this.index = opts.listSize - countLoad;
 			this.container.scrollTop = (countLoad * 3) * opts.elSize;
+			thumbPos += countLoad;
+			this.index = opts.listSize - countLoad;
 		}
 		else if(evPos <= 0){// top limit
 			this.index = 0;
@@ -230,7 +235,7 @@ UI.VirtualScroll = new Class({
 		else
 			this.container.scrollTop = countLoad * opts.elSize;
 
-		this.thumb.element.setStyle('top', evPos.limit(0, this.container.getSize().y - thumbSize) + 'px');
+		this.thumb.element.setStyle('top', thumbPos.limit(0, this.container.getSize().y - thumbSize) + 'px');
 
 		this.fireEvent('drag', this.index);
 
