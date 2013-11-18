@@ -94,12 +94,6 @@ UI.Selector = new Class({
 
 		//console.log('shoud hide this');
 
-
-		this.container.addEvent('click', function() {
-
-			//console.log('content clicked');
-		});
-
 		this.hideNow();
 	},
 

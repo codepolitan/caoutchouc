@@ -316,9 +316,11 @@ UI.Menu = new Class({
 
 		if (opts.type == 'push') {
 			//console.log('push',this);
-			this.addEvent('select', function(menu) {
-				console.log('mmm', menu.get('name'));
-				self.select(menu.get('name'));
+			this.addEvents({
+				'select': function(menu) {
+					console.log('mmm', menu.get('name'));
+					self.select(menu.get('name'));
+				}
 			});
 		}
 	},
@@ -328,7 +330,7 @@ UI.Menu = new Class({
 		if (menu === false || menu === null) {
 			if (this.selected) {
 				//console.log('selected');
-				this.selected.removeClass('selected');
+				this.selected.removeClass('state-active');
 				this.selected.removeClass('state-checked');
 			}
 			return;
@@ -340,10 +342,10 @@ UI.Menu = new Class({
 
 		if (!menu) return;
 
-		if (this.selected)
-			this.selected.removeClass('selected');
+		if (this.selected) 
+			this.selected.removeClass('state-active');
 
-		menu.addClass('selected');
+		menu.addClass('state-active');
 		this.selected = menu;
 	},
 
@@ -361,14 +363,14 @@ UI.Menu = new Class({
 		if (self.selected)
 			self.selected = null;
 
-		menu.removeClass('selected');
+		menu.removeClass('state-active');
 		menu.removeClass('state-checked');
 	},
 
 	deselect: function() {
 		if (!this.selected) return;
 
-		this.selected.removeClass('selected');
+		this.selected.removeClass('state-active');
 		this.selected.removeClass('state-checked');
 	},
 

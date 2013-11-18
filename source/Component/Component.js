@@ -72,6 +72,8 @@ UI.Component = new Class({
 		if (state !== null && state !== '' && state !== 'undefined' && state != 'state')
 			this.element.addClass('state-'+state);
 
+		this.fireEvent('state', state);
+
 		return this;
 	},
 
