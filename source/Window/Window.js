@@ -249,6 +249,20 @@ UI.Window = new Class({
 			return this.title.set('text', title);
 	},
 
+	/*
+	Method: _initClass
+		private function
+
+		_initClass container related class
+
+	Returns:
+		(void)
+	*/
+	_initClass: function(){
+		this.parent();
+
+		this.element.addClass('ui-window');
+	},
 
 	/*
 	Function: _initEvents
