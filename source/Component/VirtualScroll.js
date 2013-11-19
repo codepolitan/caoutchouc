@@ -161,6 +161,8 @@ UI.VirtualScroll = new Class({
 			this.index = 0;
 
 		if (event.wheel == 1) {
+			event.target.getPrevious('[data-id]').fireEvent('mouseenter');
+
 			for (var i = 1; i <= opts.sensibility; i++) {
 				this.index--;
 
@@ -171,9 +173,11 @@ UI.VirtualScroll = new Class({
 			}
 		}
 		else if (this.index < opts.listSize) {
+			event.target.getNext('[data-id]').fireEvent('mouseenter');
+
 			for (var j = 1; j <= opts.sensibility; j++) {
 				this.index++;
-				
+
 				if (this.index > countLoad && this.index < opts.listSize - (countLoad * 2))
 					this.fireEvent('scrolling', {ev: event, index: this.index});
 				else
@@ -215,7 +219,7 @@ UI.VirtualScroll = new Class({
 		this.index = parseInt( (newIndex / this.content.getSize().y) / opts.elSize, 10 );
 		
 		if (evPos + thumbSize >= this.container.getSize().y) {// bottom limit
-			this.index = opts.listSize - (countLoad * 3);
+			this.index = opts.listSize;
 			this.container.scrollTop = (countLoad * 3) * opts.elSize;
 		}
 		else if (evPos <= 0 || this.index <= countLoad) {// top limit
