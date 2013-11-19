@@ -160,7 +160,7 @@ UI.VirtualScroll = new Class({
 		if (this.index < 0)
 			this.index = 0;
 
-		if (event.wheel == 1) {
+		if (event.wheel > 0) {
 			event.target.getPrevious('[data-id]').fireEvent('mouseenter');
 
 			for (var i = 1; i <= opts.sensibility; i++) {
