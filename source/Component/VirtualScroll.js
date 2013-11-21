@@ -123,11 +123,13 @@ UI.VirtualScroll = new Class({
 		this.containerSize = containerSize;
 
 		this.thumbSize = containerSize / opts.virtual.scrollHeight;
-
 		this.thumbSize = parseInt(this.thumbSize * containerSize, 10);
 
 		this.thumbPos = this.index * opts.virtual.elSize * containerSize;
-		this.thumbPos = this.thumbPos / opts.virtual.scrollHeight;
+		this.thumbPos = this.thumbPos / (opts.virtual.listLength * opts.virtual.elSize);
+
+		/*this.thumbPos = this.index * opts.virtual.elSize * containerSize;
+		this.thumbPos = this.thumbPos / opts.virtual.scrollHeight;*/
 
 		if (this.thumbSize < opts.minThumbSize)
 			this.thumbSize = opts.minThumbSize;
@@ -139,8 +141,10 @@ UI.VirtualScroll = new Class({
 		else
 			this.thumb.element.setStyle('visibility', 'hidden');
 
-		if(opts.virtual.listLength < opts.virtual.countLoad * 3)
-			thumbPos = this.options.container.scrollTop;
+		if(opts.virtual.listLength < opts.virtual.countLoad * 3){
+			thumbPos = 0;
+			this.options.container.scrollTop = 0
+		}
 
 		this.thumb.element.setStyle('top', this.thumbPos.limit(0, containerSize - this.thumbSize) + 'px');
 
