@@ -122,12 +122,12 @@ UI.VirtualScroll = new Class({
 
 		this.containerSize = containerSize;
 
-		this.thumbSize = opts.virtual.separatorSize + ( opts.virtual.listSize * opts.virtual.elSize );
-		this.thumbSize = containerSize / this.thumbSize;
+		this.thumbSize = containerSize / opts.virtual.scrollHeight;
+
 		this.thumbSize = parseInt(this.thumbSize * containerSize, 10);
 
 		this.thumbPos = this.index * opts.virtual.elSize * containerSize;
-		this.thumbPos = this.thumbPos / (opts.virtual.listSize * opts.virtual.elSize);
+		this.thumbPos = this.thumbPos / opts.virtual.scrollHeight;
 
 		if (this.thumbSize < opts.minThumbSize)
 			this.thumbSize = opts.minThumbSize;
@@ -138,6 +138,9 @@ UI.VirtualScroll = new Class({
 		}
 		else
 			this.thumb.element.setStyle('visibility', 'hidden');
+
+		if(opts.virtual.listLength < opts.virtual.countLoad * 3)
+			thumbPos = this.options.container.scrollTop;
 
 		this.thumb.element.setStyle('top', this.thumbPos.limit(0, containerSize - this.thumbSize) + 'px');
 
@@ -155,38 +158,44 @@ UI.VirtualScroll = new Class({
 	wheel: function(event){
 		var opts = this.options.virtual,
 			thumbSize = this.thumb.getSize().y,
-			thumbPos = (this.index * opts.elSize * this.containerSize) / (opts.listSize * opts.elSize),
+			thumbPos = (opts.elSize * this.containerSize * this.index) / (opts.listLength * opts.elSize);
 			countLoad = opts.countLoad;
 
 		if (this.index < 0)
 			this.index = 0;
 
 		if (event.wheel > 0) {
-			if(event.target.getPrevious('[data-id]'))
-				event.target.getPrevious('[data-id]').fireEvent('mouseenter');
+			if (event.target.getPrevious())
+				event.target.getPrevious().fireEvent('mouseenter');
 
 			for (var i = 1; i <= opts.sensibility; i++) {
 				this.index--;
 
-				if (this.index + countLoad < opts.listSize - countLoad && this.index + 1 > countLoad)
+				if (this.index + countLoad < opts.listLength - countLoad && this.index + 1 > countLoad)
 					this.fireEvent('scrolling', {ev: event, index: this.index});
 				else
-					this.container.scrollTop -= opts.elSize;
+					this.container.scrollTop -= opts.scrollSensibility;
 			}
 		}
-		else if (this.index < opts.listSize) {
-			if(event.target.getNext('[data-id]'))
-				event.target.getNext('[data-id]').fireEvent('mouseenter');
+		else if (this.index < opts.listLength) {
+			if (event.target.getNext())
+				event.target.getNext().fireEvent('mouseenter');
 
 			for (var j = 1; j <= opts.sensibility; j++) {
-				this.index++;
+				if(this.index >= opts.listLength - (countLoad * 2))
+					this.container.scrollTop += opts.scrollSensibility;
+				else{
+					this.index++;
+					this.container.scrollTop += opts.scrollSensibility;
+				}
 
-				if (this.index > countLoad && this.index < opts.listSize - (countLoad * 2))
+				if (this.index > countLoad && this.index < opts.listLength - (countLoad * 2))
 					this.fireEvent('scrolling', {ev: event, index: this.index});
-				else
-					this.container.scrollTop += opts.elSize;
 			}
 		}
+
+		if(opts.listLength < countLoad * 3)
+			thumbPos = this.options.container.scrollTop;
 
 		this.thumb.element.setStyle('top', thumbPos.limit(0, this.container.getSize().y - this.thumbSize) + 'px');
 		
@@ -224,12 +233,12 @@ UI.VirtualScroll = new Class({
 			thumbSize = this.thumb.getSize().y,
 			countLoad = opts.countLoad,
 			evPos = event.page.y - this.container.getPosition().y,
-			newIndex = evPos * (opts.listSize * opts.elSize);
+			newIndex = evPos * (opts.listLength * opts.elSize);
 		
 		this.index = parseInt( (newIndex / this.content.getSize().y) / opts.elSize, 10 );
-		
+
 		if (evPos + thumbSize >= this.container.getSize().y) // bottom limit
-			this.index = opts.listSize;
+			this.index = opts.listLength;
 		else if (evPos <= 0 || this.index <= countLoad) // top limit
 			this.index = 0;
 
