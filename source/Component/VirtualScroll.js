@@ -51,7 +51,7 @@ UI.VirtualScroll = new Class({
 		//maxThumbSize: 8,
 		minThumbSize: 8,
 		wheel: 16,
-		//autoHide: 1000,
+		autoHide: 1000,
 		size: 8
 	},
 	/*
@@ -112,9 +112,10 @@ UI.VirtualScroll = new Class({
 		}).inject(this.element);
 
 		this.index = 0;
+		this.dragEvent = null;
 	},
 
-	update: function(){
+	update: function(resize){
 		var opts = this.options,
 			containerSize = opts.virtual.containerSize;
 
@@ -122,7 +123,9 @@ UI.VirtualScroll = new Class({
 
 		this.containerSize = containerSize;
 
-		this.thumbSize = containerSize / opts.virtual.scrollHeight;
+		console.debug('update', containerSize, opts.virtual.listLength);
+
+		this.thumbSize = containerSize / (opts.virtual.listLength * opts.virtual.elSize);
 		this.thumbSize = parseInt(this.thumbSize * containerSize, 10);
 
 		this.thumbPos = this.index * opts.virtual.elSize * containerSize;
@@ -141,12 +144,20 @@ UI.VirtualScroll = new Class({
 		else
 			this.thumb.element.setStyle('visibility', 'hidden');
 
-		if(opts.virtual.listLength < opts.virtual.countLoad * 3){
+		/*if(opts.virtual.listLength < opts.virtual.countLoad * 3){
 			thumbPos = 0;
-			this.options.container.scrollTop = 0
-		}
+			this.options.container.scrollTop = 0;
+		}*/
 
 		this.thumb.element.setStyle('top', this.thumbPos.limit(0, containerSize - this.thumbSize) + 'px');
+
+		if(resize)
+			this.toTop();
+
+		/*if (this.options.autoHide)
+		this.timer = (function() {
+			this.element.fade(0);
+		}).delay(this.options.autoHide);*/
 
 	},
 
@@ -162,7 +173,7 @@ UI.VirtualScroll = new Class({
 	wheel: function(event){
 		var opts = this.options.virtual,
 			thumbSize = this.thumb.getSize().y,
-			thumbPos = (opts.elSize * this.containerSize * this.index) / (opts.listLength * opts.elSize);
+			thumbPos = null,
 			countLoad = opts.countLoad;
 
 		if (this.index < 0)
@@ -175,10 +186,10 @@ UI.VirtualScroll = new Class({
 			for (var i = 1; i <= opts.sensibility; i++) {
 				this.index--;
 
+				this.container.scrollTop -= opts.scrollSensibility;
+
 				if (this.index + countLoad < opts.listLength - countLoad && this.index + 1 > countLoad)
 					this.fireEvent('scrolling', {ev: event, index: this.index});
-				else
-					this.container.scrollTop -= opts.scrollSensibility;
 			}
 		}
 		else if (this.index < opts.listLength) {
@@ -186,21 +197,19 @@ UI.VirtualScroll = new Class({
 				event.target.getNext().fireEvent('mouseenter');
 
 			for (var j = 1; j <= opts.sensibility; j++) {
-				if(this.index >= opts.listLength - (countLoad * 2))
-					this.container.scrollTop += opts.scrollSensibility;
-				else{
-					this.index++;
-					this.container.scrollTop += opts.scrollSensibility;
-				}
+				this.index++;
+				
+				this.container.scrollTop += opts.scrollSensibility;
 
 				if (this.index > countLoad && this.index < opts.listLength - (countLoad * 2))
 					this.fireEvent('scrolling', {ev: event, index: this.index});
 			}
 		}
 
-		if(opts.listLength < countLoad * 3)
-			thumbPos = this.options.container.scrollTop;
+		console.debug('index', this.index, 'listLength', opts.listLength);
 
+		thumbPos = (opts.elSize * this.containerSize * this.index) / (opts.listLength * opts.elSize);
+		
 		this.thumb.element.setStyle('top', thumbPos.limit(0, this.container.getSize().y - this.thumbSize) + 'px');
 		
 		event.stop();
@@ -225,6 +234,14 @@ UI.VirtualScroll = new Class({
 		event.stop();
 	},
 
+	toTop: function(){
+
+		this.index = 0;
+		this.thumb.element.setStyle('top', 0);
+		this.container.scrollTop = 0;
+
+	},
+
 	toBottom: function(){
 		var opts = this.options.virtual,
 			countLoad = opts.countLoad;
@@ -243,12 +260,24 @@ UI.VirtualScroll = new Class({
 
 		if (evPos + thumbSize >= this.container.getSize().y) // bottom limit
 			this.index = opts.listLength;
-		else if (evPos <= 0 || this.index <= countLoad) // top limit
+		else if (evPos <= 0 || this.index <= countLoad){ // top limit
 			this.index = 0;
+			this.container.scrollTop -= opts.scrollSensibility;
+		}
 
 		this.thumb.element.setStyle('top', evPos.limit(0, this.container.getSize().y - thumbSize) + 'px');
 
 		this.fireEvent('drag', this.index);
+
+		if(evPos < 0)
+			return;
+
+		if(evPos < this.dragEvent)
+			this.container.scrollTop -= opts.scrollSensibility;
+		else
+			this.container.scrollTop += opts.scrollSensibility;
+
+		this.dragEvent = evPos;
 
 		event.stop();
 	}
