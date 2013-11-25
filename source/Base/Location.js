@@ -40,7 +40,7 @@ UI.Component.implement({
 	*/
 	getInitialLocation: function(){
 		if (this.options.top || this.options.right || this.options.bottom || this.options.left) {
-			//right || left
+			/*//right || left
 			var left = (this.options.right && !this.options.left) ?
 				Window.getWidth() - this.options.right - this.options.width :
 				this.options.left;
@@ -48,11 +48,11 @@ UI.Component.implement({
 			//top || bottom
 			var top = (this.options.bottom && !this.options.top) ?
 				Window.getHeight() - this.options.bottom - this.options.height :
-				this.options.top;
+				this.options.top;*/
 
 			return {
-				top: top,
-				left: left
+				top: this.options.top,
+				left: this.options.left
 			};
 		} else if (this.options.location == 'center') {
 			return this.getCenterLocation();

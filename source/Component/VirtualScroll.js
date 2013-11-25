@@ -123,7 +123,7 @@ UI.VirtualScroll = new Class({
 
 		this.containerSize = containerSize;
 
-		console.debug('update', containerSize, opts.virtual.listLength);
+		//console.debug('update', containerSize, opts.virtual.listLength);
 
 		this.thumbSize = containerSize / (opts.virtual.listLength * opts.virtual.elSize);
 		this.thumbSize = parseInt(this.thumbSize * containerSize, 10);
@@ -206,7 +206,7 @@ UI.VirtualScroll = new Class({
 			}
 		}
 
-		console.debug('index', this.index, 'listLength', opts.listLength);
+		//console.debug('index', this.index, 'listLength', opts.listLength);
 
 		thumbPos = (opts.elSize * this.containerSize * this.index) / (opts.listLength * opts.elSize);
 		
