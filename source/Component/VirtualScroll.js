@@ -207,8 +207,7 @@ UI.VirtualScroll = new Class({
 					this.fireEvent('scrolling', {ev: event, index: this.index});
 			}
 			
-			var thumbIndex = this.index - (countLoad);
-			thumbPos = (opts.elSize * this.containerSize * thumbIndex) / (opts.listLength * opts.elSize);
+			thumbPos = (opts.elSize * this.containerSize * this.index) / (opts.listLength * opts.elSize);
 		
 		}
 
@@ -251,8 +250,8 @@ UI.VirtualScroll = new Class({
 	toBottom: function(){
 		var opts = this.options,
 			countLoad = opts.countLoad;
-			
-		this.container.scrollTop = (countLoad * 3) * opts.elSize;
+
+		this.container.scrollTop = this.container.scrollHeight;
 	},
 
 	drag: function(event){
