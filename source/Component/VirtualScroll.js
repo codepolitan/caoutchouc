@@ -113,11 +113,12 @@ UI.VirtualScroll = new Class({
 
 		this.index = 0;
 		this.dragEvPos = null;
-		this.dragBefore = false;
 	},
 
 	update: function(search){
-		var opts = this.options;
+		console.log('update');
+		var self = this,
+			opts = this.options;
 
 		this.containerSize = this.container.getSize().y;
 		this.containerPos = this.container.getPosition().y;
@@ -147,7 +148,7 @@ UI.VirtualScroll = new Class({
 
 		/*if (this.options.autoHide)
 		this.timer = (function() {
-			this.element.fade(0);
+			self.element.fade(0);
 		}).delay(this.options.autoHide);*/
 
 	},
@@ -162,13 +163,20 @@ UI.VirtualScroll = new Class({
 	},
 
 	wheel: function(event){
-		var opts = this.options,
+		/*clearTimeout(this.timer);
+		this.element.setStyle('visibility','visible');*/
+
+		var self = this,
+			opts = this.options,
 			thumbSize = this.thumbSize,
 			thumbPos = null,
 			countLoad = opts.countLoad;
 
 		if (this.index < 0)
 			this.index = 0;
+
+		if(this.index > opts.listLength)
+			this.index = opts.listLength;
 
 		if (event.wheel > 0) {
 			if (event.target.getPrevious())
@@ -181,12 +189,12 @@ UI.VirtualScroll = new Class({
 
 				if (this.index + countLoad < opts.listLength - countLoad && this.index + 1 > countLoad)
 					this.fireEvent('scrolling', {ev: event, index: this.index});
-
-				if(this.dragBefore)
-					this.fireEvent('dragBefore', {ev: event, index: this.index});
 			}
+		
+			thumbPos = (opts.elSize * this.containerSize * this.index) / (opts.listLength * opts.elSize);
+		
 		}
-		else if (this.index < opts.listLength) {
+		else {
 			if (event.target.getNext())
 				event.target.getNext().fireEvent('mouseenter');
 
@@ -197,19 +205,21 @@ UI.VirtualScroll = new Class({
 
 				if (this.index > countLoad && this.index < opts.listLength - (countLoad * 2))
 					this.fireEvent('scrolling', {ev: event, index: this.index});
-
-				if(this.dragBefore)
-					this.fireEvent('dragBefore', {ev: event, index: this.index});
 			}
+			
+			thumbPos = (opts.elSize * this.containerSize * this.index) / (opts.listLength * opts.elSize);
+		
 		}
 
-
-		thumbPos = (opts.elSize * this.containerSize * this.index) / (opts.listLength * opts.elSize);
 
 		this.thumb.element.setStyle('top', thumbPos.limit(0, this.container.getSize().y - this.thumbSize) + 'px');
 
 		this.dragBefore = false;
 
+		/*if (this.options.autoHide)
+		this.timer = (function() {
+			self.element.fade(0);
+		}).delay(this.options.autoHide);*/
 		event.stop();
 	},
 
@@ -248,8 +258,6 @@ UI.VirtualScroll = new Class({
 	drag: function(event){
 		//console.log('drag', this.container.getSize().y, this.containerSize);
 		//console.log('drag', this.container.getPosition().y, this.containerPos);
-		this.dragBefore = true;
-
 		var opts = this.options,
 			thumbSize = this.thumbSize,
 			containerSize = this.container.getSize().y,
