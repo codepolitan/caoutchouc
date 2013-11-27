@@ -127,7 +127,7 @@ UI.VirtualScroll = new Class({
 
 		this.thumbPos = this.index * opts.elSize * this.containerSize;
 		this.thumbPos = this.thumbPos / (opts.listLength * opts.elSize);
-		
+
 		this.element.setStyle('height', this.containerSize + 'px');
 
 		if (this.thumbSize < opts.minThumbSize)
@@ -192,7 +192,7 @@ UI.VirtualScroll = new Class({
 
 			for (var j = 1; j <= opts.sensibility; j++) {
 				this.index++;
-				
+
 				this.container.scrollTop += opts.scrollSensibility;
 
 				if (this.index > countLoad && this.index < opts.listLength - (countLoad * 2))
@@ -209,7 +209,7 @@ UI.VirtualScroll = new Class({
 		this.thumb.element.setStyle('top', thumbPos.limit(0, this.container.getSize().y - this.thumbSize) + 'px');
 
 		this.dragBefore = false;
-		
+
 		event.stop();
 	},
 
@@ -241,7 +241,7 @@ UI.VirtualScroll = new Class({
 	toBottom: function(){
 		var opts = this.options,
 			countLoad = opts.countLoad;
-			
+
 		this.container.scrollTop = (countLoad * 3) * opts.elSize;
 	},
 
@@ -256,7 +256,7 @@ UI.VirtualScroll = new Class({
 			countLoad = opts.countLoad,
 			evPos = event.page.y - this.container.getPosition().y,
 			newIndex = evPos * (opts.listLength * opts.elSize);
-		
+
 		this.index = parseInt( (newIndex / this.content.getSize().y) / opts.elSize, 10 );
 
 		if (evPos + thumbSize >= containerSize){ // bottom limit
