@@ -159,7 +159,7 @@ UI.Component = new Class({
 		if ( opts.container && opts.container != 'window')
 			this.inject(opts.container);
 
-		if ( opts.resizable )
+		if ( opts.resizable && this._initResizer )
 			this._initResizer();
 
 		this._initState();
@@ -196,7 +196,7 @@ UI.Component = new Class({
 	_initEvents: function(){
 		var self = this;
 
-		if (this.options.draggable)
+		if (this.options.draggable && this.enableDrag)
 			this.enableDrag();
 	},
 
@@ -267,7 +267,8 @@ UI.Component = new Class({
 		if(container.component != 'window')
 			this.element.inject(this.container, position);
 
-		this.setSize();
+		if (this.setSize)
+			this.setSize();
 
 		this.size = this.element.getSize();
 		//ui.controller.element.register(this);
