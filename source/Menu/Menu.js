@@ -176,7 +176,7 @@ UI.Menu = new Class({
 		}).inject(this);
 
 		head.addEvent(trigger , function() {
-			console.log('....');
+			//console.log('....');
 			self.toggle();
 		});
 
