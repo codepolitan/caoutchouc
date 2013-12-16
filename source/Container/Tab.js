@@ -123,11 +123,15 @@ UI.Tab = new Class({
 			Create tab and its related container and addEvent
 	 */
 	addTab: function(container, position){
-		var self = this;
+		var self = this,
+			opts = container.options;
+
+		var text = opts.text || opts.name;
 
 		var tab = new UI.Button({
 			type: 'tab',
-			text: container.options.name,
+			text: text,
+			name: opts.name,
 			onClick: function(e){
 				self.activate(container);
 			}

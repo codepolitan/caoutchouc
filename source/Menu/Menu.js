@@ -1,6 +1,6 @@
 /*
 	Class: UI.Menu
-		Creates a new menu, manages submenus and positionning as well as scrolling thru <UI.Menu.Scroller>
+		Creates a new menu, manages submenus and positionning as well
 
 	Extends:
 		<UI.Component>
@@ -225,7 +225,7 @@ UI.Menu = new Class({
 
 		node.each(function(comp,i){
 			if (!comp.text)
-				comp.text = null;
+				comp.text = null; // comp.name;
 
 			var component = opts.item.component.capitalize();
 
