@@ -62,8 +62,6 @@ UI.Window = new Class({
 		location: 'cascade',
 		position: 'fixed',
 
-
-
 		zIndex: 'auto', // to get zIndex from skin or an Int as zIndex
 		tag: 'div',
 
