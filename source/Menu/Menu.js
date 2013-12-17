@@ -268,12 +268,11 @@ UI.Menu = new Class({
 					}
 				});
 			} else if (comp.emit) {
-				//console.log('emit', comp.emit);
+				console.log('emit', comp.emit);
 				item.element.addEvents({
 					click: function(e) {
 						e.stop();
 						self.fireEvent(comp.emit);
-
 					}
 				});
 			} else {
@@ -285,8 +284,8 @@ UI.Menu = new Class({
 
 						if (opts.type == 'push')
 							self.fireEvent('select', this);
-						else
-							self.hideNow();
+						/*else
+							self.hideNow();*/
 					}
 				});
 			}

@@ -28,7 +28,7 @@
 ui.window = {
 	options: {
 		version: '0.1',
-		zBase: 200,
+		zBase: 1000,
 		zStep: 2,
 		container: document.body,
 		cascade: {
