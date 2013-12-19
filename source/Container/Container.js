@@ -265,7 +265,7 @@ UI.Container = new Class({
 		this.addEvents({
 			resize: function(){
 				// hum hum
-				this.element.setStyle('padding-bottom', this.foot.getSize().y+'px');
+				//this.element.setStyle('padding-bottom', this.foot.getSize().y+'px');
 			}
 		});
 		return this;

@@ -69,6 +69,7 @@ ui.menu = {
 	*/
 
 	close: function(menu) {
+		console.log('close...');
 		menu = menu || this.active;
 		menu.hide();
 		menu.fireEvent('onClose');
@@ -97,7 +98,7 @@ ui.menu = {
 
 	closeall: function() {
 		this.list.each(function(menu) {
-			menu.hideNow();
+			//menu.hideNow();
 		}, this);
 	},
 

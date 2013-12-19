@@ -176,7 +176,7 @@ UI.Menu = new Class({
 		}).inject(this);
 
 		head.addEvent(trigger , function() {
-			//console.log('....');
+			console.log('....');
 			self.toggle();
 		});
 
@@ -398,6 +398,12 @@ UI.Menu = new Class({
 
 	hideNow: function(){
 		this.close();
+	},
+
+	shut: function() {
+		this.setState('close');
+
+		this.fireEvent('closed');
 	},
 
 	close: function() {
