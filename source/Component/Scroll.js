@@ -118,7 +118,9 @@ UI.Scroll = new Class({
 
 		this.setSize(this.options.width.toInt(), this.containerSize);
 		this.containerScrollSize = this.options.container.scrollHeight;
+		//this.containerScrollSize = this.options.containerSize;console.log(this.containerScrollSize);
 		this.trackSize = this.element.offsetHeight.toInt();
+		//this.trackSize = this.element.offsetHeight.toInt();console.log(this.trackSize);
 
 		if (this.containerScrollSize === 0)
 			return;
@@ -197,7 +199,11 @@ UI.Scroll = new Class({
 		opts.container.scrollTop -= event.wheel * opts.wheel;
 		this.updateThumbFromContentScroll();
 
-		this.fireEvent('scrolling', event);
+		var data = {};
+		data.ev = event;
+		data.scrollTop = this.options.container.scrollTop;
+
+		this.fireEvent('scrolling', data);
 
 		event.stop();
 	},
@@ -242,7 +248,11 @@ UI.Scroll = new Class({
 		this.updateContentFromThumbPosition();
 		this.updateThumbFromContentScroll();
 
-		this.fireEvent('drag', event);
+		var data = {};
+		data.ev = event;
+		data.scrollTop = this.options.container.scrollTop;
+
+		this.fireEvent('drag', data);
 
 		event.stop();
 	},
