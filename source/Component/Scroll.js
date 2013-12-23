@@ -118,7 +118,9 @@ UI.Scroll = new Class({
 
 		this.setSize(this.options.width.toInt(), this.containerSize);
 		this.containerScrollSize = this.options.container.scrollHeight;
+		//this.containerScrollSize = this.options.containerSize;console.log(this.containerScrollSize);
 		this.trackSize = this.element.offsetHeight.toInt();
+		//this.trackSize = this.element.offsetHeight.toInt();console.log(this.trackSize);
 
 		if (this.containerScrollSize === 0)
 			return;
