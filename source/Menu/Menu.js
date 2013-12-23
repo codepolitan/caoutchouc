@@ -279,7 +279,7 @@ UI.Menu = new Class({
 						self.fireEvent('change', this.get('name'));
 						self.fireEvent('selectItem', comp);
 
-						console.log('---',opts.type);
+						//console.log('---',opts.type);
 
 						if (opts.type == 'push')
 							self.fireEvent('select', this);
