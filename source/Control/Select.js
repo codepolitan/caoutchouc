@@ -23,6 +23,7 @@ UI.Select = new Class({
 	options: {
 		name: 'select',
 		opts: {
+			type: 'select',
 			showValue: true
 		}
 	},
@@ -40,6 +41,7 @@ UI.Select = new Class({
 			change: function(value){
 				self.input.set('value', value);
 				self.fireEvent('change', value);
+				self.setState('close');
 			}
 		}).inject(this.element);
 

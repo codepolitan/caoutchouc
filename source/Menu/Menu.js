@@ -176,11 +176,8 @@ UI.Menu = new Class({
 		}).inject(this);
 
 		head.addEvent(trigger , function() {
-			console.log('....');
 			self.toggle();
 		});
-
-
 
 		this.addEvents({
 			show: function() {
@@ -268,7 +265,7 @@ UI.Menu = new Class({
 					}
 				});
 			} else if (comp.emit) {
-				console.log('emit', comp.emit);
+				//console.log('emit', comp.emit);
 				item.element.addEvents({
 					click: function(e) {
 						e.stop();
@@ -282,10 +279,12 @@ UI.Menu = new Class({
 						self.fireEvent('change', this.get('name'));
 						self.fireEvent('selectItem', comp);
 
+						console.log('---',opts.type);
+
 						if (opts.type == 'push')
 							self.fireEvent('select', this);
-						/*else
-							self.hideNow();*/
+						else if (opts.type == 'drop')
+							self.hideNow();
 					}
 				});
 			}
@@ -319,7 +318,7 @@ UI.Menu = new Class({
 			//console.log('push',this);
 			this.addEvents({
 				'select': function(menu) {
-					console.log('mmm', menu.get('name'));
+					//console.log('mmm', menu.get('name'));
 					self.select(menu.get('name'));
 				}
 			});
