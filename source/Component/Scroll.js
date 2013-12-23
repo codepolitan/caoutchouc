@@ -199,11 +199,7 @@ UI.Scroll = new Class({
 		opts.container.scrollTop -= event.wheel * opts.wheel;
 		this.updateThumbFromContentScroll();
 
-		var data = {};
-		data.ev = event;
-		data.scrollTop = this.options.container.scrollTop;
-
-		this.fireEvent('scrolling', data);
+		this.fireEvent('scrolling', event);
 
 		event.stop();
 	},
@@ -248,11 +244,7 @@ UI.Scroll = new Class({
 		this.updateContentFromThumbPosition();
 		this.updateThumbFromContentScroll();
 
-		var data = {};
-		data.ev = event;
-		data.scrollTop = this.options.container.scrollTop;
-
-		this.fireEvent('drag', data);
+		this.fireEvent('drag', event);
 
 		event.stop();
 	},
