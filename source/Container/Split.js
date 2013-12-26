@@ -220,6 +220,7 @@ UI.Split = new Class({
 			},
 			onComplete: function() {
 				self.splitter.removeClass('ui-active');
+				self._render();
 				self.fireEvent('resize');
 			}
 		});
