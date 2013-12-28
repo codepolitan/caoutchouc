@@ -32,91 +32,74 @@
 
 UI.Check = new Class({
 
-	Extends: UI.Control,
+	Extends: UI.Field,
 
 	name: 'check',
 
 	options: {
 		text: null,
-		checked: false
+		checked: false,
+		opts: {
+			type: 'ckeck',
+			
+		}
 	},
 
-	/*
-	Function: _initElement
-		private function
 
-		Call UI.Component _initElement, set an input and a textLabel
-
-	Returns:
-		(void)
-
-	See also:
-		<UI.Control::_initElement>
-		<UI.Component::_initElement>
-	*/
-
-	_initElement: function(){
+	_initElement: function() {
 		this.parent();
-		this.setInput();
 
-		if (this.options.text) {
-			this.text = new UI.Text({
-				'for': this.options.name,
-				skin: this.options.skin,
-				html: this.options.text
-			}).inject(this.element);
-		}
-		this.control.store('value', this.options.value);
-		if (this.options.checked) {
-			this.toggleValue();
-		}
-	},
 
-	/*
-	Function: toggleValue
-		Toggle the value of the checkbox
 
-	Return:
-		this
-	*/
 
-	toggleValue: function(){
-		if (this.state == 'checked') {
-			this.setState('default');
-			this.state = 'default';
-			this.input.value = '';
-			this.value = undefined;
-		} else {
-			this.setState('checked');
-			this.state = 'checked';
-			this.input.value = this.control.retrieve('value');
-			this.value = this.control.retrieve('value');
-		}
+		var self = this,
+			opts = this.options;
 
-		return this;
-	},
+		this.checked = opts.value;
 
-	/*
-	Function: _initEvents
-		private function
+		console.log('init ckeck----', this.checked);
 
-		Set control relative behavior (blur and focus)
+		this.input.set('type', 'hidden');
+		
+		var options = opts.opts;
 
-	Return:
-		(void)
+		this.wrapper = new Element('div', {
+			'class': 'check-wrapper'
+		}).inject(this.element);
 
-	See also:
-		<UI.Control::_initEvents>
-		<UI.Component::_initEvents>
-	*/
+		this.check = new Element('span', {
+			'class': 'control-check',
+		}).addEvents({
+			click: function() {
+				console.log(self.checked);
+				if (self.checked) {
+					self.checked = false;
+					this.removeClass('checked');
+				} else {
+					self.checked = true;
+					this.addClass('checked');
+				}
+				self.fireEvent('change', self.checked);
 
-	_initEvents : function(){
-		this.parent();
-		this.element.addEvents({
-			click: function(e){
-				var ev = new Event(e).stop();
-				this.toggleValue();
-			}.bind(this)
-		});
+			}
+		}).inject(this.wrapper);
+
+		if (this.checked) this.check.addClass('checked');
+
+		this.on = new Element('span', {
+			'class': 'check-text check-on',
+			'html': 'on'
+		}).inject(this.check);
+
+		this.knob = new Element('span', {
+			'class': 'ckeck-knob',
+			html: '&nbsp;'
+		}).inject(this.check);
+
+		this.off = new Element('span', {
+			'class': 'check-text check-off',
+			'html': 'off'
+		}).inject(this.check);
+
 	}
 });

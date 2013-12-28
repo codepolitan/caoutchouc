@@ -34,7 +34,6 @@ UI.Control = new Class({
 		//disabled: false
 	},
 
-
 	isEnable: function() {
 		return true;
 	},

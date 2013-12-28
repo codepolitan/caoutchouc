@@ -275,11 +275,14 @@ UI.Menu = new Class({
 			} else {
 				item.element.addEvents({
 					click: function(e) {
+						e.stop();
+						if (self.state == 'disabled') return;
+						console.log('---',opts.type);
 						self.value = this.get('name');
 						self.fireEvent('change', this.get('name'));
 						self.fireEvent('selectItem', comp);
 
-						//console.log('---',opts.type);
+						
 
 						if (opts.type == 'push')
 							self.fireEvent('select', this);
