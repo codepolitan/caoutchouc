@@ -91,8 +91,8 @@ UI.Field = new Class({
 
 	_initLabel: function()  {
 		var text = this.options.name;
-		if (this.options.text)
-			text = this.options.text;
+/*		if (this.options.text)
+			text = this.options.text;*/
 
 		this.label = new Element('label', {
 			html: text

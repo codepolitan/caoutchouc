@@ -88,7 +88,7 @@ UI.Check = new Class({
 
 		this.on = new Element('span', {
 			'class': 'check-text check-on',
-			'html': 'on'
+			'html': 'oui'
 		}).inject(this.check);
 
 		this.knob = new Element('span', {
@@ -98,7 +98,7 @@ UI.Check = new Class({
 
 		this.off = new Element('span', {
 			'class': 'check-text check-off',
-			'html': 'off'
+			'html': 'non'
 		}).inject(this.check);
 
 	}
