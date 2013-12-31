@@ -176,7 +176,7 @@ UI.Container = new Class({
 
 		this.addEvents({
 			resize: function() {
-				//console.log('resize from head', this.head.getSize().y+'px');
+				//console.log('resize from head', this, this.head.getSize().y+'px');
 				this.element.setStyle('padding-top', this.head.getSize().y+'px');
 			}
 		});
@@ -264,8 +264,8 @@ UI.Container = new Class({
 
 		this.addEvents({
 			resize: function(){
-				// hum hum
-				//this.element.setStyle('padding-bottom', this.foot.getSize().y+'px');
+				//console.log('resize from foot', this.foot.getSize().y+'px');
+				this.element.setStyle('padding-bottom', this.foot.getSize().y+'px');
 			}
 		});
 		return this;
