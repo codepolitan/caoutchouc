@@ -1,5 +1,9 @@
 
+/*
 
+Copyright © 1999-2014 - Jerome D. Vial. All Rights reserved.
+
+*/
 
 
 

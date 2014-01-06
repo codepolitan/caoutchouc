@@ -16,12 +16,11 @@
 	Credits:
 		Luca Pilionel, David Mignot
 
-
 	License:
 		MIT-style license.
 
 	Copyright:
-		Copyright (c) 2007-2013 [Jerome Vial](http://floor.ch/).
+		Copyright (c) 2007-2014 [Jerome Vial](http://floor.ch/).
 
 	Code & Documentation:
 		[The MooLego Team](http://moolego.net/developers/).
