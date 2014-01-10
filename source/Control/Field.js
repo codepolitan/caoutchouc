@@ -40,7 +40,8 @@ UI.Field = new Class({
 		base: 'control',
 		tag: 'div',
 		type: 'input',
-		value: null
+		value: null,
+		useTextAsLabel: false
 	},
 
 	initialize: function(options){
@@ -91,8 +92,9 @@ UI.Field = new Class({
 
 	_initLabel: function()  {
 		var text = this.options.name;
-/*		if (this.options.text)
-			text = this.options.text;*/
+
+		if (this.options.useTextAsLabel)
+			text = this.options.text;
 
 		this.label = new Element('label', {
 			html: text
