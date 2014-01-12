@@ -53,18 +53,16 @@ UI.Button = new Class({
 
 	_initElement: function(){
 		this.parent();
+		var opts = this.options;
 
-		if (this.options.icon) {
+		if (opts.icon) {
 			this.icon = new Element('span', {
-				'class' : this.options.icon
+				'class' : opts.icon
 			}).inject(this.element);
 		}
 
-		if (this.options.text) {
-			this.text = new UI.Text({
-				text : this.options.text
-			}).inject(this.element);
-		}
+		if (opts.text)
+			this.element.set('html', opts.text);
 
 		this._initClass();
 
