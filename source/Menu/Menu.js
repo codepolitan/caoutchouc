@@ -277,7 +277,7 @@ UI.Menu = new Class({
 					click: function(e) {
 						e.stop();
 						if (self.state == 'disabled') return;
-						console.log('---',opts.type);
+						//console.log('---',opts.type);
 						self.value = this.get('name');
 						self.fireEvent('change', this.get('name'));
 						self.fireEvent('selectItem', comp);

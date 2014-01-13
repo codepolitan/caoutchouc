@@ -207,13 +207,21 @@ UI.Container = new Class({
 		(void)
 	 */
 	setMenu: function(opts, comp) {
-
 		var self = this;
 		comp = comp || 'head';
 
-		if (!this.head)
-			this._initHead();
+		if (!this[comp])
+			this['_init'+comp.capitalize()]();
 
+		var container = this[comp].getElement('.'+comp+'-menu');
+
+		if (!container) {
+			container = new Element('div', {
+				'class': comp+'-menu'
+			}).inject(this[comp]);
+		}
+
+		//console.log('_init'+comp.capitalize());
 		var menu = new UI.Menu(opts);
 
 		this.menu[opts.name] = menu;
@@ -225,14 +233,12 @@ UI.Container = new Class({
 				self.fireEvent('resize');
 			},
 			'change': function(value) {
-				//console.log('container menu', value);
 				self.fireEvent('menuChange', value);
 			}
-		}).inject(this.head);
+		}).inject(container);
 
 		this.addEvents({
 			onMinimize: function() {
-				//console.log(menu);
 				menu.hide();
 			},
 			onNormalize: function() {
@@ -241,7 +247,7 @@ UI.Container = new Class({
 		});
 
 		//  need to find an event driven solution
-		this.element.setStyle('padding-top', self.head.getSize().y+'px');
+		this.element.setStyle('padding-top', this[comp].getSize().y+'px');
 
 		return menu;
 	},
@@ -258,21 +264,37 @@ UI.Container = new Class({
 	_initFoot: function(options) {
 		var self = this;
 
-		this.foot = new Element('div')
-			.addClass('container-foot')
-			.inject(this.element,'bottom');
+		this.foot = new Element('div', {
+			'class': 'container-foot'
+		}).inject(this.element, 'bottom');
 
 		this.addEvents({
 			resize: function(){
-				//console.log('resize from foot', this.foot.getSize().y+'px');
 				this.element.setStyle('padding-bottom', this.foot.getSize().y+'px');
 			}
 		});
-		return this;
 	},
 
-	focus: function(){
-		this.fireEvent('focus');
+	/*
+	Method: _initStatus
+		private function
+
+		inject a container, add it to the bottom
+
+	Returns:
+		(void)
+	 */
+	_initStatus: function(component, context) {
+		var self = this;
+
+		component = component || 'foot';
+
+		if (!this[component])
+			this['_init'+component.capitalize()]();
+
+		this.status = new Element('div', {
+			'class': 'container-status'
+		}).inject(this[component]);
 	},
 
 	/*
@@ -297,6 +319,10 @@ UI.Container = new Class({
 		});
 
 		this.overlay.hide();
+	},
+
+	focus: function(){
+		this.fireEvent('focus');
 	},
 
 	close: function() {
