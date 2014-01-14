@@ -220,6 +220,8 @@ UI.Menu = new Class({
 			node = opts.menu,
 			container = this.content;
 
+		console.log(node);
+
 		node.each(function(comp,i){
 			if (!comp.text)
 				comp.text = null; // comp.name;
@@ -390,6 +392,17 @@ UI.Menu = new Class({
 
 		this.fireEvent('toggle');
 	},
+
+	toggleFold: function() {
+		if (this.state == 'folded') {
+			this.setState('unfolded');
+		} else {
+			this.setState('floded');
+		}
+
+		this.fireEvent('toggle');
+	},
+
 
 	hide: function(){
 		clearTimeout(this.timer);
