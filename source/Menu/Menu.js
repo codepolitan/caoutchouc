@@ -220,7 +220,7 @@ UI.Menu = new Class({
 			node = opts.menu,
 			container = this.content;
 
-		console.log(node);
+		//console.log(node);
 
 		node.each(function(comp,i){
 			if (!comp.text)
