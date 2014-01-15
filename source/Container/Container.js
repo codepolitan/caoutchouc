@@ -206,9 +206,9 @@ UI.Container = new Class({
 	Returns:
 		(void)
 	 */
-	setMenu: function(opts, comp) {
-		var self = this;
-		comp = comp || 'head';
+	setMenu: function(opts) {
+		var self = this,
+			comp = opts.comp || 'head';
 
 		if (!this[comp])
 			this['_init'+comp.capitalize()]();

@@ -51,19 +51,20 @@ UI.Dialog = new Class({
 		// Default size
 		width: 480,
 		height: 200,
-
+		location: 'center',
 		zIndex: 6000,
+		modal: true
 		// Components Options
-		head: true,
+		/*head: true,
 		controls: ['close'],
 		container: {},
 		foot: true,
-		location: 'center',
+		
 		overflow: 'scrollbar',
 
 		resizable: false,
 
-		modal: false,
+		
 		action: {
 			list: ['cancel'],
 			cancel: {
@@ -74,7 +75,7 @@ UI.Dialog = new Class({
 				clss: 'confirm',
 				text: 'Apply'
 			}
-		}
+		}*/
 	},
 
 	initialize: function(options){
@@ -85,19 +86,20 @@ UI.Dialog = new Class({
 		this.parent();
 
 		if (this.options.modal)
-			this.buildUnderlay();
+			this._initUnderlay();
+/*
+		
 
-		this.buildButtons(this.options.action);
+		this.buildButtons(this.options.action);*/
 	},
 
-	buildUnderlay: function() {
+	_initUnderlay: function() {
 		this.underlay = new Element('div', {
-			'class': 'ui-underlay',
+			'class': 'dialog-underlay',
 			styles: {
-				zIndex: ui.controller.window.zIndex +1
+				zIndex: this.options.zIndex-1
 			}
 		}).inject($(document.body));
-
 
 		this.addEvent('close', function(){
 			this.underlay.destroy();
