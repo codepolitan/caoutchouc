@@ -57,7 +57,7 @@ UI.Check = new Class({
 
 		this.checked = opts.value;
 
-		console.log('init ckeck----', this.checked);
+		//console.log('init ckeck----', this.checked);
 
 		this.input.set('type', 'hidden');
 		
