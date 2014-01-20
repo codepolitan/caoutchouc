@@ -27,20 +27,7 @@ UI.Component = new Class({
 		name: 'component',
 		tag: 'span',
 
-		type: null,
-		state: null,
-
-		node: null,
-		main: null,
-		html: null,
-		styles: null,
-		klass: null,
 		prefix: 'ui-',
-
-		// group id
-		group: null,
-
-		// classname options
 
 		fx: {
 			adaptLocation: {
@@ -65,7 +52,6 @@ UI.Component = new Class({
 	},
 
 	setState: function(state){
-
 		this.element.removeClass('state-'+this.state);
 
 		this.state = state;
@@ -78,7 +64,6 @@ UI.Component = new Class({
 	},
 
 	addComponent: function(node) {
-
 		if (!node.component)
 			node.component = 'container';
 
@@ -105,7 +90,6 @@ UI.Component = new Class({
 
 	*/
 	_initOptions: function(options){
-
 		//this.name = this.options.name;
 		this.main = this.options.main || this.options.name;
 
@@ -129,8 +113,6 @@ UI.Component = new Class({
 
 	/*
 		function : _initElement
-
-
 
 	*/
 	_initElement: function(){
@@ -200,35 +182,6 @@ UI.Component = new Class({
 			this.enableDrag();
 	},
 
-	/*
-	Function: setContent
-		Set Content of the Container (really basic)
-
-	Arguments:
-		method - (string) ajax, ajaxnu, json, content, html or iframe
-		source - (string) source's url
-
-	Returns:
-		(void)
-	*/
-	setContent: function(method,source){
-		switch (method) {
-			case 'ajax' || 'xhr':
-				this.setAjaxContent(source);
-				break;
-			case 'json':
-				this.setJsonContent(source);
-				break;
-			case 'content' || 'html' || 'text':
-				this.setHtmlContent(source);
-				break;
-			case 'iframe':
-				this.setIFrameContent(source);
-				break;
-		}
-
-		return this;
-	},
 	/*
 	Function: setHtmlContent
 		Set html Content
