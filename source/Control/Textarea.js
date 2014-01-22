@@ -63,7 +63,7 @@ UI.Textarea = new Class({
 				this.retrieve('autogrow').resize();
 			},
 			keyup: function() {
-				console.log('up', this.get('value'));
+				//console.log('up', this.get('value'));
 
 				self.fireEvent('change', this.get('value'));
 			}
