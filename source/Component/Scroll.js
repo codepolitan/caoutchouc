@@ -48,7 +48,7 @@ UI.Scroll = new Class({
 		klass: 'ui-scrollbar',
 		type: 'track',
 
-		maxThumbSize: 8,
+		maxThumbSize: 16,
 		wheel: 16,
 		autoHide: 1000,
 		size: 8
@@ -125,7 +125,7 @@ UI.Scroll = new Class({
 		if (this.containerScrollSize === 0)
 			return;
 
-		if (this.isVisible())
+		if (this.visible())
 			this.thumb.element.setStyle('visibility', 'visible');
 		else
 			this.thumb.element.setStyle('visibility', 'hidden');
@@ -249,7 +249,7 @@ UI.Scroll = new Class({
 		event.stop();
 	},
 
-	isVisible: function(){
+	visible: function(){
 		if (this.containerSize < this.containerScrollSize) {
 			return true;
 		}
