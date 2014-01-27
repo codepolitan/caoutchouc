@@ -225,6 +225,7 @@ UI.Menu = new Class({
 		node.each(function(comp,i){
 			if (!comp.text)
 				comp.text = null; // comp.name;
+				//comp.text = comp.name;
 
 			var component = opts.item.component.capitalize();
 

@@ -160,12 +160,15 @@ UI.Split = new Class({
 		} else this.fixed = null;
 
 
-		if (this.fixed !== null) {
+		/*if (this.fixed !== null) {
 			if (this.node[this.fluid].head)
 				this.node[this.fluid].head.addEvent('click', function(){
 					self.toggleSide();
 				});
-		}
+		}*/
+
+
+
 		/*this.node[this.fluid].setMenu({
 			name: 'toggle',
 			klss: 'right small',

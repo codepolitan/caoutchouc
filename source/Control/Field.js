@@ -77,7 +77,7 @@ UI.Field = new Class({
 
 		var opts = this.options;
 
-		this.element.addClass('labelinput');
+		this.element.addClass('ui-field');
 
 		if (opts.klss)
 			this.element.addClass(opts.klss);
@@ -115,8 +115,6 @@ UI.Field = new Class({
 
 		this.input.addEvents({
 			keyup: function() {
-				//console.log('up', this.get('value'));
-
 				self.fireEvent('change', this.get('value'));
 			}
 		});
@@ -140,14 +138,8 @@ UI.Field = new Class({
 	},
 
 	setValue: function(value){
-		//create a new div as input element
-
-		//console.log('tag...', this.element.tag, value);
-
 		this.input.set('value', value);
-
 		this.value = value;
-
 		this.fireEvent('change' , value);
 	},
 
