@@ -30,7 +30,7 @@ UI.Choice = new Class({
 		var self = this,
 			opts = this.options;
 
-		console.log(opts);
+		//console.log(opts);
 		this.input.set('type', 'text');
 		this.input.addClass(opts.klss);
 		this.element.addClass('ui-choice');

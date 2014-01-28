@@ -268,7 +268,6 @@ UI.Menu = new Class({
 					}
 				});
 			} else if (comp.emit) {
-				//console.log('emit', comp.emit);
 				item.element.addEvents({
 					click: function(e) {
 						e.stop();
