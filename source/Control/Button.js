@@ -37,6 +37,12 @@ UI.Button = new Class({
 		type: null // push
 	},
 
+	isActive: function() {
+		if (this.state == 'active')
+			return true;
+		else return false;
+	},
+
 	/*
 	Function: _initElement
 		private function

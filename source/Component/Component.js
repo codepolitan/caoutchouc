@@ -54,9 +54,10 @@ UI.Component = new Class({
 	setState: function(state){
 		this.element.removeClass('state-'+this.state);
 
-		this.state = state;
-		if (state !== null && state !== '' && state !== 'undefined' && state != 'state')
+		if (state)
 			this.element.addClass('state-'+state);
+
+		this.state = state;
 
 		this.fireEvent('state', state);
 
@@ -162,10 +163,11 @@ UI.Component = new Class({
 		if (opts.klass)
 			this.element.addClass(opts.klass);
 
-		if (opts.type !== null && opts.type !== '')
+
+		if (opts.type)
 			this.element.addClass('type-' + opts.type);
 
-		if (opts.state !== null && opts.type !== '')
+		if (opts.state)
 			this.element.addClass('state-' + opts.state);
 	},
 
