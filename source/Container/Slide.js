@@ -84,7 +84,7 @@ UI.Slide = new Class({
 
 		this.options.container.addEvents({
 			resize: function() {
-				console.log('-----rrrr');
+				//console.log('-----rrrr');
 			},
 		})
 	},
@@ -191,7 +191,7 @@ UI.Slide = new Class({
 
 		this.reach(this.list[this.index]);
 
-		console.log('next',slide, this.index);
+		//console.log('next',slide, this.index);
 
 		return slide;
 	},
@@ -216,7 +216,7 @@ UI.Slide = new Class({
 
 		this.reach(this.list[this.index]);
 
-		console.log('back',slide, this.index);
+		//console.log('back',slide, this.index);
 
 		return slide;
 	},

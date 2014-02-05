@@ -139,7 +139,7 @@ UI.Layout = new Class({
 
 			var names = clss.split(/\./);
 
-			console.log(names);
+			//console.log(names);
 
 			clss = new UI[object.clss.capitalize()](object)
 			.inject(container);

@@ -136,7 +136,7 @@ ui.builder = {
 		},
 	*/
 	/*process: function(object, container) {
-		console.log('ui.builder.process()', object.name, container);
+		//console.log('ui.builder.process()', object.name, container);
 
 		var container = {};
 
@@ -258,7 +258,7 @@ ui.builder = {
 
 	form: function(name, node, container) {
 		ui.dom = {};
-		console.log(node, typeOf(node));// node - object
+		//console.log(node, typeOf(node));// node - object
 
 		var opts = this.opts,
 			obj = null;
@@ -431,16 +431,16 @@ ui.keyboard = {
 	init: function(){
 		keyboard.opts.container.addEvent('keydown', function(e){
 			if (e.key == 'down') {
-				console.log('ui.keyboard.handle(down)');
+				//console.log('ui.keyboard.handle(down)');
 			}
 			else if (e.key == 'up') {
-				console.log('ui.keyboard.handle(up)');
+				//console.log('ui.keyboard.handle(up)');
 			}
 			else if (e.key == 'enter') {
-				console.log('ui.keyboard.handle(enter)');
+				//console.log('ui.keyboard.handle(enter)');
 			}
 			else if (e.key == 'tab') {
-				console.log('ui.keyboard.handle(tab)');
+				//console.log('ui.keyboard.handle(tab)');
 			}
 			// var ev = new Event(e).stop();
 		});

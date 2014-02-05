@@ -36,7 +36,7 @@ UI.Component.implement({
 	getSize: function() {
 		//console.log('------',typeOf(this.element));
 		if (typeOf(this.element) == 'object')
-			console.log(this.options.name);
+			//console.log(this.options.name);
 
 		return this.element.getSize();
 	},

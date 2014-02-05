@@ -71,7 +71,7 @@ UI.Check = new Class({
 			'class': 'control-check',
 		}).addEvents({
 			click: function() {
-				console.log(self.checked);
+				//console.log(self.checked);
 				if (self.checked) {
 					self.checked = false;
 					this.removeClass('checked');

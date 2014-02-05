@@ -152,7 +152,7 @@ UI.Container = new Class({
 		var self = this;
 	/*	this.addEvents({
 			resize: function() {
-				console.log('resize');
+				//console.log('resize');
 			}
 		});
 */

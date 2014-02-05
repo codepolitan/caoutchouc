@@ -223,14 +223,14 @@ UI.Context = new Class({
 	*/
 
 	removeContexts: function(){
-		console.log('removeContext',this.options.scope);
+		//console.log('removeContext',this.options.scope);
 		this.els.each(function(el) {
 			el.removeEvents('contextmenu');
 		});
 
 		/*this.options.contexts.each(function(context){
 			this.options.scope.getElements(context.target).each(function(el){
-				console.log(context.target,el);
+				//console.log(context.target,el);
 				el.removeEvents('contextmenu');
 			},this);
 		},this);*/
@@ -267,7 +267,7 @@ UI.Context = new Class({
 
 		if ((x + coor.width) > this.options.container.getWidth()) { left =  left - coor.width; }
 		if ((y + coor.height) > this.options.container.getHeight()) {
-			console.log('top', top);
+			//console.log('top', top);
 			top =  top - coor.height;
 		}
 

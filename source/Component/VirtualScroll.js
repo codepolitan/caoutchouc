@@ -116,7 +116,7 @@ UI.VirtualScroll = new Class({
 	},
 
 	update: function(search){
-		console.log('update');
+		//console.log('update');
 		var self = this,
 			opts = this.options;
 

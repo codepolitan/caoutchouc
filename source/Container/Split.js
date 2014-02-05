@@ -255,8 +255,8 @@ UI.Split = new Class({
 	},
 
 	toggleSide: function() {
-		console.log('toggle');
-		console.log(this.node[this.fixed].element,this.node[this.fixed].element.getStyle('width'));
+		//console.log('toggle');
+		//console.log(this.node[this.fixed].element,this.node[this.fixed].element.getStyle('width'));
 		var modifier = 'width';
 
 		if (this.options.type == 'horizontal')

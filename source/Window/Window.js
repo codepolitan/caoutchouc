@@ -414,7 +414,7 @@ UI.Window = new Class({
 			this.coord = this.element.getCoordinates();
 			this.max = this.container.getCoordinates();
 
-			console.log(this.coord);
+			//console.log(this.coord);
 
 			this.setStyles(this.max);
 

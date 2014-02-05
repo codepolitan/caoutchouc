@@ -70,7 +70,7 @@ UI.Component.implement({
 	setIFrameContent: function(source) {
 		var self = this;
 
-		console.log('---setIFrameContent', this.content);
+		//console.log('---setIFrameContent', this.content);
 
 		if (!this.iframe) {
 			//console.log('---',this.options.name);
@@ -108,7 +108,7 @@ UI.Component.implement({
 	setIFrameContent: function(source) {
 		var self = this;
 
-		console.log('---setIFrameContent', this.element, this.options);
+		//console.log('---setIFrameContent', this.element, this.options);
 
 		if (!this.iframe) {
 			//console.log('---',this.options.component);

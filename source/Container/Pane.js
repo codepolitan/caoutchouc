@@ -96,7 +96,7 @@ UI.Pane = new Class({
 
 	add: function(where){
 		var self = this;
-		console.log(this, where);
+		//console.log(this, where);
 		where = where || 'bottom';
 
 		var pane = new UI.Container(this.options.pane)

@@ -32,7 +32,7 @@ ui.process = function(name, node, container) {
 	if (typeOf(node.node) == 'array') {
 	//console.log('node.node',node.node);
 		node.node.each( function(sub, i) {
-			console.log('-----',name, sub, object.node[i]);
+			//console.log('-----',name, sub, object.node[i]);
 			this.process(name, sub, object.node[i]);
 		},this);
 	}

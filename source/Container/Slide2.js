@@ -197,7 +197,7 @@ UI.Slide2 = new Class({
 
 		this.reach(this.list[this.index]);
 
-		console.log('next',slide, this.index);
+		//console.log('next',slide, this.index);
 
 		return slide;
 	},
@@ -222,7 +222,7 @@ UI.Slide2 = new Class({
 
 		this.reach(this.list[this.index]);
 
-		console.log('back',slide, this.index);
+		//console.log('back',slide, this.index);
 
 		return slide;
 	},
