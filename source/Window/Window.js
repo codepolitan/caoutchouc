@@ -56,9 +56,7 @@ UI.Window = new Class({
 		// Size options
 		width: 220,
 		height: 360,
-		//'min-height': 200,
 
-		// location options
 		location: 'cascade',
 		position: 'fixed',
 
@@ -74,8 +72,6 @@ UI.Window = new Class({
 
 		controls: ['minimize', 'maximize', 'close'],
 
-
-
 		// Not Implemented should be able to enable/disable effects
 		useEffects: false,
 
@@ -90,7 +86,7 @@ UI.Window = new Class({
 
 
 		useUnderlay: true,
-		useOverlay: true,
+		useOverlay: false,
 
 		hideOnDrag : true,
 
@@ -176,17 +172,20 @@ UI.Window = new Class({
 		(void)
 	*/
 	buildControls: function(){
+		var opts = this.options;
+
 		//console.log('buildControls');
 		if (!this.options.controls) { return; }
 		var self = this;
 
-		this.controls = new Element('div',{'class': 'ui-controls'})
-		.addEvent('click',function(e) { e.stop(); })
+		this.controls = new Element('div', {
+			'class': opts.name+'-control'
+		}).addEvent('click',function(e) { e.stop(); })
 		.inject(this.element);
 
-		this.options.controls.each(function(action){
+		opts.controls.each(function(action){
 			new Element('div',{
-				'class': 'ui-'+action
+				'class': action+'-'+action
 			}).addEvent('click', function() {
 				self.control(action);
 			}).inject(self.controls);

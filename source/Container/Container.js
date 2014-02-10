@@ -322,7 +322,8 @@ UI.Container = new Class({
 	},
 
 	focus: function(){
-		this.fireEvent('focus');
+		console.log('focus');
+		//this.fireEvent('focus');
 	},
 
 	close: function() {

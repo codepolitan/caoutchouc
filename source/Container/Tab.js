@@ -25,6 +25,76 @@ UI.Tab = new Class({
         }]
 	},
 
+	/*
+	Function: setContent
+
+	Set Content of the current container (tab)
+	*/
+	setContent: function(method, source, options){
+		this.active.setContent(method, source, options);
+	},
+
+	/*
+		Function: add
+
+			Create tab and its related container and addEvent
+	 */
+	addTab: function(container, position){
+		var self = this,
+			opts = container.options;
+
+		var text = opts.text || opts.name;
+
+		var tab = new UI.Button({
+			type: 'tab',
+			text: text,
+			name: opts.name,
+			onClick: function(e){
+				self.activate(container);
+			}
+		}).inject(this.bar);
+
+		container.element.store('tab', tab);
+
+		if (this.active == container)
+			self._setActiveTab(tab);
+
+		this.element.setStyle('padding-top', this.head.getSize().y+'px');
+	},
+
+	/*
+	Function: setActive
+
+	Set wich tab should be activated
+	*/
+	setActive: function(container){
+
+		if (typeOf(container) == 'object') {
+			var index = this.list.indexOf(container);
+
+			if (index >= 0) {
+				this.list[index].setState('active');
+				this.list[num].fireEvent('click');
+			}
+		}
+	},
+
+	activate: function(container) {
+		if (typeOf(container) != 'object') return;
+
+		if (this.active)
+			this.active.hide();
+
+		container.show();
+		container.fireEvent('resize');
+
+		this._setActiveTab(container.element.retrieve('tab'));
+
+		this.active = container;
+		container.fireEvent('resize');
+
+		return this;
+	},
 
 	_initElement: function() {
 		this.parent();
@@ -116,35 +186,6 @@ UI.Tab = new Class({
 	},
 
 
-
-	/*
-		Function: add
-
-			Create tab and its related container and addEvent
-	 */
-	addTab: function(container, position){
-		var self = this,
-			opts = container.options;
-
-		var text = opts.text || opts.name;
-
-		var tab = new UI.Button({
-			type: 'tab',
-			text: text,
-			name: opts.name,
-			onClick: function(e){
-				self.activate(container);
-			}
-		}).inject(this.bar);
-
-		container.element.store('tab', tab);
-
-		if (this.active == container)
-			self._setActiveTab(tab);
-
-		this.element.setStyle('padding-top', this.head.getSize().y+'px');
-	},
-
 	/*
 	Function: _initEvents
 
@@ -156,9 +197,7 @@ UI.Tab = new Class({
 
 		this.addEvents({
 			resize: function() {
-				// console.log('tab resize', self.options.name, self.options.type);
 				self.components.each( function(c){
-					//console.log(c.options.name);
 					c.fireEvent('resize');
 				});
 			},
@@ -167,42 +206,6 @@ UI.Tab = new Class({
 			}
 		});
 	},
-
-
-	activate: function(container) {
-		if (typeOf(container) != 'object') return;
-
-		if (this.active)
-			this.active.hide();
-
-		container.show();
-		container.fireEvent('resize');
-
-		this._setActiveTab(container.element.retrieve('tab'));
-
-		this.active = container;
-		container.fireEvent('resize');
-
-		return this;
-	},
-
-	/*
-	Function: setActive
-
-	Set wich tab should be activated
-	*/
-	setActive: function(container){
-
-		if (typeOf(container) == 'object') {
-			var index = this.list.indexOf(container);
-
-			if (index >= 0) {
-				this.list[index].setState('active');
-				this.list[num].fireEvent('click');
-			}
-		}
-	},
-
 
 	_setActiveTab: function(tab) {
 		if (!tab) return;
@@ -216,14 +219,5 @@ UI.Tab = new Class({
 		tab.setState('active');
 
 		this.tab = tab;
-	},
-
-	/*
-	Function: setContent
-
-	Set Content of the current container (tab)
-	*/
-	setContent: function(method, source, options){
-		this.active.setContent(method, source, options);
 	}
 });
