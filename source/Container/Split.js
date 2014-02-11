@@ -46,6 +46,7 @@ UI.Split = new Class({
 			name: 'side',
 			width:'250px'
         }],
+        wireframe: false,
 		splitter: true,
 		modifier: {
 			vertical: 'width',
@@ -189,7 +190,8 @@ UI.Split = new Class({
 
 	 */
 	_initSplitter: function() {
-		var self = this;
+		var self = this,
+			opts = this.options;
 
 		var min = 23;
 
@@ -218,13 +220,31 @@ UI.Split = new Class({
 				self.splitter.addClass('ui-active');
 			},
 			onDrag: function() {
-				self._render();
-				self.fireEvent('resize');
+				if (!opts.wireframe) {
+					self._render();
+					self.fireEvent('resize');
+				}
 			},
 			onComplete: function() {
 				self.splitter.removeClass('ui-active');
 				self._render();
 				self.fireEvent('resize');
+			}
+		});
+
+		this.addEvents({
+			resize: function() { 
+				if (self.options.type == 'vertical') {
+					dragMove.limit = {
+						x: [min,self.element.getSize().x - min],
+						y: [0,0]
+					};
+				} else {
+					dragMove.limit = {
+						x: [0,0],
+						y: [min,self.element.getSize().y - min]
+					};
+				}
 			}
 		});
 
