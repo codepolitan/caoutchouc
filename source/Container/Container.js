@@ -322,7 +322,7 @@ UI.Container = new Class({
 	},
 
 	focus: function(){
-		console.log('focus');
+		//console.log('focus');
 		//this.fireEvent('focus');
 	},
 
