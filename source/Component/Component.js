@@ -219,7 +219,7 @@ UI.Component = new Class({
 			this.container = container.element;
 		}
 
-		if(container.component != 'window')
+		if(container && container.component != 'window')
 			this.element.inject(this.container, position);
 
 		if (this.setSize)

@@ -59,12 +59,10 @@ UI.Dialog = new Class({
 		controls: ['close'],
 		container: {},
 		foot: true,
-		
 		overflow: 'scrollbar',
 
 		resizable: false,
 
-		
 		action: {
 			list: ['cancel'],
 			cancel: {
@@ -87,10 +85,9 @@ UI.Dialog = new Class({
 
 		if (this.options.modal)
 			this._initUnderlay();
-/*
-		
-
-		this.buildButtons(this.options.action);*/
+		/*
+		this.buildButtons(this.options.action);
+		*/
 	},
 
 	_initUnderlay: function() {
