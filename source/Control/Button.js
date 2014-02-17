@@ -61,6 +61,8 @@ UI.Button = new Class({
 		this.parent();
 		var opts = this.options;
 
+		//var text = opts.type.match(/text/g);
+
 		if (opts.icon) {
 			this.icon = new Element('span', {
 				'class' : opts.icon

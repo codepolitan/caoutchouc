@@ -233,7 +233,7 @@ UI.Split = new Class({
 		});
 
 		this.addEvents({
-			resize: function() { 
+			resize: function() {
 				if (self.options.type == 'vertical') {
 					dragMove.limit = {
 						x: [min,self.element.getSize().x - min],

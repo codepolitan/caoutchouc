@@ -78,7 +78,7 @@ UI.Choice = new Class({
 	_select: function(value) {
 		this.input.set('value', value);
 		this.choice.set('html', value);
-		this.menu.removeClass('list-open');
+		this.element.removeClass('state-open');
 		this.fireEvent('change', value);
 	},
 
