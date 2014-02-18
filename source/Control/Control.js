@@ -53,3 +53,4 @@ UI.Control = new Class({
 		});
 	}
 });
+

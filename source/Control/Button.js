@@ -65,9 +65,13 @@ UI.Button = new Class({
 
 		if (opts.icon) {
 			this.icon = new Element('span', {
-				'class' : opts.icon
+				'class' : 'button-icon'
 			}).inject(this.element);
+
+			this.icon.addClass(opts.icon);
 		}
+
+		
 
 		if (opts.text)
 			this.element.set('html', opts.text);
@@ -140,12 +144,6 @@ UI.Button = new Class({
 			this.element.addClass(this.options.klss);
 
 		this.element.addClass(opts.prefix + this.name);
-
-		if (opts.type !== null && opts.type !== '')
-			this.element.addClass('type-' + opts.type);
-
-		if (opts.state !== null && opts.type !== '')
-			this.element.addClass('state-' + opts.state);
 	}
 });
 

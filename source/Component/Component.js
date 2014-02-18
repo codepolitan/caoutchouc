@@ -183,7 +183,7 @@ UI.Component = new Class({
 		if (opts.type && typeOf(opts.type) !== undefined)
 			this.element.addClass('type-' + opts.type);
 
-		if (opts.state)
+		if (opts.state && typeOf(opts.state) !== undefined)
 			this.element.addClass('state-' + opts.state);
 	},
 

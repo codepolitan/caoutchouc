@@ -56,7 +56,7 @@ UI.Text = new Class({
 		name: 'text',
 		klass: 'ui-text',
 		tag: 'span',
-		text: 'Text',
+		text: '',
 		emboss: false,
 		selectable: false
 	},
