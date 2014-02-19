@@ -110,7 +110,7 @@ UI.Button = new Class({
 			},
 			click: function(e){
 				e.stopPropagation();
-				if (opts.emit)
+				if (opts.emit && self.state != 'disabled') 
 					self.fireEvent(opts.emit);
 
 				if (opts.call && self.state != 'disabled')
