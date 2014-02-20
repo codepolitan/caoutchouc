@@ -244,6 +244,9 @@ UI.Scroll = new Class({
 		this.updateContentFromThumbPosition();
 		this.updateThumbFromContentScroll();
 
+		if (Math.ceil(this.position.now + this.thumbSize) >= this.trackSize)
+			this.options.container.scrollTop = this.containerScrollSize;
+
 		this.fireEvent('drag', event);
 
 		event.stop();
