@@ -8,7 +8,13 @@ UI.Component.implement({
 		dragLimitX: false,
 		dragLimitY: false,
 
-		dragHandlers: []
+		dragHandlers: [],
+		fx: {
+			adaptLocation: {
+				duration: 200,
+				wait: true
+			}
+		}
 	},
 
 	enableDrag: function(){

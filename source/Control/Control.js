@@ -34,6 +34,12 @@ UI.Control = new Class({
 		else return true;
 	},
 
+	isActive: function() {
+		if (this.state == 'active')
+			return true;
+		else return false;
+	},
+
 	/*
 		function : _initEvents
 

@@ -25,19 +25,17 @@ UI.Component = new Class({
 
 		component: 'component',
 		name: 'component',
-		tag: 'span',
-		attr: ['class', 'styles', 'events', 'id', 'name', 'html', 'title'],
-
-		fx: {
-			adaptLocation: {
-				duration: 200,
-				wait: true
-			}
+		type: null,
+		element: {
+			attr: ['class', 'styles', 'events', 'id', 'name', 'html', 'title'],
+			tag: 'span',
+			type: null
 		}
 	},
 
 	initialize: function(options){
 		this.setOptions(options);
+
 		this.fireEvent('init');
 
 		this._initOptions();
@@ -54,7 +52,6 @@ UI.Component = new Class({
 			this.element.addClass('state-'+state);
 
 		this.state = state;
-
 		this.fireEvent('state', state);
 
 		return this;
@@ -79,7 +76,6 @@ UI.Component = new Class({
 		this.layout[this.main][container.name] = container;
 		ui.node[this.main][node.name] = container;
 	},
-
 
 	/*
 		function : _initState
@@ -119,11 +115,13 @@ UI.Component = new Class({
 
 		this.fireEvent('create');
 
+		this._initElementType();
 		var prop = this._initProps();
 
-		//console.log('properties', prop);
+		var tag = opts.tag || opts.element.tag;
+		var name = opts.name || opts.element.name;
 
-		var element = new Element(opts.tag, prop);
+		var element = new Element(tag, prop);
 
 		element.store('_instance', this);
 
@@ -146,11 +144,12 @@ UI.Component = new Class({
 		var opts = this.options,
 			prop = {},
 			props = [
-				'id', 'name',
+				'id', 'name', 'type',
 				'klass', 'styles',
 				'html',	'title',
 				'events'
-			];
+			],
+			cuts = ['name', 'tag'];
 
 		for (var i = 0; i < props.length; i++ ) {
 			var name = props[i];
@@ -160,12 +159,15 @@ UI.Component = new Class({
 
 			//console.log('-', name, props[i]);
 
-			if (opts[name])
-				prop[name] = opts[props[i]];
+			if (opts.element.attr[name])
+				prop[name] = opts.element.attr[props[i]];
 		}
 
 		return prop;
 	},
+
+
+	_initElementType: function() {},
 
 	/*
 		function : _initEvents
@@ -177,8 +179,10 @@ UI.Component = new Class({
 		var opts = this.options;
 
 		//this.element.addClass(opts.prefix + opts.name);
-		if (opts.klass)
-			this.element.addClass(opts.klass);
+		var klass = opts.klass || opts.element.klass;
+
+		if (klass)
+			this.element.addClass(klass);
 
 		if (opts.type && typeOf(opts.type) !== undefined)
 			this.element.addClass('type-' + opts.type);
@@ -229,6 +233,9 @@ UI.Component = new Class({
 		function : inject
 
 			Build the split containers
+
+		Note:
+			will be refactor or rethink
 
 	*/
 	inject: function(container, position){

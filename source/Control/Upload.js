@@ -15,8 +15,8 @@
 	Example:
 	(start code)
 		var button = new UI.Button({
-			text        : 'i am a new UI.Button',
-			onClick     : { alert('click') }
+			text		: 'i am a new UI.Button',
+			onClick		: { alert('click') }
 		}).inject(document.body);
 	(end)
 
@@ -64,14 +64,16 @@ UI.Button = new Class({
 			if (opts.type == 'file')
 				tag = 'label';
 			this.icon = new Element(tag, {
-				'class': 'button-icon',
-				for: 'upload'
+				'class' : 'button-icon',
+				'for': ''
 			}).inject(this.element);
 
 			this.icon.addClass(opts.icon);
 		}
 
-		
+		if (opts.type == 'file') {
+			this._initFile();
+		}
 
 		//var text = opts.type.match(/text/g);
 
@@ -82,40 +84,18 @@ UI.Button = new Class({
 
 		if (this.options.clss)
 			this.element.addClass(this.options.clss);
-
-		if (opts.type == 'file') {
-			this._initFile();
-		}
 	},
 
 	_initFile: function() {
 		var self = this;
 
 		var file = new Element('input', {
-			type: 'file',
-			name: 'upload',
-			id: 'upload'
+			'type' : 'file'
 		}).inject(this.element);
 
-		file.addEvent('change', function(info) {
-			//console.log('change', info);
-		});
-
-		file.onchange = function(info) {
-			var files = this.files;
-			self.fireEvent('upload', files);
-
-			//console.log(fileList);
-		};
-
-
 		this.addEvent('injected', function() {
-			var coord = self.icon.getCoordinates();
-
-			coord.top = '0';
-			coord.left = '0';
-
-			file.setStyles(coord);
+			console.log(self.element.getSize());
+			this
 		});
 	},
 
