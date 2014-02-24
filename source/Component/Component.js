@@ -25,7 +25,7 @@ UI.Component = new Class({
 
 		component: 'component',
 		name: 'component',
-		//type: null,
+		type: null,
 		element: {
 			attr: ['class', 'styles', 'events', 'id', 'name', 'html', 'title'],
 			tag: 'span',
