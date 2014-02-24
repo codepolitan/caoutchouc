@@ -284,10 +284,10 @@ UI.Menu = new Class({
 						self.fireEvent('change', this.get('name'));
 						self.fireEvent('selectItem', comp);
 
-						
-
-						if (opts.type == 'push')
+						if (opts.type == 'push') {
+							console.log('select', this);
 							self.fireEvent('select', this);
+						}
 						else if (opts.type == 'drop')
 							self.hideNow();
 					}
