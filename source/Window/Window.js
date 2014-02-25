@@ -47,11 +47,6 @@ UI.Window = new Class({
 
 		container: $(document.body),
 
-		maxsize: {
-			width: 800,
-			height: 600
-		},
-
 		content: true,
 		// Size options
 		width: 220,
@@ -96,15 +91,6 @@ UI.Window = new Class({
 		resizeLimitY: [160, screen.height],
 		resizeOnDragIfMaximized: false,
 		resizeBorders: ['top','right','bottom','left']
-		/*
-		minimize: function(){},
-		maximize: function(){},
-		normalize: function(){},
-		onLoad: function(){},
-		onBlur: function(){},
-		onFocus: function(){},
-		onClose: function(){}
-		*/
 	},
 
 	initialize: function(options) {
@@ -138,7 +124,7 @@ UI.Window = new Class({
 
 		//this._initContent();
 
-		this.buildControls(this.options.controls);
+		this._initControl(this.options.controls);
 	},
 
 
@@ -171,7 +157,7 @@ UI.Window = new Class({
 	Returns:
 		(void)
 	*/
-	buildControls: function(){
+	_initControl: function(){
 		var opts = this.options;
 
 		//console.log('buildControls');
@@ -185,7 +171,7 @@ UI.Window = new Class({
 
 		opts.controls.each(function(action){
 			new Element('div',{
-				'class': action+'-'+action
+				'class': 'control' + '-' + action
 			}).addEvent('click', function() {
 				self.control(action);
 			}).inject(self.controls);
