@@ -53,7 +53,7 @@ UI.Control = new Class({
 
 		this.element.addEvents({
 			click: function(e){
-				e.stopPropagation();
+				//e.stopPropagation();
 				self.fireEvent('click');
 			},
 			mouseup: function(){

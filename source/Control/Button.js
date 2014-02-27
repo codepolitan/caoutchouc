@@ -55,28 +55,24 @@ UI.Button = new Class({
 	*/
 
 	_initElement: function(){
-		var opts = this.options;
-
 		this.parent();
+		var opts = this.options;
+			type = opts.type;
 
-		if (opts.icon) {
-			var tag = 'span';
-			if (opts.type == 'file')
-				tag = 'label';
-			this.icon = new Element(tag, {
-				'class': 'button-icon',
-				for: 'upload'
-			}).inject(this.element);
+		if (type === null)
+			type = 'icon-text';
 
-			this.icon.addClass(opts.icon);
-		}
 
-		
+		//console.log(type, type.indexOf('icon'));
 
+		if (opts.text && type != 'icon')
+			this.element.set('html', opts.text);
 		//var text = opts.type.match(/text/g);
 
-		if (opts.text)
-			this.element.set('html', opts.text);
+		this.element.set('title', opts.text);
+
+		if ((opts.icon && type.indexOf('icon') > -1) || type == 'file')
+			this._initIcon();
 
 		this._initClass();
 
@@ -86,6 +82,24 @@ UI.Button = new Class({
 		if (opts.type == 'file') {
 			this._initFile();
 		}
+	},
+
+	_initIcon: function() {
+		var opts = this.options;
+
+		var tag = 'span';
+		if (type == 'file')	tag = 'label';
+
+		var pos = 'top';
+		if (type == 'text-icon')
+			pos = 'bottom';
+
+		this.icon = new Element(tag, {
+			'class': 'button-icon',
+			for: 'upload'
+		}).inject(this.element, pos);
+
+		this.icon.addClass(opts.icon);
 	},
 
 	_initFile: function() {
@@ -135,6 +149,7 @@ UI.Button = new Class({
 				e.stopPropagation();
 				if (opts.emit && self.state != 'disabled')
 					self.fireEvent(opts.emit);
+					self.fireEvent('press', opts.emit);
 
 				if (opts.call && self.state != 'disabled')
 					opts.call();

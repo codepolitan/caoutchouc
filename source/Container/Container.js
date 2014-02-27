@@ -270,6 +270,7 @@ UI.Container = new Class({
 
 		this.addEvents({
 			resize: function(){
+				//console.log('resize foot ', this.element, this.foot.getSize().y);
 				this.element.setStyle('padding-bottom', this.foot.getSize().y+'px');
 			}
 		});

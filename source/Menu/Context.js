@@ -268,7 +268,7 @@ UI.Context = new Class({
 		if ((x + coor.width) > this.options.container.getWidth()) { left =  left - coor.width; }
 		if ((y + coor.height) > this.options.container.getHeight()) {
 			//console.log('top', top);
-			top =  top - coor.height;
+			top =  top; // - coor.height;
 		}
 
 		this.element.setStyles({
