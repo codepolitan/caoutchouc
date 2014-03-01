@@ -261,8 +261,10 @@ UI.Context = new Class({
 			return;
 		}
 
+		var ctop = this.options.container.getPosition().y;
+
 		var coor = this.element.getCoordinates();
-		var top = y - 30;
+		var top = y - ctop;
 		var left = x + this.options.container.getScrollLeft();
 
 		if ((x + coor.width) > this.options.container.getWidth()) { left =  left - coor.width; }
@@ -327,7 +329,7 @@ UI.Context = new Class({
 
 		this.element.show();
 		var coord = this.content.getCoordinates();
-		this.setSize(coord.width, coord.height);
+		//this.setSize(coord.width, coord.height);
 		this.setPosition(e.client.x,e.client.y);
 
 		return this;
