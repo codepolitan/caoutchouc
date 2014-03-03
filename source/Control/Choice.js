@@ -66,7 +66,8 @@ UI.Choice = new Class({
 	},
 
 	_initItem: function(item) {
-		var self = this;
+		var self = this,
+			opts = this.options;
 
 		new Element('li', {
 			html: item
@@ -77,6 +78,8 @@ UI.Choice = new Class({
 			if (self.selected && self.selected == this) {
 				self.selected.removeClass('selected');
 				self.selected = null;
+				if (opts.type == 'push')
+					self._select();
 			} else {
 				this.addClass('selected');
 				self.selected = this;
