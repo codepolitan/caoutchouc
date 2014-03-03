@@ -71,7 +71,17 @@ UI.Choice = new Class({
 		new Element('li', {
 			html: item
 		}).inject(this.menu).addEvent('click', function(){
-			self._select(item);
+			if (self.selected)
+				self.selected.removeClass('selected');
+
+			if (self.selected && self.selected == this) {
+				self.selected.removeClass('selected');
+				self.selected = null;
+			} else {
+				this.addClass('selected');
+				self.selected = this;
+				self._select(item);
+			}
 		});
 	},
 
