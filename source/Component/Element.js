@@ -17,7 +17,7 @@ UI.Component.implement({
 
 	show: function(){
 		this.fireEvent('show');
-		this.element.show();
+		this.element.setStyle('display', 'block');
 
 		return this;
 	},
