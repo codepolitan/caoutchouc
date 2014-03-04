@@ -89,10 +89,12 @@ UI.Choice = new Class({
 	},
 
 	_select: function(value) {
+		var name = this.options.name;
+
 		this.input.set('value', value);
 		this.choice.set('html', value);
 		this.element.removeClass('state-open');
-		this.fireEvent('change', value);
+		this.fireEvent('change', value, name);
 	},
 
 	_toggle: function() {
