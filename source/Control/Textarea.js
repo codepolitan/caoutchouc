@@ -53,6 +53,7 @@ UI.Textarea = new Class({
 
 		this.input = new Element('textarea', {
 			name: this.options.name,
+			placeholder: this.options.name,
 			type: this.options.type,
 			value: this.options.value
 		}).inject(this.element);
