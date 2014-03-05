@@ -117,9 +117,10 @@ UI.Button = new Class({
 
 		file.onchange = function(info) {
 			var files = this.files;
-			self.fireEvent('upload', files);
-
-			//console.log(fileList);
+			console.log(files);
+			if (files)
+			self.fireEvent('uploadFile', [files]);
+		
 		};
 
 
