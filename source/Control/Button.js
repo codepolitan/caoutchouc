@@ -69,6 +69,8 @@ UI.Button = new Class({
 			this.element.set('html', opts.text);
 		//var text = opts.type.match(/text/g);
 
+
+		//console.log('title', this.element,  opts.text);
 		this.element.set('title', opts.text);
 
 		if ((opts.icon && type.indexOf('icon') > -1) || type == 'file')
