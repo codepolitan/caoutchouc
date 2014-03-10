@@ -27,8 +27,8 @@ UI.Selector.Menu = new Class({
 
 	options: {
 		container: document.body,
-		type: 'small',
-		zIndex: 3,
+		//type: 'small',
+		zIndex: 200,
 		//clss: 'selector-menu',
 		position: 'top left',
 		location: 'outside',
@@ -43,7 +43,7 @@ UI.Selector.Menu = new Class({
 
 		var offset = this.options.offset;
 
-		//console.log(typeOf(offset));
+		console.log('selector-view', this.options);
 
 		if (typeOf(offset) == 'number') {
 			this.offset = [offset,offset];
@@ -60,7 +60,7 @@ UI.Selector.Menu = new Class({
 		//console.log('_initElement menu', this.options);
 
 		this.element = new Element('ul', {
-			'class': 'ui-menu type-small',
+			'class': 'ui-menu type-selector',
 			'zIndex': this.options.zIndex
 		}).inject(container);
 

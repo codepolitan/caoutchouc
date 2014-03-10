@@ -95,6 +95,14 @@ UI.Selector.Mask = new Class({
 		var offset = this.options.offset;
 		var c = el.getCoordinates();
 
+		if (this.options.positionning == 'relative') {
+			var pos = el.getPosition(this.container);
+			c.left = pos.x;
+			c.right = pos.x + c.width;
+			c.top = pos.y;
+			c.bottom = pos.y + c.height;
+		}
+
 		infos = [
 			[0, 0, c.left - offset, content.y],
 			[0, c.left - offset, c.width + ( offset*2 ), c.top - offset],
@@ -125,20 +133,21 @@ UI.Selector.Mask = new Class({
 
 	_setMaskPosition: function(mask, info){
 
-		if (this.options.usefx)
+		/*if (this.options.usefx)
 			mask.morph({
 				'top': info[0],
 				'left': info[1],
 				'width': info[2],
 				'height': info[3]
 			});
-		else
+		else*/
 			mask.setStyles({
 				'top': info[0],
 				'left': info[1],
 				'width': info[2],
 				'height': info[3]
 			});
+
 	},
 
 	set: function(name,value){
@@ -185,8 +194,10 @@ UI.Selector.Mask = new Class({
 	hide: function(){
 		var self = this;
 
+		console.log('hisde');
+
 		this.masks.each(function(mask){
-			mask.tween('opacity','0');
+			mask.setStyle('display','none');
 		});
 
 		return this;
@@ -198,7 +209,6 @@ UI.Selector.Mask = new Class({
 
 		this.masks.each(function(mask){
 			mask.setStyle('display','block');
-			mask.tween('opacity','1');
 		});
 
 		return this;
