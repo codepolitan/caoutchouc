@@ -194,8 +194,6 @@ UI.Selector.Mask = new Class({
 	hide: function(){
 		var self = this;
 
-		console.log('hisde');
-
 		this.masks.each(function(mask){
 			mask.setStyle('display','none');
 		});
