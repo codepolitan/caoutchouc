@@ -49,23 +49,29 @@ UI.Check = new Class({
 	_initElement: function() {
 		this.parent();
 
-
-
-
 		var self = this,
 			opts = this.options;
 
 		this.checked = opts.value;
 
-		//console.log('init ckeck----', this.checked);
-
 		this.input.set('type', 'hidden');
-		
+
 		var options = opts.opts;
 
 		this.wrapper = new Element('div', {
 			'class': 'check-wrapper'
 		}).inject(this.element);
+
+		this._initCheck(opts);
+		this._initText(opts);
+
+		if (this.checked) this.check.addClass('checked');
+
+		
+	},
+
+	_initCheck: function() {
+		var self = this;
 
 		this.check = new Element('span', {
 			'class': 'control-check',
@@ -79,12 +85,10 @@ UI.Check = new Class({
 					self.checked = true;
 					this.addClass('checked');
 				}
-				self.fireEvent('change', self.checked);
 
+				self.fireEvent('change', self.checked);
 			}
 		}).inject(this.wrapper);
-
-		if (this.checked) this.check.addClass('checked');
 
 		this.on = new Element('span', {
 			'class': 'check-text check-on',
@@ -100,6 +104,28 @@ UI.Check = new Class({
 			'class': 'check-text check-off',
 			'html': 'non'
 		}).inject(this.check);
+	},
 
+	_initText: function(opts) {
+		var self = this;
+
+		this.text = new Element('span', {
+			'class': 'control-text',
+			html: opts.text
+		}).addEvents({
+			click: function() {
+				//console.log(self.checked);
+				if (self.checked) {
+					self.checked = false;
+					this.removeClass('checked');
+				} else {
+					self.checked = true;
+					this.addClass('checked');
+				}
+				self.fireEvent('change', self.checked);
+
+			}
+		}).inject(this.wrapper);
 	}
+
 });

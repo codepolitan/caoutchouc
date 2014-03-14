@@ -53,9 +53,9 @@ UI.Container = new Class({
 		name: 'container',
 
 		node: null,
-		head: null,
-		content: null,
-		foot: null,
+		head: true,
+		content: true,
+		foot: true,
 
 		tag: 'div',
 	},

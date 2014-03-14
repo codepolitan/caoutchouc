@@ -127,12 +127,12 @@ UI.Button = new Class({
 
 
 		this.addEvent('injected', function() {
-			var coord = self.icon.getCoordinates();
+			/*var coord = self.icon.getCoordinates();
 
 			coord.top = '0';
 			coord.left = '0';
 
-			file.setStyles(coord);
+			file.setStyles(coord);*/
 		});
 	},
 

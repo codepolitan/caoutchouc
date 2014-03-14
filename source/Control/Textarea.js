@@ -49,26 +49,17 @@ UI.Textarea = new Class({
 
 
 	_initInput: function()  {
-		var self = this;
+		var	opts = this.options;
 
 		this.input = new Element('textarea', {
-			name: this.options.name,
-			placeholder: this.options.name,
-			type: this.options.type,
-			value: this.options.value
+			name: opts.name,
+			placeholder: opts.name,
+			type: opts.type,
+			value: opts.value
 		}).inject(this.element);
 
-		this.input.addEvents({
-			focus: function(e){
-				self.focus = this;
-				this.retrieve('autogrow').resize();
-			},
-			keyup: function() {
-				//console.log('up', this.get('value'));
-
-				self.fireEvent('change', this.get('value'));
-			}
-		});
+		if (opts.klss)
+			this.input.addClass(opts.klss);
 	},
 
 
@@ -88,6 +79,20 @@ UI.Textarea = new Class({
 
 	_initEvents: function(){
 		this.parent();
+		var self = this;
+
+		this.input.addEvents({
+			focus: function(e){
+				self.focus = this;
+				this.retrieve('autogrow').resize();
+			},
+			keyup: function() {
+				//console.log('up', this.get('value'));
+
+				self.fireEvent('change', this.get('value'));
+			}
+		});
+
 		this.addEvents({
 			blur: this.setState.bind(this, 'default'),
 			focus: this.setState.bind(this, 'focus')
