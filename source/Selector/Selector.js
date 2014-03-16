@@ -62,13 +62,13 @@ UI.Selector = new Class({
 			duration: 365,
 			path: '/'
 		},
-		usefx: true,
+		usefx: false,
 		enable : true,
 		timerOnHide: 0,
 		onCatch: {},
 		onDisable: {},
 		onEnable: {},
-		//positionning: 'relative'
+		positionning: 'relative'
 	},
 
 	initialize: function(options){
@@ -79,7 +79,7 @@ UI.Selector = new Class({
 
 		this.container = this.options.container;
 
-		var scope = this.options.scope;
+		var scope = this.options.scope || this.container;
 		var target = this.options.target;
 
 		this.name = this.options.prefix+'-'+this.options.name;
