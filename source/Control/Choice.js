@@ -46,8 +46,6 @@ UI.Choice = new Class({
 
 		this._initList(opts.list);
 
-		//console.log(opts.value);
-
 		if (opts.value)
 			this.input.set('value', opts.value);
 
@@ -69,7 +67,7 @@ UI.Choice = new Class({
 		var self = this,
 			opts = this.options;
 
-		new Element('li', {
+		var li = new Element('li', {
 			html: item
 		}).inject(this.menu).addEvent('click', function(){
 			if (self.selected)
@@ -86,6 +84,11 @@ UI.Choice = new Class({
 				self._select(item);
 			}
 		});
+
+		if (opts.value == item ) {
+			li.addClass('selected');
+			self.selected = li;
+		}
 	},
 
 	_select: function(value) {
