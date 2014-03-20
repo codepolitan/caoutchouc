@@ -82,7 +82,9 @@ UI.Field = new Class({
 		if (opts.klss)
 			this.element.addClass(opts.klss);
 
-		this._initLabel();
+		if (opts.label != false)
+			this._initLabel();
+
 		this._initInput();
 
 /*		this._initValue();
@@ -116,6 +118,10 @@ UI.Field = new Class({
 		this.input.addEvents({
 			keyup: function() {
 				self.fireEvent('change', this.get('value'));
+			},
+			mousedown: function(e) {
+				e.stopPropagation();
+				//this.focus();
 			}
 		});
 	},
@@ -136,6 +142,35 @@ UI.Field = new Class({
 		if (opts.value)
 			this.setValue(opts.value);
 	},
+
+
+	/*
+	Function: getValue
+		Get value
+
+	Arguments:
+		none
+
+	Return:
+		value: string
+
+	*/
+
+	getValue: function(){
+		return this.input.get('value');
+	},
+
+	/*
+	Function: SetValue
+		Set element state
+
+	Arguments:
+		none
+
+	Return:
+		value: string
+
+	*/
 
 	setValue: function(value){
 		this.input.set('value', value);
