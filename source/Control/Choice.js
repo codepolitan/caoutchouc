@@ -91,6 +91,21 @@ UI.Choice = new Class({
 		}
 	},
 
+	toggle_selected: function() {
+		console.log('toggle_selected', this.element);
+
+		if (this.selected)
+			this.selected.removeClass('selected');
+
+		if (this.selected && this.selected == this) {
+			this.selected.removeClass('selected');
+			this.selected = null;
+		} else {
+			this.addClass('selected');
+			this.selected = this;
+		}
+	},
+
 	_select: function(value) {
 		var name = this.options.name;
 
