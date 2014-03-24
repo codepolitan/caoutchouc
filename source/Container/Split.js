@@ -46,6 +46,8 @@ UI.Split = new Class({
 			name: 'side',
 			width:'250px'
         }],
+        foot: null,
+        head:null,
         wireframe: false,
 		splitter: true,
 		modifier: {
