@@ -58,6 +58,7 @@ UI.Choice = new Class({
 			'class': 'choice-list'
 		}).inject(this.element);
 
+		if (list && list.length > 0)
 		for(var i = 0; i < list.length; i++) {
 			this._initItem(list[i]);
 		}
