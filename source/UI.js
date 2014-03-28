@@ -1,20 +1,13 @@
+
+
 /*
 	---
-	description: Minimal User Interface Toolkit built on MooTools.
 
-	Requires:
-	- core:1.4.1: '*'
-	- mooCanvas
+	Name:
+		FLOOR Minimal UI
 
-	provides: [UI,ui,ui.controller]
-	...
-*/
-/*
-	Object: UI
-		MooLego UI - a User Interface Library built on MooTools.
-
-	Credits:
-		Luca Pilionel, David Mignot
+	Description:
+		Minimal User Interface Toolkit built on top of MooTools.
 
 	License:
 		MIT-style license.
@@ -22,8 +15,28 @@
 	Copyright:
 		Copyright (c) 2007-2014 [Jerome Vial](http://floor.ch/).
 
+	Credits:
+		Luca Pilionel, David Mignot
+
 	Code & Documentation:
-		[The MooLego Team](http://moolego.net/developers/).
+		[FLOOR Minimal UI](http://ui.minimal.floor.io/developers/).
+
+	Note:
+		Need some mimimalization
+		Could be refactor for prime (lighter and start using emit and on and so)
+
+
+	...
+*/
+
+/*
+	Object: UI
+		FLOOR Minimal UI - a minimalistic UX Library.
+
+	Requires:
+		MooTools core 1.4.1: '*'
+
+	provides: [UI,ui]
 
 */
 
@@ -36,4 +49,10 @@ var ui = {
 	_initElement: '%_initElement%'
 };
 
+/*
+	Object: ui.controller
+
+*/
+
 ui.controller = {};
+
