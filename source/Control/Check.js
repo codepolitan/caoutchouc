@@ -62,8 +62,9 @@ UI.Check = new Class({
 			'class': 'check-wrapper'
 		}).inject(this.element);
 
-		this._initCheck(opts);
 		this._initText(opts);
+		this._initCheck(opts);
+
 
 		if (this.checked) this.check.addClass('checked');
 

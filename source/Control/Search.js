@@ -103,6 +103,9 @@ UI.Search = new Class({
 				timer = setTimeout(function() {
 					self.fireEvent('search', self.input.get('value'));
 				}, opts.timer);
+			},
+			mousedown: function(e) {
+				e.stopPropagation();
 			}
 		});
 	},

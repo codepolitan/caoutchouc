@@ -120,7 +120,7 @@ UI.Field = new Class({
 				self.fireEvent('change', this.get('value'));
 			},
 			mousedown: function(e) {
-				e.stopPropagation();
+				//e.stopPropagation();
 				//this.focus();
 			}
 		});
