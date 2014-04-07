@@ -82,7 +82,7 @@ UI.Field = new Class({
 		if (opts.klss)
 			this.element.addClass(opts.klss);
 
-		if (opts.label != false)
+		if (opts.label !== false)
 			this._initLabel();
 
 		this._initInput();
@@ -99,7 +99,8 @@ UI.Field = new Class({
 			text = this.options.text;
 
 		this.label = new Element('label', {
-			html: text
+			html: text,
+			'for': this.options.name
 		}).inject(this.element);
 	},
 
