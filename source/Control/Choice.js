@@ -71,6 +71,7 @@ UI.Choice = new Class({
 		var li = new Element('li', {
 			html: item
 		}).inject(this.menu).addEvent('click', function(){
+		
 			if (self.selected)
 				self.selected.removeClass('selected');
 
