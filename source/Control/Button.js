@@ -56,7 +56,7 @@ UI.Button = new Class({
 
 	_initElement: function(){
 		this.parent();
-		var opts = this.options;
+		var opts = this.options,
 			type = opts.type;
 
 		if (type === null)
@@ -74,7 +74,7 @@ UI.Button = new Class({
 		this.element.set('title', opts.text);
 
 		if ((opts.icon && type.indexOf('icon') > -1) || type == 'file')
-			this._initIcon();
+			this._initIcon(type);
 
 		this._initClass();
 
@@ -82,11 +82,11 @@ UI.Button = new Class({
 			this.element.addClass(this.options.clss);
 
 		if (opts.type == 'file') {
-			this._initFile();
+			this._initFile(type);
 		}
 	},
 
-	_initIcon: function() {
+	_initIcon: function(type) {
 		var opts = this.options;
 
 		var tag = 'span';
@@ -104,7 +104,7 @@ UI.Button = new Class({
 		this.icon.addClass(opts.icon);
 	},
 
-	_initFile: function() {
+	_initFile: function(type) {
 		var self = this;
 
 		var file = new Element('input', {
