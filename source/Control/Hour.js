@@ -61,6 +61,8 @@ UI.Hour = new Class({
 
 		//create a new div as input element
 		this.parent();
+		this.element.addClass('field-hour');
+
 		this.date = this.options.date;
 
 		var tmp = new Date(this.date);
