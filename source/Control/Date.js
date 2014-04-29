@@ -40,19 +40,26 @@ UI.Date = new Class({
 		base: 'control',
 		tag: 'div',
 		type: 'input',
+		format: 'll',
 		value: null,
 		useTextAsLabel: false
 	},
 
 	_initInput: function()  {
-		var self = this;
+		var self = this,
+			opts = this.options;
 
 		//console.log('imput option', this.options);
 
+		this.element.addClass('field-date');
+
 		this.input = new Element('input', {
-			name: this.options.name,
-			type: this.options.type,
-			value: this.options.value,
+			name: opts.name,
+			type: opts.type
+		}).inject(this.element);
+
+		this.text = new Element('span', {
+			'class': 'text'
 		}).inject(this.element);
 
 		this.input.addEvents({
@@ -64,6 +71,8 @@ UI.Date = new Class({
 				//this.focus();
 			}
 		});
+
+		this.set(opts.value)
 
 
 		/*input.input.addEvents({
@@ -84,8 +93,8 @@ UI.Date = new Class({
 			format: "%Y/%m/%d",
 			onSelect: function(d){
 				console.log('--', d);
-				/*self.doc[field.name] = d;*/
-				//self.fireEvent('change', d);
+				self.set(d);
+				self.fireEvent('change', d);
 			},
 			onShow: function(d){
 				console.log('-show-', d);
@@ -118,10 +127,20 @@ UI.Date = new Class({
 		});
 
 		this.element.addEvents({
-			
 /*			mouseup: function(){
 				self.fireEvent('mouseup');
 			}*/
 		});
 	},
+
+	set: function(d) {
+		var opts = this.options;
+
+		var date = moment(d).toISOString();
+		var text = moment(d).format(opts.format);
+
+		this.input.set('value', date);
+		this.text.set('html', text);
+	}
+
 });
