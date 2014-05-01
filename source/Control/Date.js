@@ -42,7 +42,17 @@ UI.Date = new Class({
 		type: 'input',
 		format: 'll',
 		value: null,
-		useTextAsLabel: false
+		useTextAsLabel: false,
+		picker: {
+			//timePicker: true,
+			useFadeInOut: false,
+			//inject: this.element,
+			draggable: false,
+			columns: 1,
+			positionOffset: {x: 5, y: 0},
+			pickerClass: 'datepicker_bootstrap',
+			format: "%Y/%m/%d"
+		}
 	},
 
 	_initInput: function()  {
@@ -58,51 +68,28 @@ UI.Date = new Class({
 			type: opts.type
 		}).inject(this.element);
 
+
 		this.text = new Element('span', {
-			'class': 'text'
+			'class': '.toogle'
 		}).inject(this.element);
 
-		this.input.addEvents({
-			jkeyup: function() {
-				self.fireEvent('change', this.get('value'));
-			},
-			mousedown: function(e) {
-				//e.stopPropagation();
-				//this.focus();
-			}
-		});
+		this.icon = new Element('span', {
+			'class': 'icon icon-text icon-calendar'
+		}).inject(this.element, 'top');
 
-		this.set(opts.value)
+		this._initPicker();
 
+		this.set(opts.value);
 
-		/*input.input.addEvents({
-			keyup: function() {
-				self.doc[this.get('name')] = this.get('value');
-				self.fireEvent('change', this.get('value'));
-			}
-		});
-*/
-		//console.log('-|x-', date);
+	},
 
-		var datePicker = new Picker.Date(this.input, {
-			//timePicker: true,
-			useFadeInOut: false,
-			//inject: this.element,
-			positionOffset: {x: 5, y: 0},
-			pickerClass: 'datepicker_bootstrap',
-			format: "%Y/%m/%d",
-			onSelect: function(d){
-				console.log('--', d);
-				self.set(d);
-				self.fireEvent('change', d);
-			},
-			onShow: function(d){
-				console.log('-show-', d);
+	_initPicker: function() {
+		var self = this,
+			opts = this.options;
 
-			}
-		});
+		this.picker = new Picker.Date(this.input, opts.picker);
 
-		//this.datePickers.push(datePicker);
+		console.log(this.picker);
 	},
 
 	/*
@@ -120,16 +107,37 @@ UI.Date = new Class({
 	*/
 
 	_initEvents: function() {
+		var self = this;
 		this.parent();
-		this.addEvents({
-			blur: this.setState.bind(this, 'default'),
-			focus: this.setState.bind(this, 'focus')
+
+		this.picker.addEvents({
+			select: function(d){
+				self.set(d);
+				self.fireEvent('change', d);
+			}
 		});
 
-		this.element.addEvents({
-/*			mouseup: function(){
-				self.fireEvent('mouseup');
-			}*/
+		this.input.addEvents({
+			jkeyup: function() {
+				self.fireEvent('change', this.get('value'));
+			},
+			mousedown: function(e) {
+				//e.stopPropagation();
+				//this.focus();
+			}
+		});
+
+		this.text.addEvents({
+			click: function() {
+				console.log('open');
+				self.picker.open();
+			}
+		});
+
+
+		this.addEvents({
+			blur: this.setState.bind(this, null),
+			focus: this.setState.bind(this, 'focus')
 		});
 	},
 
