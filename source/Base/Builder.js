@@ -1,32 +1,15 @@
-/*
-	Class: UI.Builder
-		Should simplify the dom building process using object
-
-
-	Extends:
-		<UI.Component>
-
-	Require:
-		<Mootools>
-		<UI>
-
-	Arguments:
-		object: json
-		parent: container
-
-	Returns:
-		the dom structure
-
-	Example:
-		(start code)
-		new UI.Builder(object);
-		(end)
-
-
-	Implied global:
-		UI,
-		Class,Element,Request,Scroller
-
+/**
+* Minimalistic Class for UI.Builder Management
+*
+* @class UI.Builder
+* @Extends UI.Builder
+* @Require Mootools
+* @param {object} json
+* @param {parent} container
+* @return {parent} the dom structure
+* @example (start code)	new UI.Builder(object); (end)
+* @author Jerome Vial
+* @copyright © 1999-2014 - Jerome D. Vial. All Rights reserved.
 */
 
 UI.Builder = new Class({

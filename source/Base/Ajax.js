@@ -1,24 +1,21 @@
-
-/*
-
-Copyright © 1999-2014 - Jerome D. Vial. All Rights reserved.
-
+/**
+* Minimalistic Class for UI.Component Management
+*
+* @class UI.Component
+* @author Jerome Vial
+* @copyright © 1999-2014 - Jerome D. Vial. All Rights reserved.
 */
 
-
-
 UI.Component.implement({
-	
-	/*
-	Function: setAjaxContent
-		Set ajax Content
 
-	Arguments:
-		source - (string) source's url
-
-	Returns:
-		this
-	*/
+	/**
+	 * Set Ajax Content
+	 *
+	 * @method setAjaxContent
+	 * @param {source} source's url
+	 * @return {this}
+	 * @api public
+	 */
 	setAjaxContent: function(source){
 		if (this.iframe)
 			this.iframe.dispose();
@@ -36,16 +33,14 @@ UI.Component.implement({
 		return this;
 	},
 
-	/*
-	Function: setJsonContent
-		Set JSON content
-
-	Arguments:
-		source - (string) source's url
-
-	Returns:
-		this
-	*/
+	/**
+	 * Set JSON content
+	 *
+	 * @method setJsonContent
+	 * @param {source} source's url
+	 * @return {this}
+	 * @api public
+	 */
 	setJsonContent: function(source) {
 		var request = new Request.JSON({
 			url: source,
@@ -57,16 +52,15 @@ UI.Component.implement({
 
 		return this;
 	},
-	/*
-	Function: setIFrameContent
-		Set ajax content
 
-	Arguments:
-		source - (string) iFrame's url
-
-	Returns:
-		this
-	*/
+	/**
+	 * Set ajax content
+	 *
+	 * @method setIFrameContent
+	 * @param {source} iFrame's url
+	 * @return {this}
+	 * @api public
+	 */
 	setIFrameContent: function(source) {
 		var self = this;
 
@@ -74,7 +68,6 @@ UI.Component.implement({
 
 		if (!this.iframe) {
 			//console.log('---',this.options.name);
-			
 			this.iframe = new IFrame({
 				width: '100%',
 				height: '100%'
@@ -95,16 +88,14 @@ UI.Component.implement({
 		return this;
 	},
 
-	/*
-	Function: setIFrameContent
-		Set ajax content
-
-	Arguments:
-		source - (string) iFrame's url
-
-	Returns:
-		this
-	*/
+	/**
+	 * Set ajax content
+	 *
+	 * @method setIFrameContent
+	 * @param {source} iFrame's url
+	 * @return {this}
+	 * @api public
+	 */
 	setIFrameContent: function(source) {
 		var self = this;
 
