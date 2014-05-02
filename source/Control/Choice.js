@@ -78,6 +78,7 @@ UI.Choice = new Class({
 			if (self.selected && self.selected == this) {
 				self.selected.removeClass('selected');
 				self.selected = null;
+				console.log('push');
 				if (opts.type == 'push')
 					self._select();
 			} else {
