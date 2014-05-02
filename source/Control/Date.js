@@ -47,9 +47,10 @@ UI.Date = new Class({
 			//timePicker: true,
 			useFadeInOut: false,
 			//inject: this.element,
+			//showOnInit: true,
 			draggable: false,
 			columns: 1,
-			positionOffset: {x: 5, y: 0},
+			positionOffset: { x: 15, y: 5 },
 			pickerClass: 'datepicker_bootstrap',
 			format: "%Y/%m/%d"
 		}
@@ -62,20 +63,21 @@ UI.Date = new Class({
 		//console.log('imput option', this.options);
 
 		this.element.addClass('field-date');
+		this.element.addClass('nolabel');
+		this.element.addClass('icon-text');
 
 		this.input = new Element('input', {
-			name: opts.name,
-			type: opts.type
+			name: opts.name
+		}).inject(this.element);
+
+		this.icon = new Element('span', {
+			'class': 'icon icon-calendar'
 		}).inject(this.element);
 
 
 		this.text = new Element('span', {
-			'class': '.toogle'
+			'class': 'text'
 		}).inject(this.element);
-
-		this.icon = new Element('span', {
-			'class': 'icon icon-text icon-calendar'
-		}).inject(this.element, 'top');
 
 		this._initPicker();
 
@@ -128,12 +130,15 @@ UI.Date = new Class({
 		});
 
 		this.text.addEvents({
-			click: function() {
+			click: function(e) {
+				e.stopPropagation();
+				self.input.focus();
+				self.picker.show();
+				/*
 				console.log('open');
-				self.picker.open();
+				self.picker.show();*/
 			}
 		});
-
 
 		this.addEvents({
 			blur: this.setState.bind(this, null),
@@ -147,7 +152,7 @@ UI.Date = new Class({
 		var date = moment(d).toISOString();
 		var text = moment(d).format(opts.format);
 
-		this.input.set('value', date);
+		//this.input.set('value', date);
 		this.text.set('html', text);
 	}
 
