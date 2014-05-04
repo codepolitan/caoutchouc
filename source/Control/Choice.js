@@ -7,7 +7,7 @@
 
 	Require:
 		<UI.Control>
-		<UI.Menu>
+		<UI.List>
 
 	Arguments:
 		options
@@ -54,7 +54,7 @@ UI.Choice = new Class({
 
 	_initList: function(list) {
 		var self = this;
-		this.menu = new Element('ul', {
+		this.list = new Element('ul', {
 			'class': 'choice-list'
 		}).inject(this.element);
 
@@ -70,20 +70,21 @@ UI.Choice = new Class({
 
 		var li = new Element('li', {
 			html: item
-		}).inject(this.menu).addEvent('click', function(){
-		
+		}).inject(this.list).addEvent('click', function(){
+
 			if (self.selected)
 				self.selected.removeClass('selected');
 
 			if (self.selected && self.selected == this) {
 				self.selected.removeClass('selected');
 				self.selected = null;
+
 				if (opts.type == 'push')
-					self._select();
+					self.select();
 			} else {
 				this.addClass('selected');
 				self.selected = this;
-				self._select(item);
+				self.select(item);
 			}
 		});
 
@@ -108,7 +109,7 @@ UI.Choice = new Class({
 		}
 	},
 
-	_select: function(value) {
+	select: function(value) {
 		var name = this.options.name;
 
 		this.input.set('value', value);
@@ -127,9 +128,9 @@ UI.Choice = new Class({
 		this.parent();
 		var self = this;
 
-		this.choice.addEvents({
+		/*this.choice.addEvents({
 			click: this._toggle.bind(this, 'default')
-		});
+		});*/
 		/*this.input.addEvents({
 			click: this._toggle.bind(this, 'default'),
 			blur: this.setState.bind(this, 'default'),

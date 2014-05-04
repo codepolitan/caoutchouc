@@ -222,15 +222,17 @@ UI.Menu = new Class({
 
 		//console.log(node);
 
-		node.each(function(comp,i){
+		node.each(function(comp, i){
 			if (!comp.text)
 				comp.text = null; // comp.name;
 				//comp.text = comp.name;
 
 			var component = opts.item.component.capitalize();
 
-			var itemopts = Object.merge(opts.item.options,comp);
-			// console.log('---',itemopts);
+			//console.log('---',comp);
+			var itemopts = comp;
+			//var itemopts = Object.merge(opts.item.options, comp);
+			//console.log('---',itemopts);
 			// instantiate de menu component
 
 			var item = new UI[component](itemopts);

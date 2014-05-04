@@ -27,7 +27,7 @@
 
 	Members:
 		Control, Extends, Input, addEvents, bind, blur, name,
-    	focus, name, options, parent, _initEvents, setState, value
+		focus, name, options, parent, _initEvents, setState, value
 
 */
 
@@ -220,7 +220,7 @@ UI.Field = new Class({
 	},
 
 	set: function(name, value) {
-		
+
 
 	}
 

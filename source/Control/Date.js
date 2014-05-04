@@ -40,60 +40,58 @@ UI.Date = new Class({
 		base: 'control',
 		tag: 'div',
 		type: 'input',
+		format: 'll',
 		value: null,
-		useTextAsLabel: false
-	},
-
-	_initInput: function()  {
-		var self = this;
-
-		//console.log('imput option', this.options);
-
-		this.input = new Element('input', {
-			name: this.options.name,
-			type: this.options.type,
-			value: this.options.value,
-		}).inject(this.element);
-
-		this.input.addEvents({
-			jkeyup: function() {
-				self.fireEvent('change', this.get('value'));
-			},
-			mousedown: function(e) {
-				//e.stopPropagation();
-				//this.focus();
-			}
-		});
-
-
-		/*input.input.addEvents({
-			keyup: function() {
-				self.doc[this.get('name')] = this.get('value');
-				self.fireEvent('change', this.get('value'));
-			}
-		});
-*/
-		//console.log('-|x-', date);
-
-		var datePicker = new Picker.Date(this.input, {
+		useTextAsLabel: false,
+		picker: {
 			//timePicker: true,
 			useFadeInOut: false,
 			//inject: this.element,
-			positionOffset: {x: 5, y: 0},
+			//showOnInit: true,
+			draggable: false,
+			columns: 1,
+			positionOffset: { x: 15, y: 5 },
 			pickerClass: 'datepicker_bootstrap',
-			format: "%Y/%m/%d",
-			onSelect: function(d){
-				console.log('--', d);
-				/*self.doc[field.name] = d;*/
-				//self.fireEvent('change', d);
-			},
-			onShow: function(d){
-				console.log('-show-', d);
+			format: "%Y/%m/%d"
+		}
+	},
 
-			}
-		});
+	_initInput: function()  {
+		var self = this,
+			opts = this.options;
 
-		//this.datePickers.push(datePicker);
+		//console.log('imput option', this.options);
+
+		this.element.addClass('field-date');
+		this.element.addClass('nolabel');
+		this.element.addClass('icon-text');
+
+		this.input = new Element('input', {
+			name: opts.name
+		}).inject(this.element);
+
+		this.icon = new Element('span', {
+			'class': 'icon icon-calendar'
+		}).inject(this.element);
+
+
+		this.text = new Element('span', {
+			'class': 'text'
+		}).inject(this.element);
+
+		this._initPicker();
+
+		this.set(opts.value);
+
+	},
+
+	_initPicker: function() {
+		var self = this,
+			opts = this.options;
+
+		this.picker = new Picker.Date(this.input, opts.picker);
+
+		//console.log(this.picker);
 	},
 
 	/*
@@ -111,17 +109,25 @@ UI.Date = new Class({
 	*/
 
 	_initEvents: function() {
-		this.parent();
-		this.addEvents({
-			blur: this.setState.bind(this, 'default'),
-			focus: this.setState.bind(this, 'focus')
+		var self = this;
+
+		this.picker.addEvents({
+			select: function(d){
+				self.set(d);
+				self.fireEvent('change', d);
+			}
 		});
 
-		this.element.addEvents({
-			
-/*			mouseup: function(){
-				self.fireEvent('mouseup');
-			}*/
-		});
 	},
+
+	set: function(d) {
+		var opts = this.options;
+
+		var date = moment(d).toISOString();
+		var text = moment(d).format(opts.format);
+
+		//this.input.set('value', date);
+		this.text.set('html', text);
+	}
+
 });

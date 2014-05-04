@@ -34,6 +34,7 @@ UI.Button = new Class({
 	name: 'button',
 
 	options: {
+		name: 'button',
 		type: null, // push, file
 		element: {
 			tag: 'span'
