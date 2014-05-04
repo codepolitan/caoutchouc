@@ -91,7 +91,7 @@ UI.Date = new Class({
 
 		this.picker = new Picker.Date(this.input, opts.picker);
 
-		console.log(this.picker);
+		//console.log(this.picker);
 	},
 
 	/*

@@ -24,15 +24,20 @@ UI.Color = new Class({
 		name: 'choice'
 	},
 
+	_initElement: function() {
+		this.parent();
+
+		this.element.addClass('choice-color');
+	},
+
 	_initItem: function(info) {
 		var self = this,
 			opts = this.options;
 
 		var item = new Element('li', {
-			html: ' ',
 			'class': info
 		}).inject(this.list).addEvent('click', function(){
-			console.log('jjj');
+			//console.log('jjj');
 			if (self.selected)
 				self.selected.removeClass('selected');
 
@@ -47,7 +52,9 @@ UI.Color = new Class({
 			}
 		});
 
-		var color = new Element('span').inject(item);
+		var color = new Element('span', {
+			html: '&nbsp;'
+		}).inject(item);
 
 		if (opts.value == info ) {
 			item.addClass('selected');
