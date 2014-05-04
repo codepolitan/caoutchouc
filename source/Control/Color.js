@@ -1,5 +1,5 @@
 /*
-	Class: UI.Select
+	Class: UI.Choice
 		Create <select> like element
 
 	Extends:
@@ -24,33 +24,34 @@ UI.Color = new Class({
 		name: 'choice'
 	},
 
-	_initItem: function(item) {
+	_initItem: function(info) {
 		var self = this,
 			opts = this.options;
 
-		var li = new Element('li', {
+		var item = new Element('li', {
 			html: ' ',
-			'class': item
-		}).inject(this.menu).addEvent('click', function(){
-		
+			'class': info
+		}).inject(this.list).addEvent('click', function(){
+			console.log('jjj');
 			if (self.selected)
 				self.selected.removeClass('selected');
 
 			if (self.selected && self.selected == this) {
 				self.selected.removeClass('selected');
 				self.selected = null;
-				if (opts.type == 'push')
-					self._select();
+				self.select(null);
 			} else {
 				this.addClass('selected');
 				self.selected = this;
-				self._select(item);
+				self.select(info);
 			}
 		});
 
-		if (opts.value == item ) {
-			li.addClass('selected');
-			self.selected = li;
+		var color = new Element('span').inject(item);
+
+		if (opts.value == info ) {
+			item.addClass('selected');
+			self.selected = item;
 		}
 	}
 });

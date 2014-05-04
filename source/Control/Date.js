@@ -110,7 +110,6 @@ UI.Date = new Class({
 
 	_initEvents: function() {
 		var self = this;
-		this.parent();
 
 		this.picker.addEvents({
 			select: function(d){
@@ -119,31 +118,6 @@ UI.Date = new Class({
 			}
 		});
 
-		this.input.addEvents({
-			jkeyup: function() {
-				self.fireEvent('change', this.get('value'));
-			},
-			mousedown: function(e) {
-				//e.stopPropagation();
-				//this.focus();
-			}
-		});
-
-		this.text.addEvents({
-			click: function(e) {
-				e.stopPropagation();
-				self.input.focus();
-				self.picker.show();
-				/*
-				console.log('open');
-				self.picker.show();*/
-			}
-		});
-
-		this.addEvents({
-			blur: this.setState.bind(this, null),
-			focus: this.setState.bind(this, 'focus')
-		});
 	},
 
 	set: function(d) {
