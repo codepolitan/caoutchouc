@@ -67,6 +67,7 @@ UI.Date = new Class({
 		this.element.addClass('icon-text');
 
 		this.input = new Element('input', {
+			readonly: 'readonly',
 			name: opts.name
 		}).inject(this.element);
 
@@ -126,7 +127,7 @@ UI.Date = new Class({
 		var date = moment(d).toISOString();
 		var text = moment(d).format(opts.format);
 
-		//this.input.set('value', date);
+		this.input.set('value', date);
 		this.text.set('html', text);
 	}
 

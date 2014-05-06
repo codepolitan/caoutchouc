@@ -27,6 +27,8 @@ UI.Choice = new Class({
 	_initElement: function() {
 		this.parent();
 
+
+
 		var self = this,
 			opts = this.options;
 
@@ -53,10 +55,13 @@ UI.Choice = new Class({
 
 
 	_initList: function(list) {
+
 		var self = this;
 		this.list = new Element('ul', {
 			'class': 'choice-list'
 		}).inject(this.element);
+
+		this.itemList = [];
 
 		if (list && list.length > 0)
 		for(var i = 0; i < list.length; i++) {
@@ -87,6 +92,8 @@ UI.Choice = new Class({
 				self.select(item);
 			}
 		});
+
+		this.itemList.push(item);
 
 		if (opts.value == item ) {
 			li.addClass('selected');
@@ -136,6 +143,6 @@ UI.Choice = new Class({
 			blur: this.setState.bind(this, 'default'),
 			focus: this.setState.bind(this, 'focus')
 		});*/
-	},
+	}
 
 });

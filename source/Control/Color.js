@@ -27,6 +27,7 @@ UI.Color = new Class({
 	_initElement: function() {
 		this.parent();
 
+		
 		this.element.addClass('choice-color');
 	},
 
@@ -56,9 +57,23 @@ UI.Color = new Class({
 			html: '&nbsp;'
 		}).inject(item);
 
+		this.itemList.push(item);
+
 		if (opts.value == info ) {
 			item.addClass('selected');
 			self.selected = item;
+		}
+	},
+
+	set: function(color) {
+		console.log(color);
+		var list = this.itemList;
+
+		for(var i = 0; i < list.length; i++) {
+			var item = list[i];
+			if (item.hasClass(color))
+				item.addClass('selected');
+			else item.removeClass('selected');
 		}
 	}
 });
