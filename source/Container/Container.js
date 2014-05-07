@@ -103,10 +103,13 @@ UI.Container = new Class({
 
 	*/
 	_initComponent: function() {
+
 		var self = this,
 			opts = this.options;
 
 		if (opts.node === null) return;
+
+		//console.log('_initComponent', opts.node);
 
 		this.node = [];
 
