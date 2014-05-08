@@ -51,7 +51,7 @@ UI.Scroll = new Class({
 		maxThumbSize: 16,
 		wheel: 16,
 		autoHide: 1000,
-		size: 8
+		size: 3
 	},
 	/*
 		Constructor: initialize
