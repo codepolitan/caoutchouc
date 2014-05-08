@@ -1,62 +1,16 @@
-/*
-	Class: UI.Context
-		Create a context menu
 
-	Extends:
-		<UI.Menu>
-
-	Arguments:
-		options
-
-	Options:
-		contexts - (array) An array containing contexts definition. A context definition is an object composed of following keys :
-			a name key, who is the context name,
-			a target key, who define on wich elements the context menu will be attached. It could be a CSS3 target as well.
-			a menu key, who is a menu list as defined in <UI.Menu>.
-
-	Discussion:
-		We must still add methods to set dynamically new contexts, ...
-
-	Example:
-		(start code)
-		var context = new UI.Context({
-			contexts : [
-				{
-					name : 'workspace',
-					target	: '.app-workspace',
-					menu		: [
-						{ text: 'Workspace menu'},
-						{ text		: 'separator' },
-						{
-							text: 'Hello world...',
-							action	: function(){ alert('Hello world!') }
-						}
-						{ text		: 'viewSource'},
-						{ text		: 'separator' },
-						{ text		: 'deleteCategory'}
-					]
-				},
-				{
-					name: 'pageinfo',
-					target: '[id^=pageinfo]',
-					menu: [
-						{
-							text: 'editCategory',
-							action: function(){ this.test('dorpdown') }.bind(this)
-						},
-						{ text: 'editCategoryApparence'}
-					]
-				}
-			]
-		});
-		(end)
-
-	Implied global:
-		UI,ui,
-		$,
-		Class,Event,	Window,
-		document
-
+/**
+* Minimalistic ContextMenu Class
+*
+* @class UI.Context
+* @Extends UI.Menu
+* @Require Mootools
+* @param {object} json
+* @param {parent} container
+* @return {parent} Class
+* @example (start code)	new UI.Context(object); (end)
+* @author Jerome Vial
+* @copyright © 1999-2014 - Jerome D. Vial. All Rights reserved.
 */
 
 UI.Context = new Class({
@@ -69,7 +23,9 @@ UI.Context = new Class({
 		name: 'context',
 		scope: $(document.body),
 		container: $(document.body),
-		trigger: 'contextmenu'
+		trigger: 'contextmenu',
+		zIndex: 20,
+		underlay: true
 	},
 
 	/*
@@ -84,27 +40,39 @@ UI.Context = new Class({
 		<UI.Element::initialize>
 	*/
 
+	/**
+	 * [initialize description]
+	 * @param  {[type]} options
+	 * @return {[type]}
+	 */
 	initialize: function(options){
 		this.parent(options);
+		var opts = this.options;
+		if (opts.underlay)
+			this._initUnderlay();
 
-		//console.log('initparent() context ok', this.element, $(document.body));
-		this.element.inject(this.options.container);
-
+		this.element.inject(opts.container);
 		this._initContext();
+
+		return this;
 	},
 
 	/*
 	Function: _initElement
 		private function
 
-		Call UI.Component _initElement, then create a menu wrapper
-
+		
 	Return:
 		(void)
 
 	See also:
 		<UI.Component::_initElement>
 	*/
+
+	/**
+	 * Call UI.Component _initElement, then create a menu wrapper
+	 * @return {[type]}
+	 */
 	_initElement: function(){
 		var self = this,
 			opts = this.options;
@@ -113,8 +81,14 @@ UI.Context = new Class({
 
 		this.element = new Element('div', {
 			'class': 'ui-context',
-			zIndex: opts.zIndex,
-			display: 'none'
+			styles: {
+				zIndex: opts.zIndex + 10
+			}
+		}).addEvents({
+			mousediown: function(e){
+				self.fireEvent('mousedown');
+				e.stop();
+			}
 		});
 
 		this.element.addClass('context-'+opts.name);
@@ -146,6 +120,8 @@ UI.Context = new Class({
 
 		this.element.hide();
 	},
+
+
 	/*
 	Method: addContexts
 		Attach context to elements (provided by contexts.target)
@@ -156,11 +132,14 @@ UI.Context = new Class({
 	Return:
 		this
 	*/
-
+	/**
+	 * [_initContext description]
+	 * @return {[type]}
+	 */
 	_initContext: function(){
 		var self = this;
 			opts = this.options;
-			scope = opts.scope || $(document.body);
+			scope = opts.scope || opts.container;
 
 		scope.getElements(opts.target).each(function(el) {
 			//console.log(el);
@@ -172,6 +151,31 @@ UI.Context = new Class({
 		// });
 
 		return this;
+	},
+
+
+	_initUnderlay: function() {
+		var self = this,
+			opts = this.options;
+
+
+		var underlay = this.underlay = new Element('div', {
+			'class': 'context-underlay',
+			styles: {
+				zIndex: opts.zIndex
+			}
+		}).addEvents({
+			click: function(){
+				underlay.setStyle('display', 'none');
+				self.element.hide();
+			}
+		}).inject(opts.container);
+
+		this.addEvents({
+			show: function() {
+				underlay.setStyle('display', 'block');
+			}
+		})
 	},
 
 	addList: function() {
@@ -207,8 +211,6 @@ UI.Context = new Class({
 				ui.menu.hideAll();
 			}
 		});
-
-
 	},
 
 	/*
@@ -257,20 +259,23 @@ UI.Context = new Class({
 	*/
 
 	setPosition: function(x,y){
+		var opts = this.options,
+			container = opts.container;
+
 		if ((x === null) || (y === null)) {
 			return;
 		}
 
-		var ctop = this.options.container.getPosition().y;
+		var ctop = container.getPosition().y;
 
 		var coor = this.element.getCoordinates();
 		var top = y - ctop;
-		var left = x + this.options.container.getScrollLeft();
+		var left = x + container.getScrollLeft();
 
-		if ((x + coor.width) > this.options.container.getWidth()) { left =  left - coor.width; }
-		if ((y + coor.height) > this.options.container.getHeight()) {
+		if ((x + coor.width) > container.getWidth()) { left =  left - coor.width; }
+		if ((y + coor.height) > container.getHeight()) {
 			//console.log('top', top);
-			top =  top; // - coor.height;
+			top = top - coor.height;
 		}
 
 		this.element.setStyles({
@@ -295,11 +300,15 @@ UI.Context = new Class({
 			<UI.Menu::show>
 			<UI.Element::show>
 	*/
+/**
+ * [hide description]
+ * @return {[type]}
+ */
 	hide: function(){
 		clearTimeout(this.timer);
 		this.timer = (function() {
 			this.close();
-		}).delay(this.options.timerOnHide,this);
+		}).delay(this.options.timerOnHide, this);
 	},
 
 
@@ -324,6 +333,11 @@ UI.Context = new Class({
 			<UI.Element::show>
 	*/
 
+	/**
+	 * [show description]
+	 * @param  {[type]} e
+	 * @return {[type]}
+	 */
 	show: function(e){
 		this.fireEvent('show', e.target);
 
