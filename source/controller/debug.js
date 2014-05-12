@@ -32,7 +32,7 @@ ui.debug = {
 			if (typeOf(properties[id]) == 'array' || typeOf(properties[id]) == 'object') {
 				for (var val in properties[id]) {
 					if (properties[id][val] == 'NaN') {
-						//console.log(this.options.element,  ": ",
+						console.log(this.options.element,  ": ",
 						val + ' , Nan', "(" + this.options.skin + "=>" + this.options.name + "=>" + this.options.type + "=>" + this.options.state + ")");
 						return;
 					}
@@ -40,7 +40,7 @@ ui.debug = {
 			}
 		}
 		if (properties.size && !properties.size[0] && !properties.size[1]) {
-			//console.log(			//this.options.element,  ": ",
+			console.log(			//this.options.element,  ": ",
 			key + ' , size is null', "(" + this.options.skin + "=>" + this.options.name + "=>" + this.options.type + "=>" + this.options.state + ")");
 			return;
 		}

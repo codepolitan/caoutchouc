@@ -25,7 +25,7 @@ UI.Context = new Class({
 		container: $(document.body),
 		trigger: 'contextmenu',
 		zIndex: 20,
-		underlay: true
+		underlay: false
 	},
 
 	/*

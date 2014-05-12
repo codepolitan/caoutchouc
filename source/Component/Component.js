@@ -12,6 +12,19 @@
  ...
 */
 
+
+/**
+* Minimalistic base of all ui components.
+*
+* @class UI.Component
+* @Require Mootools
+* @return {parent} Class
+* @example (start code)	new UI.Context(object); (end)
+* @author [moolego,r2d2]
+* @copyright © 1999-2014 - Jerome D. Vial. All Rights reserved.
+*/
+
+
 UI.Component = new Class({
 
 	Implements: [Events, Options],
@@ -33,6 +46,11 @@ UI.Component = new Class({
 		}
 	},
 
+	/**
+	 * Constructor
+	 * @param  {Object} options [description]
+	 * @return {Object}         [description]
+	 */
 	initialize: function(options){
 		this.setOptions(options);
 
@@ -45,6 +63,10 @@ UI.Component = new Class({
 		return this;
 	},
 
+	/**
+	 * Setter for the state of the component
+	 * @param {String} state active/disable etc...
+	 */
 	setState: function(state){
 		this.element.removeClass('state-'+this.state);
 
@@ -57,6 +79,10 @@ UI.Component = new Class({
 		return this;
 	},
 
+	/**
+	 * [addComponent description]
+	 * @param {[type]} node [description]
+	 */
 	addComponent: function(node) {
 		if (!node.component)
 			node.component = 'container';
