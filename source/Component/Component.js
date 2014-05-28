@@ -248,6 +248,11 @@ UI.Component = new Class({
 	Returns:
 		this
 	*/
+	/**
+	 * set html to element
+	 * @param {String} source [description]
+	 * @deprecated Use setContent instead
+	 */
 	setHtmlContent: function(source){
 		this.content.set('html',source);
 		this.fireEvent('loadComplete');
@@ -255,6 +260,19 @@ UI.Component = new Class({
 
 		return this;
 	},
+
+	/**
+	 * set content of the element
+	 * @param {String} content [description]
+	 */
+	setContent: function(content) {
+		this.content.set('html',content);
+
+		this.fireEvent('resize');
+
+		return this;
+	},
+
 	/*
 		function : inject
 
