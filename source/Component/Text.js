@@ -77,6 +77,12 @@ UI.Text = new Class({
 		this.parent();
 
 		this.element.set('html', this.options.text);
+	},
+
+	set: function(what, value) {
+
+		if (what == 'text')
+			this.element.set('html', value);
 	}
 });
 

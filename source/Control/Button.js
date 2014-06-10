@@ -1,32 +1,8 @@
-/*
-	Class: UI.Button
-		Creates button and let you _initEvents events action
 
-	Extend:
-		<UI.Control>
-
-	Arguments:
-		options
-
-	Options:
-		text - (string) Text to show in button
-		submit - (boolean) Set to true if you want your button act as a submit button
-
-	Example:
-	(start code)
-		var button = new UI.Button({
-			text        : 'i am a new UI.Button',
-			onClick     : { alert('click') }
-		}).inject(document.body);
-	(end)
-
-
-	Implied global:
-		UI,
-		Class,Event
-
-*/
-
+/**
+ * Class: UI.Button
+ * @type {Class}
+ */
 UI.Button = new Class({
 
 	Extends: UI.Control,
@@ -60,15 +36,15 @@ UI.Button = new Class({
 		var opts = this.options,
 			type = opts.type;
 
+		opts.text = opts.text || opts.n;
+
 		if (type === null)
 			type = 'icon-text';
 
-
-		//console.log(type, type.indexOf('icon'));
-
-		if (opts.text && type != 'icon')
-			this.element.set('html', opts.text);
+/*		if (opts.text && type != 'icon')
+			this.element.set('html', opts.text);*/
 		//var text = opts.type.match(/text/g);
+
 
 
 		//console.log('title', this.element,  opts.text);
@@ -76,6 +52,10 @@ UI.Button = new Class({
 
 		if ((opts.icon && type.indexOf('icon') > -1) || type == 'file')
 			this._initIcon(type);
+
+
+		if ((opts.text) || type == 'file')
+			this._initText(type);
 
 		this._initClass();
 
@@ -91,18 +71,39 @@ UI.Button = new Class({
 		var opts = this.options;
 
 		var tag = 'span';
-		if (type == 'file')	tag = 'label';
 
-		var pos = 'top';
+		var prop = {
+			'class': 'button-icon'
+		};
+
+		if (type == 'file')	 {
+			tag = 'label';
+			prop.for = 'upload';
+		}
+
+		this.icon = new Element(tag, prop).inject(this.element);
+
+		var klss = opts.icon.replace("icon-", "fa-");
+
+		this.icon.addClass('fa');
+		this.icon.addClass(klss);
+	},
+
+
+	_initText: function(type) {
+		var opts = this.options;
+
+		var tag = 'span';
+
+		var pos = 'bottom';
 		if (type == 'text-icon')
-			pos = 'bottom';
+			pos = 'top';
 
-		this.icon = new Element(tag, {
-			'class': 'button-icon',
-			for: 'upload'
+		this.text = new Element(tag, {
+			'class': 'button-text',
+			'html': opts.text
 		}).inject(this.element, pos);
 
-		this.icon.addClass(opts.icon);
 	},
 
 	_initFile: function(type) {
@@ -180,7 +181,7 @@ UI.Button = new Class({
 		//console.log(this.name);
 
 		if (this.options.klss)
-			this.element.addClass(this.options.klss);
+			this.element.addClass('button-'+opts.klss);
 
 		if (this.options.type)
 			this.element.addClass('type-' + this.options.type);
