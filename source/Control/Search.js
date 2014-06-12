@@ -84,7 +84,7 @@ UI.Search = new Class({
 		var self = this;
 
 		this.reset = new UI.Button({
-			icon: 'icon-remove-sign'
+			icon: 'icon-times-circle'
 		}).inject(this.element).addEvent('click', function() {
 			self.empty();
 		});
