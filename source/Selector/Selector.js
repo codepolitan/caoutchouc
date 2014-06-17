@@ -388,8 +388,6 @@ UI.Selector = new Class({
 			el = this.el;
 		} else { return; }
 
-		//console.log('reach',el);
-
 		if (this.isEnable) {
 			this.show();
 			this.fireEvent('repos',el);
