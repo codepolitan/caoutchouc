@@ -66,7 +66,7 @@ UI.Color = new Class({
 	},
 
 	set: function(color) {
-		console.log(color);
+		//console.log(color);
 		var list = this.itemList;
 
 		for(var i = 0; i < list.length; i++) {
