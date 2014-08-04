@@ -78,7 +78,7 @@ UI.Check = new Class({
 			'class': 'control-check',
 		}).addEvents({
 			click: function() {
-				//console.log(self.checked);
+				//_log(self.checked);
 				if (self.checked) {
 					self.checked = false;
 					this.removeClass('checked');
@@ -115,7 +115,7 @@ UI.Check = new Class({
 			html: opts.text
 		}).addEvents({
 			click: function() {
-				//console.log(self.checked);
+				//_log(self.checked);
 				if (self.checked) {
 					self.checked = false;
 					this.removeClass('checked');

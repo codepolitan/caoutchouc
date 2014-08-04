@@ -64,10 +64,10 @@ UI.Component.implement({
 	setIFrameContent: function(source) {
 		var self = this;
 
-		//console.log('---setIFrameContent', this.content);
+		//_log('---setIFrameContent', this.content);
 
 		if (!this.iframe) {
-			//console.log('---',this.options.name);
+			//_log('---',this.options.name);
 			this.iframe = new IFrame({
 				width: '100%',
 				height: '100%'
@@ -99,10 +99,10 @@ UI.Component.implement({
 	setIFrameContent: function(source) {
 		var self = this;
 
-		//console.log('---setIFrameContent', this.element, this.options);
+		//_log('---setIFrameContent', this.element, this.options);
 
 		if (!this.iframe) {
-			//console.log('---',this.options.component);
+			//_log('---',this.options.component);
 			if (this.content == this.element)
 			this.content = new Element(this.options.contentTag)
 			.addClass('container-content')

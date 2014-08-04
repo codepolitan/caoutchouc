@@ -49,7 +49,7 @@ UI.Selector.Resizer = new Class({
 
 		this.container = container;
 
-		//console.log('resizer init:',container,options);
+		//_log('resizer init:',container,options);
 
 		this.handlers = [];
 		this.container = container;
@@ -81,7 +81,7 @@ UI.Selector.Resizer = new Class({
 		.addEvents({
 			click: function(e){
 				new Event(e).stop();
-				//console.log(this.get('class')+':click');
+				//_log(this.get('class')+':click');
 			},
 			mouseenter: function(e){
 				self.fireEvent('mouseenter',this);

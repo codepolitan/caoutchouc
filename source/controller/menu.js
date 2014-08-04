@@ -69,7 +69,7 @@ ui.menu = {
 	*/
 
 	close: function(menu) {
-		//console.log('close...');
+		//_log('close...');
 		menu = menu || this.active;
 		menu.hide();
 		menu.fireEvent('onClose');

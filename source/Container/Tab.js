@@ -138,7 +138,7 @@ UI.Tab = new Class({
 			self.components.push(container);
 
 			self.addEvent('resize', function() {
-				//console.log('tab resize,, views', container.name);
+				//_log('tab resize,, views', container.name);
 				container.fireEvent('resize');
 			});
 

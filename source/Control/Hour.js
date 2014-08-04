@@ -118,7 +118,7 @@ UI.Hour = new Class({
 
 		});
 
-		//console.log('plus', self.element, self.minus);
+		//_log('plus', self.element, self.minus);
 	},
 
 	convertDateTimeToHour: function(dateTime) {

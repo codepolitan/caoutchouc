@@ -99,7 +99,7 @@ UI.Slide2 = new Class({
 
 	addView: function(where){
 		var self = this;
-		//console.log(this, where);
+		//_log(this, where);
 		where = where || 'bottom';
 
 		var slide = new UI.Container(this.options.slide)
@@ -197,7 +197,7 @@ UI.Slide2 = new Class({
 
 		this.reach(this.list[this.index]);
 
-		//console.log('next',slide, this.index);
+		//_log('next',slide, this.index);
 
 		return slide;
 	},
@@ -222,7 +222,7 @@ UI.Slide2 = new Class({
 
 		this.reach(this.list[this.index]);
 
-		//console.log('back',slide, this.index);
+		//_log('back',slide, this.index);
 
 		return slide;
 	},
@@ -242,7 +242,7 @@ UI.Slide2 = new Class({
 
 		var size = 0;
 
-		//console.log('update', this.element.getSize().x);
+		//_log('update', this.element.getSize().x);
 
 		var width = this.element.getSize().x;
 

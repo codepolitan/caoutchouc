@@ -72,7 +72,7 @@ UI.Selector = new Class({
 	},
 
 	initialize: function(options){
-		//console.log('UI.Selector.initilize()');
+		//_log('UI.Selector.initilize()');
 		this.setOptions(options);
 
 		this.selectors = [];
@@ -87,12 +87,12 @@ UI.Selector = new Class({
 
 		this.timer = null;
 
-		//console.log('UI.Selector.init(scope,target)',this.name);
+		//_log('UI.Selector.init(scope,target)',this.name);
 
 		this._initElement(this.options.components);
 		this._initEvents(scope,target);
 
-		//console.log('shoud hide this');
+		//_log('shoud hide this');
 
 		this.hideNow();
 	},
@@ -106,11 +106,11 @@ UI.Selector = new Class({
 	},
 
 	_initEvents: function(scope,target) {
-		//console.log('UI.Selector._initEvents(scope,target)',typeOf(scope),target);
+		//_log('UI.Selector._initEvents(scope,target)',typeOf(scope),target);
 		var delay = 20;
 		var self = this;
 
-		//console.log('UI.Selector._initEvents(scope,target)',typeOf(scope),target);
+		//_log('UI.Selector._initEvents(scope,target)',typeOf(scope),target);
 
 		var delegation = self.options.trigger+':relay('+target+')';
 
@@ -120,12 +120,12 @@ UI.Selector = new Class({
 
 		/*var list = scope.querySelectorAll( target );
 
-		//console.log(list);
+		//_log(list);
 
 		new Array()
 
 		Array.each(list, function(el) {
-			//console.log('UI.Selector.target',el,self.options.trigger);
+			//_log('UI.Selector.target',el,self.options.trigger);
 			el.store('selector', self);
 			el.addEvent(self.options.trigger, function(){
 				self.reach(el);
@@ -150,12 +150,12 @@ UI.Selector = new Class({
 	},
 
 	attachElement: function(el) {
-		//console.log('UI.Selector._initEvents(scope,target)',scope,target);
+		//_log('UI.Selector._initEvents(scope,target)',scope,target);
 		var delay = 20;
 		var self = this;
 
 
-		//console.log('UI.Selector._setEventsElement',el,self.options.trigger);
+		//_log('UI.Selector._setEventsElement',el,self.options.trigger);
 
 		el.addEvent(self.options.trigger, function(){
 			self.reach(el);
@@ -189,7 +189,7 @@ UI.Selector = new Class({
 		.inject(this.options.container, 'top');
 
 		components.each(function(name){
-			//console.log('Selector _initElement',name);
+			//_log('Selector _initElement',name);
 			self.options[name].content = self.options.container;
 			var build = 'build'+name.capitalize();
 			if (!self.options[name].usefx)
@@ -211,7 +211,7 @@ UI.Selector = new Class({
 
 	buildBorder: function(options){
 		var self = this;
-		//console.log();
+		//_log();
 
 		options.positionning = this.options.positionning;
 
@@ -265,13 +265,13 @@ UI.Selector = new Class({
 	},
 
 	buildMenu: function(options){
-		//console.log('buildMenu', this.options.name, options);
+		//_log('buildMenu', this.options.name, options);
 
 		var self = this,
 			left = null,
 			right = null;
 
-		// console.log( this.wrapper, options);
+		// _log( this.wrapper, options);
 
 		options.positionning = this.options.positionning;
 
@@ -299,13 +299,13 @@ UI.Selector = new Class({
 
 
 	buildStatus: function(options){
-		//console.log('buildMenu', this.options.name, options);
+		//_log('buildMenu', this.options.name, options);
 
 		var self = this,
 			left = null,
 			right = null;
 
-		//console.log( this.wrapper);
+		//_log( this.wrapper);
 
 		this.status = new UI.Selector.Status( this.wrapper, options);
 
@@ -350,7 +350,7 @@ UI.Selector = new Class({
 					self.hide();
 				},
 				mouseenter: function() {
-					//console.log('enteroverlay');
+					//_log('enteroverlay');
 					clearTimeout(self.timer);
 				}
 
@@ -373,7 +373,7 @@ UI.Selector = new Class({
 			el = this.el;
 		} else { return; }
 
-		//console.log('reach',el);
+		//_log('reach',el);
 
 		if (this.isEnable) {
 			this.show();
@@ -395,7 +395,7 @@ UI.Selector = new Class({
 	},
 
 	set: function(name,value,name){
-		//console.log(name,value,name);
+		//_log(name,value,name);
 
 		if (name)
 			self[name][name](value);
@@ -444,7 +444,7 @@ UI.Selector = new Class({
 	},
 
 	enable: function(selector) {
-		//console.log('enable', this.options.name);
+		//_log('enable', this.options.name);
 
 		this.isEnable = true;
 		Cookie.write(this.name, '1', this.options.cookie);
@@ -452,7 +452,7 @@ UI.Selector = new Class({
 	},
 
 	disable: function(selector) {
-		//console.log('disable', this.options.name);
+		//_log('disable', this.options.name);
 
 		this.isEnable = false;
 		Cookie.write(this.name, '0', this.options.cookie);

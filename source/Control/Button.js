@@ -47,7 +47,7 @@ UI.Button = new Class({
 
 
 
-		//console.log('title', this.element,  opts.text);
+		//_log('title', this.element,  opts.text);
 		this.element.set('title', opts.text);
 
 		if ((opts.icon && type.indexOf('icon') > -1) || type == 'file')
@@ -116,12 +116,12 @@ UI.Button = new Class({
 		}).inject(this.element);
 
 		file.addEvent('change', function(info) {
-			//console.log('change', info);
+			//_log('change', info);
 		});
 
 		file.onchange = function(info) {
 			var files = this.files;
-			//console.log(files);
+			//_log(files);
 			if (files)
 			self.fireEvent('uploadFile', [files]);
 		
@@ -178,7 +178,7 @@ UI.Button = new Class({
 	*/
 	_initClass: function() {
 		var opts = this.options;
-		//console.log(this.name);
+		//_log(this.name);
 
 		if (this.options.klss)
 			this.element.addClass('button-'+opts.klss);

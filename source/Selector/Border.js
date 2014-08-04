@@ -40,7 +40,7 @@ UI.Selector.Border = new Class({
 	initialize: function(container, options){
 		this.setOptions(options);
 
-		//console.log('UI.Selector.Border:',container, options);
+		//_log('UI.Selector.Border:',container, options);
 
 		this.container = container;
 		this.lines = [];
@@ -90,7 +90,7 @@ UI.Selector.Border = new Class({
 
 		var infos = [];
 		var o = [];
-		//console.log('boder reach', el);
+		//_log('boder reach', el);
 		var bs = this.options.size;
 		var c = el.getCoordinates();
 
@@ -102,7 +102,7 @@ UI.Selector.Border = new Class({
 			c.bottom = pos.y + c.height;
 		}
 
-		//console.log('coord',c,pos);
+		//_log('coord',c,pos);
 
 		if (this.options.location == 'inside') {
 			infos = [

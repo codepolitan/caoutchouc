@@ -43,7 +43,7 @@ UI.Selector.Menu = new Class({
 
 		var offset = this.options.offset;
 
-		console.log('selector-view', this.options);
+		_log('selector-view', this.options);
 
 		if (typeOf(offset) == 'number') {
 			this.offset = [offset,offset];
@@ -57,7 +57,7 @@ UI.Selector.Menu = new Class({
 	},
 
 	_initElement: function(container){
-		//console.log('_initElement menu', this.options);
+		//_log('_initElement menu', this.options);
 
 		this.element = new Element('ul', {
 			'class': 'ui-menu type-selector',
@@ -112,7 +112,7 @@ UI.Selector.Menu = new Class({
 				item.addEvents({
 					click: function(e) {
 						e.stop();
-						//console.log(menu.action);
+						//_log(menu.action);
 						menu.action();
 
 						//(function() { menu.action() });
@@ -131,7 +131,7 @@ UI.Selector.Menu = new Class({
 			else return;
 		else this.el = el;
 
-		//console.log(this.options.content, this.options.content.scrollWidth);
+		//_log(this.options.content, this.options.content.scrollWidth);
 
 		var opts = this.options;
 		var size = this.element.getCoordinates();
@@ -146,7 +146,7 @@ UI.Selector.Menu = new Class({
 			c.bottom = pos.y + c.height;
 		}
 
-		//console.log('reach',pos.x, pos.y);
+		//_log('reach',pos.x, pos.y);
 		var top = 'auto',
 			left = 'auto',
 			bottom = 'auto',
@@ -157,7 +157,7 @@ UI.Selector.Menu = new Class({
 		}
 
 		if (opts.position.indexOf('right') > -1) {
-			//console.log('sdfasdfasdfasdfasdfa');
+			//_log('sdfasdfasdfasdfasdfa');
 			left = c.left + c.width - size.width + this.offset[0];
 		}
 

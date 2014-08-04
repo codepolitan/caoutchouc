@@ -90,7 +90,7 @@ UI.Component = new Class({
 		node.container = this.element;
 		node.main = this.main;
 
-		//console.log(node);
+		//_log(node);
 
 		var container = new UI[node.component.capitalize()](node);
 
@@ -166,7 +166,7 @@ UI.Component = new Class({
 	},
 
 	_initProps: function() {
-		//console.log('_initProps');
+		//_log('_initProps');
 		var opts = this.options,
 			prop = {},
 			props = [
@@ -183,7 +183,7 @@ UI.Component = new Class({
 			if (name == 'klass')
 				name = 'class';
 
-			//console.log('-', name, props[i]);
+			//_log('-', name, props[i]);
 
 			if (opts.element.attr[name])
 				prop[name] = opts.element.attr[props[i]];
@@ -294,9 +294,9 @@ UI.Component = new Class({
 			this.container = container.element;
 		}
 
-		//console.log('container', container);
+		//_log('container', container);
 		if(container && container.component != 'window') {
-			//console.log('element', this.element, this.container);
+			//_log('element', this.element, this.container);
 			//if (!this.container )
 			this.element.inject(this.container, position);
 			/*this.element

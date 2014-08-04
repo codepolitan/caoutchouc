@@ -88,7 +88,7 @@ UI.Selector.Mask = new Class({
 		var infos = [];
 		var o = [];
 
-		//console.log('maskreac',this.options.scope,el);
+		//_log('maskreac',this.options.scope,el);
 
 		var content = this.options.scope.getScrollSize();
 

@@ -37,7 +37,7 @@ UI.Builder = new Class({
 	*/
 
 	_initElement: function(object, container) {
-		//console.log('builder._initElement container ',object.level,object.name);
+		//_log('builder._initElement container ',object.level,object.name);
 
 		var container = {};
 
@@ -54,11 +54,11 @@ UI.Builder = new Class({
 
 			ui.controller.workspace[object.name] = container;
 
-			//console.log(ui.controller.workspace);
+			//_log(ui.controller.workspace);
 
 		}
 
-		//console.log('UI.Builder._initElement()', container.views);
+		//_log('UI.Builder._initElement()', container.views);
 
 		if (object.views) {
 			object.views.each( function(sub, i) {

@@ -23,16 +23,16 @@ ui.process = function(name, node, container) {
 			ui.node[name][node.name] = object;
 	} else if (typeOf(node) == 'array') {
 		node.each( function(sub, i) {
-			//console.log('-----',name, sub, object.node[i]);
+			//_log('-----',name, sub, object.node[i]);
 			//this.process(sub.name, sub, container);
 		},this);
 	}
 
-	//console.log('node.node',node.node,object.node);
+	//_log('node.node',node.node,object.node);
 	if (typeOf(node.node) == 'array') {
-	//console.log('node.node',node.node);
+	//_log('node.node',node.node);
 		node.node.each( function(sub, i) {
-			//console.log('-----',name, sub, object.node[i]);
+			//_log('-----',name, sub, object.node[i]);
 			this.process(name, sub, object.node[i]);
 		},this);
 	}

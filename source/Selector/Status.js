@@ -38,7 +38,7 @@ UI.Selector.Status = new Class({
 		this.setOptions(options);
 
 		var offset = this.options.offset;
-		//console.log(typeOf(offset));
+		//_log(typeOf(offset));
 
 		if (typeOf(offset) == 'number') {
 			this.offset = [offset,offset];
@@ -50,7 +50,7 @@ UI.Selector.Status = new Class({
 	},
 
 	_initElement: function(container){
-		//console.log('_initElement menu', this.options);
+		//_log('_initElement menu', this.options);
 
 		this.element = new Element('span', {
 			'class': this.options.clss,
@@ -113,7 +113,7 @@ UI.Selector.Status = new Class({
 		}
 
 		if (opts.position.indexOf('right') > -1) {
-			//console.log('sdfasdfasdfasdfasdfa');
+			//_log('sdfasdfasdfasdfasdfa');
 			left = coord.left + coord.width - size.width + this.offset[0];
 		}
 

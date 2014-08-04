@@ -32,7 +32,7 @@ UI.Choice = new Class({
 		var self = this,
 			opts = this.options;
 
-		//console.log(opts);
+		//_log(opts);
 		this.input.set('type', 'text');
 		this.input.addClass(opts.klss);
 		this.element.addClass('ui-choice');
@@ -102,7 +102,7 @@ UI.Choice = new Class({
 	},
 
 	toggle_selected: function() {
-		console.log('toggle_selected', this.element);
+		_log('toggle_selected', this.element);
 
 		if (this.selected)
 			this.selected.removeClass('selected');

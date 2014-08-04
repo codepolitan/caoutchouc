@@ -38,7 +38,7 @@ UI.Color = new Class({
 		var item = new Element('li', {
 			'class': info
 		}).inject(this.list).addEvent('click', function(){
-			//console.log('jjj');
+			//_log('jjj');
 			if (self.selected)
 				self.selected.removeClass('selected');
 
@@ -66,7 +66,7 @@ UI.Color = new Class({
 	},
 
 	set: function(color) {
-		//console.log(color);
+		//_log(color);
 		var list = this.itemList;
 
 		for(var i = 0; i < list.length; i++) {

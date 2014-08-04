@@ -94,7 +94,7 @@ UI.Button = new Class({
 		}).inject(this.element);
 
 		this.addEvent('injected', function() {
-			console.log(self.element.getSize());
+			_log(self.element.getSize());
 			this
 		});
 	},
@@ -138,7 +138,7 @@ UI.Button = new Class({
 	*/
 	_initClass: function() {
 		var opts = this.options;
-		//console.log(this.name);
+		//_log(this.name);
 
 		if (this.options.klss)
 			this.element.addClass(this.options.klss);

@@ -60,7 +60,7 @@ UI.Date = new Class({
 		var self = this,
 			opts = this.options;
 
-		//console.log('imput option', this.options);
+		//_log('imput option', this.options);
 
 		this.element.addClass('field-date');
 		this.element.addClass('nolabel');
@@ -92,7 +92,7 @@ UI.Date = new Class({
 
 		this.picker = new Picker.Date(this.input, opts.picker);
 
-		//console.log(this.picker);
+		//_log(this.picker);
 	},
 
 	/*

@@ -199,7 +199,7 @@ ui.window = {
 			this.active = win;
 			win.fireEvent('focus');
 
-			//console.log('focus', win, win.grid, win.coord);
+			//_log('focus', win, win.grid, win.coord);
 			if (win.grid) {
 				this.list.each(function(w){
 					win.setStyles(coord);
@@ -244,14 +244,14 @@ ui.window = {
 	getcoord: function(etat) {
 		var opts = ui.window.options;
 		var x = 0;
-		//console.log('getcoord:', opts[etat]);
+		//_log('getcoord:', opts[etat]);
 		var coord = opts[etat].coord;
 		x += coord.left;
 
 		this.list.each(function(w, i) {
 			if (w.state == etat) {
 
-				//console.log('getStackCoord:', i, x, coord.width,coord.offset);
+				//_log('getStackCoord:', i, x, coord.width,coord.offset);
 
 				x += (coord.width) + coord.offset.x;
 			}
@@ -441,7 +441,7 @@ ui.window = {
 
 			coord.left = start[0] + (offset[0] + size[0]) * column;
 
-			//console.log(column);
+			//_log(column);
 
 			if (coord.left > 1000) {
 				coord.left = start[0];

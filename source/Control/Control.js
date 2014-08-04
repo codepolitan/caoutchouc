@@ -29,7 +29,7 @@ UI.Control = new Class({
 
 
 	isEnable: function() {
-		//console.log(this.state)
+		//_log(this.state)
 		if (this.state == 'disabled')
 			return false;
 		else return true;

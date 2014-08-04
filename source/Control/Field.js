@@ -107,7 +107,7 @@ UI.Field = new Class({
 	_initInput: function()  {
 		var self = this;
 
-		//console.log('imput option', this.options);
+		//_log('imput option', this.options);
 
 		this.input = new Element('input', {
 			name: this.options.name,

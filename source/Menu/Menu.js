@@ -113,7 +113,7 @@ UI.Menu = new Class({
 		var self = this,
 			opts = this.options;
 
-		//console.log('UI.MEnu._initElement()', opts);
+		//_log('UI.MEnu._initElement()', opts);
 
 		this.element = new Element('div', {
 			'class': 'ui-menu',
@@ -187,7 +187,7 @@ UI.Menu = new Class({
 				this.head.removeClass('open');
 			},
 			change: function(value) {
-				//console.log('change',value);
+				//_log('change',value);
 				if (opts.showValue && self.head)
 					self.head.set('html', value);
 			}
@@ -220,7 +220,7 @@ UI.Menu = new Class({
 			node = opts.menu,
 			container = this.content;
 
-		//console.log(node);
+		//_log(node);
 
 		node.each(function(comp, i){
 			if (!comp.text)
@@ -229,10 +229,10 @@ UI.Menu = new Class({
 
 			var component = opts.item.component.capitalize();
 
-			//console.log('---',comp);
+			//_log('---',comp);
 			var itemopts = comp;
 			//var itemopts = Object.merge(opts.item.options, comp);
-			//console.log('---',itemopts);
+			//_log('---',itemopts);
 			// instantiate de menu component
 
 			var item = new UI[component](itemopts);
@@ -257,7 +257,7 @@ UI.Menu = new Class({
 			if (comp.call) {
 				item.element.addEvents({
 					click: function(e) {
-						//console.log('click event menu', opts.hideOnCall, opts.type);
+						//_log('click event menu', opts.hideOnCall, opts.type);
 						//e.stop();
 
 						self.fireEvent('change', this.get('name'));
@@ -281,13 +281,13 @@ UI.Menu = new Class({
 					click: function(e) {
 						e.stop();
 						if (self.state == 'disabled') return;
-						//console.log('---',opts.type);
+						//_log('---',opts.type);
 						self.value = this.get('name');
 						self.fireEvent('change', this.get('name'));
 						self.fireEvent('selectItem', comp);
 
 						if (opts.type == 'push') {
-							console.log('select', this);
+							_log('select', this);
 							self.fireEvent('select', this);
 						}
 						else if (opts.type == 'drop')
@@ -303,7 +303,7 @@ UI.Menu = new Class({
 
 	_initEvents: function() {
 
-		//console.log('_initEvents',this.options.name);
+		//_log('_initEvents',this.options.name);
 		var self = this,
 			opts = this.options;
 
@@ -322,10 +322,10 @@ UI.Menu = new Class({
 
 
 		if (opts.type == 'push') {
-			//console.log('push',this);
+			//_log('push',this);
 			this.addEvents({
 				'select': function(menu) {
-					//console.log('mmm', menu.get('name'));
+					//_log('mmm', menu.get('name'));
 					self.select(menu.get('name'));
 				}
 			});
@@ -336,7 +336,7 @@ UI.Menu = new Class({
 
 		if (menu === false || menu === null) {
 			if (this.selected) {
-				//console.log('selected');
+				//_log('selected');
 				this.selected.removeClass('state-active');
 				this.selected.removeClass('state-checked');
 			}
@@ -359,7 +359,7 @@ UI.Menu = new Class({
 	unselect: function(menu) {
 
 		var self = this;
-		//console.log(typeOf(menu));
+		//_log(typeOf(menu));
 
 		if (typeOf(menu) == 'string') {
 			menu = this.element.getElement('[name="'+ menu +'"]');

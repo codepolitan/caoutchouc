@@ -102,7 +102,7 @@ UI.Layout = new Class({
 
 		if (node.size)	node.opts.size = node.size;
 
-		//console.log(node);
+		//_log(node);
 
 		var clss = new UI[node.clss](node);
 
@@ -125,12 +125,12 @@ UI.Layout = new Class({
 	*/
 
 	_initClass: function(name, object, container) {
-		//console.log('floor.sapce.build',object.level,object.name);
+		//_log('floor.sapce.build',object.level,object.name);
 
 		container = container || document.body;
 		floor.build.count = floor.build.count++ || 1;
 
-		//console.log('count sub space',floor.space.count);
+		//_log('count sub space',floor.space.count);
 		var clss = {};
 
 		if (typeOf(object) == 'object') {
@@ -139,7 +139,7 @@ UI.Layout = new Class({
 
 			var names = clss.split(/\./);
 
-			//console.log(names);
+			//_log(names);
 
 			clss = new UI[object.clss.capitalize()](object)
 			.inject(container);

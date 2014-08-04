@@ -105,7 +105,7 @@ UI.Toolbar = new Class({
 		element.addClass('toolbar-' + opts.comp.name);
 
 		opts.comp.list.each(function(n) {
-			console.log('---', n, mnml.control);
+			_log('---', n, mnml.control);
 			var comp = mnml.control[n];
 
 			if (comp) {

@@ -109,7 +109,7 @@ UI.Container = new Class({
 
 		if (opts.node === null) return;
 
-		//console.log('_initComponent', opts.node);
+		//_log('_initComponent', opts.node);
 
 		this.node = [];
 
@@ -155,7 +155,7 @@ UI.Container = new Class({
 		var self = this;
 	/*	this.addEvents({
 			resize: function() {
-				//console.log('resize');
+				//_log('resize');
 			}
 		});
 */
@@ -179,7 +179,7 @@ UI.Container = new Class({
 
 		this.addEvents({
 			resize: function() {
-				//console.log('resize from head', this, this.head.getSize().y+'px');
+				//_log('resize from head', this, this.head.getSize().y+'px');
 				this.element.setStyle('padding-top', this.head.getSize().y+'px');
 			}
 		});
@@ -224,12 +224,12 @@ UI.Container = new Class({
 			}).inject(this[comp]);
 		}
 
-		//console.log('_init'+comp.capitalize());
+		//_log('_init'+comp.capitalize());
 		var menu = new UI.Menu(opts);
 
 		this.menu[opts.name] = menu;
 
-		// console.log('setMenu', opts.name, menu);
+		// _log('setMenu', opts.name, menu);
 
 		menu.addEvents({
 			'toggle': function() {
@@ -273,7 +273,7 @@ UI.Container = new Class({
 
 		this.addEvents({
 			resize: function(){
-				//console.log('resize foot ', this.element, this.foot.getSize().y);
+				//_log('resize foot ', this.element, this.foot.getSize().y);
 				var y = this.foot.getSize().y;
 				if (y > 3)
 				this.element.setStyle('padding-bottom', y+'px');
@@ -328,7 +328,7 @@ UI.Container = new Class({
 	},
 
 	focus: function(){
-		//console.log('focus');
+		//_log('focus');
 		//this.fireEvent('focus');
 	},
 

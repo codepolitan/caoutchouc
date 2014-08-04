@@ -160,7 +160,7 @@ UI.Window = new Class({
 	_initControl: function(){
 		var opts = this.options;
 
-		//console.log('buildControls');
+		//_log('buildControls');
 		if (!this.options.controls) { return; }
 		var self = this;
 
@@ -262,7 +262,7 @@ UI.Window = new Class({
 
 		var self = this;
 
-		//console.log('UI.Window._initEvents()',self.overlay);
+		//_log('UI.Window._initEvents()',self.overlay);
 
 		// c'est moche!
 
@@ -283,12 +283,12 @@ UI.Window = new Class({
 				this.coord = this.element.getCoordinates();
 			},
 			onDragStart: function(){
-				//console.log('darg start', ui.window.underlay);
+				//_log('darg start', ui.window.underlay);
 				//ui.window.showunderlay(this);
 				//self.overlay.show();
 			},
 			'onDragComplete': function() {
-				//console.log('darg com', ui.window.underlay);
+				//_log('darg com', ui.window.underlay);
 				//ui.window.underlay.hide();
 				//self.overlay.hide();
 				this.coord = this.element.getCoordinates();
@@ -376,7 +376,7 @@ UI.Window = new Class({
 
 		var coord = ui.window.getcoord('minimized');
 
-		// console.log('--',coord);
+		// _log('--',coord);
 
 		this.element.setStyles(coord);
 
@@ -399,7 +399,7 @@ UI.Window = new Class({
 			this.coord = this.element.getCoordinates();
 			this.max = this.container.getCoordinates();
 
-			//console.log(this.coord);
+			//_log(this.coord);
 
 			this.setStyles(this.max);
 
