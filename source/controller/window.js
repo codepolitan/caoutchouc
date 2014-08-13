@@ -396,7 +396,7 @@ ui.window = {
 			//if (win.state = 'minimized') return;
 
 			win.element.style.zIndex = zIndex++;
-			win.element.style.zoom = '.1';
+			win.element.style.zoom = '1';
 
 			var ratio = i/length*2;
 

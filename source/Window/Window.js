@@ -81,7 +81,7 @@ UI.Window = new Class({
 
 
 		useUnderlay: true,
-		useOverlay: false,
+		useOverlay: true,
 
 		hideOnDrag : true,
 
@@ -93,6 +93,11 @@ UI.Window = new Class({
 		resizeBorders: ['top','right','bottom','left']
 	},
 
+	/**
+	 * [initialize description]
+	 * @param  {[type]} options [description]
+	 * @return {[type]}         [description]
+	 */
 	initialize: function(options) {
 		this.parent(options);
 
@@ -119,10 +124,17 @@ UI.Window = new Class({
 		this.inject($(document.body));
 	},
 
+	/**
+	 * [_initElement description]
+	 * @return {[type]} [description]
+	 */
 	_initElement: function() {
 		this.parent();
 
 		//this._initContent();
+
+		if (this.options.useUnderlay)
+			this._initUnderlay();
 
 		this._initControl(this.options.controls);
 	},
@@ -198,6 +210,7 @@ UI.Window = new Class({
 		});
 	},
 
+
 	/*
 	Function: _initElement Foot
 		private function
@@ -216,6 +229,26 @@ UI.Window = new Class({
 			normalize: function() { this.content.show(); }
 		});
 	},
+
+
+	_initUnderlay: function() {
+		_log('_initUnderlay');
+		var self = this;
+
+		this.underlay = new Element('div', {
+			'class': 'dialog-underlay',
+			styles: {
+				zIndex: this.options.zIndex-1
+			}
+		}).inject($(document.body));
+
+		this.underlay.show();
+
+ 		this.addEvent('close', function(){
+ 			console.log('-----');
+			self.underlay.destroy();
+		});
+   	},
 
 	/*
 	Function: setTitle
@@ -250,7 +283,6 @@ UI.Window = new Class({
 	/*
 	Function: _initEvents
 
-
 	Arguments:
 		html - (string) html formatted title
 
@@ -262,46 +294,45 @@ UI.Window = new Class({
 
 		var self = this;
 
-		//_log('UI.Window._initEvents()',self.overlay);
-
-		// c'est moche!
-
-		this.element.addEvents({
+		this.addEvents({
 			onBlur: function() {
+				console.log('blur');
 				self.overlay.show();
 			},
 			onFocus: function() {
+				console.log('OnFocus-');
+				
 				self.overlay.hide();
 			},
+			injected: function() {
+				self.adaptLocation();
+			},
 			onResizeStart: function() {
-				ui.window.showunderlay(this);
 				self.overlay.show();
 			},
 			onResizeComplete: function() {
-				//ui.window.underlay.hide();
 				self.overlay.hide();
 				this.coord = this.element.getCoordinates();
 			},
 			onDragStart: function(){
-				//_log('darg start', ui.window.underlay);
-				//ui.window.showunderlay(this);
-				//self.overlay.show();
+				_log('darg start', this);
+				self.overlay.show();
 			},
 			'onDragComplete': function() {
 				//_log('darg com', ui.window.underlay);
-				//ui.window.underlay.hide();
-				//self.overlay.hide();
+				self.overlay.hide();
 				this.coord = this.element.getCoordinates();
-			},
-			mousedown: function() {
-				self.focus();
 			},
 			resizeComplete: function(){
 				self.maximized = false;
 				this.coord = this.element.getCoordinates();
-			},
-			injected: function() {
-				self.adaptLocation();
+			}
+		});
+
+
+		this.element.addEvents({
+			mousedown: function() {
+				self.focus();
 			}
 		});
 
@@ -412,6 +443,7 @@ UI.Window = new Class({
 		return this;
 	},
 
+
 	/*
 	Function: normalize
 		Normalize window
@@ -449,6 +481,7 @@ UI.Window = new Class({
 		(void)
 	*/
 	close: function(){
+		_log('close');
 		this.fireEvent('close');
 		ui.window.close(this);
 		this.fireEvent('closed');

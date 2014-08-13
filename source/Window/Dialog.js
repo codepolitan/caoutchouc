@@ -90,19 +90,6 @@ UI.Dialog = new Class({
 		*/
 	},
 
-	_initUnderlay: function() {
-		this.underlay = new Element('div', {
-			'class': 'dialog-underlay',
-			styles: {
-				zIndex: this.options.zIndex-1
-			}
-		}).inject($(document.body));
-
-		this.addEvent('close', function(){
-			this.underlay.destroy();
-		});
-	},
-
 	buildMessage: function(message) {
 		this.message = new Element('div', {
 			styles : { padding:'10px' },
@@ -125,4 +112,5 @@ UI.Dialog = new Class({
 			.inject(container);
 		});
 	}
+
 });

@@ -314,10 +314,7 @@ UI.Container = new Class({
 	 */
 	_initOverlay: function() {
 		this.overlay = new Element('div', {
-			'class': 'ui-overlay',
-			style: {
-				display: 'none'
-			}
+			'class': 'container-overlay'
 		}).inject(this.element);
 
 		this.addEvent('onLoadComplete', function() {
@@ -333,6 +330,7 @@ UI.Container = new Class({
 	},
 
 	close: function() {
-
+		//_log('!close');
+		return;
 	}
 });
