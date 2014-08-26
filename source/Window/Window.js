@@ -232,7 +232,7 @@ UI.Window = new Class({
 
 
 	_initUnderlay: function() {
-		_log('_initUnderlay');
+		//_log('_initUnderlay');
 		var self = this;
 
 		this.underlay = new Element('div', {
@@ -245,7 +245,6 @@ UI.Window = new Class({
 		this.underlay.show();
 
  		this.addEvent('close', function(){
- 			console.log('-----');
 			self.underlay.destroy();
 		});
    	},
@@ -296,12 +295,11 @@ UI.Window = new Class({
 
 		this.addEvents({
 			onBlur: function() {
-				console.log('blur');
+				//_log('blur');
 				self.overlay.show();
 			},
 			onFocus: function() {
-				console.log('OnFocus-');
-				
+				//_log('OnFocus');
 				self.overlay.hide();
 			},
 			injected: function() {
@@ -481,7 +479,7 @@ UI.Window = new Class({
 		(void)
 	*/
 	close: function(){
-		_log('close');
+		//_log('close');
 		this.fireEvent('close');
 		ui.window.close(this);
 		this.fireEvent('closed');
