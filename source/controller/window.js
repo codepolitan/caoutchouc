@@ -115,6 +115,7 @@ ui.window = {
 	*/
 
 	register: function(win, group) {
+		_log('register', win);
 		this.list.push(win);
 
 		if (group) {
@@ -170,20 +171,20 @@ ui.window = {
 		(void)
 	*/
 	focus: function(win) {
+		//_log('focus', win);
 		if (win === null) {
 			//make next highest window focus
 			var zIndex = 0;
-			var window;
 			for (var i = this.list.length - 1; i >= 0; i--) {
 				var windowZIndex = this.list[i].element.getStyle('zIndex');
 				if (windowZIndex >= zIndex && !this.list[i].minimized) {
-					window = this.list[i];
+					win = this.list[i];
 					zIndex = windowZIndex;
 				}
 			}
 
-			if (window) {
-				window.focus();
+			if (win) {
+				win.focus();
 			}
 
 			return;
