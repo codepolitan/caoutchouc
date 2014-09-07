@@ -1,21 +1,10 @@
-/*
-	Class: UI.Select
-		Create <select> like element
 
-	Extends:
-		<UI.Field>
-
-	Require:
-		<UI.Control>
-		<UI.List>
-
-	Arguments:
-		options
-
-
-*/
-
-
+/**
+ * Create <select> like element
+ * @class UI.Choice
+ * @extends {UI.Control}
+ * @type {Class}
+ */
 UI.Choice = new Class({
 
 	Extends: UI.Field,
@@ -24,10 +13,12 @@ UI.Choice = new Class({
 		name: 'choice'
 	},
 
+	/**
+	 * [_initElement description]
+	 * @return {[type]} [description]
+	 */
 	_initElement: function() {
 		this.parent();
-
-
 
 		var self = this,
 			opts = this.options;
@@ -53,7 +44,11 @@ UI.Choice = new Class({
 
 	},
 
-
+	/**
+	 * [_initList description]
+	 * @param  {[type]} list [description]
+	 * @return {[type]}      [description]
+	 */
 	_initList: function(list) {
 
 		var self = this;
@@ -69,6 +64,11 @@ UI.Choice = new Class({
 		}
 	},
 
+	/**
+	 * [_initItem description]
+	 * @param  {[type]} item [description]
+	 * @return {[type]}      [description]
+	 */
 	_initItem: function(item) {
 		var self = this,
 			opts = this.options;
@@ -101,6 +101,10 @@ UI.Choice = new Class({
 		}
 	},
 
+	/**
+	 * [toggle_selected description]
+	 * @return {[type]} [description]
+	 */
 	toggle_selected: function() {
 		_log('toggle_selected', this.element);
 
@@ -116,6 +120,11 @@ UI.Choice = new Class({
 		}
 	},
 
+	/**
+	 * [select description]
+	 * @param  {[type]} value [description]
+	 * @return {[type]}       [description]
+	 */
 	select: function(value) {
 		var name = this.options.name;
 
@@ -125,12 +134,20 @@ UI.Choice = new Class({
 		this.fireEvent('change', value, name);
 	},
 
+	/**
+	 * [_toggle description]
+	 * @return {[type]} [description]
+	 */
 	_toggle: function() {
 		if (this.element.hasClass('state-open'))
 			this.element.removeClass('state-open');
 		else this.element.addClass('state-open');
 	},
 
+	/**
+	 * [_initEvents description]
+	 * @return {[type]} [description]
+	 */
 	_initEvents: function() {
 		this.parent();
 		var self = this;

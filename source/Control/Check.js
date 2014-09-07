@@ -30,6 +30,14 @@
 		UI - 27 29 61
 */
 
+
+/**
+ * Creates checkbox control
+ * @class UI.Check
+ * @extends {UI.Control}
+ * @type {Class}
+ */
+
 UI.Check = new Class({
 
 	Extends: UI.Field,
@@ -45,7 +53,10 @@ UI.Check = new Class({
 		}
 	},
 
-
+	/**
+	 * [_initElement description]
+	 * @return {[type]} [description]
+	 */
 	_initElement: function() {
 		this.parent();
 
@@ -71,6 +82,10 @@ UI.Check = new Class({
 		
 	},
 
+	/**
+	 * [_initCheck description]
+	 * @return {[type]} [description]
+	 */
 	_initCheck: function() {
 		var self = this;
 
@@ -107,6 +122,11 @@ UI.Check = new Class({
 		}).inject(this.check);
 	},
 
+	/**
+	 * [_initText description]
+	 * @param  {[type]} opts [description]
+	 * @return {[type]}      [description]
+	 */
 	_initText: function(opts) {
 		var self = this;
 

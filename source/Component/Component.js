@@ -17,6 +17,7 @@
 * Minimalistic base of all ui components.
 *
 * @class UI.Component
+* @extends {UI}
 * @Require Mootools
 * @return {parent} Class
 * @example (start code)	new UI.Context(object); (end)

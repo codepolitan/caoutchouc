@@ -1,6 +1,7 @@
 
 /**
- * Class: UI.Button
+ * @class UI.Button
+ * @extends {UI.Control}
  * @type {Class}
  */
 UI.Button = new Class({

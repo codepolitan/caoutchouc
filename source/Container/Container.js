@@ -43,6 +43,13 @@
 		Class,Element,Request,Scroller
 
 */
+
+/**
+ * [initialize description]
+ * @class  UI.Container
+ * @extends {UI.Component}
+ * @author Jerome Vial
+ */
 UI.Container = new Class({
 
 	Extends: UI.Component,

@@ -19,6 +19,12 @@
 
 */
 
+/**
+ * Abstract class for all controls
+ * @class  UI.Control
+ * @extends {UI.Component}
+ * @author Jerome Vial
+ */
 UI.Control = new Class({
 
 	Extends: UI.Component,
