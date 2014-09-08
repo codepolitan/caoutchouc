@@ -195,7 +195,7 @@ UI.Split = new Class({
 		var self = this,
 			opts = this.options;
 
-		var min = 58;
+		var min = 66;
 
 		this.splitter = new Element('div',{
 			'class': 'ui-splitter'
