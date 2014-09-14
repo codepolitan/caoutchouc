@@ -1,3 +1,4 @@
+
 /**
 * Minimalistic Class for UI.Builder Management
 *
@@ -11,7 +12,6 @@
 * @author Jerome Vial
 * @copyright © 1999-2014 - Jerome D. Vial. All Rights reserved.
 */
-
 UI.Builder = new Class({
 	Implements: [Events, Options],
 	options: {
