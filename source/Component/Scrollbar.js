@@ -48,10 +48,10 @@ UI.Scroll = new Class({
 		klass: 'ui-scrollbar',
 		type: 'track',
 
-		maxThumbSize: 16,
+		maxThumbSize: 2,
 		wheel: 16,
 		autoHide: 1000,
-		size: 8
+		size: 12
 	},
 	/*
 		Constructor: initialize
