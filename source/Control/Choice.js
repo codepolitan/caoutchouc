@@ -106,7 +106,7 @@ UI.Choice = new Class({
 	 * @return {[type]} [description]
 	 */
 	toggle_selected: function() {
-		_log('toggle_selected', this.element);
+		//_log('toggle_selected', this.element);
 
 		if (this.selected)
 			this.selected.removeClass('selected');
