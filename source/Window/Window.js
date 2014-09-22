@@ -238,7 +238,7 @@ UI.Window = new Class({
 		this.underlay = new Element('div', {
 			'class': 'dialog-underlay',
 			styles: {
-				zIndex: this.options.zIndex-1
+				zIndex: 900
 			}
 		}).inject($(document.body));
 
