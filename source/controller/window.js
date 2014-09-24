@@ -115,7 +115,7 @@ ui.window = {
 	*/
 
 	register: function(win, group) {
-		_log('register', win);
+		//_log('register', win);
 		this.list.push(win);
 
 		if (group) {
