@@ -102,6 +102,10 @@ UI.Component.implement({
 		return this.element.getElements(string);
 	},
 
+	dispose: function(){
+		return this.element.dispose();
+	},
+
 	destroy: function(){
 		this.element.destroy();
 		return;
