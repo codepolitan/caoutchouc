@@ -1,164 +1,125 @@
-/*
 
-DRAFT
-
-*/
+/**
+ * sick layout
+ * @class sick.Layout
+ * @implements {Events, Options}
+ */
 
 UI.Layout = new Class({
 
 	Implements: [Events, Options],
 
+	/**
+	 * sick layout Options
+	 * @type {Object}
+	 * @param {name} [name] layout
+	 * @param {Object} [clss] Default component class
+	 */
 	options: {
-
-		layout: {
-			desktop: {
-				node: {
-					clss: 'UI.Container',
-					name: 'main',
-				}
-			}
-		},
-		defaultClss: 'UI.Container',
-		shorcuts: ['type', 'size', 'klss', 'name']
+		name: 'layout',
+		clss: 'UI.Layout',
+		comp: ['body']
 	},
 
-	initialize: function(options) {
+	/**
+	 * [initialize description]
+	 * @param  {[type]} options [description]
+	 * @return {[type]}         [description]
+	 */
+	initialize: function(options){
 		this.setOptions(options);
-		var opts = this.options;
 
+		this._init(this.options);
 
-
-		this.layout = opts.layout;
-		this.container = opts.container;
-
-		// define
-
-		this.container = {};
-		//this.view = {};
-		this.clss = {};
-
-		this._initLayout();
-
-	// object.level++;
-
+		return this;
 	},
 
-	_initLayout: function() {
-		var opts = this.options,
-			layout = opts.layout;
+	/**
+	 * init ui.layout
+	 * @param  {[type]} opts [description]
+	 * @return {[type]}      [description]
+	 */
+	_init: function(opts) {
+		_log('_init', opts);
+		var node = opts.node;
 
-		// check media and decide what layout to use
+		this.container = new Element('div', {
+			'class': 'ui-layout layout-' + opts.node._name
+		}).inject(opts.container.body);
 
-		//if (agent = 'mobile') // or if screen size
-		//	var node = layout.mobile.node;
+		node.container = this.container;
 
-		var node = layout.desktop.node;
-
-		// then _initNode
-
-		this._initNode(node);
+		this._process(node);
 	},
 
+	/**
+	 * [_process description]
+	 * @param  {[type]} mnml [description]
+	 * @return {[type]}      [description]
+	 */
+	_process: function(node) {
+		_debug('_process', node);
+		var list = node._list || [];
 
-	/*
-		function : _initContainer
+		//_log('-----process', node._list);
+		for (var i = 0, len = list.length; i < list.length; i++) {
+			//_log('--', list[i], node[list[i]]);
+			var name = list[i],
+				comp = node[name] || {};
 
-			Build the split containers
+			comp.clss = comp.clss || this.opts.clss;
+			comp.opts = comp.opts || {};
+			comp.opts.name = name;
+			comp.opts.container = node.container;
 
-	*/
-	_initNode: function(node) {
-		var self = this,
-			opts = this.options;
+			//_log('---', comp, this.opts.wrap);
+			var object = this._object(comp);
 
-		if (opts.node === null) return;
+			if (i === 0)
+				object.element.addClass('state-focus');
 
-		this.nodes = [];
+			/*if (comp.node) {
+				_log('-!!---', object.body);
+				comp.node.container = object.body;
 
-		if (typeOf(opts.node) == 'array') {
-			opts.node.each(function(node){
-				self._initClass(node);
-			});
-
-		} else if (typeOf(opts.node) == 'object') {
-			node = opts.node;
-
-			this._initClass(node);
+				this._process(comp.node);
+			}*/
 		}
 	},
 
+	/**
+	 * [_array description]
+	 * @param  {[type]} object [description]
+	 * @return {[type]}        [description]
+	 */
+	_array: function(array) {
+		_debug('_array', array);
+		var list = object._list || [];
 
+		for (var i = 0, len = list.length; i < list.length; i++) {
+			var name = list[i];
+			var comp = object[name];
+		}
+	},
 
-	_initClass: function(node, element) {
+	/**
+	 * Instanciate the given object comp
+	 * @param  {object]} comp list component
+	 * @return {[type]}      [description]
+	 */
+	_object: function(comp) {
+		_debug('_object', comp);
+		var name = comp.opts.name;
+		var clss = sick.api.toclss(comp.clss);
 
-		if (!node.clss)
-			node.clss = 'UI.Component';
-
-		node.container = this.element;
-		node.main = this.main;
-
-		node.opts = node.opts || {};
-
-		// init someshort cuts
-
-		if (node.size)	node.opts.size = node.size;
-
-		//_log(node);
-
-		var clss = new UI[node.clss](node);
+		//comp.opts.container = comp.container;
+		var object = this[name] = new clss(comp.opts);
 
 		this.addEvent('resize', function() {
-			container.fireEvent('resize');
+			object.fireEvent('resize');
 		});
-	},
 
-
-
-	/*
-	Method: build
-		private function
-
-		Creates html structure and inject it to the dom.
-
-	Returns:
-		(void)
-
-	*/
-
-	_initClass: function(name, object, container) {
-		//_log('floor.sapce.build',object.level,object.name);
-
-		container = container || document.body;
-		floor.build.count = floor.build.count++ || 1;
-
-		//_log('count sub space',floor.space.count);
-		var clss = {};
-
-		if (typeOf(object) == 'object') {
-			if (!object.clss)
-				object.clss = 'view';
-
-			var names = clss.split(/\./);
-
-			//_log(names);
-
-			clss = new UI[object.clss.capitalize()](object)
-			.inject(container);
-
-			// should define ui.controller.view.register
-			if (!floor.ui[name])
-				floor.ui[name] = {};
-
-			floor.ui[name][object.name] = view;
-		}
-
-		/*if (object.views) {
-			object.views.each( function(sub, i) {
-				this.ui(name, sub, view.views[i]);
-			},this);
-		}*/
-
-		return view;
+		return this[name];
 	}
+
 });
-
-
