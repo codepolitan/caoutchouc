@@ -123,6 +123,12 @@ UI.Field = new Class({
 			mousedown: function(e) {
 				//e.stopPropagation();
 				//this.focus();
+			},
+			focus: function(e) {
+				self.setState('focus');
+			},
+			blur: function(e) {
+				self.setState(null);
 			}
 		});
 	},
