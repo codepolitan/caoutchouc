@@ -63,7 +63,7 @@ UI.Hour = new Class({
 		this.parent();
 		this.element.addClass('field-hour');
 
-		this.date = this.options.date;
+		this.date = this.options.value  || this.options.date;
 
 		var tmp = new Date(this.date);
 		var time = this.convertDateTimeToHour(tmp);

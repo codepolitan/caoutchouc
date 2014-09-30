@@ -63,12 +63,14 @@ UI.Date = new Class({
 		//_log('imput option', this.options);
 
 		this.element.addClass('field-date');
-		this.element.addClass('nolabel');
 		this.element.addClass('icon-text');
 
 		this.input = new Element('input', {
 			readonly: 'readonly',
-			name: opts.name
+			name: opts.name,
+			styles: {
+				display: 'none'
+			}
 		}).inject(this.element);
 
 		this.icon = new Element('span', {
@@ -76,8 +78,9 @@ UI.Date = new Class({
 		}).inject(this.element);
 
 
-		this.text = new Element('span', {
-			'class': 'text'
+		this.text = new Element('input', {
+			'class': 'text',
+			type: 'text'
 		}).inject(this.element);
 
 		this._initPicker();
@@ -128,7 +131,7 @@ UI.Date = new Class({
 		var text = moment(d).format(opts.format);
 
 		this.input.set('value', date);
-		this.text.set('html', text);
+		this.text.set('value', text);
 	}
 
 });
