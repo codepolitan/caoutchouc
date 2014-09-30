@@ -103,7 +103,8 @@ UI.Field = new Class({
 				//this.focus();
 			},
 			focus: function(e) {
-				self.setState('focus');
+				if (!this.get('readonly'))
+					self.setState('focus');
 			},
 			blur: function(e) {
 				self.setState(null);
