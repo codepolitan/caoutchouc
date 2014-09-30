@@ -91,7 +91,7 @@ UI.Hour = new Class({
 		}).inject(this.input, 'after');
 
 		this.plus = new Element('span', {
-			'class': 'icon-plus'
+			'class': 'fa fa-plus-square'
 		}).inject(controls);
 
 
@@ -106,7 +106,7 @@ UI.Hour = new Class({
 
 
 		this.minus = new Element('span', {
-			'class': 'icon-minus'
+			'class': 'fa fa-minus-square'
 		}).inject(controls);
 
 		this.minus.addEvent('click', function() {
