@@ -1,36 +1,9 @@
-/*
-	Class: UI.Field
-		Create a skinnable input element
 
-	Extends:
-		<UI.Control>
-
-	Arguments:
-		options
-
-	Options:
-		name - (string) name for the input element
-		value - (string) value
-		name - (string) name name
-
-	Example:
-		(start code)
-		var button = new UI.Button({
-			name: 'myInput',
-			value: 'Hello world'
-		}).inject(document.body);
-		(end)
-
-	Implied global:
-		Class - 25
-		UI - 25 27
-
-	Members:
-		Control, Extends, Input, addEvents, bind, blur, name,
-		focus, name, options, parent, _initEvents, setState, value
-
-*/
-
+/**
+ * 
+ * @param  {[type]} options){		this.setOptions(options);		var opts          = this.options;		this.fireEvent('init');		this._initOptions(opts);		this._initElement();		this._initEvents( [description]
+ * @return {[type]}                                            [description]
+ */
 UI.Field = new Class({
 
 	Extends: UI.Control,
@@ -44,6 +17,11 @@ UI.Field = new Class({
 		useTextAsLabel: false
 	},
 
+	/**
+	 * [initialize description]
+	 * @param  {[type]} options [description]
+	 * @return {[type]}         [description]
+	 */
 	initialize: function(options){
 		this.setOptions(options);
 
@@ -133,6 +111,11 @@ UI.Field = new Class({
 		});
 	},
 
+	/**
+	 * [_initName description]
+	 * @param  {[type]} name [description]
+	 * @return {[type]}      [description]
+	 */
 	_initName: function(name) {
 		var opts = this.options;
 
@@ -142,6 +125,10 @@ UI.Field = new Class({
 		}
 	},
 
+	/**
+	 * [_initValue description]
+	 * @return {[type]} [description]
+	 */
 	_initValue: function(){
 		var opts = this.options;
 
@@ -151,72 +138,36 @@ UI.Field = new Class({
 	},
 
 
-	/*
-	Function: getValue
-		Get value
-
-	Arguments:
-		none
-
-	Return:
-		value: string
-
-	*/
-
+	/**
+	 * [getValue description]
+	 * @return {[type]} [description]
+	 */
 	getValue: function(){
 		return this.input.get('value');
 	},
 
-	/*
-	Function: SetValue
-		Set element state
-
-	Arguments:
-		none
-
-	Return:
-		value: string
-
-	*/
-
+	/**
+	 * [setValue description]
+	 * @param {[type]} value [description]
+	 */
 	setValue: function(value){
 		this.input.set('value', value);
 		this.value = value;
 		this.fireEvent('change' , value);
 	},
 
-	/*
-	Function: setState
-		Set element state
-
-	Arguments:
-		state - (string) State name
-
-	Return:
-		(void)
-
-	See also:
-		<UI.Component::setState>
-	*/
-
+	/**
+	 * [setState description]
+	 * @param {[type]} state [description]
+	 */
 	setState: function(state){
 		this.parent(state);
 	},
 
-	/*
-	Function: _initEvents
-		private function
-
-		Set control relative behavior (blur and focus)
-
-	Return:
-		(void)
-
-	See also:
-		<UI.Control::_initEvents>
-		<UI.Component::_initEvents>
-	*/
-
+	/**
+	 * [_initEvents description]
+	 * @return {[type]} [description]
+	 */
 	_initEvents: function() {
 		this.parent();
 		this.addEvents({
@@ -225,6 +176,11 @@ UI.Field = new Class({
 		});
 	},
 
+	/**
+	 * [set description]
+	 * @param {[type]} name  [description]
+	 * @param {[type]} value [description]
+	 */
 	set: function(name, value) {
 
 
