@@ -1,4 +1,4 @@
-/*
+0/*
 	Class: UI.Field
 		Create a skinnable input element
 
@@ -31,7 +31,7 @@
 
 */
 
-UI.Date = new Class({
+UI.Dates = new Class({
 
 	Extends: UI.Component,
 
