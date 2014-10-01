@@ -52,7 +52,7 @@ UI.Date = new Class({
 			columns: 1,
 			positionOffset: { x: 15, y: 5 },
 			pickerClass: 'datepicker_bootstrap',
-			format: "%Y/%m/%d"
+			format: "lll"
 		}
 	},
 
@@ -60,30 +60,30 @@ UI.Date = new Class({
 		var self = this,
 			opts = this.options;
 
-		_log('imput option', this.options);
+		_log('input option', this.options);
 
 		this.element.addClass('field-date');
 		this.element.addClass('icon-text');
 
 		this.input = new Element('input', {
-			readonly: 'readonly',
+			//readonly: 'readonly',
 			name: opts.name,
+			type: 'text',
 			styles: {
-				display: 'none'
+				//display: 'none'
 			}
 		}).inject(this.element);
 
-		this.icon = new Element('span', {
-			'class': 'icon icon-calendar'
-		}).inject(this.element);
-
+		/*this.icon = new Element('span', {
+			'class': 'fa fa-calendar'
+		}).inject(this.element);*/
 
 		this.text = new Element('input', {
 			'class': 'text',
 			type: 'text'
 		}).inject(this.element);
 
-		//this._initPicker();
+		this._initPicker();
 
 		this.set(opts.value);
 
@@ -93,7 +93,22 @@ UI.Date = new Class({
 		var self = this,
 			opts = this.options;
 
-		this.picker = new Picker.Date(this.input, opts.picker);
+
+		var options =  opts.picker;
+
+		options.onSelect = function(d){
+			//_log('--', d, self.doc, field.name);
+			//self.updateDocKey(opts.name, d);
+			//self.doc[field.name] = d;
+			self.fireEvent('change', [d, opts.name]);
+		};
+
+		options.onShow = function(d){
+			//_log('-show-', d);
+
+		};
+
+		this.picker = new Picker.Date(this.input, options);
 
 		_log('pickcer', this.picker);
 	},
@@ -115,12 +130,12 @@ UI.Date = new Class({
 	_initEvents: function() {
 		var self = this;
 
-		/*this.picker.addEvents({
+		this.picker.addEvents({
 			select: function(d){
 				self.set(d);
 				self.fireEvent('change', d);
 			}
-		});*/
+		});
 
 	},
 
