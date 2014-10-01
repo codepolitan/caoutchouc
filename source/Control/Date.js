@@ -60,7 +60,7 @@ UI.Date = new Class({
 		var self = this,
 			opts = this.options;
 
-		//_log('imput option', this.options);
+		_log('imput option', this.options);
 
 		this.element.addClass('field-date');
 		this.element.addClass('icon-text');
@@ -83,7 +83,7 @@ UI.Date = new Class({
 			type: 'text'
 		}).inject(this.element);
 
-		this._initPicker();
+		//this._initPicker();
 
 		this.set(opts.value);
 
@@ -95,7 +95,7 @@ UI.Date = new Class({
 
 		this.picker = new Picker.Date(this.input, opts.picker);
 
-		//_log(this.picker);
+		_log('pickcer', this.picker);
 	},
 
 	/*
@@ -115,12 +115,12 @@ UI.Date = new Class({
 	_initEvents: function() {
 		var self = this;
 
-		this.picker.addEvents({
+		/*this.picker.addEvents({
 			select: function(d){
 				self.set(d);
 				self.fireEvent('change', d);
 			}
-		});
+		});*/
 
 	},
 
