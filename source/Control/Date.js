@@ -40,7 +40,7 @@ UI.Date = new Class({
 		base: 'control',
 		tag: 'div',
 		type: 'input',
-		format: 'll',
+		format: 'ddd, MMM D YYYY',
 		value: null,
 		useTextAsLabel: false,
 		picker: {
@@ -52,7 +52,7 @@ UI.Date = new Class({
 			columns: 1,
 			positionOffset: { x: 15, y: 5 },
 			pickerClass: 'datepicker_bootstrap',
-			format: "lll"
+			format: "LLLL"
 		}
 	},
 
@@ -69,9 +69,7 @@ UI.Date = new Class({
 			//readonly: 'readonly',
 			name: opts.name,
 			type: 'text',
-			styles: {
-				//display: 'none'
-			}
+			class: 'date-input'
 		}).inject(this.element);
 
 		/*this.icon = new Element('span', {
@@ -79,7 +77,7 @@ UI.Date = new Class({
 		}).inject(this.element);*/
 
 		this.text = new Element('input', {
-			'class': 'text',
+			'class': 'date-text',
 			type: 'text'
 		}).inject(this.element);
 
@@ -144,6 +142,8 @@ UI.Date = new Class({
 
 		var date = moment(d).toISOString();
 		var text = moment(d).format(opts.format);
+
+		console.log('!!!', text);
 
 		this.input.set('value', date);
 		this.text.set('value', text);
