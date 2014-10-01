@@ -52,7 +52,7 @@ UI.Date = new Class({
 			columns: 1,
 			positionOffset: { x: 15, y: 5 },
 			pickerClass: 'datepicker_bootstrap',
-			format: "LLLL"
+			format: "b"
 		}
 	},
 
@@ -76,12 +76,14 @@ UI.Date = new Class({
 			'class': 'fa fa-calendar'
 		}).inject(this.element);*/
 
+		this._initPicker();
+
+		//this.picker.detach(this.input);
+
 		this.text = new Element('input', {
 			'class': 'date-text',
 			type: 'text'
 		}).inject(this.element);
-
-		this._initPicker();
 
 		this.set(opts.value);
 
@@ -102,7 +104,12 @@ UI.Date = new Class({
 		};
 
 		options.onShow = function(d){
-			//_log('-show-', d);
+			_log('-show-', d);
+
+		};
+
+		options.onHide = function(d){
+			_log('-hide-', d);
 
 		};
 
@@ -130,8 +137,8 @@ UI.Date = new Class({
 
 		this.picker.addEvents({
 			select: function(d){
+				_log('kkk', d);
 				self.set(d);
-				self.fireEvent('change', d);
 			}
 		});
 
@@ -140,10 +147,10 @@ UI.Date = new Class({
 	set: function(d) {
 		var opts = this.options;
 
-		var date = moment(d).toISOString();
-		var text = moment(d).format(opts.format);
+		var date = moment(d).format(opts.format);
+		var text = moment(d).toISOString();
 
-		console.log('!!!', text);
+		self.fireEvent('change', text);
 
 		this.input.set('value', date);
 		this.text.set('value', text);
