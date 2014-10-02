@@ -60,7 +60,7 @@ UI.Date = new Class({
 		var self = this,
 			opts = this.options;
 
-		_log('input option', this.options);
+		//_log('input option', this.options);
 
 		this.element.addClass('field-date');
 		this.element.addClass('icon-text');
@@ -104,18 +104,18 @@ UI.Date = new Class({
 		};
 
 		options.onShow = function(d){
-			_log('-show-', d);
+			//_log('-show-', d);
 
 		};
 
 		options.onHide = function(d){
-			_log('-hide-', d);
+			//_log('-hide-', d);
 
 		};
 
 		this.picker = new Picker.Date(this.input, options);
 
-		_log('pickcer', this.picker);
+		//_log('pickcer', this.picker);
 	},
 
 	/*
@@ -137,7 +137,7 @@ UI.Date = new Class({
 
 		this.picker.addEvents({
 			select: function(d){
-				_log('kkk', d);
+				//_log('kkk', d);
 				self.set(d);
 			}
 		});

@@ -62,7 +62,7 @@ UI.Hour = new Class({
 		//create a new div as input element
 		this.parent();
 
-		_log(this.element);
+		//_log(this.element);
 
 		this.input.addClass('mask');
 		this.input.set('alt', "{ type: 'fixed', mask: '99h99' }");
