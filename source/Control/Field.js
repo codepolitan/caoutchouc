@@ -93,23 +93,6 @@ UI.Field = new Class({
 			value: this.options.value,
 			placeholder: this.options.text
 		}).inject(this.element);
-
-		this.input.addEvents({
-			keyup: function() {
-				self.fireEvent('change', this.get('value'));
-			},
-			mousedown: function(e) {
-				//e.stopPropagation();
-				//this.focus();
-			},
-			focus: function(e) {
-				if (!this.get('readonly'))
-					self.setState('focus');
-			},
-			blur: function(e) {
-				self.setState(null);
-			}
-		});
 	},
 
 	/**
@@ -171,6 +154,24 @@ UI.Field = new Class({
 	 */
 	_initEvents: function() {
 		this.parent();
+		var self = this;
+		this.input.addEvents({
+			keyup: function() {
+				self.fireEvent('change', this.get('value'));
+			},
+			mousedown: function(e) {
+				//e.stopPropagation();
+				//this.focus();
+			},
+			focus: function(e) {
+				if (!this.get('readonly'))
+					self.setState('focus');
+			},
+			blur: function(e) {
+				self.setState(null);
+			}
+		});
+
 		this.addEvents({
 			blur: this.setState.bind(this, 'default'),
 			focus: this.setState.bind(this, 'focus')
@@ -182,9 +183,11 @@ UI.Field = new Class({
 	 * @param {[type]} name  [description]
 	 * @param {[type]} value [description]
 	 */
-	set: function(name, value) {
-
-
+	set: function(value) {
+		var opts = this.options;
+		console.log('setvalue', value);
+		this.input.set('value', value);
+		this.fireEvent('change', value);
 	}
 
 });

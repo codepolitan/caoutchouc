@@ -172,7 +172,33 @@ UI.Hour = new Class({
 	*/
 
 	_initEvents: function() {
-		this.parent();
+		var self = this;
+		this.input.addEvents({
+			keyup: function() {
+				var hours = this.get('value').split('h');
+
+				self.date = new Date(self.date);
+
+				self.date.setHours(hours[0]);
+				self.date.setMinutes(hours[1]);
+				self.date.setSeconds(0);
+
+				self.fireEvent('change', self.date);
+
+			},
+			mousedown: function(e) {
+				//e.stopPropagation();
+				//this.focus();
+			},
+			focus: function(e) {
+				if (!this.get('readonly'))
+					self.setState('focus');
+			},
+			blur: function(e) {
+				self.setState(null);
+			}
+		});
+
 		this.addEvents({
 			blur: this.setState.bind(this, 'default'),
 			focus: this.setState.bind(this, 'focus')

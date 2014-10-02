@@ -20,6 +20,8 @@ UI.Choice = new Class({
 	_initElement: function() {
 		this.parent();
 
+		this.item = {};
+
 		var self = this,
 			opts = this.options;
 
@@ -74,9 +76,10 @@ UI.Choice = new Class({
 			opts = this.options;
 
 		var li = new Element('li', {
-			html: item
+			html: item,
+			'data-value': item
 		}).inject(this.list).addEvent('click', function(){
-
+			_log('click', this);
 			if (self.selected)
 				self.selected.removeClass('selected');
 
@@ -92,6 +95,8 @@ UI.Choice = new Class({
 				self.select(item);
 			}
 		});
+
+		this.item[item] = li;
 
 		this.itemList.push(item);
 
@@ -132,6 +137,24 @@ UI.Choice = new Class({
 		this.choice.set('html', value);
 		this.element.removeClass('state-open');
 		this.fireEvent('change', value, name);
+	},
+
+	/**
+	 * [select description]
+	 * @param  {[type]} value [description]
+	 * @return {[type]}       [description]
+	 */
+	set: function(value) {
+		//_log('choice set', value, this.item);
+		var item = this.item[value];
+
+		if (!item) return;
+
+		if (this.selected)
+			this.selected.removeClass('selected');
+
+		item.addClass('selected');
+		this.selected = item;
 	},
 
 	/**
