@@ -61,6 +61,12 @@ UI.Hour = new Class({
 
 		//create a new div as input element
 		this.parent();
+
+		_log(this.element);
+
+		this.input.addClass('mask');
+		this.input.set('alt', "{ type: 'fixed', mask: '99h99' }");
+
 		this.element.addClass('field-hour');
 
 		this.date = this.options.value  || this.options.date;
