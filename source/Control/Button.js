@@ -47,6 +47,9 @@ UI.Button = new Class({
 		//var text = opts.type.match(/text/g);
 
 
+		if (opts.name)
+			this.element.set('data-name', opts.name);
+
 
 		//_log('title', this.element,  opts.text);
 		this.element.set('title', opts.text);
