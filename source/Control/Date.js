@@ -50,7 +50,7 @@ UI.Date = new Class({
 			//showOnInit: true,
 			draggable: false,
 			columns: 1,
-			positionOffset: { x: 15, y: 5 },
+			positionOffset: { x: 0, y: 5 },
 			pickerClass: 'datepicker_bootstrap',
 			format: "b"
 		}
