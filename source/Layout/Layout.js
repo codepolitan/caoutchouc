@@ -28,28 +28,20 @@ UI.Layout = new Class({
 	 */
 	initialize: function(options){
 		this.setOptions(options);
+		var opts = this.options;
 
-		this._init(this.options);
-
-		return this;
-	},
-
-	/**
-	 * init ui.layout
-	 * @param  {[type]} opts [description]
-	 * @return {[type]}      [description]
-	 */
-	_init: function(opts) {
-		_log('_init', opts);
+		_log('initialize', opts);
 		var node = opts.node;
 
-		this.container = new Element('div', {
+		this.container = new Element('div', { 
 			'class': 'ui-layout layout-' + opts.node._name
 		}).inject(opts.container);
 
 		node.container = this.container;
 
 		this._process(node);
+
+		return this;
 	},
 
 	/**
@@ -80,13 +72,12 @@ UI.Layout = new Class({
 			if (i === 0)
 				object.element.addClass('state-focus');
 
-
-			/*if (comp.node) {
+			if (comp.node) {
 				_log('-!!---', object.body);
-				comp.node.container = object.body;
+				comp.node.container = object;
 
 				this._process(comp.node);
-			}*/
+			}
 		}
 	},
 
