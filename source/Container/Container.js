@@ -60,9 +60,6 @@ UI.Container = new Class({
 		name: 'container',
 
 		node: null,
-		head: true,
-		content: true,
-		foot: true,
 
 		tag: 'div',
 	},
@@ -71,7 +68,11 @@ UI.Container = new Class({
 	initialize: function(options){
 		this.parent(options);
 
-		this._initComponent();
+		if (this.options.comp)
+			this._initComp(this.options.comp);
+		else {
+			this._initComponent();
+		}
 
 		return this;
 	},
@@ -110,27 +111,85 @@ UI.Container = new Class({
 
 	*/
 	_initComponent: function() {
-
 		var self = this,
 			opts = this.options;
 
 		if (opts.node === null) return;
 
-		//_log('_initComponent', opts.node);
+		_log('_initComponent', opts.node);
 
 		this.node = [];
 
 		if (typeOf(opts.node) == 'array') {
-			opts.node.each(function(node,i){
-				self.addComponent(node);
-			});
-
+			for (var i = 0; i < opts.node.length; i++) {
+				this.addComponent(opts.node[i]);
+			}
 		} else if (typeOf(opts.node) == 'object') {
 			var node = opts.node;
 
 			this.addComponent(node);
 		}
 
+	},
+
+	/*
+	Method: _initComp
+		private function
+
+		create an overlay displayed when container is disabled (when moved or resized)
+
+	Returns:
+		(void)
+	 */
+	/**
+	 * Initialize internal container components
+	 * @param  {Mixin} comp Compenent description
+	 * @return {[type]}      [description]
+	 */
+	_initComp: function(comp) {
+		//_log('_initComp', comp);
+		var self = this;
+
+		if (typeOf(comp) == 'string' ) {
+			this.addComp(comp);
+		} else if (typeOf(comp) == 'object' ){
+
+		} else if (typeOf(comp) == 'array' ) {
+			comp.each(function(name) {
+				self.addComp(name);
+			});
+		}
+	},
+
+	/**
+	 * [_initComp description]
+	 * @param  {[type]} name [description]
+	 * @return {[type]}      [description]
+	 */
+	addComp: function(name, position, element) {
+		_debug('addComp', name, position, element);
+		var self = this;
+		position = position || 'bottom';
+		element = element || this.element;
+
+		//_log('_addComp', name);
+
+		if (!element) {
+			_warn('Container is ', element);
+			return;
+		}
+
+		var comp = this[name] = new Element('div')
+			.addClass('container-'+name)
+			.inject(element, position);
+
+		return comp;
+		/*this.addEvents({
+			resize: function() {
+				//_log('resize from head', this, this.head.getSize().y+'px');
+				this.element.setStyle('padding-top', this.head.getSize().y+'px');
+			}
+		});*/
 	},
 
 	/*
@@ -184,12 +243,12 @@ UI.Container = new Class({
 			.addClass('container-head')
 			.inject(this.element,'top');
 
-		this.addEvents({
+		/*this.addEvents({
 			resize: function() {
 				//_log('resize from head', this, this.head.getSize().y+'px');
 				this.element.setStyle('padding-top', this.head.getSize().y+'px');
 			}
-		});
+		});*/
 	},
 
 	/*
@@ -278,14 +337,14 @@ UI.Container = new Class({
 			'class': 'container-foot'
 		}).inject(this.element, 'bottom');
 
-		this.addEvents({
+		/*this.addEvents({
 			resize: function(){
 				//_log('resize foot ', this.element, this.foot.getSize().y);
 				var y = this.foot.getSize().y;
 				if (y > 3)
 				this.element.setStyle('padding-bottom', y+'px');
 			}
-		});
+		});*/
 	},
 
 	/*

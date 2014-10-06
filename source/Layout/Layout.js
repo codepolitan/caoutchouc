@@ -17,7 +17,7 @@ UI.Layout = new Class({
 	 */
 	options: {
 		name: 'layout',
-		clss: 'UI.Layout',
+		clss: 'UI.Container',
 		comp: ['body']
 	},
 
@@ -45,7 +45,7 @@ UI.Layout = new Class({
 
 		this.container = new Element('div', {
 			'class': 'ui-layout layout-' + opts.node._name
-		}).inject(opts.container.body);
+		}).inject(opts.container);
 
 		node.container = this.container;
 
@@ -61,13 +61,13 @@ UI.Layout = new Class({
 		_debug('_process', node);
 		var list = node._list || [];
 
-		//_log('-----process', node._list);
+		_log('-----process', node._list);
 		for (var i = 0, len = list.length; i < list.length; i++) {
-			//_log('--', list[i], node[list[i]]);
+			_log('--', list[i]);
 			var name = list[i],
 				comp = node[name] || {};
 
-			comp.clss = comp.clss || this.opts.clss;
+			comp.clss = comp.clss || this.options.clss;
 			comp.opts = comp.opts || {};
 			comp.opts.name = name;
 			comp.opts.container = node.container;
@@ -75,8 +75,11 @@ UI.Layout = new Class({
 			//_log('---', comp, this.opts.wrap);
 			var object = this._object(comp);
 
+			object.element.addClass('container-'+name);
+
 			if (i === 0)
 				object.element.addClass('state-focus');
+
 
 			/*if (comp.node) {
 				_log('-!!---', object.body);
@@ -110,7 +113,7 @@ UI.Layout = new Class({
 	_object: function(comp) {
 		_debug('_object', comp);
 		var name = comp.opts.name;
-		var clss = sick.api.toclss(comp.clss);
+		var clss = mnml.strToClss(comp.clss);
 
 		//comp.opts.container = comp.container;
 		var object = this[name] = new clss(comp.opts);

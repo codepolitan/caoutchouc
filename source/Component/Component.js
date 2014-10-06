@@ -85,6 +85,7 @@ UI.Component = new Class({
 	 * @param {[type]} node [description]
 	 */
 	addComponent: function(node) {
+		_log('addComponent', node);
 		if (!node.component)
 			node.component = 'container';
 
