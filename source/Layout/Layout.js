@@ -29,7 +29,7 @@ UI.Layout = new Class({
 		this.setOptions(options);
 		var opts = this.options;
 
-		_log('initialize', opts);
+		//_log('initialize', opts);
 		var node = opts.node;
 
 		this.container = new Element('div', {
@@ -53,7 +53,7 @@ UI.Layout = new Class({
 		var list = node._list || [];
 
 		for (var i = 0, len = list.length; i < list.length; i++) {
-			_log('--', list[i]);
+			//_log('--', list[i]);
 			var name = list[i],
 				comp = node[name] || {};
 
@@ -71,7 +71,7 @@ UI.Layout = new Class({
 				object.element.addClass('state-focus');
 
 			if (comp.node) {
-				_log('-!!---', object.body);
+				//_log('-!!---', object.body);
 				comp.node.container = object;
 
 				this._process(comp.node);
