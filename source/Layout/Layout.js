@@ -107,7 +107,6 @@ UI.Layout = new Class({
 		//comp.opts.container = comp.container;
 		var object = this[name] = new clss(comp.opts);
 
-
 		this.addEvent('resize', function() {
 			object.fireEvent('resize');
 		});
