@@ -4,7 +4,6 @@
  * @class sick.Layout
  * @implements {Events, Options}
  */
-
 UI.Layout = new Class({
 
 	Implements: [Events, Options],
@@ -33,7 +32,7 @@ UI.Layout = new Class({
 		_log('initialize', opts);
 		var node = opts.node;
 
-		this.container = new Element('div', { 
+		this.container = new Element('div', {
 			'class': 'ui-layout layout-' + opts.node._name
 		}).inject(opts.container);
 
@@ -53,7 +52,6 @@ UI.Layout = new Class({
 		_debug('_process', node);
 		var list = node._list || [];
 
-		_log('-----process', node._list);
 		for (var i = 0, len = list.length; i < list.length; i++) {
 			_log('--', list[i]);
 			var name = list[i],
@@ -102,12 +100,13 @@ UI.Layout = new Class({
 	 * @return {[type]}      [description]
 	 */
 	_object: function(comp) {
-		_debug('_object', comp);
+		//_log('_object', comp.clss);
 		var name = comp.opts.name;
 		var clss = mnml.strToClss(comp.clss);
 
 		//comp.opts.container = comp.container;
 		var object = this[name] = new clss(comp.opts);
+
 
 		this.addEvent('resize', function() {
 			object.fireEvent('resize');

@@ -2,46 +2,6 @@
 	Class: UI.Container
 		The UI.Container class defines objects manage the content of the container
 		that manage containers use by several object like windows, menus.
-
-
-	Extends:
-		<UI.Component>
-
-	Require:
-		<UI>
-		<UI.Component>
-		<UI.Scroll>
-
-	Arguments:
-		options
-
-	Options:
-		- width - (integer/string) Width of the container wrapper in px or percent
-		- height - (integer/string) Height  of the container wrapper in px or percent
-		- scroll - (string) hidden, scrollbar or menu
-		- tag - (string) Element's tag
-		- contentTag - (string) Content's tag
-
-		- content - (object) Object containing content element's options
-		- onLoadComplete - (function) Function to fire on list load complete
-
-	Returns:
-		Container object.
-
-	Example:
-		(start code)
-		var container = new UI.Container({
-			width			: 260,
-			height			: 400,
-			scroll			: true
-		}).setContent('content','content container');
-		(end)
-
-
-	Implied global:
-		UI,
-		Class,Element,Request,Scroller
-
 */
 
 /**
@@ -64,7 +24,11 @@ UI.Container = new Class({
 		tag: 'div'
 	},
 
-
+	/**
+	 * [initialize description]
+	 * @param  {[type]} options [description]
+	 * @return {[type]}         [description]
+	 */
 	initialize: function(options){
 		this.parent(options);
 
@@ -208,26 +172,6 @@ UI.Container = new Class({
 	},
 
 	/*
-	Method: _initEvents
-		private function
-
-		_initEvents container related events
-
-	Returns:
-		(void)
-	*/
-	_initEvents: function() {
-		this.parent();
-		var self = this;
-	/*	this.addEvents({
-			resize: function() {
-				//_log('resize');
-			}
-		});
-*/
-	},
-
-	/*
 	Method: _initHead
 		private function
 
@@ -242,13 +186,6 @@ UI.Container = new Class({
 		this.head = new Element('div')
 			.addClass('container-head')
 			.inject(this.element,'top');
-
-		/*this.addEvents({
-			resize: function() {
-				//_log('resize from head', this, this.head.getSize().y+'px');
-				this.element.setStyle('padding-top', this.head.getSize().y+'px');
-			}
-		});*/
 	},
 
 	/*
@@ -336,15 +273,6 @@ UI.Container = new Class({
 		this.foot = new Element('div', {
 			'class': 'container-foot'
 		}).inject(this.element, 'bottom');
-
-		/*this.addEvents({
-			resize: function(){
-				//_log('resize foot ', this.element, this.foot.getSize().y);
-				var y = this.foot.getSize().y;
-				if (y > 3)
-				this.element.setStyle('padding-bottom', y+'px');
-			}
-		});*/
 	},
 
 	/*
