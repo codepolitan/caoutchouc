@@ -197,16 +197,16 @@ UI.Window = new Class({
 		//this.fireEvent('resize');
 	},
 
-	_initContent: function(options) {
+	_initBody: function(options) {
 		this.fireEvent('resize');
 
-		this.content = new Element('div')
-			.addClass('container-content')
+		this.body = new Element('div')
+			.addClass('container-body')
 			.inject(this.element,'top');
 
 		this.addEvents({
-			'minimize': function() { this.content.hide(); },
-			'normalize': function() { this.content.show(); }
+			'minimize': function() { this.body.hide(); },
+			'normalize': function() { this.body.show(); }
 		});
 	},
 
@@ -225,8 +225,8 @@ UI.Window = new Class({
 		this.dragHandlers.push(this.foot);
 
 		this.addEvents({
-			minimize: function() { this.content.hide(); },
-			normalize: function() { this.content.show(); }
+			minimize: function() { this.body.hide(); },
+			normalize: function() { this.body.show(); }
 		});
 	},
 

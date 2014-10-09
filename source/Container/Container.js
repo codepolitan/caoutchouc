@@ -62,7 +62,7 @@ UI.Container = new Class({
 
 		if ( opts.head ) this._initHead( opts.head );
 		if ( opts.menu ) this.setMenu( opts.menu );
-		if ( this.name == 'window' ) this._initContent();
+		if ( this.name == 'window' ) this._initBody();
 		if ( opts.useOverlay ) this._initOverlay();
 
 		if ( opts.foot ) this._initFoot( opts.foot );
