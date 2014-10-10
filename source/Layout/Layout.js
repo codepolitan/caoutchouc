@@ -32,9 +32,19 @@ UI.Layout = new Class({
 		//_log('initialize', opts);
 		var node = opts.node;
 
-		this.container = new Element('div', {
+		/*this.container = new Element('div', {
+			'class': 'ui-layout layout-' + opts.node._name
+		}).inject(opts.container);*/
+
+		this.container = new UI.Container({
 			'class': 'ui-layout layout-' + opts.node._name
 		}).inject(opts.container);
+
+		_log('Layout container', this.container);
+
+		this.container.addClass('ui-layout');
+		this.container.addClass('layout-' + opts.node._name);
+
 
 		node.container = this.container;
 
