@@ -79,7 +79,7 @@ UI.Choice = new Class({
 			html: item,
 			'data-value': item
 		}).inject(this.list).addEvent('click', function(){
-			_log('click', this);
+			//_log('click', this);
 			if (self.selected)
 				self.selected.removeClass('selected');
 
