@@ -87,8 +87,8 @@ UI.Window = new Class({
 
 		// Resize options
 		resizable: true,
-		resizeLimitX: [160, screen.width],
-		resizeLimitY: [160, screen.height],
+		resizeLimitX: [360, screen.width],
+		resizeLimitY: [260, screen.height],
 		resizeOnDragIfMaximized: false,
 		resizeBorders: ['top','right','bottom','left']
 	},
