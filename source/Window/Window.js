@@ -242,7 +242,7 @@ UI.Window = new Class({
 			styles: {
 				zIndex: 900
 			}
-		}).inject($(document.body));
+		}).inject(this.options.container);
 
 		this.underlay.show();
 
