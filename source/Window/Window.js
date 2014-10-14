@@ -121,7 +121,9 @@ UI.Window = new Class({
 			ui.window.resetMinimized();
 		};
 
-		this.inject($(document.body));
+
+
+		this.inject(this.options.container);
 	},
 
 	/**
