@@ -40,7 +40,7 @@ UI.Layout = new Class({
 			'class': 'ui-layout layout-' + opts.node._name
 		}).inject(opts.container);
 
-		_log('Layout container', this.container);
+		//_log('Layout container', this.container);
 
 		this.container.addClass('ui-layout');
 		this.container.addClass('layout-' + opts.node._name);
