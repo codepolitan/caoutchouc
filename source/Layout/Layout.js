@@ -1,7 +1,7 @@
 
 /**
- * sick layout
- * @class sick.Layout
+ * UI Layout
+ * @class UI.Layout
  * @implements {Events, Options}
  */
 UI.Layout = new Class({
@@ -72,7 +72,7 @@ UI.Layout = new Class({
 			comp.opts.name = name;
 			comp.opts.container = node.container;
 
-			//_log('---', comp, this.opts.wrap);
+			_log('---', comp);
 			var object = this._object(comp);
 
 			object.element.addClass('container-'+name);
