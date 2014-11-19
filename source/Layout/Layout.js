@@ -72,7 +72,7 @@ UI.Layout = new Class({
 			comp.opts.name = name;
 			comp.opts.container = node.container;
 
-			_log('---', comp);
+			//_log('---', comp);
 			var object = this._object(comp);
 
 			object.element.addClass('container-'+name);
