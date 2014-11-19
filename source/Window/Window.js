@@ -196,6 +196,8 @@ UI.Window = new Class({
 			'normalize': function() { this.controls.show(); }
 		});
 
+		this.dragHandlers.push(this.controls);
+
 		//this.fireEvent('resize');
 	},
 
