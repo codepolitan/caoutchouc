@@ -181,7 +181,7 @@ UI.Window = new Class({
 		this.controls = new Element('div', {
 			'class': opts.name+'-control'
 		}).addEvent('click',function(e) { e.stop(); })
-		.inject(this.element);
+		.inject(this.head);
 
 		opts.controls.each(function(action){
 			new Element('div',{
@@ -206,7 +206,7 @@ UI.Window = new Class({
 
 		this.body = new Element('div')
 			.addClass('container-body')
-			.inject(this.element,'top');
+			.inject(this.element);
 
 		this.addEvents({
 			'minimize': function() { this.body.hide(); },
