@@ -17,7 +17,8 @@ UI.Layout = new Class({
 	options: {
 		name: 'layout',
 		clss: 'UI.Container',
-		comp: ['body']
+		comp: ['body'],
+		settings: {}
 	},
 
 	/**
@@ -31,7 +32,7 @@ UI.Layout = new Class({
 
 		//_log('initialize', opts);
 		var node = opts.node;
-
+		this.settings = opts.settings || {};
 		/*this.container = new Element('div', {
 			'class': 'ui-layout layout-' + opts.node._name
 		}).inject(opts.container);*/
@@ -116,6 +117,9 @@ UI.Layout = new Class({
 
 		//comp.opts.container = comp.container;
 		var object = this[name] = new clss(comp.opts);
+
+		if (this.settings[name]&& !this.settings[name].visible)
+			object.element.setStyle('display', 'none');
 
 		this.addEvent('resize', function() {
 			object.fireEvent('resize');
