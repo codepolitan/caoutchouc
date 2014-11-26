@@ -77,6 +77,7 @@ UI.Menu = new Class({
 	},
 
 	initialize: function(options){
+		console.log('meni init');
 		this.setOptions(options);
 
 		this.timer = null;
@@ -259,8 +260,7 @@ UI.Menu = new Class({
 					click: function(e) {
 						//_log('click event menu', opts.hideOnCall, opts.type);
 						//e.stop();
-
-						self.fireEvent('change', this.get('name'));
+						self.fireEvent('change', this.get('data-name'));
 						self.fireEvent('select', this);
 						if (opts.type == 'drop' && opts.hideOnCall)
 							self.hideNow();
@@ -282,8 +282,8 @@ UI.Menu = new Class({
 						e.stop();
 						if (self.state == 'disabled') return;
 						//_log('---',opts.type);
-						self.value = this.get('name');
-						self.fireEvent('change', this.get('name'));
+						self.value = this.get('data-name');
+						self.fireEvent('change', this.get('data-name'));
 						self.fireEvent('selectItem', comp);
 
 						if (opts.type == 'push') {
@@ -325,15 +325,15 @@ UI.Menu = new Class({
 			//_log('push',this);
 			this.addEvents({
 				'select': function(menu) {
-					//_log('mmm', menu.get('name'));
-					self.select(menu.get('name'));
+					_log('mmm', menu.get('data-name'));
+					self.select(menu.get('data-name'));
 				}
 			});
 		}
 	},
 
 	select: function(menu) {
-
+		console.log('select', menu);
 		if (menu === false || menu === null) {
 			if (this.selected) {
 				//_log('selected');
@@ -344,7 +344,7 @@ UI.Menu = new Class({
 		}
 
 		if (typeOf(menu) == 'string') {
-			menu = this.element.getElement('[name="'+ menu +'"]');
+			menu = this.element.getElement('[data-name="'+ menu +'"]');
 		}
 
 		if (!menu) return;
