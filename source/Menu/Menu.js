@@ -77,7 +77,7 @@ UI.Menu = new Class({
 	},
 
 	initialize: function(options){
-		console.log('meni init');
+		//console.log('meni init');
 		this.setOptions(options);
 
 		this.timer = null;
@@ -333,7 +333,7 @@ UI.Menu = new Class({
 	},
 
 	select: function(menu) {
-		console.log('select', menu);
+		//console.log('select', menu);
 		if (menu === false || menu === null) {
 			if (this.selected) {
 				//_log('selected');
