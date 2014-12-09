@@ -74,8 +74,8 @@ UI.Window = new Class({
 
 		// Drag options
 		draggable: true,
-		dragLimitX: [-1000, window.getWidth() + 1000],
-		dragLimitY: [26, window.getHeight() + 1000],
+		/*dragLimitX: [-1000, window.getWidth() + 1000],
+		dragLimitY: [26, window.getHeight() + 1000],*/
 		dragHandlers: ['head', 'foot'],
 		//hideContentOnDrag: true,
 
