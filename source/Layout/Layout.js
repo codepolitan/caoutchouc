@@ -33,11 +33,9 @@ UI.Layout = new Class({
 		//_log('initialize', opts);
 		var node = opts.node;
 		this.settings = opts.settings || {};
-		/*this.container = new Element('div', {
-			'class': 'ui-layout layout-' + opts.node._name
-		}).inject(opts.container);*/
 
 		this.container = new UI.Container({
+			resizable: false,
 			'class': 'ui-layout layout-' + opts.node._name
 		}).inject(opts.container);
 

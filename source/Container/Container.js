@@ -21,7 +21,9 @@ UI.Container = new Class({
 
 		node: null,
 
-		tag: 'div'
+		tag: 'div',
+		resizable: true,
+		resizeBorders: ['top','right','bottom','left']
 	},
 
 	/**
