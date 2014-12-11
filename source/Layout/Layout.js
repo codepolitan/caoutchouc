@@ -33,11 +33,18 @@ UI.Layout = new Class({
 		//_log('initialize', opts);
 		var node = opts.node;
 		this.settings = opts.settings || {};
+		this.component = {};
+		this.components = [];
 
 		this.container = new UI.Container({
 			resizable: false,
 			'class': 'ui-layout layout-' + opts.node._name
 		}).inject(opts.container);
+
+		this.map = new UI.Container({
+			resizable: false,
+			'class': 'ui-map map-' + opts.node._name
+		});
 
 		//_log('Layout container', this.container);
 
@@ -48,6 +55,10 @@ UI.Layout = new Class({
 		node.container = this.container;
 
 		this._process(node);
+
+		console.log(this.component);
+
+		this._initResizers(this.components);
 
 		return this;
 	},
@@ -114,14 +125,29 @@ UI.Layout = new Class({
 		var clss = mnml.strToClss(comp.clss);
 
 		//comp.opts.container = comp.container;
-		var object = this[name] = new clss(comp.opts);
+		var object = this.component[name] = this[name] = new clss(comp.opts);
 
-		if (this.settings[name]&& !this.settings[name].visible)
+		if (this.settings[name] && this.settings[name].hidden) {
+			_log('hide', name, this.settings[name], this.settings[name].visible);
 			object.element.setStyle('display', 'none');
+		}
+
+		if (this.settings[name] && this.settings[name].height) {
+			object.element.setStyle('flex', 'none');
+			object.element.setStyle('height', this.settings[name].height);
+		}
+
+		if (this.settings[name] && this.settings[name].width) {
+			_log('settinga', name, this.settings[name].width);
+			object.element.setStyle('flex', 'none');
+			object.element.setStyle('width', this.settings[name].width);
+		}
 
 		this.addEvent('resize', function() {
 			object.fireEvent('resize');
 		});
+
+		this.components.push(object);
 
 		return this[name];
 	}
