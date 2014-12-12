@@ -61,9 +61,13 @@ UI.Input = new Class({
 		//create a new div as input element
 		this.parent();
 
+
+		_log('_initElement', this);
 		//create input
 		this.setInput('text');
 		this.input.setStyle('width', this.props.width - this.input.getStyle('paddingLeft').toInt() - this.input.getStyle('paddingRight').toInt());
+
+
 	},
 
 	/*

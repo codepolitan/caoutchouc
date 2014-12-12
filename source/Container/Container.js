@@ -22,8 +22,8 @@ UI.Container = new Class({
 		node: null,
 
 		tag: 'div',
-		resizable: true,
-		resizeBorders: ['top','right','bottom','left']
+		/*resizable: false,
+		resizeBorders: ['top','right','bottom','left']*/
 	},
 
 	/**
@@ -187,7 +187,10 @@ UI.Container = new Class({
 
 		this.head = new Element('div')
 			.addClass('container-head')
-			.inject(this.element,'top');
+			.inject(this.element,'top')
+			.addEvent('dblclick', function() {
+				self.fireEvent('max');
+			});
 	},
 
 	/*

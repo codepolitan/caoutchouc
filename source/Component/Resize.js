@@ -4,13 +4,13 @@ UI.Component.implement({
 		resizer: {
 			'class': 'ui-resizer'
 		},
-		//resizable: false,
+		resizable: false,
 		resizeLimitX: [100, screen.width],
 		resizeLimitY: [100, screen.height]
 	},
 
 	_initResizer: function(){
-		_log('_initResizer', this.options.resizable);
+		//_log('_initResizer', this.options.resizable);
 		this.resizeHandlers = [];
 
 		this.resizer = new Element('div', this.options.resizer)

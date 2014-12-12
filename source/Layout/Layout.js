@@ -56,7 +56,7 @@ UI.Layout = new Class({
 
 		this._process(node);
 
-		console.log(this.component);
+		//console.log(this.component);
 
 		this._initResizers(this.components);
 
@@ -68,7 +68,7 @@ UI.Layout = new Class({
 	 * @param  {[type]} mnml [description]
 	 * @return {[type]}      [description]
 	 */
-	_process: function(node) {
+	_process: function(node, type) {
 		_debug('_process', node);
 		var list = node._list || [];
 
@@ -80,10 +80,21 @@ UI.Layout = new Class({
 			comp.clss = comp.clss || this.options.clss;
 			comp.opts = comp.opts || {};
 			comp.opts.name = name;
-			comp.opts.container = node.container;
+
+			if (type != 'tab') {
+				comp.opts.container = node.container;
+			} 
+			
 
 			//_log('---', comp);
 			var object = this._object(comp);
+
+			if (type == 'tab') {
+				//console.log('tabtabta', comp.opts.container);
+				object.options.noResizer = true;
+				node.container.addTab(object);
+			} 
+
 
 			object.element.addClass('container-'+name);
 
@@ -91,10 +102,18 @@ UI.Layout = new Class({
 				object.element.addClass('state-focus');
 
 			if (comp.node) {
-				//_log('-!!---', object.body);
-				comp.node.container = object;
+				//_log('-!!---', object.options.clss);
 
-				this._process(comp.node);
+				if (object.options.clss == 'tab') {
+					comp.node.container = object;
+					var c = this._process(comp.node, 'tab');
+					
+				} else {
+					comp.node.container = object;
+
+					this._process(comp.node);
+				}
+				
 			}
 		}
 	},
@@ -128,7 +147,7 @@ UI.Layout = new Class({
 		var object = this.component[name] = this[name] = new clss(comp.opts);
 
 		if (this.settings[name] && this.settings[name].hidden) {
-			_log('hide', name, this.settings[name], this.settings[name].visible);
+			//_log('hide', name, this.settings[name], this.settings[name].visible);
 			object.element.setStyle('display', 'none');
 		}
 
@@ -138,13 +157,18 @@ UI.Layout = new Class({
 		}
 
 		if (this.settings[name] && this.settings[name].width) {
-			_log('settinga', name, this.settings[name].width);
+			//_log('settinga', name, this.settings[name].width);
 			object.element.setStyle('flex', 'none');
 			object.element.setStyle('width', this.settings[name].width);
 		}
 
-		this.addEvent('resize', function() {
-			object.fireEvent('resize');
+		this.addEvents({
+			'resize': function() {
+				object.fireEvent('resize');
+			},
+			'drag': function() {
+				object.fireEvent('resize');
+			}
 		});
 
 		this.components.push(object);

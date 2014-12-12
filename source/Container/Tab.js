@@ -13,6 +13,7 @@ UI.Tab = new Class({
 	Extends: UI.Container,
 
 	options: {
+		clss: 'tab',
 		name: 'tab',
 		base: 'container',
 
@@ -22,9 +23,22 @@ UI.Tab = new Class({
 			name: 'one'
         }, {
 			name: 'two'
-        }]
+        }],
+        comp: ['body']
 	},
+	/**
+	 * [initialize description]
+	 * @param  {[type]} options [description]
+	 * @return {[type]}         [description]
+	 */
+	initialize: function(options){
+		this.list = [];
+		this.components = [];
 
+		this.parent(options);
+
+		
+	},
 	/*
 	Function: setContent
 
@@ -40,6 +54,7 @@ UI.Tab = new Class({
 			Create tab and its related container and addEvent
 	 */
 	addTab: function(container, position){
+		//_log('AddTab', this, container);
 		var self = this,
 			opts = container.options;
 
@@ -54,12 +69,20 @@ UI.Tab = new Class({
 			}
 		}).inject(this.bar);
 
+		container.inject(this.body);
+
+		this.components.push(container);
+
+		if (this.components.length == 1) {
+			this.activate(container);
+		} else {
+			container.hide();
+		}
+
 		container.element.store('tab', tab);
 
 		if (this.active == container)
 			self._setActiveTab(tab);
-
-		this.element.setStyle('padding-top', this.head.getSize().y+'px');
 	},
 
 	/*
@@ -181,7 +204,7 @@ UI.Tab = new Class({
 		}).inject(this.head, 'bottom');
 
 		this.addEvent('resize', function() {
-			self.element.setStyle('padding-top', self.head.getSize().y+'px');
+			//self.element.setStyle('padding-top', self.head.getSize().y+'px');
 		}.bind(this));
 	},
 
