@@ -149,10 +149,10 @@ UI.Layout.implement({
 	 * @param  {[type]} modifier  [description]
 	 * @return {[type]}           [description]
 	 */
-	
 	// will definitly use a controller for that
 	_initResizerEvent: function(component, resizer, modifier) {
 		var container = component.container;
+		var element = component.element;
 
 		this.addEvents({
 			drag: function() {
