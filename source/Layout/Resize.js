@@ -99,6 +99,11 @@ UI.Layout.implement({
 
 		var direction = container.getStyle('flex-direction');
 
+		if (!direction)
+			direction = container.getStyle('-webkit-flex-direction');
+
+		console.log('dirction', direction);
+
 		var modifier = this.options.resizer.modifier[direction];
 
 		//_log(element, coord);

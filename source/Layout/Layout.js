@@ -83,18 +83,15 @@ UI.Layout = new Class({
 
 			if (type != 'tab') {
 				comp.opts.container = node.container;
-			} 
-			
+			}
 
-			//_log('---', comp);
 			var object = this._object(comp);
 
 			if (type == 'tab') {
 				//console.log('tabtabta', comp.opts.container);
 				object.options.noResizer = true;
 				node.container.addTab(object);
-			} 
-
+			}
 
 			object.element.addClass('container-'+name);
 
@@ -107,13 +104,11 @@ UI.Layout = new Class({
 				if (object.options.clss == 'tab') {
 					comp.node.container = object;
 					var c = this._process(comp.node, 'tab');
-					
 				} else {
 					comp.node.container = object;
 
 					this._process(comp.node);
 				}
-				
 			}
 		}
 	},
