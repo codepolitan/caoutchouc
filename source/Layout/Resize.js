@@ -64,6 +64,8 @@ UI.Layout.implement({
 
 				element.setStyle('width', element.retrieve('width'));
 				element.setStyle('height', element.retrieve('height'));
+
+				self.fireEvent('normalize', component);
 			} else{
 				element.addClass('container-max');
 				element.store('width', element.getStyle('width'));
@@ -76,6 +78,8 @@ UI.Layout.implement({
 						c.hide();
 					}
 				});
+
+				self.fireEvent('maximize', component);
 			}
 		});
 	},
@@ -161,6 +165,16 @@ UI.Layout.implement({
 
 		this.addEvents({
 			drag: function() {
+				//_log(direction);
+				var coord = element.getCoordinates(container);
+				resizer.setStyle(modifier.from, coord[modifier.from] + coord[modifier.size] - 3);
+			},
+			maximize: function() {
+				//_log(direction);
+				var coord = element.getCoordinates(container);
+				resizer.setStyle(modifier.from, coord[modifier.from] + coord[modifier.size] - 3);
+			},
+			normalize: function() {
 				//_log(direction);
 				var coord = element.getCoordinates(container);
 				resizer.setStyle(modifier.from, coord[modifier.from] + coord[modifier.size] - 3);

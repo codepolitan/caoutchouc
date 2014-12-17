@@ -158,10 +158,16 @@ UI.Layout = new Class({
 		}
 
 		this.addEvents({
-			'resize': function() {
+			resize: function() {
 				object.fireEvent('resize');
 			},
-			'drag': function() {
+			drag: function() {
+				object.fireEvent('resize');
+			},
+			normalize: function() {
+				object.fireEvent('resize');
+			},
+			maximize: function() {
 				object.fireEvent('resize');
 			}
 		});
