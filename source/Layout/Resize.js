@@ -106,8 +106,6 @@ UI.Layout.implement({
 		if (!direction)
 			direction = container.getStyle('-webkit-flex-direction');
 
-		console.log('dirction', direction);
-
 		var modifier = this.options.resizer.modifier[direction];
 
 		//_log(element, coord);
@@ -126,7 +124,7 @@ UI.Layout.implement({
 		new Drag.Move(resizer, {
 			modifiers: modifier.mode,
 		    onStart: function(el){
-				_log('onStart', el);
+				//_log('onStart', el);
 				//self.fireEvent('resizeStart', el);
 			},
 			onDrag: function(el, ev){
