@@ -80,6 +80,7 @@ UI.Text = new Class({
 	},
 
 	set: function(what, value) {
+		_log('set', what, value);
 
 		if (what == 'text')
 			this.element.set('html', value);

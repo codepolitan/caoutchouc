@@ -88,7 +88,7 @@ UI.Layout = new Class({
 			var object = this._object(comp);
 
 			if (type == 'tab') {
-				//console.log('tabtabta', comp.opts.container);
+				console.log('tabtabta', object);
 				object.options.noResizer = true;
 				node.container.addTab(object);
 			}

@@ -36,6 +36,12 @@ UI.Layout.implement({
 		// execpt for the last one
 		for (var i = 0; i < len; i++) {
 			var component = components[i];
+
+			if (component.options.noResizer) {
+				console.log('--', component.main);
+				continue;
+			}
+
 			this._initResizer(component);
 			this._initMaximize(component);
 		}
@@ -95,8 +101,8 @@ UI.Layout.implement({
 		var element = component.element;
 		var container = component.container;
 
-		if (component.options.noResizer) return;
-		//_log('_initResizeBorder', element.getNext());
+		
+		_log('_initResizeBorder', element.getNext());
 		if (!element.getNext()) return;
 
 		if (!container) return;
@@ -178,7 +184,7 @@ UI.Layout.implement({
 				resizer.setStyle(modifier.from, coord[modifier.from] + coord[modifier.size] - 3);
 			},
 			resize: function() {
-				//_log('resize', direction);
+				//_log('resize', component.element, resizer);
 				var coord = element.getCoordinates(container);
 				resizer.setStyle(modifier.from, coord[modifier.from] + coord[modifier.size] -3);
 			}
