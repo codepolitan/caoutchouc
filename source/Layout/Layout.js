@@ -176,5 +176,4 @@ UI.Layout = new Class({
 
 		return this[name];
 	}
-
 });

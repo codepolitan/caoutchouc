@@ -101,7 +101,6 @@ UI.Layout.implement({
 		var element = component.element;
 		var container = component.container;
 
-		
 		_log('_initResizeBorder', element.getNext());
 		if (!element.getNext()) return;
 
