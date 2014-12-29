@@ -56,7 +56,7 @@ UI.Text = new Class({
 		name: 'text',
 		klass: 'ui-text',
 		tag: 'span',
-		text: '',
+		text: '&nbsp;',
 		emboss: false,
 		selectable: false
 	},
@@ -76,13 +76,25 @@ UI.Text = new Class({
 	_initElement: function(){
 		this.parent();
 
-		this.element.set('html', this.options.text);
+		if (this.options.text)
+			this.set(this.options.text);
 	},
 
-	set: function(what, value) {
-		_log('set', what, value);
+	/**
+	 * Default setter for the class
+	 * @param {string} property [description]
+	 * @param {mixin} value    [description]
+	 */
+	set: function(property, value) {
+		//_log('set', what, value);
 
-		if (what == 'text')
+		// if set has a single params
+		if (value === undefined) {
+			value = property;
+			property = 'text';
+		}
+
+		if (property == 'text')
 			this.element.set('html', value);
 	}
 });
