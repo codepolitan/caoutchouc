@@ -14,26 +14,24 @@ UI.Button = new Class({
 		name: 'button',
 		type: null, // push, file
 		element: {
-			tag: 'span'
+			tag: 'button'
+		},
+		binding: {
+			_list: ['element'],
+			element: {
+				'element.mousedown': '_onElementMouseDown',
+				'element.click': '_onElementClick',
+				'element.dblclick': '_onElementClick'
+			}
 		}
 	},
 
 	set: function() {},
 
-	/*
-	Function: _initElement
-		private function
-
-		Create a textLabel and call parent method
-
-	Returns:
-		(void)
-
-	See also:
-		<UI.Control::_initElement>
-		<UI.Component::_initElement>
-	*/
-
+	/**
+	 * [_initElement description]
+	 * @return {[type]} [description]
+	 */
 	_initElement: function(){
 		this.parent();
 		var opts = this.options,
@@ -52,15 +50,14 @@ UI.Button = new Class({
 		if (opts.name)
 			this.element.set('data-name', opts.name);
 
-
 		//_log('title', this.element,  opts.text);
 		this.element.set('title', opts.text);
 
-		if ((opts.icon && type.indexOf('icon') > -1) || type == 'file')
+		if (opts.icon)
 			this._initIcon(type);
 
 
-		if ((opts.text) || type == 'file')
+		if (opts.text)
 			this._initText(type);
 
 		this._initClass();
@@ -68,11 +65,13 @@ UI.Button = new Class({
 		if (this.options.clss)
 			this.element.addClass(this.options.clss);
 
-		if (opts.type == 'file') {
-			this._initFile(type);
-		}
 	},
 
+	/**
+	 * [_initIcon description]
+	 * @param  {[type]} type [description]
+	 * @return {[type]}      [description]
+	 */
 	_initIcon: function(type) {
 		var opts = this.options;
 
@@ -82,11 +81,6 @@ UI.Button = new Class({
 			'class': 'button-icon'
 		};
 
-		if (type == 'file')	 {
-			tag = 'label';
-			prop.for = 'upload';
-		}
-
 		this.icon = new Element(tag, prop).inject(this.element);
 
 		var klss = opts.icon.replace("icon-", "fa-");
@@ -95,7 +89,11 @@ UI.Button = new Class({
 		this.icon.addClass(klss);
 	},
 
-
+	/**
+	 * [_initText description]
+	 * @param  {[type]} type [description]
+	 * @return {[type]}      [description]
+	 */
 	_initText: function(type) {
 		var opts = this.options;
 
@@ -112,85 +110,10 @@ UI.Button = new Class({
 
 	},
 
-	_initFile: function(type) {
-		var self = this;
-
-		var file = new Element('input', {
-			type: 'file',
-			name: 'upload',
-			id: 'upload'
-		}).inject(this.element);
-
-		file.addEvent('change', function(info) {
-			//_log('change', info);
-		});
-
-		file.onchange = function(info) {
-			var files = this.files;
-			//_log(files);
-			if (files)
-			self.fireEvent('uploadFile', [files]);
-		
-		};
-
-
-		this.addEvent('injected', function() {
-			/*var coord = self.icon.getCoordinates();
-
-			coord.top = '0';
-			coord.left = '0';
-
-			file.setStyles(coord);*/
-		});
-	},
-
-	_initEvents: function(){
-		this.parent();
-
-		var self = this,
-			opts = this.options,
-			state = opts.state;
-
-		this.element.addEvents({
-			mousedown: function(e) {
-				self.fireEvent('mousedown');
-				e.stop();
-			},
-			click: function(e){
-				e.stopPropagation();
-				if (opts.emit && self.state != 'disabled')
-					self.fireEvent(opts.emit);
-					self.fireEvent('press', opts.emit);
-
-				if (opts.call && self.state != 'disabled')
-					opts.call();
-			},
-			dblclick: function(e){
-				e.stopPropagation();
-				if (opts.emit && self.state != 'disabled')
-					self.fireEvent(opts.emit);
-					self.fireEvent('press', opts.emit);
-
-				if (opts.call && self.state != 'disabled')
-					opts.call();
-			},
-			mouseup: function(){
-				if (opts.type == 'check') {
-					if (self.state == 'checked')
-						self.setState(null);
-					else self.setState('checked');
-				}
-
-			}
-		});
-	},
-
-	/*
-		function : _initClass
-
-			Build the split containers
-
-	*/
+	/**
+	 * [_initClass description]
+	 * @return {[type]} [description]
+	 */
 	_initClass: function() {
 		var opts = this.options;
 		//_log(this.name);
@@ -202,6 +125,47 @@ UI.Button = new Class({
 			this.element.addClass('type-' + this.options.type);
 
 		this.element.addClass(opts.prefix + this.name);
+	},
+
+	/**
+	 * [_onElementMouseDown description]
+	 * @param  {event} e [description]
+	 * @return {[type]}   [description]
+	 */
+	_onElementMouseDown: function(e) {
+		console.log
+		this.fireEvent('mousedown');
+		e.stop();
+	},
+
+	/**
+	 * [_onElementMouseDown description]
+	 * @param  {event} e [description]
+	 * @return {[type]}   [description]
+	 */
+	_onElementClick: function(e) {
+		var opts = this.options;
+		e.stopPropagation();
+		if (opts.emit && this.state != 'disabled')
+			this.fireEvent(opts.emit);
+			this.fireEvent('press', opts.emit);
+			this.fireEvent('pressed', opts.emit);
+
+		if (opts.call && this.state != 'disabled')
+			opts.call();
+	},
+
+	/**
+	 * [_onElementMouseUp description]
+	 * @return {[type]} [description]
+	 */
+	_onElementMouseUp: function(){
+		var opts = this.options;
+		if (this.options.type == 'check') {
+			if (this.state == 'checked')
+				this.setState(null);
+			else this.setState('checked');
+		}
 	}
 });
 

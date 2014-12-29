@@ -28,7 +28,7 @@
 
 UI.Component = new Class({
 
-	Implements: [Events, Options],
+	Implements: [Events, Options, UI.Binding],
 
 	name: 'component',
 	component: 'component',
@@ -60,6 +60,7 @@ UI.Component = new Class({
 		this._initOptions();
 		this._initElement();
 		this._initEvents();
+		this._initBinding();
 
 		return this;
 	},
