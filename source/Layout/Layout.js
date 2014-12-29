@@ -69,7 +69,7 @@ UI.Layout = new Class({
 	 * @return {[type]}      [description]
 	 */
 	_process: function(node, type) {
-		_debug('_process', node);
+		//_debug('_process', node);
 		var list = node._list || [];
 
 		for (var i = 0, len = list.length; i < list.length; i++) {
@@ -88,7 +88,7 @@ UI.Layout = new Class({
 			var object = this._object(comp);
 
 			if (type == 'tab') {
-				console.log('tabtabta', object);
+				//console.log('tab', object);
 				object.options.noResizer = true;
 				node.container.addTab(object);
 			}
@@ -144,17 +144,24 @@ UI.Layout = new Class({
 		if (this.settings[name] && this.settings[name].hidden) {
 			//_log('hide', name, this.settings[name], this.settings[name].visible);
 			object.element.setStyle('display', 'none');
+			object.isOpen = false;
 		}
+
+		object._modifier = 'width';
 
 		if (this.settings[name] && this.settings[name].height) {
 			object.element.setStyle('flex', 'none');
 			object.element.setStyle('height', this.settings[name].height);
+			object.height = this.settings[name].height;
+			object._modifier = 'height';
 		}
 
 		if (this.settings[name] && this.settings[name].width) {
 			//_log('settinga', name, this.settings[name].width);
 			object.element.setStyle('flex', 'none');
 			object.element.setStyle('width', this.settings[name].width);
+			object.width = this.settings[name].width;
+			object._modifier = 'width';
 		}
 
 		this.addEvents({

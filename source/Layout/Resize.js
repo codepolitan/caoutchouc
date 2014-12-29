@@ -38,7 +38,7 @@ UI.Layout.implement({
 			var component = components[i];
 
 			if (component.options.noResizer) {
-				console.log('--', component.main);
+				//console.log('--', component.main);
 				continue;
 			}
 
@@ -85,7 +85,7 @@ UI.Layout.implement({
 					}
 				});
 
-				self.fireEvent('maximize', component);
+				self.fireEvent('resize', component);
 			}
 		});
 	},
@@ -101,7 +101,7 @@ UI.Layout.implement({
 		var element = component.element;
 		var container = component.container;
 
-		_log('_initResizeBorder', element.getNext());
+		//_log('_initResizeBorder', element.getNext());
 		if (!element.getNext()) return;
 
 		if (!container) return;
@@ -147,6 +147,9 @@ UI.Layout.implement({
 				var coord = element.getCoordinates(container);
 				var size = element.getCoordinates(container)[modifier.size];
 				self.fireEvent('resizer', [component.main, modifier.size, size]);
+				component.fireEvent('resizeComplete', [modifier.size, size]);
+				_log(component.main, modifier.size, size);
+				component.width = size;
 			}
 		});
 
