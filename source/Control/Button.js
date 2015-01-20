@@ -56,7 +56,6 @@ UI.Button = new Class({
 		if (opts.icon)
 			this._initIcon(type);
 
-
 		if (opts.text)
 			this._initText(type);
 
@@ -133,9 +132,46 @@ UI.Button = new Class({
 	 * @return {[type]}   [description]
 	 */
 	_onElementMouseDown: function(e) {
-		console.log
-		this.fireEvent('mousedown');
 		e.stop();
+		
+		var x = e.event.layerX;
+		var y = e.event.layerY;
+		console.log('mousedown', x, y);
+
+
+		var layer = new Element('span', {
+			class: 'button-force',
+			styles: {
+				left: x,
+				top: y,
+			}
+		}).inject(this.element);
+
+		this._initEffect(layer, x, y);
+
+		this.fireEvent('mousedown');
+	},
+
+	/**
+	 * [_initEffect description]
+	 * @param  {[type]} layer [description]
+	 * @param  {[type]} x     [description]
+	 * @param  {[type]} y     [description]
+	 * @return {[type]}       [description]
+	 */
+	_initEffect: function(layer, x, y) {
+
+		var fx = new Fx.Morph(layer, {
+		    //duration: 'long',
+		    transition: Fx.Transitions.Sine.easeOut
+		});
+
+		fx.start({
+		    height: [0, '100%'],
+		    width: [0, '100%'],
+		    left: 0,
+		    top: 0,
+		});
 	},
 
 	/**
