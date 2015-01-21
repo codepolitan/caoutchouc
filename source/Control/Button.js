@@ -138,8 +138,7 @@ UI.Button = new Class({
 		var y = e.event.layerY;
 		console.log('mousedown', x, y);
 
-
-		var layer = new Element('span', {
+		var inner = new Element('span', {
 			class: 'button-force',
 			styles: {
 				left: x,
@@ -147,30 +146,31 @@ UI.Button = new Class({
 			}
 		}).inject(this.element);
 
-		this._initEffect(layer, x, y);
+		this._initReaction(inner, x, y);
 
 		this.fireEvent('mousedown');
 	},
 
 	/**
 	 * [_initEffect description]
-	 * @param  {[type]} layer [description]
+	 * @param  {[type]} inner [description]
 	 * @param  {[type]} x     [description]
 	 * @param  {[type]} y     [description]
 	 * @return {[type]}       [description]
 	 */
-	_initEffect: function(layer, x, y) {
+	_initReaction: function(inner, x, y) {
 
-		var fx = new Fx.Morph(layer, {
+		var fx = new Fx.Morph(inner, {
 		    //duration: 'long',
 		    transition: Fx.Transitions.Sine.easeOut
 		});
 
 		fx.start({
-		    height: [0, '100%'],
-		    width: [0, '100%'],
+		    height: '100%',
+		    width: '100%',
 		    left: 0,
 		    top: 0,
+		   	opacity: 0
 		});
 	},
 
