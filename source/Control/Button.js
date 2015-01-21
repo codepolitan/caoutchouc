@@ -19,9 +19,11 @@ UI.Button = new Class({
 		binding: {
 			_list: ['element'],
 			element: {
-				'element.mousedown': '_onElementMouseDown',
 				'element.click': '_onElementClick',
-				'element.dblclick': '_onElementClick'
+				'element.dblclick': '_onElementClick',
+				'element.mousedown': '_onElementMouseDown',
+				'element.mouseup': '_onElementMouseUp'
+				
 			}
 		}
 	},
@@ -60,11 +62,8 @@ UI.Button = new Class({
 			this._initText(type);
 
 		this._initClass();
-
-		if (this.options.clss)
-			this.element.addClass(this.options.clss);
-
 	},
+
 
 	/**
 	 * [_initIcon description]
@@ -124,6 +123,9 @@ UI.Button = new Class({
 			this.element.addClass('type-' + this.options.type);
 
 		this.element.addClass(opts.prefix + this.name);
+
+		if (this.options.clss)
+			this.element.addClass(this.options.clss);
 	},
 
 	/**
@@ -132,21 +134,25 @@ UI.Button = new Class({
 	 * @return {[type]}   [description]
 	 */
 	_onElementMouseDown: function(e) {
+		
 		e.stop();
 		
 		var x = e.event.layerX;
 		var y = e.event.layerY;
 		console.log('mousedown', x, y);
 
-		var inner = new Element('span', {
-			class: 'button-force',
+		this.coord = this.element.getCoordinates();
+
+		this.react = new Element('span', {
+			class: 'button-reaction',
 			styles: {
 				left: x,
 				top: y,
+
 			}
 		}).inject(this.element);
 
-		this._initReaction(inner, x, y);
+		this._initReaction(this.react, x, y);
 
 		this.fireEvent('mousedown');
 	},
@@ -160,18 +166,27 @@ UI.Button = new Class({
 	 */
 	_initReaction: function(inner, x, y) {
 
+		var size = this.coord.height;
+
+		if (this.coord.width > size)
+			size = this.coord.width;
+
 		var fx = new Fx.Morph(inner, {
 		    //duration: 'long',
 		    transition: Fx.Transitions.Sine.easeOut
 		});
 
 		fx.start({
-		    height: '100%',
-		    width: '100%',
+		    height: size,
+		    width: size,
 		    left: 0,
 		    top: 0,
 		   	opacity: 0
 		});
+
+		(function() {
+			inner.destroy();
+		}).delay(1000);
 	},
 
 	/**
@@ -202,6 +217,8 @@ UI.Button = new Class({
 				this.setState(null);
 			else this.setState('checked');
 		}
+
+		//this.react.destroy();
 	}
 });
 
