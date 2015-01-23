@@ -23,7 +23,6 @@ UI.Button = new Class({
 				'element.dblclick': '_onElementClick',
 				'element.mousedown': '_onElementMouseDown',
 				'element.mouseup': '_onElementMouseUp'
-				
 			}
 		}
 	},
@@ -141,7 +140,7 @@ UI.Button = new Class({
 		var y = e.event.layerY;
 		console.log('mousedown', x, y);
 
-		this.coord = this.element.getCoordinates();
+		coord = this.element.getCoordinates();
 
 		this.react = new Element('span', {
 			class: 'button-reaction',
@@ -152,7 +151,7 @@ UI.Button = new Class({
 			}
 		}).inject(this.element);
 
-		this._initReaction(this.react, x, y);
+		this._initReaction(this.react, x, y, coord);
 
 		this.fireEvent('mousedown');
 	},
@@ -164,15 +163,18 @@ UI.Button = new Class({
 	 * @param  {[type]} y     [description]
 	 * @return {[type]}       [description]
 	 */
-	_initReaction: function(inner, x, y) {
+	_initReaction: function(inner, x, y, coord) {
 
-		var size = this.coord.height;
+		var size = coord.height;
 
-		if (this.coord.width > size)
-			size = this.coord.width;
+		if (coord.width > size)
+			size = coord.width;
+
+		console.log();
 
 		var fx = new Fx.Morph(inner, {
 		    //duration: 'long',
+		    link: 'chain',
 		    transition: Fx.Transitions.Sine.easeOut
 		});
 
@@ -221,4 +223,3 @@ UI.Button = new Class({
 		//this.react.destroy();
 	}
 });
-
