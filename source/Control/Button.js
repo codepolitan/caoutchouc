@@ -149,7 +149,7 @@ UI.Button = new Class({
 				top: y,
 
 			}
-		}).inject(this.element);
+		}).inject(this.element, 'top');
 
 		this._initReaction(this.react, x, y, coord);
 
@@ -164,16 +164,16 @@ UI.Button = new Class({
 	 * @return {[type]}       [description]
 	 */
 	_initReaction: function(inner, x, y, coord) {
+		var size = coord.height,
+			top = 0;
 
-		var size = coord.height;
-
-		if (coord.width > size)
+		if (coord.width > size) {
 			size = coord.width;
-
-		console.log();
+			top = (coord.height - coord.width) / 2;
+		}
 
 		var fx = new Fx.Morph(inner, {
-		    //duration: 'long',
+		    duration: 1000,
 		    link: 'chain',
 		    transition: Fx.Transitions.Sine.easeOut
 		});
@@ -182,8 +182,8 @@ UI.Button = new Class({
 		    height: size,
 		    width: size,
 		    left: 0,
-		    top: 0,
-		   	opacity: 0
+		    top: top,
+			opacity: 0
 		});
 
 		(function() {
