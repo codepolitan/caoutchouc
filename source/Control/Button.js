@@ -142,7 +142,7 @@ UI.Button = new Class({
 
 		coord = this.element.getCoordinates();
 
-		this.react = new Element('span', {
+		var inner = new Element('span', {
 			class: 'button-reaction',
 			styles: {
 				left: x,
@@ -151,7 +151,7 @@ UI.Button = new Class({
 			}
 		}).inject(this.element, 'top');
 
-		this._initReaction(this.react, x, y, coord);
+		this._initReaction(inner, x, y, coord);
 
 		this.fireEvent('mousedown');
 	},
@@ -175,7 +175,7 @@ UI.Button = new Class({
 		var fx = new Fx.Morph(inner, {
 		    duration: 1000,
 		    link: 'chain',
-		    transition: Fx.Transitions.Sine.easeOut
+		    transition: Fx.Transitions.Quart.easeOut
 		});
 
 		fx.start({
