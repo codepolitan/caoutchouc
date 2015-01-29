@@ -162,13 +162,17 @@ UI.Field = new Class({
 			mousedown: function(e) {
 				//e.stopPropagation();
 				//this.focus();
+				self._onElementMouseDown(e);
 			},
 			focus: function(e) {
 				if (!this.get('readonly'))
 					self.setState('focus');
+				self._onElementMouseDown(e);
 			},
 			blur: function(e) {
 				self.setState(null);
+				self._hideReaction();
+				
 			}
 		});
 
@@ -178,6 +182,90 @@ UI.Field = new Class({
 		});
 	},
 
+	/**
+	 * [_onElementMouseDown description]
+	 * @param  {event} e [description]
+	 * @return {[type]}   [description]
+	 */
+	_onElementMouseDown: function(e) {
+		if (this.underline) return;
+		//e.stop();
+		
+		var x = e.event.layerX;
+		var y = e.event.layerY;
+		console.log('mousedown', x, y);
+
+		coord = this.input.getCoordinates(this.element);
+
+		this.underline = new Element('span', {
+			class: 'field-reaction',
+			styles: {
+				left: x
+
+			}
+		}).inject(this.element, 'top');
+
+		this._initReaction(this.underline, x, y, coord);
+
+		this.fireEvent('mousedown');
+	},
+
+	/**
+	 * [_initEffect description]
+	 * @param  {[type]} inner [description]
+	 * @param  {[type]} x     [description]
+	 * @param  {[type]} y     [description]
+	 * @return {[type]}       [description]
+	 */
+	_initReaction: function(inner, x, y, coord) {
+		var size = coord.width,
+			top = 0;
+
+
+		var fx = new Fx.Morph(inner, {
+		    duration: 300,
+		    link: 'chain',
+		    transition: Fx.Transitions.Quart.easeOut
+		});
+
+		fx.start({
+		    width: size,
+		    left:coord.left
+			//opacity: 0
+		});
+	},
+
+
+	/**
+	 * [_initEffect description]
+	 * @param  {[type]} inner [description]
+	 * @param  {[type]} x     [description]
+	 * @param  {[type]} y     [description]
+	 * @return {[type]}       [description]
+	 */
+	_hideReaction: function() {
+		var self= this;
+		var coord = this.input.getCoordinates(this.element);
+		var size = coord.width / 2;
+
+
+		var fx = new Fx.Morph(this.underline, {
+		    duration: 300,
+		    link: 'chain',
+		    transition: Fx.Transitions.Quart.easeOut
+		});
+
+		fx.start({
+		    width: 0,
+		    left:size
+			//opacity: 0
+		});
+
+		(function() {
+			self.underline.destroy();
+			self.underline = null;
+		}).delay(1000);
+	},
 	/**
 	 * [set description]
 	 * @param {[type]} name  [description]
