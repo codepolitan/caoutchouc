@@ -140,7 +140,7 @@ UI.Button = new Class({
 		var y = e.event.layerY;
 		//console.log('mousedown', x, y);
 
-		coord = this.element.getCoordinates();
+		coord = this.element.getCoordinates(this.element);
 
 		var inner = new Element('span', {
 			class: 'button-reaction',
