@@ -162,12 +162,14 @@ UI.Field = new Class({
 			mousedown: function(e) {
 				//e.stopPropagation();
 				//this.focus();
-				self._onElementMouseDown(e);
+				//self._onElementMouseDown(e);
 			},
 			focus: function(e) {
-				if (!this.get('readonly'))
+				if (!this.get('readonly')) {
 					self.setState('focus');
-				self._onElementMouseDown(e);
+					self._onElementMouseDown(e);
+				}
+			
 			},
 			blur: function(e) {
 				self.setState(null);
@@ -191,9 +193,11 @@ UI.Field = new Class({
 		if (this.underline) return;
 		//e.stop();
 		
+		_log('state', this.options);
+
 		var x = e.event.layerX;
 		var y = e.event.layerY;
-		console.log('mousedown', x, y);
+		//console.log('mousedown', x, y);
 
 		coord = this.input.getCoordinates(this.element);
 
