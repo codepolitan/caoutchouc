@@ -193,7 +193,7 @@ UI.Field = new Class({
 		
 		var x = e.event.layerX;
 		var y = e.event.layerY;
-		console.log('mousedown', x, y);
+		//console.log('mousedown', x, y);
 
 		coord = this.input.getCoordinates(this.element);
 
