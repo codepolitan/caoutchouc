@@ -162,12 +162,12 @@ UI.Field = new Class({
 			mousedown: function(e) {
 				//e.stopPropagation();
 				//this.focus();
-				//self._onElementMouseDown(e);
+				//self._inputFocus(e);
 			},
 			focus: function(e) {
 				if (!this.get('readonly')) {
 					self.setState('focus');
-					self._onElementMouseDown(e);
+					self._inputFocus(e);
 				}
 			
 			},
@@ -185,15 +185,15 @@ UI.Field = new Class({
 	},
 
 	/**
-	 * [_onElementMouseDown description]
+	 * [_inputFocus description]
 	 * @param  {event} e [description]
 	 * @return {[type]}   [description]
 	 */
-	_onElementMouseDown: function(e) {
+	_inputFocus: function(e) {
 		if (this.underline) return;
 		//e.stop();
 		
-		_log('state', this.options);
+		//_log('state', this.options);
 
 		var x = e.event.layerX;
 		var y = e.event.layerY;
@@ -254,7 +254,7 @@ UI.Field = new Class({
 
 
 		var fx = new Fx.Morph(this.underline, {
-		    duration: 300,
+		    duration: 100,
 		    link: 'chain',
 		    transition: Fx.Transitions.Quart.easeOut
 		});
@@ -266,9 +266,11 @@ UI.Field = new Class({
 		});
 
 		(function() {
-			self.underline.destroy();
-			self.underline = null;
-		}).delay(1000);
+			if (self.underline) {
+				self.underline.destroy();
+				self.underline = null;
+			}
+		}).delay(100);
 	},
 	/**
 	 * [set description]
