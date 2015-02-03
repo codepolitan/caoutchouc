@@ -133,7 +133,7 @@ UI.Container = new Class({
 	 * @return {[type]}      [description]
 	 */
 	addComp: function(name, position, element) {
-		_debug('addComp', name, position, element);
+		//_log('addComp', name, position, element);
 		var self = this;
 		position = position || 'bottom';
 		element = element || this.element;

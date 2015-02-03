@@ -1,5 +1,20 @@
 UI.Component.implement({
 
+	_initLocation: function() {
+		var list = ['left', 'top', 'right', 'bottom'];
+		var location = this.getInitialLocation();
+
+		for (var i = 0; i < list.length; i++) {
+			if (location[list[i]]) {
+				this.options[list[i]] = location[list[i]];
+			}
+		}
+
+		console.log('location', location);
+
+		this.element.setStyles(location);
+	},
+
 	setLocation: function(left, top, morph){
 		var opts = this.options,
 			el = this.element;
@@ -52,7 +67,9 @@ UI.Component.implement({
 
 			return {
 				top: this.options.top,
-				left: this.options.left
+				bottom: this.options.bottom,
+				left: this.options.left,
+				right: this.options.right
 			};
 		} else if (this.options.location == 'center') {
 			return this.getCenterLocation();

@@ -101,10 +101,7 @@ UI.Window = new Class({
 	initialize: function(options) {
 		this.parent(options);
 
-		var location = this.getInitialLocation();
-		this.options.top = location.top;
-		this.options.left = location.left;
-		this.element.setStyles(location);
+		this._initLocation();
 		this.adaptLocation();
 
 
@@ -173,6 +170,8 @@ UI.Window = new Class({
 	*/
 	_initControl: function(){
 		var opts = this.options;
+
+		if (!this.head) return;
 
 		//_log('buildControls');
 		if (!this.options.controls) { return; }
