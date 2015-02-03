@@ -36,7 +36,7 @@ UI.ButtonMenu = new Class({
 	_initElement: function(){
 		this.parent();
 
-
+		this.control = {};
 		this._initMenu(this.options);
 
 	},
@@ -47,19 +47,33 @@ UI.ButtonMenu = new Class({
 	 * @type {[type]}
 	 */
 	_initMenu: function(opts) {
-		var self = this;
+		var self = this,
+			list = opts.list;
 
 		_log(opts.list, this.element);
 
 		opts.list = opts.list || [];
 
+		this.menu = new Element('div', {
+			class: 'button-menu'
+		}).addEvent('mouseleave', function() {
+			this.setStyle('display', 'none')
+		}).inject(this.element, 'top');
+
 		for (var i= 0; i < opts.list.length; i++) {
 			var name = opts.list[i];
 			var def = opts.list[name];
-			this._instanciateComp(name, def, this.element);
+			this._initItem(name, def, this.menu);
 		}
 	},
 
+	/**
+	 * [_initItem description]
+	 * @param  {[type]} name    [description]
+	 * @param  {[type]} def     [description]
+	 * @param  {[type]} element [description]
+	 * @return {[type]}         [description]
+	 */
 	_initItem: function(name, def, element){
 		var self = this,
 			clss = 'UI.Button',
@@ -86,8 +100,7 @@ UI.ButtonMenu = new Class({
 		} else {
 			opts = {
 				name: name,
-				icon: mnml.control.button[name] || 'mdi-action-help',
-				type: 'action'
+				icon: mnml.control.button[name] || 'mdi-action-help'
 			};
 		}
 
@@ -119,23 +132,14 @@ UI.ButtonMenu = new Class({
 		}
 
 		if (inject) {
-			console.log('----', name, opts);
+			//console.log('----', name, opts);
 			this.control[name] = new Clss(opts).inject(element);
 			
-			 this.control[name].addEvents({
-				change: function(value) {
-					//var name =  this.options.name;
-					_log('change', this);
-					if (this.isEnable())
-						self.fireEvent(name, value);
-				}
-			});
-
 			if (clss == 'UI.Button')
 			this.control[name].addEvents({
 				press: function() {
 					//var name =  this.options.name;
-					_log('press', name, this.isEnable());
+					//_log('press', name, this.isEnable());
 					if (this.isEnable()) {
 						self.fireEvent('control::'+name, this);
 						self.fireEvent(name, [self]);
@@ -182,14 +186,10 @@ UI.ButtonMenu = new Class({
 	 * @return {[type]}   [description]
 	 */
 	_onElementClick: function(e) {
+		_log('_onElementClick');
 		var opts = this.options;
 		e.stopPropagation();
-		if (opts.emit && this.state != 'disabled')
-			this.fireEvent(opts.emit);
-			this.fireEvent('press', opts.emit);
-			this.fireEvent('pressed', opts.emit);
-
-		if (opts.call && this.state != 'disabled')
-			opts.call();
+		
+		this.menu.setStyle('display', 'block');
 	}
 });
