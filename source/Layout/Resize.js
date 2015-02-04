@@ -134,41 +134,22 @@ UI.Layout.implement({
 			},
 			onDrag: function(el, ev){
 				//_log('onDrag', el, ev.client.x);
-
 				var coord = element.getCoordinates(container);
 				var c = resizer.getCoordinates(container);
-				var flex = element.getStyle('flex');
-				console.log('-'+flex+'-');
-				if (flex == '0 0 auto') {
-					flex = null;
-					_log('---', flex);
-				}
-
-
-				if (flex) {
-					var next = element.getNext();
-					var nextflex = next.getStyle('flex');
-				}
-				
-				_log(nextflex);
-				if (flex) {
-					_log(nextflex);		
-				}
-
-				/*element.setStyle('flex','none');
-				element.setStyle(modifier.size, c[modifier.from] - coord[modifier.from]);*/
+				element.setStyle('flex','none');
+				element.setStyle(modifier.size, c[modifier.from] - coord[modifier.from]);
 
 				self.fireEvent('drag');
 			},
 			onComplete: function(el){
 				//_log(component.main);
 				//_log('onComplete', modifier.size, element.getCoordinates(container)[modifier.size]);
-				/*var coord = element.getCoordinates(container);
+				var coord = element.getCoordinates(container);
 				var size = element.getCoordinates(container)[modifier.size];
 				self.fireEvent('resizer', [component.main, modifier.size, size]);
 				component.fireEvent('resizeComplete', [modifier.size, size]);
 				_log(component.main, modifier.size, size);
-				component.width = size;*/
+				component.width = size;
 			}
 		});
 

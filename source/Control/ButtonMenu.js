@@ -12,7 +12,7 @@ UI.ButtonMenu = new Class({
 
 	options: {
 		name: 'button',
-		type: null, // push, file
+		type: 'action', // push, file
 		element: {
 			tag: 'button'
 		},
@@ -138,9 +138,10 @@ UI.ButtonMenu = new Class({
 			if (clss == 'UI.Button')
 			this.control[name].addEvents({
 				press: function() {
-					//var name =  this.options.name;
-					//_log('press', name, this.isEnable());
+					var name =  this.options.name;
+					_log('press', name, this.isEnable());
 					if (this.isEnable()) {
+						self.menu.hide();
 						self.fireEvent('control::'+name, this);
 						self.fireEvent(name, [self]);
 					}
