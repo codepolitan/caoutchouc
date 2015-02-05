@@ -133,17 +133,17 @@ UI.Button = new Class({
 	 * @return {[type]}   [description]
 	 */
 	_onElementMouseDown: function(e) {
-		
+		console.log(e);
 		e.stop();
-		
-		var x = e.event.layerX;
-		var y = e.event.layerY;
-		//console.log('mousedown', x, y);
+	
+		var x = e.event.offsetX;
+		var y = e.event.offsetY;
+		console.log('mousedown', x, y, e.event.layerX, e.event.layerY);
 
 		coord = this.element.getCoordinates(this.element);
 
-		var inner = new Element('span', {
-			class: 'button-reaction',
+		var ink = new Element('span', {
+			class: 'button-ink',
 			styles: {
 				left: x,
 				top: y,
@@ -151,7 +151,7 @@ UI.Button = new Class({
 			}
 		}).inject(this.element, 'top');
 
-		this._initReaction(inner, x, y, coord);
+		this._initInk(ink, x, y, coord);
 
 		this.fireEvent('mousedown');
 	},
@@ -163,17 +163,18 @@ UI.Button = new Class({
 	 * @param  {[type]} y     [description]
 	 * @return {[type]}       [description]
 	 */
-	_initReaction: function(inner, x, y, coord) {
+	_initInk: function(ink, x, y, coord) {
 		var size = coord.height,
-			top = 0;
+			top = 0,
+			duration = 750;
 
 		if (coord.width > size) {
 			size = coord.width;
 			top = (coord.height - coord.width) / 2;
 		}
 
-		var fx = new Fx.Morph(inner, {
-		    duration: 1000,
+		var fx = new Fx.Morph(ink, {
+		    duration: duration,
 		    link: 'chain',
 		    transition: Fx.Transitions.Quart.easeOut
 		});
@@ -187,8 +188,8 @@ UI.Button = new Class({
 		});
 
 		(function() {
-			inner.destroy();
-		}).delay(1000);
+			ink.destroy();
+		}).delay(duration);
 	},
 
 	/**

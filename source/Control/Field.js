@@ -173,7 +173,7 @@ UI.Field = new Class({
 			},
 			blur: function(e) {
 				self.setState(null);
-				self._hideReaction();
+				self._hideInk();
 				
 			}
 		});
@@ -195,21 +195,21 @@ UI.Field = new Class({
 		
 		//_log('state', this.options);
 
-		var x = e.event.layerX;
-		var y = e.event.layerY;
-		//console.log('mousedown', x, y);
+		var x = e.event.offsetX;
+		var y = e.event.offsetY;
+		console.log('mousedown', x, y);
 
 		coord = this.input.getCoordinates(this.element);
 
 		this.underline = new Element('span', {
-			class: 'field-reaction',
+			class: 'field-ink',
 			styles: {
 				left: x
 
 			}
 		}).inject(this.element, 'top');
 
-		this._initReaction(this.underline, x, y, coord);
+		this._initInk(this.underline, x, y, coord);
 
 		this.fireEvent('mousedown');
 	},
@@ -221,10 +221,9 @@ UI.Field = new Class({
 	 * @param  {[type]} y     [description]
 	 * @return {[type]}       [description]
 	 */
-	_initReaction: function(inner, x, y, coord) {
+	_initInk: function(inner, x, y, coord) {
 		var size = coord.width,
 			top = 0;
-
 
 		var fx = new Fx.Morph(inner, {
 		    duration: 300,
@@ -247,7 +246,7 @@ UI.Field = new Class({
 	 * @param  {[type]} y     [description]
 	 * @return {[type]}       [description]
 	 */
-	_hideReaction: function() {
+	_hideInk: function() {
 		var self= this;
 		var coord = this.input.getCoordinates(this.element);
 		var size = coord.width / 2;

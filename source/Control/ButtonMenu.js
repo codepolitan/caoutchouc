@@ -141,9 +141,9 @@ UI.ButtonMenu = new Class({
 					var name =  this.options.name;
 					_log('press', name, this.isEnable());
 					if (this.isEnable()) {
-						self.menu.hide();
 						self.fireEvent('control::'+name, this);
 						self.fireEvent(name, [self]);
+						self.menu.hide();
 					}
 				}
 			});
