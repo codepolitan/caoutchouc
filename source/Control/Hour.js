@@ -133,7 +133,7 @@ UI.Hour = new Class({
 		var m = date.getMinutes().toString();
 
 		if (h.length == 1) h = '0' + h;
-		if (m.length == 1) m = m + '0';
+		if (m.length == 1) m = '0' + m;
 
 		return h + 'h' + m;
 	},
