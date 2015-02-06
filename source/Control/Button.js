@@ -20,7 +20,7 @@ UI.Button = new Class({
 			_list: ['element'],
 			element: {
 				'element.click': '_onElementClick',
-				'element.dblclick': '_onElementClick',
+				//'element.dblclick': '_onElementClick',
 				'element.mousedown': '_onElementMouseDown',
 				'element.mouseup': '_onElementMouseUp'
 			}
@@ -133,6 +133,7 @@ UI.Button = new Class({
 	 * @return {[type]}   [description]
 	 */
 	_onElementMouseDown: function(e) {
+		//return;
 		console.log(e);
 		e.stop();
 	
@@ -200,7 +201,7 @@ UI.Button = new Class({
 	_onElementClick: function(e) {
 		var opts = this.options;
 		e.stopPropagation();
-		if (opts.emit && this.state != 'disabled')
+		if (opts.emit && this.state != 'disabled') 
 			this.fireEvent(opts.emit);
 			this.fireEvent('press', opts.emit);
 			this.fireEvent('pressed', opts.emit);
