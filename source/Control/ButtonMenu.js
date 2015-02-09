@@ -50,11 +50,11 @@ UI.ButtonMenu = new Class({
 		var self = this,
 			list = opts.list;
 
-		_log(opts.list, this.element);
+		//_log(opts.list, this.element);
 
 		opts.list = opts.list || [];
 
-		this.menu = new Element('div', {
+		this.menu = new Element('ul', {
 			class: 'button-menu'
 		}).addEvent('mouseleave', function() {
 			this.setStyle('display', 'none')
@@ -97,13 +97,13 @@ UI.ButtonMenu = new Class({
 			console.log('--', name, def.opts);
 			opts.text = Locale.get('control.'+name, name) || name;
 			opts.icon = mnml.control.button[name] || 'mdi-action-help';
+			opts.tag = 'span';
 		} else {
 			opts = {
 				name: name,
 				icon: mnml.control.button[name] || 'mdi-action-help'
 			};
 		}
-
 
 		if (typeof name == 'string')
 
@@ -119,7 +119,6 @@ UI.ButtonMenu = new Class({
 		var inject = true;
 
 		this.options.control = this.options.control || {};
-
 
 		if (!this.options.control[role]) {
 			inject = true;

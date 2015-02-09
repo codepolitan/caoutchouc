@@ -20,7 +20,7 @@ UI.Button = new Class({
 			_list: ['element'],
 			element: {
 				'element.click': '_onElementClick',
-				//'element.dblclick': '_onElementClick',
+				'element.dblclick': '_onElementDblClick',
 				'element.mousedown': '_onElementMouseDown',
 				'element.mouseup': '_onElementMouseUp'
 			}
@@ -133,10 +133,9 @@ UI.Button = new Class({
 	 * @return {[type]}   [description]
 	 */
 	_onElementMouseDown: function(e) {
-		//return;
-		console.log(e);
+		//console.log(e);
 		e.stop();
-	
+
 		var x = e.event.offsetX;
 		var y = e.event.offsetY;
 		console.log('mousedown', x, y, e.event.layerX, e.event.layerY);
@@ -201,7 +200,7 @@ UI.Button = new Class({
 	_onElementClick: function(e) {
 		var opts = this.options;
 		e.stopPropagation();
-		if (opts.emit && this.state != 'disabled') 
+		if (opts.emit && this.state != 'disabled')
 			this.fireEvent(opts.emit);
 			this.fireEvent('press', opts.emit);
 			this.fireEvent('pressed', opts.emit);
@@ -211,10 +210,24 @@ UI.Button = new Class({
 	},
 
 	/**
+	 * [_onElementMouseDown description]
+	 * @param  {event} e [description]
+	 * @return {[type]}   [description]
+	 */
+	_onElementDblClick: function(e) {
+		var opts = this.options;
+		e.stopPropagation();
+		if (opts.emit && this.state != 'disabled')
+			this.fireEvent('dblpress', opts.emit);
+			this.fireEvent('dblpressed', opts.emit);
+	},
+
+	/**
 	 * [_onElementMouseUp description]
 	 * @return {[type]} [description]
 	 */
 	_onElementMouseUp: function(){
+		console.log('_onElementMouseUp');
 		var opts = this.options;
 		if (this.options.type == 'check') {
 			if (this.state == 'checked')

@@ -242,6 +242,10 @@ UI.Component = new Class({
 			this.enableDrag();
 	},
 
+	getName: function() {
+		return this.options.name || this.name;
+	},
+
 	/*
 	Function: setHtmlContent
 		Set html Content

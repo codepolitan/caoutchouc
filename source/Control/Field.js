@@ -1,9 +1,8 @@
 
 /**
- * 
- * @param  {[type]} options){		this.setOptions(options);		var opts          = this.options;		this.fireEvent('init');		this._initOptions(opts);		this._initElement();		this._initEvents( [description]
- * @return {[type]}                                            [description]
+ * UI.Field
  */
+
 UI.Field = new Class({
 
 	Extends: UI.Control,
@@ -14,7 +13,12 @@ UI.Field = new Class({
 		tag: 'div',
 		type: 'input',
 		value: null,
-		useTextAsLabel: false
+		useTextAsLabel: false,
+		inkFx: {
+		    duration: 200,
+		    link: 'chain',
+		    transition: Fx.Transitions.Quart.easeOut
+		}
 	},
 
 	/**
@@ -64,12 +68,12 @@ UI.Field = new Class({
 			this._initLabel();
 
 		this._initInput();
-
-/*		this._initValue();
-		this._initName();*/
-
 	},
 
+	/**
+	 * [_initLabel description]
+	 * @return {[type]} [description]
+	 */
 	_initLabel: function()  {
 		var text = this.options.name;
 
@@ -82,6 +86,10 @@ UI.Field = new Class({
 		}).inject(this.element);
 	},
 
+	/**
+	 * [_initInput description]
+	 * @return {[type]} [description]
+	 */
 	_initInput: function()  {
 		var self = this;
 
@@ -93,6 +101,21 @@ UI.Field = new Class({
 			value: this.options.value,
 			placeholder: this.options.text
 		}).inject(this.element);
+
+	},
+
+	/**
+	 * [_initInk description]
+	 * @return {[type]} [description]
+	 */
+	_initInk: function() {
+		var opts = this.options;
+
+		this.ink = new Element('span', {
+			class: 'field-ink'
+		}).inject(this.element);
+
+		this.inkFx = new Fx.Morph(this.ink, opts.inkFx);
 	},
 
 	/**
@@ -160,12 +183,23 @@ UI.Field = new Class({
 				self.fireEvent('change', this.get('value'));
 			},
 			mousedown: function(e) {
-				//e.stopPropagation();
-				//this.focus();
-				//self._inputFocus(e);
+				//_log('mousedown');
+				if (self._focus) return;
+
+				if (!this.get('readonly')) {
+					self._focus = true;
+					self.setState('focus');
+					self._inputFocus(e);
+					//e.stopPropagation();
+					//this.focus();
+					//self._inputFocus(e);
+				}
 			},
 			focus: function(e) {
+				//_log('focus');
+				if (self._focus) return;
 				if (!this.get('readonly')) {
+					self._focus = true;
 					self.setState('focus');
 					self._inputFocus(e);
 				}
@@ -174,7 +208,7 @@ UI.Field = new Class({
 			blur: function(e) {
 				self.setState(null);
 				self._hideInk();
-				
+				self._focus = false;
 			}
 		});
 
@@ -190,28 +224,20 @@ UI.Field = new Class({
 	 * @return {[type]}   [description]
 	 */
 	_inputFocus: function(e) {
-		if (this.underline) return;
-		//e.stop();
-		
-		//_log('state', this.options);
+		//_log('_inputFocus', e);
 
-		var x = e.event.offsetX;
-		var y = e.event.offsetY;
-		console.log('mousedown', x, y);
+		if (this.ink) return;
+
+		var x = e.event.offsetX || 0;
+		var y = e.event.offsetY || 0;
 
 		coord = this.input.getCoordinates(this.element);
 
-		this.underline = new Element('span', {
-			class: 'field-ink',
-			styles: {
-				left: x
-
-			}
-		}).inject(this.element, 'top');
-
-		this._initInk(this.underline, x, y, coord);
+		this._showInk(this.ink, x, y, coord);
 
 		this.fireEvent('mousedown');
+
+		this._focus = true;
 	},
 
 	/**
@@ -221,23 +247,23 @@ UI.Field = new Class({
 	 * @param  {[type]} y     [description]
 	 * @return {[type]}       [description]
 	 */
-	_initInk: function(inner, x, y, coord) {
+	_showInk: function(inner, x, y, coord) {
 		var size = coord.width,
 			top = 0;
 
-		var fx = new Fx.Morph(inner, {
-		    duration: 300,
-		    link: 'chain',
-		    transition: Fx.Transitions.Quart.easeOut
+		if (!this.ink)
+			this._initInk();
+
+		this.ink.setStyles({
+			left: x
 		});
 
-		fx.start({
+		this.inkFx.start({
 		    width: size,
-		    left:coord.left
-			//opacity: 0
+		    left:coord.left,
+		    opacity: 1
 		});
 	},
-
 
 	/**
 	 * [_initEffect description]
@@ -251,36 +277,34 @@ UI.Field = new Class({
 		var coord = this.input.getCoordinates(this.element);
 		var size = coord.width / 2;
 
-
-		var fx = new Fx.Morph(this.underline, {
-		    duration: 100,
-		    link: 'chain',
-		    transition: Fx.Transitions.Quart.easeOut
-		});
-
-		fx.start({
+		this.inkFx.start({
 		    width: 0,
-		    left:size
-			//opacity: 0
+		    left:size,
+			opacity: 0
 		});
 
 		(function() {
-			if (self.underline) {
-				self.underline.destroy();
-				self.underline = null;
+			if (self.ink) {
+				self.ink.destroy();
+				self.ink = null;
 			}
 		}).delay(100);
 	},
+
 	/**
 	 * [set description]
 	 * @param {[type]} name  [description]
 	 * @param {[type]} value [description]
 	 */
 	set: function(value) {
+		//_log('set', value);
+
 		var opts = this.options;
-		console.log('setvalue', value);
+		
 		this.input.set('value', value);
 		this.fireEvent('change', value);
+
 	}
 
 });
+
