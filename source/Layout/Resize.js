@@ -26,25 +26,148 @@ UI.Layout.implement({
 	},
 
 	/**
-	 * [_initResize description]
-	 * @return {[type]} [description]
+	 * [_initResizeBorder description]
+	 * @param  {[type]} component [description]
+	 * @param  {[type]} border    [description]
+	 * @return {[type]}           [description]
 	 */
-	_initResizers: function(components) {
-		var len = components.length;
+	_initResizer: function(component) {
+		_log('_initResizer', component.options.name);
 
-		// add resize Border on the right or on the bottom
-		// execpt for the last one
-		for (var i = 0; i < len; i++) {
-			var component = components[i];
+		var self = this,
+			name = component.options.name,
+			element = component.element,
+			container = component.container,
+			last = component.options.last;
 
-			if (component.options.noResizer) {
-				//console.log('--', component.main);
-				continue;
+		if (!container) return;
+
+		var direction = container.getStyle('flex-direction');
+		
+		if (!direction)	return;
+
+		var modifier = this.options.resizer.modifier[direction];
+
+		
+
+		if (!modifier) return;
+
+		console.log('direction', direction, modifier);
+
+		//_log(element, coord);
+		var resizer = new Element('div', {
+			'class': 'ui-resizer',
+			'data-name': component.options.name
+		}).addEvents({
+			click: function(e){
+				e.stop();
+			},
+			mousedown: function(e) {
+				e.stop();
 			}
+		}).inject(container);
 
-			this._initResizer(component);
-			this._initMaximize(component);
+		if (modifier.size) {
+			resizer.addClass('resizer-'+ modifier.size);
 		}
+
+		if (last) {
+			_log('------last' );
+			resizer.addClass('resizer-last');
+		}
+
+		this._initResizerDrag(resizer, modifier, component);
+		this._initResizerEvent(component, resizer, modifier);
+
+		this.fireEvent('drag');
+	},
+
+	/**
+	 * [_initDrag description]
+	 * @param  {[type]} resizer  [description]
+	 * @param  {[type]} modifier [description]
+	 * @return {[type]}          [description]
+	 */
+	_initResizerDrag: function(resizer, modifier, component) {
+		_log('initResizerDrag', resizer, modifier);
+
+		var element = component.element,
+			container = component.container,
+			last = component.options.last;
+
+		var drag = new Drag.Move(resizer, {
+			modifiers: modifier.mode,
+		    onStart: function(el){
+				//_log('onStart', el);
+				//self.fireEvent('resizeStart', el);
+			},
+			onDrag: function(el, ev){
+				//_log('onDrag', el);
+				var coord = element.getCoordinates(container);
+				var c = resizer.getCoordinates(container);
+				//element.setStyle('flex','none');
+				element.setStyle(modifier.size, c[modifier.from] - coord[modifier.from]);
+				/*if (last)
+					element.setStyle(modifier.size, coord[modifier.from]);
+				else {
+					element.setStyle(modifier.size, c[modifier.from] - coord[modifier.from]);
+				}*/
+
+				self.fireEvent('drag');
+			},
+			onComplete: function(el){
+				//_log(component.main);
+				//_log('onComplete', modifier.size, element.getCoordinates(container)[modifier.size]);
+				var coord = element.getCoordinates(container);
+				var size = element.getCoordinates(container)[modifier.size];
+				self.fireEvent('resizer', [component.main, modifier.size, size]);
+				component.fireEvent('resizeComplete', [modifier.size, size]);
+				_log(component.main, modifier.size, size);
+				component.width = size;
+			}
+		});
+
+		return drag;
+	},
+
+	/**
+	 * [_initResizerEvent description]
+	 * @param  {[type]} component [description]
+	 * @param  {[type]} resizer   [description]
+	 * @param  {[type]} modifier  [description]
+	 * @return {[type]}           [description]
+	 */
+	// will definitly use a controller for that
+	_initResizerEvent: function(component, resizer, modifier) {
+		_log('_initResizerEvent', component.options.name, component.options.last);
+
+		var container = component.container;
+		var element = component.element;
+
+		this.addEvents({
+			drag: function() {
+				//_log('drag');
+				var coord = element.getCoordinates(container);
+				//_log('coord',  coord[modifier.from]);
+				resizer.setStyle(modifier.from, coord[modifier.from] + coord[modifier.size] - 3);
+			},
+			maximize: function() {
+				//_log(direction);
+				var coord = element.getCoordinates(container);
+				resizer.setStyle(modifier.from, coord[modifier.from] + coord[modifier.size] - 3);
+			},
+			normalize: function() {
+				//_log(direction);
+				var coord = element.getCoordinates(container);
+				resizer.setStyle(modifier.from, coord[modifier.from] + coord[modifier.size] - 3);
+			},
+			resize: function() {
+				//_log('resize', component.element, resizer);
+				
+				var coord = element.getCoordinates(container);
+				resizer.setStyle(modifier.from, coord[modifier.from] + coord[modifier.size] -3);
+			}
+		});
 	},
 
 	/**
@@ -61,6 +184,7 @@ UI.Layout.implement({
 
 		component.addEvent('max', function() {
 			var name = component.options.name;
+
 			//_log('max', component);
 			if (element.hasClass('container-max')) {
 				element.removeClass('container-max');
@@ -90,106 +214,27 @@ UI.Layout.implement({
 		});
 	},
 
+
 	/**
-	 * [_initResizeBorder description]
-	 * @param  {[type]} component [description]
-	 * @param  {[type]} border    [description]
-	 * @return {[type]}           [description]
+	 * [_initResize description]
+	 * @return {[type]} [description]
 	 */
-	_initResizer: function(component) {
-		var self = this;
-		var element = component.element;
-		var container = component.container;
+	_initResizers: function(components) {
+		var len = components.length;
 
-		//_log('_initResizeBorder', element.getNext());
-		if (!element.getNext()) return;
+		// add resize Border on the right or on the bottom
+		// execpt for the last one 
+		for (var i = 0; i < len; i++) {
+			var component = components[i];
 
-		if (!container) return;
-
-		var direction = container.getStyle('flex-direction');
-
-		if (!direction)
-			direction = container.getStyle('-webkit-flex-direction');
-
-		var modifier = this.options.resizer.modifier[direction];
-
-		//_log(element, coord);
-		var resizer = new Element('div', {
-			'class': 'ui-resizer-'+modifier.size,
-			'data-name': component.options.name
-		}).addEvents({
-			click: function(e){
-				e.stop();
-			},
-			mousedown: function(e) {
-				e.stop();
+			if (component.options.noResizer) {
+				//console.log('--', component.main);
+				continue;
 			}
-		}).inject(container, 'top');
 
-		new Drag.Move(resizer, {
-			modifiers: modifier.mode,
-		    onStart: function(el){
-				//_log('onStart', el);
-				//self.fireEvent('resizeStart', el);
-			},
-			onDrag: function(el, ev){
-				//_log('onDrag', el, ev.client.x);
-				var coord = element.getCoordinates(container);
-				var c = resizer.getCoordinates(container);
-				element.setStyle('flex','none');
-				element.setStyle(modifier.size, c[modifier.from] - coord[modifier.from]);
-
-				self.fireEvent('drag');
-			},
-			onComplete: function(el){
-				//_log(component.main);
-				//_log('onComplete', modifier.size, element.getCoordinates(container)[modifier.size]);
-				var coord = element.getCoordinates(container);
-				var size = element.getCoordinates(container)[modifier.size];
-				self.fireEvent('resizer', [component.main, modifier.size, size]);
-				component.fireEvent('resizeComplete', [modifier.size, size]);
-				_log(component.main, modifier.size, size);
-				component.width = size;
-			}
-		});
-
-		this._initResizerEvent(component, resizer, modifier);
-		this.fireEvent('drag');
+			this._initResizer(component);
+			this._initMaximize(component);
+		}
 	},
 
-	/**
-	 * [_initResizerEvent description]
-	 * @param  {[type]} component [description]
-	 * @param  {[type]} resizer   [description]
-	 * @param  {[type]} modifier  [description]
-	 * @return {[type]}           [description]
-	 */
-	// will definitly use a controller for that
-	_initResizerEvent: function(component, resizer, modifier) {
-		var container = component.container;
-		var element = component.element;
-
-		this.addEvents({
-			drag: function() {
-				//_log(direction);
-				var coord = element.getCoordinates(container);
-				resizer.setStyle(modifier.from, coord[modifier.from] + coord[modifier.size] - 3);
-			},
-			maximize: function() {
-				//_log(direction);
-				var coord = element.getCoordinates(container);
-				resizer.setStyle(modifier.from, coord[modifier.from] + coord[modifier.size] - 3);
-			},
-			normalize: function() {
-				//_log(direction);
-				var coord = element.getCoordinates(container);
-				resizer.setStyle(modifier.from, coord[modifier.from] + coord[modifier.size] - 3);
-			},
-			resize: function() {
-				//_log('resize', component.element, resizer);
-				var coord = element.getCoordinates(container);
-				resizer.setStyle(modifier.from, coord[modifier.from] + coord[modifier.size] -3);
-			}
-		});
-	}
 });
