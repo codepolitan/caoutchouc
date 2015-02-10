@@ -50,13 +50,18 @@ UI.Layout = new Class({
 		this._initEvents();
 	},
 
+	/**
+	 * [_initEvents description]
+	 * @param  {[type]} opts [description]
+	 * @return {[type]}      [description]
+	 */
 	_initEvents: function(opts) {
 		var self = this;
 
 		window.addEvent('resize', function() {
 			//_log('layout resize', this.container.getCoordinates());
 			var coord = self.container.getCoordinates();
-			if (coord.width < 720) {
+			if (coord.width < 720 && self.navi) {
 				self.navi.toggleClose();
 				//self.resizer.navi.hide();
 			}
