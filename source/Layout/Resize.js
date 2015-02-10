@@ -32,7 +32,7 @@ UI.Layout.implement({
 	 * @return {[type]}           [description]
 	 */
 	_initResizer: function(component) {
-		_log('_initResizer', component.options.name);
+		//_log('_initResizer', component.options.name);
 
 		var self = this,
 			name = component.options.name,
@@ -48,14 +48,12 @@ UI.Layout.implement({
 
 		var modifier = this.options.resizer.modifier[direction];
 
-		
-
 		if (!modifier) return;
 
-		console.log('direction', direction, modifier);
+		//console.log('direction', direction, modifier);
 
 		//_log(element, coord);
-		var resizer = new Element('div', {
+		var resizer = this.resizer[name] = new Element('div', {
 			'class': 'ui-resizer',
 			'data-name': component.options.name
 		}).addEvents({
@@ -72,8 +70,8 @@ UI.Layout.implement({
 		}
 
 		if (last) {
-			_log('------last' );
-			resizer.addClass('resizer-last');
+			//_log('------last' );
+			//resizer.addClass('resizer-last');
 		}
 
 		this._initResizerDrag(resizer, modifier, component);
@@ -89,7 +87,8 @@ UI.Layout.implement({
 	 * @return {[type]}          [description]
 	 */
 	_initResizerDrag: function(resizer, modifier, component) {
-		_log('initResizerDrag', resizer, modifier);
+		var self = this;
+		//_log('initResizerDrag', resizer, modifier);
 
 		var element = component.element,
 			container = component.container,
@@ -104,25 +103,28 @@ UI.Layout.implement({
 			onDrag: function(el, ev){
 				//_log('onDrag', el);
 				var coord = element.getCoordinates(container);
+				var coordc = container.getCoordinates();
 				var c = resizer.getCoordinates(container);
 				//element.setStyle('flex','none');
-				element.setStyle(modifier.size, c[modifier.from] - coord[modifier.from]);
-				/*if (last)
-					element.setStyle(modifier.size, coord[modifier.from]);
+				//element.setStyle(modifier.size, c[modifier.from] - coord[modifier.from]);
+				if (last){
+					//_log(modifier.size, coordc[modifier.size], c[modifier.from]);
+					element.setStyle(modifier.size, coordc[modifier.size] - c[modifier.from]);
+				}
 				else {
 					element.setStyle(modifier.size, c[modifier.from] - coord[modifier.from]);
-				}*/
+				}
 
 				self.fireEvent('drag');
 			},
 			onComplete: function(el){
-				//_log(component.main);
+				//_log('onComplete', component.main, modifier.size, size);
 				//_log('onComplete', modifier.size, element.getCoordinates(container)[modifier.size]);
 				var coord = element.getCoordinates(container);
 				var size = element.getCoordinates(container)[modifier.size];
 				self.fireEvent('resizer', [component.main, modifier.size, size]);
 				component.fireEvent('resizeComplete', [modifier.size, size]);
-				_log(component.main, modifier.size, size);
+				_log(component.main, size);
 				component.width = size;
 			}
 		});
@@ -139,7 +141,7 @@ UI.Layout.implement({
 	 */
 	// will definitly use a controller for that
 	_initResizerEvent: function(component, resizer, modifier) {
-		_log('_initResizerEvent', component.options.name, component.options.last);
+		//_log('_initResizerEvent', component.options.name, component.options.last);
 
 		var container = component.container;
 		var element = component.element;
@@ -149,23 +151,44 @@ UI.Layout.implement({
 				//_log('drag');
 				var coord = element.getCoordinates(container);
 				//_log('coord',  coord[modifier.from]);
-				resizer.setStyle(modifier.from, coord[modifier.from] + coord[modifier.size] - 3);
+				if (component.options.last) {
+					resizer.setStyle(modifier.from, coord[modifier.from] -3);
+				}
+				else { 
+					resizer.setStyle(modifier.from, coord[modifier.from] + coord[modifier.size] -3);
+				}
 			},
 			maximize: function() {
 				//_log(direction);
 				var coord = element.getCoordinates(container);
-				resizer.setStyle(modifier.from, coord[modifier.from] + coord[modifier.size] - 3);
+				if (component.options.last) {
+					resizer.setStyle(modifier.from, coord[modifier.from] -3);
+				}
+				else { 
+					resizer.setStyle(modifier.from, coord[modifier.from] + coord[modifier.size] -3);
+				}
 			},
 			normalize: function() {
 				//_log(direction);
 				var coord = element.getCoordinates(container);
-				resizer.setStyle(modifier.from, coord[modifier.from] + coord[modifier.size] - 3);
+				if (component.options.last) {
+					resizer.setStyle(modifier.from, coord[modifier.from] -3);
+				}
+				else { 
+					resizer.setStyle(modifier.from, coord[modifier.from] + coord[modifier.size] -3);
+				}
 			},
 			resize: function() {
 				//_log('resize', component.element, resizer);
 				
 				var coord = element.getCoordinates(container);
-				resizer.setStyle(modifier.from, coord[modifier.from] + coord[modifier.size] -3);
+
+				if (component.options.last) {
+					resizer.setStyle(modifier.from, coord[modifier.from] -3);
+				}
+				else { 
+					resizer.setStyle(modifier.from, coord[modifier.from] + coord[modifier.size] -3);
+				}
 			}
 		});
 	},

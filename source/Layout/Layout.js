@@ -43,9 +43,25 @@ UI.Layout = new Class({
 		this.settings = opts.settings || {};
 		this.component = {};
 		this.components = [];
+		this.resizer = {};
 
 		this._initContainer(opts);
 		this._processComponents(node);
+		this._initEvents();
+	},
+
+	_initEvents: function(opts) {
+		var self = this;
+
+		window.addEvent('resize', function() {
+			//_log('layout resize', this.container.getCoordinates());
+			var coord = self.container.getCoordinates();
+			if (coord.width < 720) {
+				self.navi.toggleClose();
+				//self.resizer.navi.hide();
+			}
+			//self.layout.fireEvent('resize');
+		});
 	},
 
 	/**
@@ -79,7 +95,7 @@ UI.Layout = new Class({
 	 * @return {[type]}      [description]
 	 */
 	_processComponents: function(node, type, level) {
-		//_debug('_process', node);
+		//_log('_process', node);
 		var list = node._list || [];
 			level = level++ || 1;
 
@@ -92,16 +108,21 @@ UI.Layout = new Class({
 			comp.opts = comp.opts || {};
 			comp.opts.name = name;
 			comp.opts.position = i + 1;
-			comp.opts.nComp = i + 1;
+			comp.opts.nComp = list.length;
 
 			if (i == list.length - 1) {
-				console.log('last--', name);
-				comp.last = true;
+				//console.log('last--', name);
+				comp.opts.last = true;
 			}
 
 			if (type != 'tab') {
 				comp.opts.container = node.container;
 			}
+
+			//_log('-', comp);
+
+			if (comp.flex) 
+				_log('flex------!!!');
 
 			var component = this._initComponent(comp);
 

@@ -68,8 +68,8 @@ UI.Component.implement({
 	 * [getCoordinates description]
 	 * @return {[type]} [description]
 	 */
-	getCoordinates: function() {
-		return this.element.getCoordinates();
+	getCoordinates: function(context) {
+		return this.element.getCoordinates(context);
 	},
 
 	/**

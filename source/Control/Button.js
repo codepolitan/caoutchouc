@@ -133,12 +133,11 @@ UI.Button = new Class({
 	 * @return {[type]}   [description]
 	 */
 	_onElementMouseDown: function(e) {
-		//console.log(e);
+		//console.log('_onElementMouseDown', e);
 		e.stop();
 
 		var x = e.event.offsetX;
 		var y = e.event.offsetY;
-		console.log('mousedown', x, y, e.event.layerX, e.event.layerY);
 
 		coord = this.element.getCoordinates(this.element);
 
