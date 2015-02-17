@@ -14,8 +14,13 @@ UI.Container.implement({
 		}
 	},
 
+	/**
+	 * [_initToggle description]
+	 * @return {[type]} [description]
+	 */
 	_initToggle: function() {
 		 //_log('_initToggle', this.isOpen, this._modifier, this.element);
+
 		var opts = this.options,
 			self = this,
 			modifier = 'width';
@@ -36,6 +41,7 @@ UI.Container.implement({
 	 */
 	toggle: function() {
 		//console.log('toggle', this.isOpen);
+
 		var self = this,
 			opts = this.options,
 			modifier = 'width';
@@ -54,7 +60,13 @@ UI.Container.implement({
 		//return this.isOpen;
 	},
 
+	/**
+	 * [toggleClose description]
+	 * @return {[type]} [description]
+	 */
 	toggleClose: function() {
+		_log('toggleOpen');
+
 		this.toggleFx.start(0);
 
 		//console.log('close');
@@ -72,9 +84,14 @@ UI.Container.implement({
 		//view.container.addClass('state-focus');
 	},
 
+	/**
+	 * [toggleOpen description]
+	 * @param  {[type]} size [description]
+	 * @return {[type]}      [description]
+	 */
 	toggleOpen: function(size) {
+		_log('toggleOpen', size);
 
-		//console.log('open', size);
 		this.toggleFx.start(size);
 
 		this.element.setStyle('display', null);
@@ -87,4 +104,4 @@ UI.Container.implement({
 		this.isOpen = true;
 	}
 
-});	
+});
