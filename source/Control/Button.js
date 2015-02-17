@@ -128,34 +128,6 @@ UI.Button = new Class({
 	},
 
 	/**
-	 * [_onElementMouseDown description]
-	 * @param  {event} e [description]
-	 * @return {[type]}   [description]
-	 */
-	_onElementMouseDown: function(e) {
-		//console.log('_onElementMouseDown', e);
-		e.stop();
-
-		var x = e.event.offsetX;
-		var y = e.event.offsetY;
-
-		coord = this.element.getCoordinates(this.element);
-
-		var ink = new Element('span', {
-			class: 'button-ink',
-			styles: {
-				left: x,
-				top: y,
-
-			}
-		}).inject(this.element, 'top');
-
-		this._initInk(ink, x, y, coord);
-
-		this.fireEvent('mousedown');
-	},
-
-	/**
 	 * [_initEffect description]
 	 * @param  {[type]} inner [description]
 	 * @param  {[type]} x     [description]
@@ -215,18 +187,48 @@ UI.Button = new Class({
 	 */
 	_onElementDblClick: function(e) {
 		var opts = this.options;
-		e.stopPropagation();
+		e.stop();
 		if (opts.emit && this.state != 'disabled')
 			this.fireEvent('dblpress', opts.emit);
 			this.fireEvent('dblpressed', opts.emit);
 	},
 
 	/**
+	 * [_onElementMouseDown description]
+	 * @param  {event} e [description]
+	 * @return {[type]}   [description]
+	 */
+	_onElementMouseDown: function(e) {
+		_log('_onElementMouseDown', e);
+
+		e.stop();
+
+		var x = e.event.offsetX;
+		var y = e.event.offsetY;
+
+		coord = this.element.getCoordinates(this.element);
+
+		var ink = new Element('span', {
+			class: 'button-ink',
+			styles: {
+				left: x,
+				top: y,
+
+			}
+		}).inject(this.element, 'top');
+
+		this._initInk(ink, x, y, coord);
+
+		this.fireEvent('mousedown');
+	},
+
+	/**
 	 * [_onElementMouseUp description]
 	 * @return {[type]} [description]
 	 */
-	_onElementMouseUp: function(){
-		console.log('_onElementMouseUp');
+	_onElementMouseUp: function(e){
+		_log('_onElementMouseUp', e);
+
 		var opts = this.options;
 		if (this.options.type == 'check') {
 			if (this.state == 'checked')

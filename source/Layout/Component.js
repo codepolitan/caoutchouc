@@ -56,9 +56,9 @@ UI.Layout.implement({
 	 * @return {[type]}        [description]
 	 */
 	_setComponentStyles: function(component) {
+		//_log('_setComponentStyles', component);
 
 		if (component.options.flex) {
-			_log('_setComponentStyles', component.options);
 			component.element.setStyle('flex', component.options.flex);
 		}
 	},
@@ -111,7 +111,7 @@ UI.Layout.implement({
 			}
 
 			if (this.settings[name] && this.settings[name].width) {
-				_log('settinga', name, this.settings[name].width);
+				//_log('settings', name, this.settings[name].width);
 				element.setStyle('flex', 'none');
 				if (component.isOpen)
 					element.setStyle('width', this.settings[name].width);

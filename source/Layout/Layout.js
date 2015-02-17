@@ -124,11 +124,6 @@ UI.Layout = new Class({
 				comp.opts.container = node.container;
 			}
 
-			//_log('-', comp);
-
-			if (comp.flex) 
-				_log('flex------!!!');
-
 			var component = this._initComponent(comp);
 
 			if (type == 'tab') {
