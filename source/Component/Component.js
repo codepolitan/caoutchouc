@@ -314,7 +314,7 @@ UI.Component = new Class({
 		if (this.setSize)
 			this.setSize();
 
-		this.size = this.element.getSize();
+		//this.size = this.element.getSize();
 		//ui.controller.element.register(this);
 
 		this.isInjected = true;
