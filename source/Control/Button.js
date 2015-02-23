@@ -19,10 +19,11 @@ UI.Button = new Class({
 		binding: {
 			_list: ['element'],
 			element: {
-				'element.click': '_onElementClick',
-				'element.dblclick': '_onElementDblClick',
-				'element.mousedown': '_onElementMouseDown',
-				'element.mouseup': '_onElementMouseUp'
+				'sensor.click': '_onClick',
+				'sensor.dblclick': '_onDblClick',
+				'sensor.mousedown': '_onMouseDown',
+				'sensor.mouseup': '_onMouseUp',
+				'sensor.mouseleave': '_onMouseLeave'
 			}
 		}
 	},
@@ -47,7 +48,6 @@ UI.Button = new Class({
 			this.element.set('html', opts.text);*/
 		//var text = opts.type.match(/text/g);
 
-
 		if (opts.name)
 			this.element.set('data-name', opts.name);
 
@@ -59,6 +59,8 @@ UI.Button = new Class({
 
 		if (opts.text)
 			this._initText(type);
+
+		this._initSensor();
 
 		this._initClass();
 	},
@@ -128,16 +130,33 @@ UI.Button = new Class({
 	},
 
 	/**
+	 * [_initText description]
+	 * @param  {[type]} type [description]
+	 * @return {[type]}      [description]
+	 */
+	_initSensor: function(type) {
+		var opts = this.options;
+
+		var tag = 'div';
+
+		this.sensor = new Element(tag, {
+			'class': 'button-sensor',
+		}).inject(this.element);
+	},
+
+	/**
 	 * [_initEffect description]
 	 * @param  {[type]} inner [description]
 	 * @param  {[type]} x     [description]
 	 * @param  {[type]} y     [description]
 	 * @return {[type]}       [description]
 	 */
-	_initInk: function(ink, x, y, coord) {
+	_touchInk: function(ink, x, y, coord) {
 		var size = coord.height,
 			top = 0,
-			duration = 750;
+			duration = 1000;
+
+		this.ink = ink;
 
 		if (coord.width > size) {
 			size = coord.width;
@@ -155,20 +174,25 @@ UI.Button = new Class({
 		    width: size,
 		    left: 0,
 		    top: top,
-			opacity: 0
+			opacity: 0.2
 		});
 
-		(function() {
-			ink.destroy();
-		}).delay(duration);
+		/*(function() {
+			if (this.ink != ink)
+				ink.destroy();
+			else 
+				_log('---------')
+		}).delay(duration);*/
 	},
+
 
 	/**
 	 * [_onElementMouseDown description]
 	 * @param  {event} e [description]
 	 * @return {[type]}   [description]
 	 */
-	_onElementClick: function(e) {
+	_onClick: function(e) {
+		_log('_onElementClick', e);
 		var opts = this.options;
 		e.stopPropagation();
 		if (opts.emit && this.state != 'disabled')
@@ -178,6 +202,8 @@ UI.Button = new Class({
 
 		if (opts.call && this.state != 'disabled')
 			opts.call();
+
+
 	},
 
 	/**
@@ -185,7 +211,7 @@ UI.Button = new Class({
 	 * @param  {event} e [description]
 	 * @return {[type]}   [description]
 	 */
-	_onElementDblClick: function(e) {
+	_onDblClick: function(e) {
 		var opts = this.options;
 		e.stop();
 		if (opts.emit && this.state != 'disabled')
@@ -198,7 +224,7 @@ UI.Button = new Class({
 	 * @param  {event} e [description]
 	 * @return {[type]}   [description]
 	 */
-	_onElementMouseDown: function(e) {
+	_onMouseDown: function(e) {
 		_log('_onElementMouseDown', e);
 
 		e.stop();
@@ -208,25 +234,46 @@ UI.Button = new Class({
 
 		coord = this.element.getCoordinates(this.element);
 
-		var ink = new Element('span', {
+		var ink = this.ink = new Element('span', {
 			class: 'button-ink',
 			styles: {
 				left: x,
-				top: y,
-
+				top: y
 			}
 		}).inject(this.element, 'top');
 
-		this._initInk(ink, x, y, coord);
+		this._touchInk(ink, x, y, coord);
 
 		this.fireEvent('mousedown');
+	},
+
+	/**
+	 * [_onElementMouseDown description]
+	 * @param  {event} e [description]
+	 * @return {[type]}   [description]
+	 */
+	_onMouseLeave: function(e) {
+		_log('_onMouseLeave', e);
+
+
+	},
+
+	/**
+	 * [_onElementMouseDown description]
+	 * @param  {event} e [description]
+	 * @return {[type]}   [description]
+	 */
+	_onMouseEnter: function(e) {
+		_log('_onElementMouseDown', e);
+
+
 	},
 
 	/**
 	 * [_onElementMouseUp description]
 	 * @return {[type]} [description]
 	 */
-	_onElementMouseUp: function(e){
+	_onMouseUp: function(e){
 		_log('_onElementMouseUp', e);
 
 		var opts = this.options;
@@ -235,7 +282,6 @@ UI.Button = new Class({
 				this.setState(null);
 			else this.setState('checked');
 		}
-
 		//this.react.destroy();
 	}
 });
