@@ -64,7 +64,7 @@ UI.Tab = new Class({
 			type: 'tab',
 			text: text,
 			name: opts.name,
-			onClick: function(e){
+			onPress: function(e){
 				self.activate(container);
 			}
 		}).inject(this.bar);
