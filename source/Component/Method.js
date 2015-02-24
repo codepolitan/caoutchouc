@@ -167,6 +167,15 @@ UI.Component.implement({
 	},
 
 	/**
+	 * [submit description]
+	 * @param  {[type]} string [description]
+	 * @return {[type]}        [description]
+	 */
+	submit:  function(string){
+		return this.element.submit(string);
+	},
+
+	/**
 	 * [dispose description]
 	 * @return {[type]} [description]
 	 */

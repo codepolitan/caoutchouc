@@ -174,15 +174,12 @@ UI.Button = new Class({
 		    width: size,
 		    left: 0,
 		    top: top,
-			opacity: 0.2
+			opacity: 0.05
 		});
 
-		/*(function() {
-			if (this.ink != ink)
-				ink.destroy();
-			else 
-				_log('---------')
-		}).delay(duration);*/
+		(function() {
+			ink.destroy();
+		}).delay(duration);
 	},
 
 

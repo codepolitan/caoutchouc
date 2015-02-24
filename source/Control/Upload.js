@@ -15,18 +15,8 @@ UI.Upload = new Class({
 		type: null, // push, file
 		element: {
 			tag: 'button'
-		},
-		binding: {
-			_list: ['element'],
-			element: {
-				'element.mousedown': '_onElementMouseDown',
-				'element.click': '_onElementClick',
-				'element.dblclick': '_onElementClick'
-			}
 		}
 	},
-
-	set: function() {},
 
 	/**
 	 * [_initElement description]
