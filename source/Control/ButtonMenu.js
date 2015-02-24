@@ -13,21 +13,7 @@ UI.ButtonMenu = new Class({
 	options: {
 		name: 'button',
 		type: 'action', // push, file
-		element: {
-			tag: 'button'
-		},
-		binding: {
-			_list: ['element'],
-			element: {
-				'element.click': '_onElementClick',
-				'element.dblclick': '_onElementClick',
-				'element.mousedown': '_onElementMouseDown',
-				'element.mouseup': '_onElementMouseUp'
-			}
-		}
 	},
-
-	set: function() {},
 
 	/**
 	 * [_initElement description]
@@ -37,34 +23,44 @@ UI.ButtonMenu = new Class({
 		this.parent();
 
 		this.control = {};
-		this._initMenu(this.options);
-
 	},
-
 
 	/**
 	 * [_initToolbarComp description]
 	 * @type {[type]}
 	 */
 	_initMenu: function(opts) {
+		_log('_initMenu');
 		var self = this,
 			list = opts.list;
 
 		//_log(opts.list, this.element);
 
 		opts.list = opts.list || [];
+		console.log(this.element);
+		this.container = $(this.element).getParent();
+		console.log(this.container);
+
+		var pos = this._initMenuPosition();
 
 		this.menu = new Element('ul', {
 			class: 'button-menu'
 		}).addEvent('mouseleave', function() {
-			this.setStyle('display', 'none')
-		}).inject(this.element, 'top');
+			//this.setStyle('display', 'none')
+		}).inject(this.container, 'bottom');
 
 		for (var i= 0; i < opts.list.length; i++) {
 			var name = opts.list[i];
 			var def = opts.list[name];
 			this._initItem(name, def, this.menu);
 		}
+	},
+
+	_initMenuPosition: function() {
+		var element = this.element.getCoordinates(this.container);
+		var container = this.container.getCoordinates();
+
+		console.log(element, container);
 	},
 
 	/**
@@ -155,41 +151,13 @@ UI.ButtonMenu = new Class({
 	 * @param  {event} e [description]
 	 * @return {[type]}   [description]
 	 */
-	_onElementMouseDown: function(e) {
-		
-		e.stop();
-		
-		var x = e.event.layerX;
-		var y = e.event.layerY;
-		//console.log('mousedown', x, y);
-
-		coord = this.element.getCoordinates(this.element);
-
-		var inner = new Element('span', {
-			class: 'button-reaction',
-			styles: {
-				left: x,
-				top: y,
-
-			}
-		}).inject(this.element, 'top');
-
-		this._initReaction(inner, x, y, coord);
-
-		this.fireEvent('mousedown');
-	},
-
-
-	/**
-	 * [_onElementMouseDown description]
-	 * @param  {event} e [description]
-	 * @return {[type]}   [description]
-	 */
-	_onElementClick: function(e) {
+	_onClick: function(e) {
 		_log('_onElementClick');
 		var opts = this.options;
 		e.stopPropagation();
 		
+		if (!this.menu) this._initMenu(opts);
+
 		this.menu.setStyle('display', 'block');
 	}
 });

@@ -4,18 +4,18 @@
  * @extends {UI.Control}
  * @type {Class}
  */
-UI.Button = new Class({
+UI.Item = new Class({
 
 	Extends: UI.Control,
 
-	name: 'button',
+	name: 'item',
 
 	options: {
 		name: 'button',
 		type: null, // push, file
 		ink: true,
 		element: {
-			tag: 'button'
+			tag: 'span'
 		},
 		binding: {
 			_list: ['element'],

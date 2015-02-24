@@ -159,7 +159,7 @@ UI.Component = new Class({
 
 		this.fireEvent('created');
 
-		if ( opts.container && opts.container != 'window') {
+		if (opts.container && opts.container != 'window') {
 			//console.log('_initElement', opts.name, opts.container);
 			this.inject(opts.container);
 			this.fireEvent('injected');
