@@ -190,7 +190,7 @@ UI.Button = new Class({
 	 * @return {[type]}   [description]
 	 */
 	_onClick: function(e) {
-		_log('_onElementClick', e);
+		//_log('_onElementClick', e);
 		var opts = this.options;
 		e.stopPropagation();
 		if (opts.emit && this.state != 'disabled')
@@ -223,7 +223,7 @@ UI.Button = new Class({
 	 * @return {[type]}   [description]
 	 */
 	_onMouseDown: function(e) {
-		_log('_onElementMouseDown', e);
+		//_log('_onElementMouseDown', e);
 
 		e.stop();
 
@@ -251,7 +251,7 @@ UI.Button = new Class({
 	 * @return {[type]}   [description]
 	 */
 	_onMouseLeave: function(e) {
-		_log('_onMouseLeave', e);
+		//_log('_onMouseLeave', e);
 
 
 	},
@@ -262,7 +262,7 @@ UI.Button = new Class({
 	 * @return {[type]}   [description]
 	 */
 	_onMouseEnter: function(e) {
-		_log('_onElementMouseDown', e);
+		//_log('_onElementMouseDown', e);
 
 
 	},
@@ -272,7 +272,7 @@ UI.Button = new Class({
 	 * @return {[type]} [description]
 	 */
 	_onMouseUp: function(e){
-		_log('_onElementMouseUp', e);
+		//_log('_onElementMouseUp', e);
 
 		var opts = this.options;
 		if (this.options.type == 'check') {
