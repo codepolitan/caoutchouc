@@ -1,3 +1,4 @@
+
 /*
 	Class: UI.Control
 		UI.Control is the base class of most control compoenents.
@@ -33,7 +34,10 @@ UI.Control = new Class({
 		//disabled: false
 	},
 
-
+	/**
+	 * [isEnable description]
+	 * @return {Boolean} [description]
+	 */
 	isEnable: function() {
 		//_log(this.state)
 		if (this.state == 'disabled')
@@ -41,6 +45,10 @@ UI.Control = new Class({
 		else return true;
 	},
 
+	/**
+	 * [isActive description]
+	 * @return {Boolean} [description]
+	 */
 	isActive: function() {
 		if (this.state == 'active')
 			return true;

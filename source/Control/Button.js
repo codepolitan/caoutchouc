@@ -56,7 +56,7 @@ UI.Button = new Class({
 		this.element.set('title', opts.text);
 
 		if (opts.icon)
-			this._initIcon(type);
+			this._initIcon(type, opts.name);
 
 		if (opts.text)
 			this._initText(type);
@@ -72,10 +72,12 @@ UI.Button = new Class({
 	 * @param  {[type]} type [description]
 	 * @return {[type]}      [description]
 	 */
-	_initIcon: function(type) {
+	_initIcon: function(type, name) {
 		var opts = this.options;
 
 		var tag = 'span';
+		var code = name;
+		var klss = null;
 
 		var prop = {
 			'class': 'button-icon'
@@ -83,10 +85,19 @@ UI.Button = new Class({
 
 		this.icon = new Element(tag, prop).inject(this.element);
 
-		var klss = opts.icon.replace("icon-", "fa-");
 
-		this.icon.addClass('fa');
+		if (mnml.icon.mdi[name]) {
+			_log('mdi');
+			klss = 'icon-mdi';
+			code = mnml.icon.mdi[name];
+		} else if (mnml.icon.font[name]) {
+			_log('font');
+			klss = 'icon-font';
+			code = mnml.icon.font[name];
+		}
+
 		this.icon.addClass(klss);
+		this.icon.addClass(code);
 	},
 
 	/**
@@ -94,7 +105,7 @@ UI.Button = new Class({
 	 * @param  {[type]} type [description]
 	 * @return {[type]}      [description]
 	 */
-	_initText: function(type) {
+	_initText: function(type) {	
 		var opts = this.options;
 
 		var tag = 'span';

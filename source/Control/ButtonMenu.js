@@ -92,12 +92,12 @@ UI.ButtonMenu = new Class({
 			opts = def.opts;
 			console.log('--', name, def.opts);
 			opts.text = Locale.get('control.'+name, name) || name;
-			opts.icon = mnml.control.button[name] || 'mdi-action-help';
+			opts.icon = mnml.icon.font[name] || 'mdi-action-help';
 			opts.tag = 'span';
 		} else {
 			opts = {
 				name: name,
-				icon: mnml.control.button[name] || 'mdi-action-help'
+				icon: mnml.icon.font[name] || 'mdi-action-help'
 			};
 		}
 
