@@ -87,11 +87,11 @@ UI.Button = new Class({
 
 
 		if (mnml.icon.mdi[name]) {
-			_log('mdi');
+			//_log('mdi');
 			klss = 'icon-mdi';
 			code = mnml.icon.mdi[name];
 		} else if (mnml.icon.font[name]) {
-			_log('font');
+			//_log('font');
 			klss = 'icon-font';
 			code = mnml.icon.font[name];
 		}
