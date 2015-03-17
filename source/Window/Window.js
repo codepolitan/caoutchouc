@@ -132,13 +132,31 @@ UI.Window = new Class({
 
 		//this._initContent();
 
+		//this._initShim();
+
+
 		if (this.options.useUnderlay)
 			this._initUnderlay();
 
 		this._initControl(this.options.controls);
 	},
 
-
+	_initShim: function() {
+		this.shim = new Element('iframe', {
+			src: 'javascript:false;document.write("");',
+			scrolling: 'no',
+			frameborder: 0,
+			styles: {
+				top:0,
+				left:0,
+				zIndex: '1',
+				position: 'absolute',
+				border: 'none',
+				filter: 'progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0)'
+			},
+			'class': 'iframeShim'
+		}).inject(this.element, 'top').store('IframeShim', this);
+	},
 
 	/*
 	Function: _initHead
@@ -183,11 +201,17 @@ UI.Window = new Class({
 		.inject(this.head);
 
 		opts.controls.each(function(action){
-			new Element('div',{
-				'class': 'control' + '-' + action
-			}).addEvent('click', function() {
+			new UI.Button({
+				icon: action,
+				text: action,
+				klss: action
+			}).addEvent('press', function(ev) {
+				_log('press', ev);
 				self.control(action);
 			}).inject(self.controls);
+
+
+
 		});
 
 		this.addEvents({

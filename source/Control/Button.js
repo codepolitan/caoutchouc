@@ -91,13 +91,16 @@ UI.Button = new Class({
 			klss = 'icon-mdi';
 			code = mnml.icon.mdi[name];
 		} else if (mnml.icon.font[name]) {
-			//_log('font');
+			//_log('iocn font name', name);
 			klss = 'icon-font';
 			code = mnml.icon.font[name];
 		}
 
-		this.icon.addClass(klss);
-		this.icon.addClass(code);
+		if (klss)
+			this.icon.addClass(klss);
+
+		if (code)
+			this.icon.addClass(code);
 	},
 
 	/**
