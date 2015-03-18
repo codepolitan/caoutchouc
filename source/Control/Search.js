@@ -82,10 +82,11 @@ UI.Search = new Class({
 	*/
 	_initReset: function() {
 		var self = this;
-
+		var icon = mnml.icon.font.clear || 'mdi-action-help';
 		this.reset = new UI.Button({
-			icon: 'icon-times-circle'
-		}).inject(this.element).addEvent('click', function() {
+			name: 'clear',
+			icon: icon,
+		}).inject(this.element).addEvent('press', function() {
 			self.empty();
 		});
 	},
