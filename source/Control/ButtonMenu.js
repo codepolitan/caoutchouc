@@ -30,16 +30,16 @@ UI.ButtonMenu = new Class({
 	 * @type {[type]}
 	 */
 	_initMenu: function(opts) {
-		_log('_initMenu');
+		//_log('_initMenu');
 		var self = this,
 			list = opts.list,
 			timer = null;
 		//_log(opts.list, this.element);
 
 		opts.list = opts.list || [];
-		console.log(this.element);
+		//console.log(this.element);
 		this.container = $(this.element).getParent();
-		console.log(this.container);
+		//console.log(this.container);
 
 		
 
@@ -69,7 +69,7 @@ UI.ButtonMenu = new Class({
 
 		var coord = this._initMenuPosition();
 		var size = this.menu.getSize();
-		_log(size);
+		//_log(size);
 
 		this.menu.setStyles({
 			top: coord.top,
@@ -81,11 +81,9 @@ UI.ButtonMenu = new Class({
 	},
 
 	_initMenuPosition: function() {
-			_log('_initMenuPosition');
+		//_log('_initMenuPosition');
 		var container = this.container.getParent().getCoordinates();
 		var coord = this.element.getCoordinates(this.container);
-		_log(this.element);
-		console.log(coord);
 
 		return coord;
 	},
@@ -161,7 +159,7 @@ UI.ButtonMenu = new Class({
 			this.control[name].addEvents({
 				press: function() {
 					var name =  this.options.name;
-					_log('press', name, this.isEnable());
+					//_log('press', name, this.isEnable());
 					if (this.isEnable()) {
 						//self.fireEvent('control::'+name, this);
 						self.fireEvent('press', name);
@@ -180,7 +178,7 @@ UI.ButtonMenu = new Class({
 	 * @return {[type]}   [description]
 	 */
 	_onClick: function(e) {
-		_log('_onElementClick');
+		//_log('_onElementClick');
 		var opts = this.options;
 		e.stopPropagation();
 		
