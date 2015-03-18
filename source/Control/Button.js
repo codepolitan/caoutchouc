@@ -73,6 +73,7 @@ UI.Button = new Class({
 	 * @return {[type]}      [description]
 	 */
 	_initIcon: function(type, name) {
+		//_log('_initIcon', type, name);
 		var opts = this.options;
 
 		var tag = 'span';

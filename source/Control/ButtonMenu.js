@@ -32,8 +32,8 @@ UI.ButtonMenu = new Class({
 	_initMenu: function(opts) {
 		_log('_initMenu');
 		var self = this,
-			list = opts.list;
-
+			list = opts.list,
+			timer = null;
 		//_log(opts.list, this.element);
 
 		opts.list = opts.list || [];
@@ -41,26 +41,53 @@ UI.ButtonMenu = new Class({
 		this.container = $(this.element).getParent();
 		console.log(this.container);
 
-		var pos = this._initMenuPosition();
+		
 
-		this.menu = new Element('ul', {
+		var menu = this.menu = new Element('ul', {
 			class: 'button-menu'
-		}).addEvent('mouseleave', function() {
-			//this.setStyle('display', 'none')
+		}).addEvents({
+			mouseleave: function() {
+				clearTimeout(timer);
+				timer = setTimeout(function() {
+					menu.setStyle('display', 'none');
+				}, 500);
+			},
+			mouseenter: function() {
+				clearTimeout(timer);
+			},
+			click: function() {
+				menu.setStyle('display', 'none');
+			}
 		}).inject(this.container, 'bottom');
+
 
 		for (var i= 0; i < opts.list.length; i++) {
 			var name = opts.list[i];
 			var def = opts.list[name];
 			this._initItem(name, def, this.menu);
 		}
+
+		var coord = this._initMenuPosition();
+		var size = this.menu.getSize();
+		_log(size);
+
+		this.menu.setStyles({
+			top: coord.top,
+			right: coord.right
+
+		});
+
+		_log(this.menu);
 	},
 
 	_initMenuPosition: function() {
-		var element = this.element.getCoordinates(this.container);
-		var container = this.container.getCoordinates();
+			_log('_initMenuPosition');
+		var container = this.container.getParent().getCoordinates();
+		var coord = this.element.getCoordinates(this.container);
+		_log(this.element);
+		console.log(coord);
 
-		console.log(element, container);
+		return coord;
 	},
 
 	/**
@@ -136,10 +163,11 @@ UI.ButtonMenu = new Class({
 					var name =  this.options.name;
 					_log('press', name, this.isEnable());
 					if (this.isEnable()) {
-						self.fireEvent('control::'+name, this);
-						self.fireEvent(name, [self]);
-						self.menu.hide();
+						//self.fireEvent('control::'+name, this);
+						self.fireEvent('press', name);
+						
 					}
+					self.menu.hide();
 				}
 			});
 		}
