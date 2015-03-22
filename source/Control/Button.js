@@ -81,7 +81,7 @@ UI.Button = new Class({
 		var klss = null;
 
 		var prop = {
-			'class': 'button-icon'
+			'class': 'ui-icon'
 		};
 
 		this.icon = new Element(tag, prop).inject(this.element);
@@ -119,7 +119,7 @@ UI.Button = new Class({
 			pos = 'top';
 
 		this.text = new Element(tag, {
-			'class': 'button-text',
+			'class': 'ui-text',
 			'html': opts.text
 		}).inject(this.element, pos);
 
@@ -132,6 +132,9 @@ UI.Button = new Class({
 	_initClass: function() {
 		var opts = this.options;
 		//_log(this.name);
+
+		if (this.options.isPrimary)
+			this.element.addClass('is-primary');
 
 		if (this.options.klss)
 			this.element.addClass('button-'+opts.klss);
@@ -156,7 +159,7 @@ UI.Button = new Class({
 		var tag = 'div';
 
 		this.sensor = new Element(tag, {
-			'class': 'button-sensor',
+			'class': 'ui-sensor',
 		}).inject(this.element);
 	},
 
@@ -242,13 +245,15 @@ UI.Button = new Class({
 
 		e.stop();
 
+		if (this.state == 'disabled') return;
+
 		var x = e.event.offsetX;
 		var y = e.event.offsetY;
 
 		coord = this.element.getCoordinates(this.element);
 
 		var ink = this.ink = new Element('span', {
-			class: 'button-ink',
+			class: 'ui-ink',
 			styles: {
 				left: x,
 				top: y
