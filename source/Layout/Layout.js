@@ -81,10 +81,10 @@ UI.Layout = new Class({
 		}).inject(opts.container);
 
 
-		this.map = new UI.Container({
+/*		this.map = new UI.Container({
 			resizable: false,
 			'class': 'ui-map map-' + opts.node._name
-		});
+		});*/
 
 		//_log('Layout container', this.container);
 

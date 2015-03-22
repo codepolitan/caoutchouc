@@ -114,11 +114,11 @@ UI.Layout.implement({
 				//_log('settings', name, this.settings[name].width);
 				element.setStyle('flex', 'none');
 				if (component.isOpen)
-					element.setStyle('width', this.settings[name].width);
+					element.setStyle('width', this.settings[name].width || 160);
 				else
 					element.setStyle('width', 0);
 
-				component.width = this.settings[name].width;
+				component.width = this.settings[name].width || 160;
 				component._modifier = 'width';
 			}
 
