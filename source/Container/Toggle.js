@@ -8,7 +8,7 @@
 UI.Container.implement({
 	options: {
 		toggleFx: {
-			duration: 250,
+			duration: 300,
 		    transition: 'quart:out',
 		    link: 'cancel'
 		}
@@ -19,7 +19,7 @@ UI.Container.implement({
 	 * @return {[type]} [description]
 	 */
 	_initToggle: function() {
-		 //_log('_initToggle', this.isOpen, this._modifier, this.element);
+		 _log('_initToggle', this.isOpen, this._modifier, this.element);
 
 		var opts = this.options,
 			self = this,
@@ -40,14 +40,14 @@ UI.Container.implement({
 	 * @return {[type]} [description]
 	 */
 	toggle: function() {
-		//console.log('toggle', this.isOpen);
+		console.log('toggle', this.isOpen);
 
 		var self = this,
 			opts = this.options,
 			modifier = 'width';
 
-		var size = this[modifier];
-		//console.log('size', size);
+		var size = this[modifier] || 160;
+		console.log('size', size || 100);
 		_log('--- isOpen', this.isOpen);
 		if (this.isOpen === true) {
 			//_log('--- close', this.isOpen);
