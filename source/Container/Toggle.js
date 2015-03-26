@@ -8,8 +8,8 @@
 UI.Container.implement({
 	options: {
 		toggleFx: {
-			duration: 300,
-		    transition: 'quart:out',
+			duration: 260,
+		    transition: 'sine:out',
 		    link: 'cancel'
 		}
 	},
@@ -19,13 +19,16 @@ UI.Container.implement({
 	 * @return {[type]} [description]
 	 */
 	_initToggle: function() {
-		 //_log('_initToggle', this.isOpen, this._modifier, this.element);
+		 _log('_initToggle', this.isOpen, this._modifier, this.element);
 
 		var opts = this.options,
 			self = this,
 			modifier = 'width';
 
 		var size = this.element[modifier];
+
+		console.log('-----', size);
+
 		opts.toggleFx.property = modifier;
 		this.toggleFx = this.toggleFx || new Fx.Tween(this.element, opts.toggleFx).addEvents({
 			complete: function(ev) {
@@ -47,13 +50,13 @@ UI.Container.implement({
 			modifier = 'width';
 
 		var size = this[modifier] || 160;
-		//_log('size', size || 100);
-		//_log('--- isOpen', this.isOpen);
+		_log('size', size || 100);
+		_log('--- isOpen', this.isOpen);
 		if (this.isOpen === true) {
-			//_log('--- close', this.isOpen);
+			_log('--- close', this.isOpen);
 			this.toggleClose();
 		} else {
-			//_log('--- open', this.isOpen);
+			_log('--- open', this.isOpen, size);
 			this.toggleOpen(size);
 		}
 
@@ -65,7 +68,7 @@ UI.Container.implement({
 	 * @return {[type]} [description]
 	 */
 	toggleClose: function() {
-		//_log('toggleOpen');
+		_log('toggleOpen');
 
 		this.toggleFx.start(0);
 
@@ -75,11 +78,12 @@ UI.Container.implement({
 		/*(function() {
 			self.container.setStyle('display', 'none');	
 		}).delay(250);*/
-
+		this.isOpen = false;
+		
 		minimal.settings.set('layout.' + this.main + '.hidden', true);
 		minimal.settings.save();
 
-		this.isOpen = false;
+		
 
 		//view.container.addClass('state-focus');
 	},
@@ -90,18 +94,20 @@ UI.Container.implement({
 	 * @return {[type]}      [description]
 	 */
 	toggleOpen: function(size) {
-		//_log('toggleOpen', size);
+		_log('toggleOpen', size);
 
 		this.toggleFx.start(size);
 
 		this.element.setStyle('display', null);
 		this.element.addClass('state-focus');
 
+		this.isOpen = true;
+
 		minimal.settings.set('layout.' + this.main + '.hidden', false);
 		minimal.settings.save();
 
 		//view.container.removeClass('state-focus');
-		this.isOpen = true;
+		
 	}
 
 });
