@@ -39,7 +39,7 @@ UI.Container.implement({
 		fx.property = modifier;
 
 		this.display.fx = this.display.fx || 
-		new Fx.Tween(this.element, fx).addEvent(complete, function() {
+		new Fx.Tween(this.element, fx).addEvent('complete', function() {
 			self.fireEvent('toggled');
 		});
 

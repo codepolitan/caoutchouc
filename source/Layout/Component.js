@@ -63,7 +63,7 @@ UI.Layout.implement({
 	 * @return {[type]}           [description]
 	 */
 	_componentRegister: function(name, component) {
-		_log('_componentRegister', name, component);
+		//_log('_componentRegister', name, component);
 
 		this.components = this.components || [];
 		this.components.push(component);
@@ -104,7 +104,7 @@ UI.Layout.implement({
 	 * @return {[type]}        [description]
 	 */
 	_setComponentDisplay: function(component) {
-		//_log('_initCompSize', name, component);
+		_log('_initCompSize', component.getName());
 		//_log('comp opts', component.options);
 		var display = 'normalized';
 
@@ -129,15 +129,18 @@ UI.Layout.implement({
 			}
 
 			if (this.settings[name] && this.settings[name].width) {
-				//_log('settings', name, this.settings[name].width);
+				_log('settings', name, this.settings[name].width);
 				element.setStyle('flex', 'none');
-				if (display == 'normalized') {
-					element.setStyle('width', this.settings[name].width || 160);
-				} else {
+				if (display == 'minimized') {
+					copnsole.log('isMinimized');
 					element.setStyle('width', 0);
+					element.hide();
+				} else {
+					element.setStyle('width', this.settings[name].width || 200);
 				}
 
-				component.width = this.settings[name].width || 160;
+				component.width = this.settings[name].width || 200;
+				component.size =  component.width;
 				component._modifier = 'width';
 			}
 
