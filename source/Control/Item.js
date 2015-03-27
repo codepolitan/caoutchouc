@@ -100,8 +100,9 @@ UI.Item = new Class({
 		var tag = 'span';
 
 		var pos = 'bottom';
-		if (type == 'text-icon')
+		if (type == 'text-icon') {
 			pos = 'top';
+		}
 
 		this.text = new Element(tag, {
 			'class': 'button-text',
