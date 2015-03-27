@@ -39,14 +39,48 @@ UI.Layout.implement({
 
 		//comp.opts.container = comp.container;
 		var component = this.component[name] = this[name] = new clss(comp.opts);
+		
+		// register component
+		this._componentRegister(name, component);
 
+		//settings
+		this._initComponentSettings(component);
+
+		// styles and size
 		this._setComponentStyles(component);
-		this._setComponentSettings(component);
+		this._setComponentDisplay(component);
 		this._attachComponentEvents(component);
 
-		this.components.push(component);
+		// 
+		
+		return component;
+	},
 
-		return this[name];
+	/**
+	 * [_componentRegister description]
+	 * @param  {[type]} name      [description]
+	 * @param  {[type]} component [description]
+	 * @return {[type]}           [description]
+	 */
+	_componentRegister: function(name, component) {
+		_log('_componentRegister', name, component);
+
+		this.components = this.components || [];
+		this.components.push(component);
+	},
+
+	/**
+	 * [_initComponentSettings description]
+	 * @param  {object} name   [description]
+	 * @param  {[type]} object [description]
+	 * @return {[type]}        [description]
+	 */
+	_initComponentSettings: function(component) {
+		//_log('_initcompSettings', component);
+
+		var name = component.getName();
+		var element = component.element;
+	
 	},
 
 	/**
@@ -64,38 +98,22 @@ UI.Layout.implement({
 	},
 
 	/**
-	 * [_initComponentSettings description]
-	 * @param  {object} name   [description]
-	 * @param  {[type]} object [description]
-	 * @return {[type]}        [description]
-	 */
-	_setComponentSettings: function(component) {
-		//_log('_initcompSettings', component);
-
-		var name = component.getName();
-		var element = component.element;
-		if (this.settings[name] && this.settings[name].hidden) {
-			//_log('hide', name, this.settings[name], this.settings[name].visible);
-			element.setStyle('display', 'none');
-			component.isOpen = false;
-		} else {
-			component.isOpen = true;
-		}
-
-		component._modifier = 'width';
-
-		this._initComponentSize(component);
-	},
-
-	/**
 	 * [_initSize description]
 	 * @param  {[type]} name   [description]
 	 * @param  {[type]} object [description]
 	 * @return {[type]}        [description]
 	 */
-	_initComponentSize: function(component) {
+	_setComponentDisplay: function(component) {
 		//_log('_initCompSize', name, component);
 		//_log('comp opts', component.options);
+		var display = 'normalized';
+
+
+		if (this.settings[name] && this.settings[name].display) {
+			display = this.settings[name].display;
+		};
+		
+		component.setDisplay(display, 'width');
 
 		var name = component.getName();
 		var element = component.element;
@@ -113,7 +131,7 @@ UI.Layout.implement({
 			if (this.settings[name] && this.settings[name].width) {
 				//_log('settings', name, this.settings[name].width);
 				element.setStyle('flex', 'none');
-				if (component.isOpen)
+				if (display == 'normalized')
 					element.setStyle('width', this.settings[name].width || 160);
 				else
 					element.setStyle('width', 0);

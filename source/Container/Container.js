@@ -34,9 +34,9 @@ UI.Container = new Class({
 	initialize: function(options){
 		this.parent(options);
 
-		if (this.options.comp)
+		if (this.options.comp) {
 			this._initComp(this.options.comp);
-		else {
+		} else {
 			this._initComponent();
 		}
 
@@ -326,10 +326,5 @@ UI.Container = new Class({
 	focus: function(){
 		//_log('focus');
 		//this.fireEvent('focus');
-	},
-
-	close: function() {
-		//_log('!close');
-		return;
 	}
 });
