@@ -131,10 +131,11 @@ UI.Layout.implement({
 			if (this.settings[name] && this.settings[name].width) {
 				//_log('settings', name, this.settings[name].width);
 				element.setStyle('flex', 'none');
-				if (display == 'normalized')
+				if (display == 'normalized') {
 					element.setStyle('width', this.settings[name].width || 160);
-				else
+				} else {
 					element.setStyle('width', 0);
+				}
 
 				component.width = this.settings[name].width || 160;
 				component._modifier = 'width';

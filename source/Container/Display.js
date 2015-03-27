@@ -94,7 +94,6 @@ UI.Container.implement({
 
 		this.display.fx.start(0);
 
-		//console.log('close');
 		this.element.removeClass('state-focus');
 		this._display = 'minimized';
 
@@ -128,7 +127,6 @@ UI.Container.implement({
 
 		this.element.removeClass('state-focus');
 
-		minimal.settings.set('layout.' + this.main + '.hidden', false);
 		minimal.settings.set('layout.' + this.main + '.display', 'normalized');
 
 		minimal.settings.save();
@@ -152,7 +150,6 @@ UI.Container.implement({
 
 		this.isOpen = true;
 
-		minimal.settings.set('layout.' + this.main + '.hidden', false);
 		minimal.settings.set('layout.' + this.main + '.display', 'maximized');
 		minimal.settings.save();
 
