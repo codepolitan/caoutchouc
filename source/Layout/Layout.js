@@ -62,7 +62,7 @@ UI.Layout = new Class({
 			//_log('layout resize', this.container.getCoordinates());
 			var coord = self.container.getCoordinates();
 			if (coord.width < 720 && self.navi) {
-				self.navi.toggleClose();
+				self.navi.minimize();
 				//self.resizer.navi.hide();
 			}
 			//self.layout.fireEvent('resize');

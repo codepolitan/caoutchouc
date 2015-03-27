@@ -113,7 +113,7 @@ UI.Container.implement({
 	normalize: function(size) {
 		_log('normalize');
 
-		var size = size || this.options.width || 100;
+		var size = size || this.options.width || 280;
 
 		if (this._display == 'normalized') return;
 
