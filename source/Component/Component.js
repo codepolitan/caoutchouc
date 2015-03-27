@@ -1,20 +1,7 @@
-/*
- ---
- description: Base of all ui name.
-
- authors: [moolego,r2d2]
-
- requires:
- - core:1.2.1: '*'
-
- provides: [UI.Component]
-
- ...
-*/
-
 
 /**
-* Minimalistic base of all ui components.
+* Component Class
+* The base object for all ui components
 *
 * @class UI.Component
 * @extends {UI}
@@ -22,10 +9,8 @@
 * @return {parent} Class
 * @example (start code)	new UI.Context(object); (end)
 * @author [moolego,r2d2]
-* @copyright © 1999-2014 - Jerome D. Vial. All Rights reserved.
+* @copyright © 1999-2015 - Jerome D. Vial. All Rights reserved.
 */
-
-
 UI.Component = new Class({
 
 	Implements: [Events, Options, UI.Binding],
@@ -106,11 +91,10 @@ UI.Component = new Class({
 		ui.node[this.main][node.name] = container;
 	},
 
-	/*
-		function : _initState
-
-
-	*/
+	/**
+	 * [_initOptions description]
+	 * @return {[type]}
+	 */
 	_initOptions: function(){
 		var opts = this.options;
 		//this.name = this.options.name;
@@ -125,19 +109,18 @@ UI.Component = new Class({
 		this.dragHandlers = opts.dragHandlers || [];
 	},
 
-	/*
-		function : _initState
-
-
-	*/
+	/**
+	 * [_initState description]
+	 * @return {[type]}
+	 */
 	_initState: function(){
 		this.setState(this.options.state);
 	},
 
-	/*
-		function : _initElement
-
-	*/
+	/**
+	 * [_initElement description]
+	 * @return {[type]}
+	 */
 	_initElement: function(){
 		var self = this,
 			opts = this.options;
@@ -169,6 +152,10 @@ UI.Component = new Class({
 		this._initClass();
 	},
 
+	/**
+	 * [_initProps description]
+	 * @return {[type]}
+	 */
 	_initProps: function() {
 		//_log('_initProps');
 		var opts = this.options,
@@ -196,15 +183,16 @@ UI.Component = new Class({
 		return prop;
 	},
 
-
+	/**
+	 * [_initElementType description]
+	 * @return {[type]}
+	 */
 	_initElementType: function() {},
 
-	/*
-		function : _initEvents
-
-			Build the split containers
-
-	*/
+	/**
+	 * [_initClass description]
+	 * @return {[type]}
+	 */
 	_initClass: function() {
 		var opts = this.options;
 
@@ -281,15 +269,12 @@ UI.Component = new Class({
 		return this;
 	},
 
-	/*
-		function : inject
-
-			Build the split containers
-
-		Note:
-			will be refactor or rethink
-
-	*/
+	/**
+	 * [inject description]
+	 * @param  {[type]}
+	 * @param  {[type]}
+	 * @return {[type]}
+	 */
 	inject: function(container, position){
 		var self = this;
 

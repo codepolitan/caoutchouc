@@ -10,7 +10,7 @@ UI.Layout = new Class({
 
 	/**
 	 * sick layout Options
-	 * @type {Object}
+	 * @type {Object}pack
 	 * @param {name} [name] layout
 	 * @param {Object} [clss] Default component class
 	 */

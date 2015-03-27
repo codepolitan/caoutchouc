@@ -1,3 +1,9 @@
+
+/**
+ * Resize module for Comopnent Class
+ * @param  {Array}
+ * @return {[type]}
+ */
 UI.Component.implement({
 	options: {
 		// Resize options
@@ -9,9 +15,17 @@ UI.Component.implement({
 		resizeLimitY: [100, screen.height]
 	},
 
+	/**
+	 * [_initResizer description]
+	 * @return {[type]}
+	 */
 	_initResizer: function(){
 		//_log('_initResizer', this.options.resizable);
 		this.resizeHandlers = [];
+
+		var wrapper = new Element('div', {
+			'class': 'layer-resizer'
+		}).inject(this.element, 'bottom');
 
 		this.resizer = new Element('div', this.options.resizer)
 		.addEvents({
@@ -21,7 +35,7 @@ UI.Component.implement({
 			mousedown: function(e) {
 				e.stop();
 			}
-		}).inject(this.element, 'bottom');
+		}).inject(wrapper, 'bottom');
 
 		this.resizeHandlers.push(this.resizer);
 
@@ -40,13 +54,18 @@ UI.Component.implement({
 					mousedown: function(e) {
 						e.stop();
 					}
-				}).inject(this.element, 'bottom'));
+				}).inject(wrapper, 'top'));
 
 				this.enableResize(i+1);
 			},this);
 		}
 	},
 
+	/**
+	 * [enableResize description]
+	 * @param  {[type]}
+	 * @return {[type]}
+	 */
 	enableResize: function(i){
 		var self = this;
 		var options = {

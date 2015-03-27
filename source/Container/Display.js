@@ -36,14 +36,11 @@ UI.Container.implement({
 
 		this.display = this.display = {};
 
-		opts.property = modifier;
+		fx.property = modifier;
 
 		this.display.fx = this.display.fx || 
-		new Fx.Tween(this.element, {
-			duration: 260,
-		    transition: 'sine:out',
-		    link: 'cancel',
-		    property: 'width'
+		new Fx.Tween(this.element, fx).addEvent(complete, function() {
+			self.fireEvent('toggled');
 		});
 
 		return this.display;
@@ -97,7 +94,6 @@ UI.Container.implement({
 		this.element.removeClass('state-focus');
 		this._display = 'minimized';
 
-		minimal.settings.set('layout.' + this.main + '.hidden', false);
 		minimal.settings.set('layout.' + this.main + '.display', 'minimized');
 
 		minimal.settings.save();
@@ -113,22 +109,18 @@ UI.Container.implement({
 		_log('normalize');
 
 		var size = size || this.options.width || 280;
-
 		if (this._display == 'normalized') return;
 
 		if (!this.display)
 			this._initDisplay();
 
 		this.fireEvent('normalize', this);
-
 		this.display.fx.start(size);
 
 		this._display = 'normalized';
-
 		this.element.removeClass('state-focus');
 
 		minimal.settings.set('layout.' + this.main + '.display', 'normalized');
-
 		minimal.settings.save();
 
 		this.fireEvent('display', 'normalized');

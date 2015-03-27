@@ -154,6 +154,7 @@ UI.Layout.implement({
 		var self = this;
 		object.addEvents({
 			toggled:  function() {
+				console.log('toggled');
 				self.fireEvent('resize');
 			}
 		});
