@@ -457,12 +457,24 @@ UI.Window = new Class({
 
 			//_log(this.coord);
 
-			this.setStyles(this.max);
+			this.setState('maximized');
+
+			//this.setStyles(this.max);
+			//
+			this.setStyles({
+				position: 'absolute',
+				width: '100%',
+				height: '100%',
+				top: 0,
+				left: 0,
+				right: 0,
+				bottom: 0
+			});
 
 			this.minimized = false;
 			this.maximized = true;
-			this.fireEvent('maximize');
-			this.fireEvent('resize');
+			//this.fireEvent('maximize');
+			//this.fireEvent('resize');
 		}
 
 		return this;

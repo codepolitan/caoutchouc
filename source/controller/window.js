@@ -302,6 +302,8 @@ ui.window = {
 		(void)
 	*/
 	resizeMaximizedWindow: function(){
+		//_log('resizeMaximizedWindow');
+
 		this.list.each(function(win) {
 			if (win.state == 'maximized') {
 				win.setSize({

@@ -124,7 +124,7 @@ UI.Layout.implement({
 				var size = element.getCoordinates(container)[modifier.size];
 				self.fireEvent('resizer', [component.main, modifier.size, size]);
 				component.fireEvent('resizeComplete', [modifier.size, size]);
-				_log(component.main, size);
+				//_log(component.main, size);
 				component.width = size;
 			}
 		});
