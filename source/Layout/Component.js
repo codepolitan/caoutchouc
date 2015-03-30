@@ -104,7 +104,7 @@ UI.Layout.implement({
 	 * @return {[type]}        [description]
 	 */
 	_setComponentDisplay: function(component) {
-		_log('_initCompSize', component.getName());
+		// _log('_initCompSize', component.getName());
 		//_log('comp opts', component.options);
 		var display = 'normalized';
 
@@ -129,7 +129,7 @@ UI.Layout.implement({
 			}
 
 			if (this.settings[name] && this.settings[name].width) {
-				_log('settings', name, this.settings[name].width);
+				// _log('settings', name, this.settings[name].width);
 				element.setStyle('flex', 'none');
 				if (display == 'minimized') {
 					copnsole.log('isMinimized');
@@ -157,7 +157,7 @@ UI.Layout.implement({
 		var self = this;
 		object.addEvents({
 			toggled:  function() {
-				console.log('toggled');
+				// _log('toggled');
 				self.fireEvent('resize');
 			}
 		});
