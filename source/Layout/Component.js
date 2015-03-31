@@ -107,14 +107,9 @@ UI.Layout.implement({
 		//_log('comp opts', component.options);
 		var display = 'normalized';
 
-
 		if (this.settings[name] && this.settings[name].display) {
 			display = this.settings[name].display;
-		};
-		
-		
-		
-		console.log('--- ', component, display);
+		}
 
 		component.setDisplay(display, 'width');
 
@@ -136,7 +131,7 @@ UI.Layout.implement({
 				//_log('settings', name, this.settings[name].width);
 				element.setStyle('flex', 'none');
 				if (display == 'minimized') {
-					copnsole.log('isMinimized');
+					//_log.log('isMinimized');
 					element.setStyle('width', 0);
 					element.hide();
 				} else {
