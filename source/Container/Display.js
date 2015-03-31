@@ -74,7 +74,7 @@ UI.Container.implement({
 	 * [toggle description]
 	 * @return {[type]} [description]
 	 */
-	toggleDisplay: function() {
+	toggle: function() {
 
 		if (this._display == 'normalized')
 			this.minimize();
