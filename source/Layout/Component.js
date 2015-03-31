@@ -108,7 +108,6 @@ UI.Layout.implement({
 		//_log('comp opts', component.options);
 		var display = 'normalized';
 
-
 		if (this.settings[name] && this.settings[name].display) {
 			display = this.settings[name].display;
 		}
@@ -157,7 +156,7 @@ UI.Layout.implement({
 		var self = this;
 		object.addEvents({
 			toggled:  function() {
-				console.log('toggled');
+				//console.log('toggled');
 				self.fireEvent('resize');
 			}
 		});
@@ -173,6 +172,9 @@ UI.Layout.implement({
 				object.fireEvent('resize');
 			},
 			maximize: function() {
+				object.fireEvent('resize');
+			},
+			minimize: function() {
 				object.fireEvent('resize');
 			}
 		});

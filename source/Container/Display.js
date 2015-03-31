@@ -1,7 +1,13 @@
 
-
+/**
+ * 
+ */
 UI.Container.implement({
 
+	/**
+	 * Display options for container
+	 * @type {Object} options
+	 */
 	options: {
 		display: {
 			fx: {
@@ -24,15 +30,13 @@ UI.Container.implement({
 	 * @return {[type]} [description]
 	 */
 	_initDisplay: function() {
- 		_log('_initDisplay', this.element, this.options.display);
+ 		//_log('_initDisplay', this.element, this.options.display);
 
 		var self = this,
 			opts = this.options.display,
 
 			fx = opts.fx.default,
 			modifier = 'width';
-
-		_log('fx.options', fx);
 
 		this.display = this.display = {};
 
@@ -70,7 +74,7 @@ UI.Container.implement({
 	 * [toggle description]
 	 * @return {[type]} [description]
 	 */
-	toggle: function() {
+	toggleDisplay: function() {
 
 		if (this._display == 'normalized')
 			this.minimize();
@@ -84,10 +88,13 @@ UI.Container.implement({
 	 * @return {[type]} [description]
 	 */
 	minimize: function() {
-		_log('minimize');
+		//_log('minimize');
 
+		
 		if (!this.display)
 			this._initDisplay();
+
+		this.fireEvent('minimized');
 
 		this.display.fx.start(0);
 
@@ -98,7 +105,7 @@ UI.Container.implement({
 
 		minimal.settings.save();
 
-		this.fireEvent('display', 'minimized');
+		this.fireEvent('minimized');
 	},
 
 	/**
@@ -106,7 +113,8 @@ UI.Container.implement({
 	 * @return {[type]} [description]
 	 */
 	normalize: function(size) {
-		_log('normalize');
+		//_log('normalize');
+		this.fireEvent('normalize');
 
 		var size = size || this.options.width || 280;
 		if (this._display == 'normalized') return;
@@ -123,7 +131,7 @@ UI.Container.implement({
 		minimal.settings.set('layout.' + this.main + '.display', 'normalized');
 		minimal.settings.save();
 
-		this.fireEvent('display', 'normalized');
+		this.fireEvent('normalized');
 
 	},
 
@@ -132,7 +140,7 @@ UI.Container.implement({
 	 * @return {[type]} [description]
 	 */
 	maximize: function() {
-		_log('maximize', size);
+		//_log('maximize', size);
 
 		return;
 		this.toggleFx.start(size);
