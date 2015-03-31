@@ -104,15 +104,15 @@ UI.Layout.implement({
 	 * @return {[type]}        [description]
 	 */
 	_setComponentDisplay: function(component) {
-		_log('_initCompSize', component.getName());
+		//_log('_initCompSize', component.getName());
 		//_log('comp opts', component.options);
 		var display = 'normalized';
 
 
 		if (this.settings[name] && this.settings[name].display) {
 			display = this.settings[name].display;
-		};
-		
+		}
+
 		component.setDisplay(display, 'width');
 
 		var name = component.getName();
@@ -129,10 +129,10 @@ UI.Layout.implement({
 			}
 
 			if (this.settings[name] && this.settings[name].width) {
-				_log('settings', name, this.settings[name].width);
+				//_log('settings', name, this.settings[name].width);
 				element.setStyle('flex', 'none');
 				if (display == 'minimized') {
-					copnsole.log('isMinimized');
+					//_log.log('isMinimized');
 					element.setStyle('width', 0);
 					element.hide();
 				} else {
