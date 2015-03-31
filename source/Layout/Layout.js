@@ -9,7 +9,7 @@ UI.Layout = new Class({
 	Implements: [Events, Options],
 
 	/**
-	 * sick layout Options
+	 * Layout options
 	 * @type {Object}pack
 	 * @param {name} [name] layout
 	 * @param {Object} [clss] Default component class
