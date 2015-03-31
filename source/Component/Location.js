@@ -10,7 +10,7 @@ UI.Component.implement({
 			}
 		}
 
-		console.log('location', location);
+		// _log('location', location);
 
 		this.element.setStyles(location);
 	},
