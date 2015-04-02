@@ -107,39 +107,41 @@ UI.Layout.implement({
 		//_log('comp opts', component.options);
 		var display = 'normalized';
 
+		
+		var name = component.getName();
+		var element = component.element;
+
 		if (this.settings[name] && this.settings[name].display) {
 			display = this.settings[name].display;
 		}
 
 		component.setDisplay(display, 'width');
 
-		var name = component.getName();
-		var element = component.element;
-
 		if (component.options.flex) {
-			//console.log('---flex', component.options);
+			//console.log('---flex', name, component.options);
 		} else {
 			if (this.settings[name] && this.settings[name].height) {
 				element.setStyle('flex', 'none');
 				element.setStyle('height', this.settings[name].height);
-				component.height = this.settings[name].height;
+				component.height = this.settings[name].height || 160;
 				component._modifier = 'height';
 			}
 
 			if (this.settings[name] && this.settings[name].width) {
 
-				//_log('settings', name, this.settings[name].width);
+				//_log('settings', name, display);
 				element.setStyle('flex', 'none');
 				if (display == 'minimized') {
-					//_log.log('isMinimized');
+					//_log('isMinimized');
+					
 					element.setStyle('width', 0);
-					element.hide();
+					//element.hide();
 				} else {
+					
 					element.setStyle('width', this.settings[name].width || 200);
 				}
 
 				component.width = this.settings[name].width || 200;
-				component.size =  component.width;
 				component._modifier = 'width';
 			}
 
@@ -158,7 +160,18 @@ UI.Layout.implement({
 			toggled:  function() {
 				//console.log('toggled');
 				self.fireEvent('resize');
-			}
+			},
+			display: function(name, state) {
+				self.fireEvent('display', [name, state]);
+			},
+			// minimized: function(comp) {
+			// 	_log('minimized', comp.options.name);
+			// 	self.fireEvent('minimized',  comp.options.name);
+			// },
+			// normalized: function(comp) {
+			// 	_log('normalized', comp.options.name);
+			// 	self.fireEvent('normalized',  comp.options.name);
+			// }
 		});
 
 		this.addEvents({

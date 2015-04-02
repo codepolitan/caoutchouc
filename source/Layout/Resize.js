@@ -40,6 +40,9 @@ UI.Layout.implement({
 			container = component.container,
 			last = component.options.last;
 
+		this._initMaximize(component);
+
+
 		if (!container) return;
 
 		var direction = container.getStyle('flex-direction');
@@ -200,6 +203,7 @@ UI.Layout.implement({
 	 */
 	_initMaximize: function(component) {
 		//_log('_initMaximize', component);
+		var self = this;
 		var element = component.element;
 		var container = component.container;
 
@@ -208,7 +212,7 @@ UI.Layout.implement({
 		component.addEvent('max', function() {
 			var name = component.options.name;
 
-			//_log('max', component);
+			_log('max', component);
 			if (element.hasClass('container-max')) {
 				element.removeClass('container-max');
 				container.getChildren('.ui-container').each(function(c) {
@@ -223,8 +227,8 @@ UI.Layout.implement({
 				element.addClass('container-max');
 				element.store('width', element.getStyle('width'));
 				element.store('height', element.getStyle('height'));
-				element.setStyle('width', null);
-				element.setStyle('height', null);
+				element.setStyle('width', 'initial');
+				element.setStyle('height', 'initial');
 				container.getChildren('.ui-container').each(function(c) {
 					if (!c.hasClass('container-'+name)) {
 						c.store('display', c.getStyle('display'));
@@ -243,6 +247,7 @@ UI.Layout.implement({
 	 * @return {[type]} [description]
 	 */
 	_initResizers: function(components) {
+		_log('_initResizers');
 		var len = components.length;
 
 		// add resize Border on the right or on the bottom
@@ -256,7 +261,7 @@ UI.Layout.implement({
 			}
 
 			this._initResizer(component);
-			this._initMaximize(component);
+			
 		}
 	},
 
