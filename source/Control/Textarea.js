@@ -84,7 +84,8 @@ UI.Textarea = new Class({
 		this.input.addEvents({
 			focus: function(e){
 				self.focus = this;
-				this.retrieve('autogrow').resize();
+
+				self.fireEvent('focus');
 			},
 			keyup: function() {
 				//_log('up', this.get('value'));
