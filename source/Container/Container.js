@@ -14,6 +14,8 @@ UI.Container = new Class({
 
 	Extends: UI.Component,
 
+	Implements: [UI.Display],
+
 	name: 'container',
 
 	options: {

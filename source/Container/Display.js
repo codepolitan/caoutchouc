@@ -1,8 +1,11 @@
 
+
+var UI = UI || {};
+
 /**
- * 
+ * Display
  */
-UI.Container.implement({
+UI.Display = new Class({
 
 	/**
 	 * Display options for container
@@ -30,15 +33,16 @@ UI.Container.implement({
 	 * @return {[type]} [description]
 	 */
 	_initDisplay: function() {
- 		_log('_initDisplay', this.element, this.options.display);
+ 		_log('_initDisplay', this.element);
+
+ 		this._modifier = 'width';
 
 		var self = this,
 			opts = this.options.display,
-
 			fx = opts.fx.default,
 			modifier = this._modifier;
 
-		this.display = this.display || {};
+		this.display = {};
 
 		fx.property = modifier;
 
@@ -74,11 +78,7 @@ UI.Container.implement({
 	 * @return {[type]} [description]
 	 */
 	toggle: function() {
-
 		//_log('__toggle click, display', this._display);
-
-		// var size = this.element.getStyle(this._modifier).toInt();
-		// _log('size', size);
 
 		if (this._display == 'normalized')
 			this.minimize();
@@ -96,17 +96,12 @@ UI.Container.implement({
 		//_log('actual _display', this._display);
 		//_log('size', this['_modifier'], this[this['_modifier']]);
 
-		//if (!this.display)
+		if (!this.display)
 			this._initDisplay();
 
 		this.fireEvent('minimize');
 
-		//_log('fx start', this['_modifier'], this[this['_modifier']], this.display.fx);
-
 		this.display.fx.start(this[this['_modifier']], 0);
-
-		//this.element.setStyle(this['_modifier'], 0);
-
 
 		this.element.removeClass('state-focus');
 		this._display = 'minimized';
@@ -119,28 +114,21 @@ UI.Container.implement({
 	 * [normalize description]
 	 * @return {[type]} [description]
 	 */
-	normalize: function(size) {
-		// _log('--------------------------------------------------start normalization');
-		// _log('actual _display', this._display);
-		// _log('size', this['_modifier'], this[this['_modifier']]);
+	normalize: function() {
+		// _log('normalize');
 
-		//if (!this.display)
+		if (!this.display)
 			this._initDisplay();
 		
 		this.fireEvent('normalize');
 
-		_log('fx start', this['_modifier'], this[this['_modifier']], this.display.fx);
 		var fx = this.display.fx.start(0, this[this['_modifier']]);
-		//_log('---- !!fx instace', fx);
-
-		//this.element.setStyle(this['_modifier'], this[this['_modifier']]);
 
 		this._display = 'normalized';
 		this.element.removeClass('state-focus');
 
 		this.fireEvent('normalized', this);
 		this.fireEvent('display', [this.options.name, 'normalized']);
-
 	},
 
 	/**
@@ -150,16 +138,12 @@ UI.Container.implement({
 	maximize: function() {
 		//_log('maximize', size);
 
-		return;
 		this.toggleFx.start(size);
 
 		this.element.setStyle('display', null);
 		this.element.addClass('state-focus');
 
 		this.isOpen = true;
-
-		minimal.settings.set('layout.' + this.main + '.display', 'maximized');
-		minimal.settings.save();
 
 		this.fireEvent('maximized', this);
 
