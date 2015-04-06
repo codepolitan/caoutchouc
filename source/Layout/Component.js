@@ -128,14 +128,11 @@ UI.Layout.implement({
 			}
 
 			if (this.settings[name] && this.settings[name].width) {
-
 				//_log('settings', name, display);
 				element.setStyle('flex', 'none');
-				if (display == 'minimized') {
-					//_log('isMinimized');
-					
+				if (display === 'minimized') {
+				
 					element.setStyle('width', 0);
-					//element.hide();
 				} else {
 					
 					element.setStyle('width', this.settings[name].width || 200);
@@ -154,41 +151,36 @@ UI.Layout.implement({
 	 * @param  {[type]} object [description]
 	 * @return {[type]}        [description]
 	 */
-	_attachComponentEvents: function(object) {
+	_attachComponentEvents: function(component) {
 		var self = this;
-		object.addEvents({
+		var name = component.getName();
+
+		component.addEvents({
 			toggled:  function() {
 				//console.log('toggled');
 				self.fireEvent('resize');
 			},
-			display: function(name, state) {
+			display: function(state) {
+				//_log('display', name, state);
 				self.fireEvent('display', [name, state]);
-			},
-			// minimized: function(comp) {
-			// 	_log('minimized', comp.options.name);
-			// 	self.fireEvent('minimized',  comp.options.name);
-			// },
-			// normalized: function(comp) {
-			// 	_log('normalized', comp.options.name);
-			// 	self.fireEvent('normalized',  comp.options.name);
-			// }
+			}
 		});
 
 		this.addEvents({
 			resize: function() {
-				object.fireEvent('resize');
+				component.fireEvent('resize');
 			},
 			drag: function() {
-				object.fireEvent('resize');
+				component.fireEvent('resize');
 			},
 			normalize: function() {
-				object.fireEvent('resize');
+				component.fireEvent('resize');
 			},
 			maximize: function() {
-				object.fireEvent('resize');
+				component.fireEvent('resize');
 			},
 			minimize: function() {
-				object.fireEvent('resize');
+				component.fireEvent('resize');
 			}
 		});
 	}
