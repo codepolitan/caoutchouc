@@ -247,7 +247,7 @@ UI.Layout.implement({
 	 * @return {[type]} [description]
 	 */
 	_initResizers: function(components) {
-		_log('_initResizers');
+		//_log('_initResizers');
 		var len = components.length;
 
 		// add resize Border on the right or on the bottom
