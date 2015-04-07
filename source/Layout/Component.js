@@ -120,12 +120,7 @@ UI.Layout.implement({
 		if (component.options.flex) {
 			//console.log('---flex', name, component.options);
 		} else {
-			if (this.settings[name] && this.settings[name].height) {
-				element.setStyle('flex', 'none');
-				element.setStyle('height', this.settings[name].height);
-				component.height = this.settings[name].height || 160;
-				component._modifier = 'height';
-			}
+			
 
 			if (this.settings[name] && this.settings[name].width) {
 				//_log('settings', name, display);
@@ -135,11 +130,20 @@ UI.Layout.implement({
 					element.setStyle('width', 0);
 				} else {
 					
-					element.setStyle('width', this.settings[name].width || 200);
+					if (this.settings[name].width < 32)
+						this.settings[name].width = 32;
+
+
+					element.setStyle('width', this.settings[name].width || 160);
 				}
 
 				component.width = this.settings[name].width || 200;
 				component._modifier = 'width';
+			} else if (this.settings[name] && this.settings[name].height) {
+				element.setStyle('flex', 'none');
+				element.setStyle('height', this.settings[name].height);
+				component.height = this.settings[name].height || 160;
+				component._modifier = 'height';
 			}
 
 			this._initResizer(component);
