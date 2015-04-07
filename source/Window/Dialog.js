@@ -139,7 +139,7 @@ UI.Dialog = new Class({
 	 * @return {[type]}          [description]
 	 */
 	_initActions: function() {
-		_log('_initActions', this.foot);
+		//_log('_initActions', this.foot);
 		var self = this;
 
 		this.actions = this.actions || [];
@@ -150,8 +150,6 @@ UI.Dialog = new Class({
 
 		var control = this.options.control || {};
 		var list = control._list || [];
-
-		console.log('_list', list);
 
 		for (var i = 0; i < list.length; i++) {
 			_log('for..loop', i);
@@ -170,7 +168,7 @@ UI.Dialog = new Class({
 	 * @return {[type]}           [description]
 	 */
 	_initAction: function(name, opts, toolbar) {
-		_log('_intiAction', name, opts, toolbar);
+		//_log('_intiAction', name, opts, toolbar);
 		var self = this;
 
 		var n = name.split('::');
@@ -187,8 +185,6 @@ UI.Dialog = new Class({
 			self.fireEvent(name);
 			self.close();
 		}).inject(toolbar);
-
-		_log('action', action);
 
 		this.actions.push(action);
 	}

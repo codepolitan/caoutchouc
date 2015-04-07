@@ -240,7 +240,6 @@ UI.Window = new Class({
 		this.underlay.show();
 
  		this.addEvent('close', function(){
- 			_log('-------------');
 			self.underlay.destroy();
 		});
    	},
