@@ -1,40 +1,11 @@
-/*
-	Class: UI.Window
-		The UI.Window class defines objects that manage and coordinate
-		the windows an application displays on the screen.
-
-	Require:
-		<UI.Component>
-		<UI.Skin>
-		<UI.Button>
-		<UI.Control>
-		<UI.Container>
-
-	Extends:
-		<UI.Component>
-
-	Arguments:
-		Options
-
-	Example:
-		(start code)
-		var win = new UI.Window({
-			width: 760,
-			height: 600,
-			title: 'a moolego window',
-		}).setContent('iframe','http://ui.moolego.org');
-		(end)
 
 
-	Implied global:
-		- Moolego - UI
-		- Mootools - $, Class, Element, Window
-		- Javascript - document
-
-	Discussion:
-		Effects still need to be implemented as option
-*/
-
+/**
+ * Class Window
+ * 
+ * [Window description]
+ * @type {Class}
+ */
 UI.Window = new Class({
 
 	Extends: UI.Container,
@@ -209,9 +180,6 @@ UI.Window = new Class({
 				_log('press', ev);
 				self.control(action);
 			}).inject(self.controls);
-
-
-
 		});
 
 		this.addEvents({
@@ -272,6 +240,7 @@ UI.Window = new Class({
 		this.underlay.show();
 
  		this.addEvent('close', function(){
+ 			_log('-------------');
 			self.underlay.destroy();
 		});
    	},
@@ -321,31 +290,23 @@ UI.Window = new Class({
 		var self = this;
 
 		this.addEvents({
-			onBlur: function() {
-				//_log('blur');
-				self.overlay.show();
-			},
 			onFocus: function() {
 				//_log('OnFocus');
-				self.overlay.hide();
 			},
 			injected: function() {
 				self.adaptLocation();
 			},
 			onResizeStart: function() {
-				self.overlay.show();
+
 			},
 			onResizeComplete: function() {
-				self.overlay.hide();
 				this.coord = this.element.getCoordinates();
 			},
 			onDragStart: function(){
 				_log('darg start', this);
-				self.overlay.show();
 			},
 			'onDragComplete': function() {
 				//_log('darg com', ui.window.underlay);
-				self.overlay.hide();
 				this.coord = this.element.getCoordinates();
 			},
 			resizeComplete: function(){
