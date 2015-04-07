@@ -314,6 +314,8 @@ UI.Container = new Class({
 		(void)
 	 */
 	_initOverlay: function() {
+		var self = this;
+
 		this.overlay = new Element('div', {
 			'class': 'container-overlay'
 		}).inject(this.element);
@@ -323,6 +325,28 @@ UI.Container = new Class({
 		});
 
 		this.overlay.hide();
+
+		this.addEvents({
+			onBlur: function() {
+				//_log('blur');
+				self.overlay.show();
+			},
+			onDragComplete: function() {
+				//_log('darg com', ui.window.underlay);
+				self.overlay.hide();
+			},
+			onDragStart: function(){
+				_log('darg start', this);
+				self.overlay.show();
+			},
+			onResizeComplete: function() {
+				self.overlay.hide();
+				this.coord = this.element.getCoordinates();
+			},
+			onResizeStart: function() {
+				self.overlay.show();
+			}
+		});
 	},
 
 	focus: function(){
