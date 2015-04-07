@@ -149,7 +149,7 @@ UI.Layout.implement({
 
 		this.addEvents({
 			drag: function(e) {
-				_log('drag', e);
+				//_log('drag', e);
 				self._updateSize(component, resizer, modifier);
 			},
 			maximize: function() {
