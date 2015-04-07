@@ -145,55 +145,43 @@ UI.Layout.implement({
 	// will definitly use a controller for that
 	_initResizerEvent: function(component, resizer, modifier) {
 		//_log('_initResizerEvent', component.options.name, component.options.last);
-
-		var container = component.container;
-		var element = component.element;
+		var self = this;
 
 		this.addEvents({
-			drag: function() {
-				//_log('drag');
-				var coord = element.getCoordinates(container);
-				//_log('coord',  coord[modifier.from]);
-				if (component.options.last) {
-					resizer.setStyle(modifier.from, coord[modifier.from] -3);
-				}
-				else { 
-					resizer.setStyle(modifier.from, coord[modifier.from] + coord[modifier.size] -3);
-				}
+			drag: function(e) {
+				_log('drag', e);
+				self._updateSize(component, resizer, modifier);
 			},
 			maximize: function() {
 				//_log(direction);
-				var coord = element.getCoordinates(container);
-				if (component.options.last) {
-					resizer.setStyle(modifier.from, coord[modifier.from] -3);
-				}
-				else { 
-					resizer.setStyle(modifier.from, coord[modifier.from] + coord[modifier.size] -3);
-				}
+				self._updateSize(component, resizer, modifier);
 			},
 			normalize: function() {
 				//_log(direction);
-				var coord = element.getCoordinates(container);
-				if (component.options.last) {
-					resizer.setStyle(modifier.from, coord[modifier.from] -3);
-				}
-				else { 
-					resizer.setStyle(modifier.from, coord[modifier.from] + coord[modifier.size] -3);
-				}
+				self._updateSize(component, resizer, modifier);
 			},
 			resize: function() {
 				//_log('resize', component.element, resizer);
 				
-				var coord = element.getCoordinates(container);
-
-				if (component.options.last) {
-					resizer.setStyle(modifier.from, coord[modifier.from] -3);
-				}
-				else { 
-					resizer.setStyle(modifier.from, coord[modifier.from] + coord[modifier.size] -3);
-				}
+				self._updateSize(component, resizer, modifier);
 			}
 		});
+	},
+
+	_updateSize: function(component, resizer, modifier) {
+		//_log('_updazeSize');
+		var container = component.container,
+			element = component.element;
+
+		var coord = element.getCoordinates(container);
+		//_log('coord',  coord[modifier.from]);
+		//
+		// the last container doesnt need resizedr
+		if (component.options.last) {
+			resizer.setStyle(modifier.from, coord[modifier.from] -3);
+		} else { 
+			resizer.setStyle(modifier.from, coord[modifier.from] + coord[modifier.size] -3);
+		}
 	},
 
 	/**
