@@ -175,7 +175,7 @@ UI.Window = new Class({
 			new UI.Button({
 				icon: action,
 				text: action,
-				klss: action
+				klss: 'button-'+action
 			}).addEvent('press', function(ev) {
 				_log('press', ev);
 				self.control(action);
