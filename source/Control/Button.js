@@ -138,7 +138,7 @@ UI.Button = new Class({
 			this.element.addClass('is-primary');
 
 		if (this.options.klss)
-			this.element.addClass('button-'+opts.klss);
+			this.element.addClass(opts.klss);
 
 		if (this.options.type)
 			this.element.addClass('type-' + this.options.type);
