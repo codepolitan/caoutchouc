@@ -277,6 +277,11 @@ UI.Field = new Class({
 		var coord = this.input.getCoordinates(this.element);
 		var size = coord.width / 2;
 
+		if (!this.inkFx) {
+			console.log('errorrrrrrr');
+			return;
+		}
+
 		this.inkFx.start({
 		    width: 0,
 		    left:size,
