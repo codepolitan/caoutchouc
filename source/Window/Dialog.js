@@ -111,7 +111,7 @@ UI.Dialog = new Class({
 	 * @return {[type]} [description]
 	 */
 	_initBody: function() {
-		_log('_initBody', this.content);
+		//_log('_initBody', this.content);
 
 		var message = this.options.message;
 
@@ -152,7 +152,7 @@ UI.Dialog = new Class({
 		var list = control._list || [];
 
 		for (var i = 0; i < list.length; i++) {
-			_log('for..loop', i);
+			//_log('for..loop', i);
 			var name = list[i];
 			var opts = control[name];
 
@@ -181,7 +181,7 @@ UI.Dialog = new Class({
 			text: name,
 			klss: klss
 		}).addEvent('press', function(e){ 
-			_log('press', name);
+			//_log('press', name);
 			self.fireEvent(name);
 			self.close();
 		}).inject(toolbar);
