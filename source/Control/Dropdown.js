@@ -22,7 +22,7 @@ UI.Dropdown = new Class({
 	_initElement: function(){
 		this.parent();
 
-		_log('options', this.options);
+		//_log('options', this.options);
 
 		this.control = {};
 
@@ -73,16 +73,15 @@ UI.Dropdown = new Class({
 	 * @type {[type]}
 	 */
 	_initMenu: function(opts) {
-		_log('_initMenu', opts);
+		//_log('_initMenu', opts);
 		var self = this,
 			list = opts.list,
 			timer = null;
 		//_log(opts.list, this.element);
 
 		opts.list = opts.list || [];
-		console.log(this.element);
+	
 		this.container = $(this.element).getParent();
-		console.log(this.container);
 
 		var value = self.input.get('value');
 
