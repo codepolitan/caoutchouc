@@ -1,4 +1,10 @@
 
+var UI = UI || {},
+	Class = Class || function() {},
+	Locale = Locale || {},
+	mnml = mnml || {},
+	floor = floor || {};
+
 /**
  * @class UI.Button
  * @extends {UI.Control}
@@ -22,8 +28,6 @@ UI.Dropdown = new Class({
 	_initElement: function(){
 		this.parent();
 
-		//_log('options', this.options);
-
 		this.control = {};
 
 		this.element.addClass('type-dropdown');
@@ -45,13 +49,12 @@ UI.Dropdown = new Class({
 			name: 'movedown',
 			icon: 'icon-times-circle',
 		}).inject(this.element, 'top').addEvent('press', function() {
-				self.menu.setStyle('display', 'block');
-			});;
+			self.menu.setStyle('display', 'block');
+		});
 	},
 
 	_initEvents: function() {
 		var self = this;
-
 
 		this.addEvents({
 			press: function(name) {
@@ -61,12 +64,11 @@ UI.Dropdown = new Class({
 		});
 
 		this.input.addEvents({
-			mousedown: function(e) {
+			mousedown: function() {
 				self.menu.setStyle('display', 'block');
 			}
 		});
 	},
-
 
 	/**
 	 * [_initToolbarComp description]
@@ -75,13 +77,12 @@ UI.Dropdown = new Class({
 	_initMenu: function(opts) {
 		//_log('_initMenu', opts);
 		var self = this,
-			list = opts.list,
+			//list = opts.list,
 			timer = null;
-		//_log(opts.list, this.element);
 
 		opts.list = opts.list || [];
 	
-		this.container = $(this.element).getParent();
+		this.container = this.element.getParent();
 
 		var value = self.input.get('value');
 
@@ -112,22 +113,16 @@ UI.Dropdown = new Class({
 			this._initItem(name, def, this.menu, value);
 		}
 
-		// var coord = this._initMenuPosition();
-		// var size = this.menu.getSize();
-		// _log(size);
 
-		// this.menu.setStyles({
-		// 	top: coord.top,
-		// 	right: coord.right
-
-		// });
+		//_log('menu coord', menu.getCoordinates());
+		//menu.setStyle('display', 'none');
 
 		return menu;
 	},
 
 	_initMenuPosition: function() {
 		//_log('_initMenuPosition');
-		var container = this.container.getParent().getCoordinates();
+		//var container = this.container.getParent().getCoordinates();
 		var coord = this.element.getCoordinates(this.container);
 
 		return coord;
@@ -152,7 +147,7 @@ UI.Dropdown = new Class({
 			name = comps[1];
 		} 
 
-		if (name == 'separator')
+		if (name === 'separator')
 			clss = 'UI.Separator';
 
 		if (def && def.clss)
@@ -171,49 +166,36 @@ UI.Dropdown = new Class({
 			};
 		}
 
-		if (typeof name == 'string')
+		if (typeof name === 'string')
 
 		if (!name) return;
 
 		var	Clss = mnml.strToClss(clss);
 
-		if (clss == 'UI.Button' || clss == 'UI.ButtonMenu')
+		if (clss === 'UI.Button' || clss === 'UI.ButtonMenu')
 			opts.text = Locale.get('control.'+name, name) || name;
 
 		//_log('n', n, opts);
 		var role = floor.controller.session.role;
-		var inject = true;
 
 		this.options.control = this.options.control || {};
 
-		if (!this.options.control[role]) {
-			inject = true;
-		} else {
-			if (!this.options.control[role].disallowed) {
-				inject = true;
-			} else if (this.options.control[role].disallowed.indexOf(name) > -1) {
-				inject = false;
-			}
-		}
-
-		if (inject) {
-			//console.log('----', name, opts);
-			this.control[name] = new Clss(opts).inject(element);
-			
-			if (clss == 'UI.Button')
-			this.control[name].addEvents({
-				press: function() {
-					var name =  this.options.name;
-					//_log('press', name, this.isEnable());
-					if (this.isEnable()) {
-						//self.fireEvent('control::'+name, this);
-						self.fireEvent('press', name);
-						
-					}
-					self.menu.hide();
+		//console.log('----', name, opts);
+		this.control[name] = new Clss(opts).inject(element);
+		
+		if (clss === 'UI.Button')
+		this.control[name].addEvents({
+			press: function() {
+				var name =  this.options.name;
+				//_log('press', name, this.isEnable());
+				if (this.isEnable()) {
+					//self.fireEvent('control::'+name, this);
+					self.fireEvent('press', name);
+					
 				}
-			});
-		}
+				self.menu.hide();
+			}
+		});
 	},
 
 
