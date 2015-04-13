@@ -11,11 +11,12 @@ UI.Upload = new Class({
 	name: 'button',
 
 	options: {
-		name: 'button',
+		name: 'upload',
 		type: null, // push, file
 		ink: false,
 		element: {
-			tag: 'button'
+			tag: 'button',
+			class: 'type-action'
 		}
 	},
 
