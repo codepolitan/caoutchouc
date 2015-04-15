@@ -105,8 +105,7 @@ UI.Window = new Class({
 		//this._initShim();
 
 
-		if (this.options.useUnderlay)
-			this._initUnderlay();
+
 
 		this._initControl(this.options.controls);
 	},
@@ -225,24 +224,6 @@ UI.Window = new Class({
 	},
 
 
-	_initUnderlay: function() {
-		//_log('_initUnderlay');
-		var self = this;
-
-		this.underlay = new Element('div', {
-			'class': 'dialog-underlay',
-			styles: {
-				zIndex: 900
-			}
-		}).inject(this.options.container);
-
-		this.underlay.show();
-
- 		this.addEvent('close', function(){
-			self.underlay.destroy();
-		});
-   	},
-
 	/*
 	Function: setTitle
 		set title html
@@ -333,6 +314,23 @@ UI.Window = new Class({
 		});
 	},
 
+	_initUnderlay: function() {
+		//_log('_initUnderlay');
+		var self = this;
+
+		this.underlay = new Element('div', {
+			'class': 'dialog-underlay',
+			styles: {
+				zIndex: 900
+			}
+		}).inject(this.options.container);
+
+		this.underlay.show();
+
+ 		this.addEvent('close', function(){
+			self.underlay.destroy();
+		});
+   	},
 	/*
 	Function: focus
 		If minimize normalize and fireEvent OnFocus
