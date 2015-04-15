@@ -70,6 +70,9 @@ UI.Container = new Class({
 		if ( opts.useOverlay ) this._initOverlay();
 
 		if ( opts.foot ) this._initFoot( opts.foot );
+
+		if (this.options.useUnderlay)
+			this._initUnderlay();
 	},
 
 	/*
@@ -348,6 +351,33 @@ UI.Container = new Class({
 			}
 		});
 	},
+
+
+
+	_initUnderlay: function() {
+		_log('_initUnderlay', this.device);
+		var self = this;
+
+		this.underlay = new Element('div', {
+			'class': 'dialog-underlay',
+			styles: {
+				zIndex: 10,
+				//display: 'none'
+			}
+		}).inject(this.element, 'before');
+
+
+
+
+		this.underlay.addEvent('click', function() {
+			self.minimize();
+		});
+
+
+ 		this.addEvent('close', function(){
+			self.underlay.destroy();
+		});
+   	},
 
 	focus: function(){
 		//_log('focus');
