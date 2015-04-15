@@ -43,6 +43,11 @@ UI.Display = new Class({
 			fx = opts.fx.default,
 			modifier = this._modifier;
 
+		if (!this[modifier])
+			this[modifier] = 220;
+
+		this.device = this.device || 'desktop';
+		//this.underlay.hide();
 		this.display = {};
 
 		fx.property = modifier;
@@ -95,8 +100,8 @@ UI.Display = new Class({
 	 * @return {[type]} [description]
 	 */
 	minimize: function() {
-		//_log('------start minimalization');
-
+		//_log('------start minimalization', this.device);
+		var self = this;	
 		if (!this.display) {
 			this._initDisplay();
 		}
@@ -105,7 +110,15 @@ UI.Display = new Class({
 
 		this.display.fx.start(0);
 
+		(function(){ 
+			//self.element.setStyle('display', 'none');
+		}).delay(160	);
+
 		this._display = 'minimized';
+
+		if (this.underlay && this.device != 'desktop') {
+			this.underlay.fade(0);
+		}
 
 		this.fireEvent('display', 'minimized');
 	},
@@ -116,12 +129,14 @@ UI.Display = new Class({
 	 */
 	normalize: function() {
 		// _log('normalize');
-
+		var self = this;
 		if (!this.display) {
 			this._initDisplay();
 		}
 		
 		this.fireEvent('normalize');
+
+		//self.element.setStyle('display', 'flex');
 
 		var size = this[this._modifier];
 
@@ -130,7 +145,11 @@ UI.Display = new Class({
 		} else {
 			this.element.setStyle(this._modifier, size);
 		}
-
+		if (this.underlay && this.device != 'desktop') {
+			//_log('---', this.device);
+			this.underlay.show();
+			this.underlay.fade(1);
+		}
 		this._display = 'normalized';
 
 		this.fireEvent('display', 'normalized');
