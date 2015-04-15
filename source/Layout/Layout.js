@@ -100,7 +100,7 @@ UI.Layout = new Class({
 	 * @return {[type]}      [description]
 	 */
 	_processComponents: function(node, type, level) {
-		//_log('_process', node);
+		//_log('_process', node, type, level);
 		var list = node._list || [];
 			level = level++ || 1;
 
@@ -109,11 +109,16 @@ UI.Layout = new Class({
 			var name = list[i],
 				comp = node[name] || {};
 
+
 			comp.clss = comp.clss || this.options.clss;
 			comp.opts = comp.opts || {};
 			comp.opts.name = name;
 			comp.opts.position = i + 1;
 			comp.opts.nComp = list.length;
+
+
+			if (name == "navi")
+				comp.opts.useUnderlay = true;
 
 			if (i == list.length - 1) {
 				//console.log('last--', name);
@@ -144,5 +149,11 @@ UI.Layout = new Class({
 				}
 			}
 		}
+	},
+
+	setDevice: function(device) {
+		this.device = device;
+
+		this.fireEvent('device', device);
 	}
 });
