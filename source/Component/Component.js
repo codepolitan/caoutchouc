@@ -216,6 +216,7 @@ UI.Component = new Class({
 
 	*/
 	_initEvents: function(){
+		//_log('_initEvents');
 		var self = this,
 			opts = this.options;
 
@@ -223,6 +224,10 @@ UI.Component = new Class({
 			injected: function() {
 				if ( opts.resizable && self._initResizer )
 					self._initResizer();
+			},
+			device: function(device) {
+				//_log('device', device);
+				self.device = device;
 			}
 		});
 
