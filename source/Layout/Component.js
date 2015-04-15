@@ -93,7 +93,9 @@ UI.Layout.implement({
 		//_log('_setComponentStyles', component);
 
 		if (component.options.flex) {
-			component.element.setStyle('flex', component.options.flex);
+			//component.element.setStyle('flex', component.options.flex);
+			component.element.addClass('flex-'+component.options.flex);
+
 		}
 	},
 
@@ -124,7 +126,8 @@ UI.Layout.implement({
 
 			if (this.settings[name] && this.settings[name].width) {
 				//_log('settings', name, display);
-				element.setStyle('flex', 'none');
+				//element.setStyle('flex', 'none');
+				element.addClass('flex-none');
 				if (display === 'minimized') {
 				
 					element.setStyle('width', 0);
@@ -185,6 +188,10 @@ UI.Layout.implement({
 			},
 			minimize: function() {
 				component.fireEvent('resize');
+			},
+			device: function(device) {
+				//_log('device', device);
+				component.fireEvent('device', device);
 			}
 		});
 	}
