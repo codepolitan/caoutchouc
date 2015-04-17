@@ -355,7 +355,7 @@ UI.Container = new Class({
 
 
 	_initUnderlay: function() {
-		_log('_initUnderlay', this.device);
+		//_log('_initUnderlay', this.device);
 		var self = this;
 
 		this.underlay = new Element('div', {
