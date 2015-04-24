@@ -105,7 +105,6 @@ UI.Date = new Class({
 
 		options.onShow = function(d){
 			//_log('-show-', d);
-
 		};
 
 		options.onHide = function(d){

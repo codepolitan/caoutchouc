@@ -1,36 +1,10 @@
-/*
-	Class: UI.Field
-		Create a skinnable input element
 
-	Extends:
-		<UI.Control>
+var UI = UI || {};
+var Class = CLass || function() {};
 
-	Arguments:
-		options
-
-	Options:
-		name - (string) name for the input element
-		value - (string) value
-		name - (string) name name
-
-	Example:
-		(start code)
-		var button = new UI.Button({
-			name: 'myInput',
-			value: 'Hello world'
-		}).inject(document.body);
-		(end)
-
-	Implied global:
-		Class - 25
-		UI - 25 27
-
-	Members:
-		Control, Extends, Input, addEvents, bind, blur, name,
-		focus, name, options, parent, _initEvents, setState, value
-
-*/
-
+/**
+ * [_initElement description]
+ */
 UI.Hour = new Class({
 
 	Extends: UI.Field,
@@ -41,22 +15,10 @@ UI.Hour = new Class({
 
 	},
 
-
-
-/*
-	Function: _initElement
-		private function
-
-		Create a div and a hidden input to receive the selected value
-
-	Return:
-		(void)
-
-	See also:
-		<UI.Control::_initElement>
-		<UI.Component::_initElement>
-	*/
-
+	/**
+	 * [_initElement description]
+	 * @return {[type]} [description]
+	 */
 	_initElement: function(){
 
 		//create a new div as input element
@@ -89,6 +51,9 @@ UI.Hour = new Class({
 		//this._initWheel();
 	},
 
+	/**
+	 * [_addControls description]
+	 */
 	_addControls: function() {
 		var self = this;
 
@@ -99,7 +64,6 @@ UI.Hour = new Class({
 		this.plus = new Element('span', {
 			'class': 'fa fa-plus-square'
 		}).inject(controls);
-
 
 		this.plus.addEvent('click', function() {
 			tmp = new Date(self.date).increment('minute', '15').toJSON();
@@ -132,8 +96,8 @@ UI.Hour = new Class({
 		var h = date.getHours().toString();
 		var m = date.getMinutes().toString();
 
-		if (h.length == 1) h = '0' + h;
-		if (m.length == 1) m = '0' + m;
+		if (h.length === 1) h = '0' + h;
+		if (m.length === 1) m = '0' + m;
 
 		return h + 'h' + m;
 	},
@@ -192,10 +156,10 @@ UI.Hour = new Class({
 			},
 			focus: function(e) {
 				if (!this.get('readonly'))
-					self.setState('focus');
+					self.setState('focus', e);
 			},
 			blur: function(e) {
-				self.setState(null);
+				self.setState(null, e);
 			}
 		});
 
@@ -205,6 +169,11 @@ UI.Hour = new Class({
 		});
 	},
 
+	/**
+	 * [set description]
+	 * @param {[type]} name  [description]
+	 * @param {[type]} value [description]
+	 */
 	set: function(name, value) {
 		this.element.set(name, value);
 
