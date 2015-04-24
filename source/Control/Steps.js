@@ -1,3 +1,7 @@
+	
+var UI = UI || {};
+var Class = Class || function() {};
+var _log = _log || function() {};
 
 /**
  * Create <select> like element
@@ -18,12 +22,12 @@ UI.Steps = new Class({
 	 * @return {[type]} [description]
 	 */
 	_initElement: function() {
+		//_log('_initElement');
 		this.parent();
 
 		this.item = {};
 
-		var self = this,
-			opts = this.options;
+		var opts = this.options;
 
 		//_log(opts);
 		this.input.set('type', 'text');
@@ -57,8 +61,8 @@ UI.Steps = new Class({
 	 * @return {[type]}      [description]
 	 */
 	_initList: function(list) {
+		//_log('_initList', list);
 
-		var self = this;
 		this.list = new Element('ul', {
 			'class': 'steps-list'
 		}).inject(this.element);
@@ -77,7 +81,8 @@ UI.Steps = new Class({
 	 * @return {[type]}      [description]
 	 */
 	_initItem: function(item, idx) {
-		_log('_initItem', item);
+		//_log('_initItem', item);
+
 		var self = this,
 			opts = this.options;
 
@@ -88,80 +93,31 @@ UI.Steps = new Class({
 		 	_log('step emit', idx, item, name);
 			self.fireEvent('step', idx);
 			self.fireEvent(item);
-		// 	if (opts.read) return;
-		// 	//_log('click', this);
-		// 	if (self.selected)
-		// 		self.selected.removeClass('selected');
-
-		// 	if (self.selected && self.selected == this) {
-		// 		self.selected.removeClass('selected');
-		// 		self.selected = null;
-
-		// 		if (opts.type == 'push')
-		// 			self.select();
-		// 	} else {
-		// 		this.addClass('selected');
-		// 		self.selected = this;
-		// 		self.select(item);
-		// 	}
 		 });
 
-		var index = new Element('span', {
+		new Element('span', {
 			html: idx,
 			'class': 'step-index'
 		}).inject(li)
 
-		var label = new Element('span', {
+		new Element('span', {
 			html: item,
 			'class': 'step-label'
-		}).inject(li)
+		}).inject(li);
 
 		this.item[item] = li;
 
 		this.itemList.push(item);
 
-		if (opts.value == item ) {
+		if (opts.value === item ) {
 			li.addClass('selected');
 			self.selected = li;
 		}
 
-		if (opts.value == item ) {
+		if (opts.value === item ) {
 			li.addClass('selected');
 			self.selected = li;
 		}
-	},
-
-	/**
-	 * [toggle_selected description]
-	 * @return {[type]} [description]
-	 */
-	toggle_selected: function() {
-		//_log('toggle_selected', this.element);
-
-		if (this.selected)
-			this.selected.removeClass('selected');
-
-		if (this.selected && this.selected == this) {
-			this.selected.removeClass('selected');
-			this.selected = null;
-		} else {
-			this.addClass('selected');
-			this.selected = this;
-		}
-	},
-
-	/**
-	 * [select description]
-	 * @param  {[type]} value [description]
-	 * @return {[type]}       [description]
-	 */
-	select: function(value) {
-		var name = this.options.name;
-
-		this.input.set('value', value);
-		this.steps.set('html', value);
-		this.element.removeClass('state-open');
-		this.fireEvent('change', value, name);
 	},
 
 	/**
@@ -180,34 +136,6 @@ UI.Steps = new Class({
 
 		item.addClass('selected');
 		this.selected = item;
-	},
-
-	/**
-	 * [_toggle description]
-	 * @return {[type]} [description]
-	 */
-	_toggle: function() {
-		if (this.element.hasClass('state-open'))
-			this.element.removeClass('state-open');
-		else this.element.addClass('state-open');
-	},
-
-	/**
-	 * [_initEvents description]
-	 * @return {[type]} [description]
-	 */
-	_initEvents: function() {
-		this.parent();
-		var self = this;
-
-		/*this.steps.addEvents({
-			click: this._toggle.bind(this, 'default')
-		});*/
-		/*this.input.addEvents({
-			click: this._toggle.bind(this, 'default'),
-			blur: this.setState.bind(this, 'default'),
-			focus: this.setState.bind(this, 'focus')
-		});*/
 	}
 
 });
