@@ -1,6 +1,6 @@
 
 var UI = UI || {};
-var Class = CLass || function() {};
+var Class = Class || function() {};
 
 /**
  * [_initElement description]
