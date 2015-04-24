@@ -135,14 +135,19 @@ UI.Date = new Class({
 		var self = this;
 
 		this.picker.addEvents({
-			select: function(d){
-				//_log('kkk', d);
-				self.set(d);
+			select: function(date){
+				_log('kkk', date);
+				self.fireEvent('change', date);
+				self.set(date);
 			}
 		});
 
 	},
 
+	/**
+	 * [set description]
+	 * @param {[type]} d [description]
+	 */
 	set: function(d) {
 		var opts = this.options;
 
