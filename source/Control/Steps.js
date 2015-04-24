@@ -41,7 +41,7 @@ UI.Steps = new Class({
 
 		this._initList(opts.list);
 
-		_log(opts.value);
+		//_log(opts.value);
 
 		if (!opts.value)
 			opts.value = 1;
@@ -77,7 +77,7 @@ UI.Steps = new Class({
 	 * @return {[type]}      [description]
 	 */
 	_initItem: function(item, idx) {
-		_log('_initItem', item);
+		//_log('_initItem', item);
 		var self = this,
 			opts = this.options;
 
