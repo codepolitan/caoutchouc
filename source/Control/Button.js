@@ -15,7 +15,7 @@ UI.Button = new Class({
 		type: null, // push, file
 		ink: true,
 		element: {
-			tag: 'button'
+			tag: 'span'
 		},
 		binding: {
 			_list: ['element'],
