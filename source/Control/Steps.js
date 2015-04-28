@@ -120,6 +120,14 @@ UI.Steps = new Class({
 	},
 
 	/**
+	 * override default _initError
+	 * @return {[type]} [description]
+	 */
+	_initError: function() {
+
+	},
+
+	/**
 	 * [select description]
 	 * @param  {[type]} value [description]
 	 * @return {[type]}       [description]

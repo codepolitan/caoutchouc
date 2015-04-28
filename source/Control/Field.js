@@ -205,7 +205,6 @@ UI.Field = new Class({
 					self.setState('focus');
 					self._inputFocus(e);
 				}
-			
 			},
 			blur: function(e) {
 				self.setState(null);
@@ -309,16 +308,20 @@ UI.Field = new Class({
 	 * @param {[type]} name  [description]
 	 * @param {[type]} value [description]
 	 */
-	set: function(value) {
-		_log('set', value);
+	set: function(prop, value) {
+		//_log('set', value);
 
 		var opts = this.options;
-		
-		this.input.set('value', value);
-		this.fireEvent('change', value);
 
+		this.input.set('value', value);
+
+		this.fireEvent('change', value);
 	},
 
+	/**
+	 * [setError description]
+	 * @param {[type]} error [description]
+	 */
 	setError: function(error) {
 
 		if (error) {
