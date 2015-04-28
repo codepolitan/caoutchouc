@@ -60,6 +60,8 @@ UI.Textarea = new Class({
 
 		if (opts.klss)
 			this.input.addClass(opts.klss);
+
+		this._initError();
 	},
 
 
@@ -89,7 +91,7 @@ UI.Textarea = new Class({
 			},
 			keyup: function() {
 				//_log('up', this.get('value'));
-
+				self.setError(null);
 				self.fireEvent('change', this.get('value'));
 			}
 		});

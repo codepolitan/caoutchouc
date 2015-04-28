@@ -102,6 +102,8 @@ UI.Field = new Class({
 			placeholder: this.options.text
 		}).inject(this.element);
 
+		this._initError();
+
 	},
 
 	/**
@@ -296,18 +298,36 @@ UI.Field = new Class({
 		}).delay(100);
 	},
 
+	_initError: function() {
+		this.error = new Element('span', {
+			class: 'error-message'
+		}).inject(this.element);
+	},
+
 	/**
 	 * [set description]
 	 * @param {[type]} name  [description]
 	 * @param {[type]} value [description]
 	 */
 	set: function(value) {
-		//_log('set', value);
+		_log('set', value);
 
 		var opts = this.options;
 		
 		this.input.set('value', value);
 		this.fireEvent('change', value);
+
+	},
+
+	setError: function(error) {
+
+		if (error) {
+			this.element.addClass('field-error');
+			this.error.set('html', error);
+		} else {
+			this.element.removeClass('field-error');
+			this.error.set('html', '');
+		}
 
 	}
 
