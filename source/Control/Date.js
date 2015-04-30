@@ -60,7 +60,7 @@ UI.Date = new Class({
 		var self = this,
 			opts = this.options;
 
-		//_log('input option', this.options);
+		//_log('input option', opts.read, opts.name);
 
 		this.element.addClass('field-date');
 		this.element.addClass('icon-text');
@@ -72,11 +72,15 @@ UI.Date = new Class({
 			class: 'date-input'
 		}).inject(this.element);
 
+		if (opts.read)
+			this.input.set('readonly', 'readonly');
+
 		/*this.icon = new Element('span', {
 			'class': 'fa fa-calendar'
 		}).inject(this.element);*/
 
-		this._initPicker();
+		if (!opts.read)
+			this._initPicker();
 
 		//this.picker.detach(this.input);
 
@@ -133,6 +137,8 @@ UI.Date = new Class({
 
 	_initEvents: function() {
 		var self = this;
+
+		if (this.options.read) return;
 
 		this.picker.addEvents({
 			select: function(date){

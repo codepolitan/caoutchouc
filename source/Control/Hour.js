@@ -24,10 +24,12 @@ UI.Hour = new Class({
 		//create a new div as input element
 		this.parent();
 
-		//_log(this.element);
+		//_log(this.element, this.options.read);
 
-		this.input.addClass('mask');
-		this.input.set('alt', "{ type: 'fixed', mask: '99h99' }");
+		if (!this.options.read) {
+			this.input.addClass('mask');
+			this.input.set('alt', "{ type: 'fixed', mask: '99h99' }");
+		}
 
 		this.element.addClass('field-hour');
 
@@ -137,6 +139,9 @@ UI.Hour = new Class({
 
 	_initEvents: function() {
 		var self = this;
+
+		if (this.options.read) return;
+
 		this.input.addEvents({
 			keyup: function() {
 				var hours = this.get('value').split('h');
