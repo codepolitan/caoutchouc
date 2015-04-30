@@ -58,6 +58,9 @@ UI.Textarea = new Class({
 			value: opts.value
 		}).inject(this.element);
 
+		if (opts.read)
+			this.input.set('readonly', true);
+
 		if (opts.klss)
 			this.input.addClass(opts.klss);
 

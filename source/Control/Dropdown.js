@@ -34,12 +34,22 @@ UI.Dropdown = new Class({
 
 		var opts = this.options;
 
-		this._initMenu(opts);
-		this._initIcon();
+		this.readonly = opts.read;
 
-		this._initEvents();
+		if (!this.readonly) {
+			this._initMenu(opts);
+			this._initEvents();
+		} else {
+			this.input.set('readonly','readonly');
+		}
+
+		this._initIcon();
 	},
 
+	/**
+	 * [_initIcon description]
+	 * @return {[type]} [description]
+	 */
 	_initIcon: function() {
 		var self = this;
 
@@ -53,8 +63,14 @@ UI.Dropdown = new Class({
 		});
 	},
 
+	/**
+	 * [_initEvents description]
+	 * @return {[type]} [description]
+	 */
 	_initEvents: function() {
 		var self = this;
+
+		if (this.readonly) return;
 
 		this.addEvents({
 			press: function(name) {
@@ -81,7 +97,7 @@ UI.Dropdown = new Class({
 			timer = null;
 
 		opts.list = opts.list || [];
-	
+
 		this.container = this.element.getParent();
 
 		var value = self.input.get('value');
@@ -120,6 +136,10 @@ UI.Dropdown = new Class({
 		return menu;
 	},
 
+	/**
+	 * [_initMenuPosition description]
+	 * @return {[type]} [description]
+	 */
 	_initMenuPosition: function() {
 		//_log('_initMenuPosition');
 		//var container = this.container.getParent().getCoordinates();
@@ -182,7 +202,7 @@ UI.Dropdown = new Class({
 
 		//console.log('----', name, opts);
 		this.control[name] = new Clss(opts).inject(element);
-		
+
 		if (clss === 'UI.Button')
 		this.control[name].addEvents({
 			press: function() {
@@ -191,13 +211,11 @@ UI.Dropdown = new Class({
 				if (this.isEnable()) {
 					//self.fireEvent('control::'+name, this);
 					self.fireEvent('press', name);
-					
 				}
 				self.menu.hide();
 			}
 		});
 	},
-
 
 	/**
 	 * [_onElementMouseDown description]
@@ -208,9 +226,10 @@ UI.Dropdown = new Class({
 		//_log('_onElementClick');
 		var opts = this.options;
 		e.stopPropagation();
-		
+
 		if (!this.menu) this._initMenu(opts);
 
 		this.menu.setStyle('display', 'block');
 	}
+
 });
