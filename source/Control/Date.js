@@ -100,12 +100,12 @@ UI.Date = new Class({
 
 		var options =  opts.picker;
 
-		options.onSelect = function(d){
-			//_log('--', d, self.doc, field.name);
-			//self.updateDocKey(opts.name, d);
-			//self.doc[field.name] = d;
+		//comment this because we already handle the select in the method down '_initEvents'
+
+		/*options.onSelect = function(d){
+			_log('onSelect', d);
 			self.fireEvent('change', [d, opts.name]);
-		};
+		};*/
 
 		options.onShow = function(d){
 			//_log('-show-', d);
@@ -142,12 +142,11 @@ UI.Date = new Class({
 
 		this.picker.addEvents({
 			select: function(date){
-				_log('kkk', date);
-				self.fireEvent('change', date);
+				//_log('select', date);
 				self.set(date);
+				self.fireEvent('change', date);
 			}
 		});
-
 	},
 
 	/**
@@ -155,6 +154,7 @@ UI.Date = new Class({
 	 * @param {[type]} d [description]
 	 */
 	set: function(d) {
+		//_log('set', d);
 		var opts = this.options;
 
 		var date = moment(d).format(opts.format);
