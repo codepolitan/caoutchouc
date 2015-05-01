@@ -23,7 +23,7 @@ UI.Currency = new Class({
 		//_log(this.element);
 
 		this.input.addClass('mask');
-		this.input.set('alt', "{ type:'number', groupSymbol: ',', groupDigits: 3, decSymbol: '.', decDigits: 2,	stripMask: false}");
+		this.input.set('alt', "{ type:'number', groupSymbol: ',', groupDigits: 3, decSymbol: '', decDigits: 0,	stripMask: false}");
 
 		this.element.addClass('field-currency');
 
