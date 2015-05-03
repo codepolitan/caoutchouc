@@ -83,22 +83,8 @@ UI.Field = new Class({
 			placeholder: this.options.text
 		}).inject(this.element);
 
-		this._initError();
+		//this._initError();
 
-	},
-
-	/**
-	 * [_initInk description]
-	 * @return {[type]} [description]
-	 */
-	_initInk: function() {
-		var opts = this.options;
-
-		this.ink = new Element('span', {
-			class: 'field-ink'
-		}).inject(this.element);
-
-		this.inkFx = new Fx.Morph(this.ink, opts.inkFx);
 	},
 
 	/**
@@ -240,6 +226,20 @@ UI.Field = new Class({
 	},
 
 	/**
+	 * [_initInk description]
+	 * @return {[type]} [description]
+	 */
+	_initInk: function() {
+		var opts = this.options;
+
+		this.ink = new Element('span', {
+			class: 'field-ink'
+		}).inject(this.element);
+
+		this.inkFx = new Fx.Morph(this.ink, opts.inkFx);
+	},
+
+	/**
 	 * [_initEffect description]
 	 * @param  {[type]} inner [description]
 	 * @param  {[type]} x     [description]
@@ -250,6 +250,8 @@ UI.Field = new Class({
 		var size = coord.width,
 			top = 0;
 
+		if (this.input.get('readonly')) return;
+
 		if (!this.ink)
 			this._initInk();
 
@@ -259,6 +261,8 @@ UI.Field = new Class({
 
 		this.inkFx.start({
 		    width: size,
+		    top: coord.top + coord.height - 2,
+		    bottom: 'initial',
 		    left:coord.left,
 		    opacity: 1
 		});
@@ -284,6 +288,8 @@ UI.Field = new Class({
 		this.inkFx.start({
 		    width: 0,
 		    left:size,
+		    top: coord.top + coord.height - 2,
+		    bottom: 'initial',
 			opacity: 0
 		});
 
@@ -328,10 +334,13 @@ UI.Field = new Class({
 
 		if (error) {
 			this.element.addClass('field-error');
-			this.error.set('html', error);
+				if (this.error)
+					this.error.set('html', error);
 		} else {
-			this.element.removeClass('field-error');
-			this.error.set('html', '');
+			if (this.error)
+				this.element.removeClass('field-error');
+				if (this.error)
+					this.error.set('html', '');
 		}
 
 	}
