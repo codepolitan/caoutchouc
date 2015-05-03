@@ -18,41 +18,22 @@ UI.Field = new Class({
 		    duration: 200,
 		    link: 'chain',
 		    transition: Fx.Transitions.Quart.easeOut
+		},
+		binding: {
+			_list: ['input'],
+			input: {
+				'input.keyup': '_onKeyUp',
+				'input.mousedown': '_onMouseDown',
+				'input.focus': '_onFocus',
+				'input.blur': '_onBlur'
+			}
 		}
 	},
 
 	/**
-	 * [initialize description]
-	 * @param  {[type]} options [description]
-	 * @return {[type]}         [description]
+	 * [_initElement description]
+	 * @return {[type]} [description]
 	 */
-	initialize: function(options){
-		this.setOptions(options);
-
-		var opts = this.options;
-
-		this.fireEvent('init');
-
-		this._initOptions(opts);
-		this._initElement();
-		this._initEvents();
-
-		return this;
-	},
-	/*
-	Function: _initElement
-		private function
-
-		Create a div and a hidden input to receive the selected value
-
-	Return:
-		(void)
-
-	See also:
-		<UI.Control::_initElement>
-		<UI.Component::_initElement>
-	*/
-
 	_initElement: function(){
 		//create a new div as input element
 		this.parent();
@@ -179,44 +160,61 @@ UI.Field = new Class({
 	 */
 	_initEvents: function() {
 		this.parent();
-		var self = this;
-		this.input.addEvents({
-			keyup: function() {
-				self.fireEvent('change', this.get('value'));
-			},
-			mousedown: function(e) {
-				//_log('mousedown');
-				if (self._focus) return;
-
-				if (!this.get('readonly')) {
-					self._focus = true;
-					self.setState('focus');
-					self._inputFocus(e);
-					//e.stopPropagation();
-					//this.focus();
-					//self._inputFocus(e);
-				}
-			},
-			focus: function(e) {
-				//_log('focus');
-				if (self._focus) return;
-				if (!this.get('readonly')) {
-					self._focus = true;
-					self.setState('focus');
-					self._inputFocus(e);
-				}
-			},
-			blur: function(e) {
-				self.setState(null);
-				self._hideInk();
-				self._focus = false;
-			}
-		});
-
+		
 		this.addEvents({
 			blur: this.setState.bind(this, 'default'),
 			focus: this.setState.bind(this, 'focus')
 		});
+	},
+
+	/**
+	 * [_onKeyUp description]
+	 * @return {[type]} [description]
+	 */
+	_onKeyUp: function() {
+		this.fireEvent('change', this.get('value'));
+	},
+
+	/**
+	 * [_onMouseDown description]
+	 * @return {[type]} [description]
+	 */
+	_onMouseDown: function(e) {
+		//_log('mousedown');
+		if (this._focus) return;
+
+		if (!this.get('readonly')) {
+			this._focus = true;
+			this.setState('focus');
+			this._inputFocus(e);
+			//e.stopPropagation();
+			//this.focus();
+			//this._inputFocus(e);
+		}
+	},
+
+	/**
+	 * [_onFocus description]
+	 * @return {[type]} [description]
+	 */
+	_onFocus: function(e) {
+		//_log('focus');
+		if (this._focus) return;
+		if (!this.get('readonly')) {
+			this._focus = true;
+			this.setState('focus');
+			this._inputFocus(e);
+		}
+	},
+
+	/**
+	 * [_onBlur description]
+	 * @return {[type]} [description]
+	 */
+	_onBlur: function(e) {
+		this.setState(null);
+		this._hideInk();
+		this._focus = false;
 	},
 
 	/**
@@ -297,6 +295,10 @@ UI.Field = new Class({
 		}).delay(100);
 	},
 
+	/**
+	 * [_initError description]
+	 * @return {[type]} [description]
+	 */
 	_initError: function() {
 		this.error = new Element('span', {
 			class: 'error-message'
