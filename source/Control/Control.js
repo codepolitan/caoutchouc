@@ -55,6 +55,19 @@ UI.Control = new Class({
 		else return false;
 	},
 
+
+	/**
+	 * [_initOptions description]
+	 * @return {[type]} [description]
+	 */
+	_initOptions: function() {
+		this.parent();
+
+		var opts = this.options;
+
+		this.readonly = opts.read;
+	},
+
 	/*
 		function : _initEvents
 
