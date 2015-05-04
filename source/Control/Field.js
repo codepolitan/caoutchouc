@@ -23,6 +23,7 @@ UI.Field = new Class({
 			_list: ['input'],
 			input: {
 				'input.keyup': '_onKeyUp',
+				'input.keydown': '_onKeyDown',
 				'input.mousedown': '_onMouseDown',
 				'input.focus': '_onFocus',
 				'input.blur': '_onBlur'
@@ -40,6 +41,8 @@ UI.Field = new Class({
 
 		var opts = this.options;
 
+
+
 		this.element.addClass('ui-field');
 
 		if (opts.klss)
@@ -49,6 +52,7 @@ UI.Field = new Class({
 			this._initLabel();
 
 		this._initInput();
+		this._initError();
 	},
 
 	/**
@@ -72,9 +76,7 @@ UI.Field = new Class({
 	 * @return {[type]} [description]
 	 */
 	_initInput: function()  {
-		var self = this;
-
-		//_log('imput option', this.options);
+		//_log('_initInput', this.options);
 
 		this.input = new Element('input', {
 			name: this.options.name,
@@ -83,8 +85,12 @@ UI.Field = new Class({
 			placeholder: this.options.text
 		}).inject(this.element);
 
-		//this._initError();
+		if (this.readonly) {
+			this.input.set('readonly', 'readonly');
+			this.input.set('tabindex', '-1');
+		}
 
+		return this.input;
 	},
 
 	/**
@@ -133,14 +139,6 @@ UI.Field = new Class({
 	},
 
 	/**
-	 * [setState description]
-	 * @param {[type]} state [description]
-	 */
-	setState: function(state){
-		this.parent(state);
-	},
-
-	/**
 	 * [_initEvents description]
 	 * @return {[type]} [description]
 	 */
@@ -157,7 +155,21 @@ UI.Field = new Class({
 	 * [_onKeyUp description]
 	 * @return {[type]} [description]
 	 */
-	_onKeyUp: function() {
+	_onKeyUp: function(e) {
+		this.fireEvent('change', this.get('value'));
+	},
+
+	/**
+	 * [_onKeyUp description]
+	 * @return {[type]} [description]
+	 */
+	onKeyDown: function(e) {
+		//_log('keydown');
+		if (this.readonly) { 
+			e.stop();
+			return;
+		}
+
 		this.fireEvent('change', this.get('value'));
 	},
 
@@ -167,16 +179,16 @@ UI.Field = new Class({
 	 */
 	_onMouseDown: function(e) {
 		//_log('mousedown');
-		if (this._focus) return;
+		
+		if (this.readonly) return;
 
-		if (!this.get('readonly')) {
-			this._focus = true;
-			this.setState('focus');
-			this._inputFocus(e);
-			//e.stopPropagation();
-			//this.focus();
-			//this._inputFocus(e);
-		}
+		_log('not readonly');
+		this.isFocused = true;
+		this.setState('focus');
+		this._inputFocus(e);
+		//e.stopPropagation();
+		//this.focus();
+		//this._inputFocus(e);
 	},
 
 	/**
@@ -185,12 +197,13 @@ UI.Field = new Class({
 	 */
 	_onFocus: function(e) {
 		//_log('focus');
-		if (this._focus) return;
-		if (!this.get('readonly')) {
-			this._focus = true;
-			this.setState('focus');
-			this._inputFocus(e);
-		}
+
+		if (this.readonly) return;
+
+		_log('not readonly');
+		this.isFocused = true;
+		this.setState('focus');
+		this._inputFocus(e);
 	},
 
 	/**
@@ -198,9 +211,13 @@ UI.Field = new Class({
 	 * @return {[type]} [description]
 	 */
 	_onBlur: function(e) {
+		//_log('_onBlur');
+
+		if (this.readonly) return;
+
 		this.setState(null);
 		this._hideInk();
-		this._focus = false;
+		this.isFocused = false;
 	},
 
 	/**
@@ -222,7 +239,7 @@ UI.Field = new Class({
 
 		this.fireEvent('mousedown');
 
-		this._focus = true;
+		this.isFocused = true;
 	},
 
 	/**
@@ -247,10 +264,12 @@ UI.Field = new Class({
 	 * @return {[type]}       [description]
 	 */
 	_showInk: function(inner, x, y, coord) {
+		//_log('_showInk');
+
 		var size = coord.width,
 			top = 0;
 
-		if (this.input.get('readonly')) return;
+		if (this.readonly) return;
 
 		if (!this.ink)
 			this._initInk();
@@ -281,7 +300,7 @@ UI.Field = new Class({
 		var size = coord.width / 2;
 
 		if (!this.inkFx) {
-			console.log('errorrrrrrr');
+			//console.log('errorrrrrrr');
 			return;
 		}
 
@@ -319,10 +338,7 @@ UI.Field = new Class({
 	set: function(prop, value) {
 		//_log('set', value);
 
-		var opts = this.options;
-
 		this.input.set('value', value);
-
 		this.fireEvent('change', value);
 	},
 

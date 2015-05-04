@@ -33,21 +33,11 @@ UI.Textarea = new Class({
 		value: ''
 	},
 
-	/*
-	Function: _initElement
-		private function
 
-		Call <UI.Control::_initElement> and make a textarea element
-
-	Return:
-		(void)
-
-	See also:
-		<UI.Control::buil(state);
-		<UI.Component::_initElement>
-	*/
-
-
+	/**
+	 * [_initInput description]
+	 * @return {[type]} [description]
+	 */
 	_initInput: function()  {
 		var	opts = this.options;
 
@@ -58,8 +48,10 @@ UI.Textarea = new Class({
 			value: opts.value
 		}).inject(this.element);
 
-		if (opts.read)
+		if (this.readonly) {
 			this.input.set('readonly', true);
+			this.input.set('tabeindex', '-1');
+		}
 
 		if (opts.klss)
 			this.input.addClass(opts.klss);
@@ -67,37 +59,14 @@ UI.Textarea = new Class({
 		this._initError();
 	},
 
-
-	/*
-		Method: _initEvents
-			private function
-
-			Set behavior
-
-		Return:
-			(void)
-
-		See also:
-			<UI.Control::_initEvents>
-			<UI.Component::_initEvents>
-	*/
-
+	/**
+	 * [_initEvents description]
+	 * @return {[type]} [description]
+	 */
 	_initEvents: function(){
 		this.parent();
 		var self = this;
 
-		this.input.addEvents({
-			focus: function(e){
-				self.focus = this;
-
-				self.fireEvent('focus');
-			},
-			keyup: function() {
-				//_log('up', this.get('value'));
-				self.setError(null);
-				self.fireEvent('change', this.get('value'));
-			}
-		});
 
 		this.addEvents({
 			blur: this.setState.bind(this, 'default'),
