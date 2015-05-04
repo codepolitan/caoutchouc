@@ -140,7 +140,7 @@ UI.Dropdown = new Class({
 	 * @return {[type]} [description]
 	 */
 	_onFocus: function(e) {
-		_log('_onFocus');
+		//_log('_onFocus');
 
 		this._showMenu(e);
 
@@ -153,7 +153,7 @@ UI.Dropdown = new Class({
 	 * @return {[type]} [description]
 	 */
 	_onBlur: function(e) {
-		_log('_onBlur');
+		//_log('_onBlur');
 		this.parent(e);
 		this._hideMenu(e);
 	},
@@ -166,7 +166,9 @@ UI.Dropdown = new Class({
 
 		if (this.readonly) return;
 
-		this.menu.setStyles({
+		var menu = this.menu;
+
+		menu.setStyles({
 			height: 0,
 			left: 16,
 			paddingTop: 0,
@@ -175,6 +177,19 @@ UI.Dropdown = new Class({
 			opacity: 0
 		});
 
+
+		var coord = this.input.getCoordinates();
+
+		var width = coord.width;
+
+		//_log('widh', menu.scrollWidth, coord.width);
+
+		if (menu.scrollWidth > coord.width)
+			width = menu.scrollWidth;
+
+		menu.setStyle('width', width);
+
+
 		this.menuFx.start({
 		    height: this.menu.scrollHeight + 20,
 		  	paddingTop: 10,
@@ -182,7 +197,7 @@ UI.Dropdown = new Class({
 		  	opacity: 1
 		});
 
-		this.fireEvent('showMenu', this.menu);
+		this.fireEvent('showMenu', menu);
 	},
 
 
