@@ -175,7 +175,7 @@ UI.Window = new Class({
 				text: action,
 				klss: 'button-'+action
 			}).addEvent('press', function(ev) {
-				_log('press', ev);
+				//_log('press', ev);
 				self.control(action);
 			}).inject(self.controls);
 		});
