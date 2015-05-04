@@ -182,7 +182,6 @@ UI.Field = new Class({
 		
 		if (this.readonly) return;
 
-		_log('not readonly');
 		this.isFocused = true;
 		this.setState('focus');
 		this._inputFocus(e);
