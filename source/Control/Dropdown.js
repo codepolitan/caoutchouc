@@ -19,6 +19,18 @@ UI.Dropdown = new Class({
 	options: {
 		name: 'dropdown',
 		type: 'text', // push, file
+		menuFx: {
+		    duration: 150,
+		    link: 'chain',
+		    transition: Fx.Transitions.Quart.easeOut
+		},
+		input: {
+			'input.keyup': '_onKeyUp',
+			'input.keydown': '_onKeyDown',
+			'input.mousedown': '_onMouseDown',
+			'input.focus': '_onFocus',
+			'input.blur': '_onBlur'
+		}
 	},
 
 	/**
@@ -32,25 +44,29 @@ UI.Dropdown = new Class({
 
 		this.element.addClass('type-dropdown');
 
-		var opts = this.options;
+		this.input.addEvent('keydown', function(e) {
+			_log('keydown', e);
 
-		this.readonly = opts.read;
+			if (e.key !== 'tab') {
+				e.stop();
+			}
+		});
+
+		var opts = this.options;
 
 		if (!this.readonly) {
 			this._initMenu(opts);
 			this._initEvents();
-		} else {
-			this.input.set('readonly','readonly');
 		}
 
-		this._initIcon();
+		this._initButton();
 	},
 
 	/**
 	 * [_initIcon description]
 	 * @return {[type]} [description]
 	 */
-	_initIcon: function() {
+	_initButton: function() {
 		var self = this;
 
 		new UI.Button({
@@ -59,32 +75,10 @@ UI.Dropdown = new Class({
 			name: 'movedown',
 			icon: 'icon-times-circle',
 		}).inject(this.element, 'top').addEvent('press', function() {
-			self.menu.setStyle('display', 'block');
+			self._showMenu();
 		});
 	},
 
-	/**
-	 * [_initEvents description]
-	 * @return {[type]} [description]
-	 */
-	_initEvents: function() {
-		var self = this;
-
-		if (this.readonly) return;
-
-		this.addEvents({
-			press: function(name) {
-				self.input.set('value', name);
-				self.fireEvent('change', name);
-			}
-		});
-
-		this.input.addEvents({
-			mousedown: function() {
-				self.menu.setStyle('display', 'block');
-			}
-		});
-	},
 
 	/**
 	 * [_initToolbarComp description]
@@ -104,24 +98,7 @@ UI.Dropdown = new Class({
 
 		var menu = this.menu = new Element('ul', {
 			class: 'ui-menu',
-			styles: {
-				display: 'none'
-			}
-		}).addEvents({
-			mouseleave: function() {
-				clearTimeout(timer);
-				timer = setTimeout(function() {
-					menu.setStyle('display', 'none');
-				}, 500);
-			},
-			mouseenter: function() {
-				clearTimeout(timer);
-			},
-			click: function() {
-				menu.setStyle('display', 'none');
-			}
 		}).inject(this.element, 'bottom');
-
 
 		for (var i= 0; i < opts.list.length; i++) {
 			var name = opts.list[i];
@@ -129,11 +106,107 @@ UI.Dropdown = new Class({
 			this._initItem(name, def, this.menu, value);
 		}
 
+		this.menuFx = new Fx.Morph(this.menu, opts.menuFx);
+
 
 		//_log('menu coord', menu.getCoordinates());
 		//menu.setStyle('display', 'none');
 
 		return menu;
+	},
+
+
+	/**
+	 * [_initEvents description]
+	 * @return {[type]} [description]
+	 */
+	_initEvents: function() {
+		var self = this;
+
+		if (this.readonly) return;
+
+		this.addEvents({
+			select: function(name) {
+				_log('select');
+				self.input.set('value', name);
+				self.fireEvent('change', name);
+			}
+		});
+
+	},
+
+	/**
+	 * [_onFocus description]
+	 * @return {[type]} [description]
+	 */
+	_onFocus: function(e) {
+		_log('_onFocus');
+
+		this._showMenu(e);
+
+		this.parent(e);
+		
+	},
+
+	/**
+	 * [_onFocus description]
+	 * @return {[type]} [description]
+	 */
+	_onBlur: function(e) {
+		_log('_onBlur');
+		this.parent(e);
+		this._hideMenu(e);
+	},
+
+	/**
+	 * [_showMenu description]
+	 * @return {[type]} [description]
+	 */
+	_showMenu: function() {
+
+		if (this.readonly) return;
+
+		this.menu.setStyles({
+			height: 0,
+			left: 16,
+			paddingTop: 0,
+			paddingBottom: 0,
+			display: 'block',
+			opacity: 0
+		});
+
+		this.menuFx.start({
+		    height: this.menu.scrollHeight + 20,
+		  	paddingTop: 10,
+		  	paddingBottom: 10,
+		  	opacity: 1
+		});
+
+		this.fireEvent('showMenu', this.menu);
+	},
+
+
+	/**
+	 * [_showMenu description]
+	 * @return {[type]} [description]
+	 */
+	_hideMenu: function() {
+
+		if (this.input.get('readonly')) return;
+
+		this.menuFx.start({
+		    height: 0,
+		  	paddingTop: 0,
+		  	paddingBottom: 0,
+		  	opacity: 0
+		});
+
+		var self = this;
+		(function() {
+			self.menu.setStyle('display', 'none');
+		}).delay(this.options.menuFx.duration);
+
+		this.fireEvent('hide');
 	},
 
 	/**
@@ -210,7 +283,7 @@ UI.Dropdown = new Class({
 				//_log('press', name, this.isEnable());
 				if (this.isEnable()) {
 					//self.fireEvent('control::'+name, this);
-					self.fireEvent('press', name);
+					self.fireEvent('select', name);
 				}
 				self.menu.hide();
 			}
@@ -229,7 +302,7 @@ UI.Dropdown = new Class({
 
 		if (!this.menu) this._initMenu(opts);
 
-		this.menu.setStyle('display', 'block');
+		this.menuShow(e);
 	}
 
 });
