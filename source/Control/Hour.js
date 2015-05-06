@@ -174,6 +174,10 @@ UI.Hour = new Class({
 		});
 	},
 
+	_onKeyUp: function(e) {
+		//this.fireEvent('change', this.get('value'));
+	},
+
 	/**
 	 * [set description]
 	 * @param {[type]} name  [description]
