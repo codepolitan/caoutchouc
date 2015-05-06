@@ -333,7 +333,7 @@ UI.Field = new Class({
 	 * @param {[type]} name  [description]
 	 * @param {[type]} value [description]
 	 */
-	set: function(prop, value) {
+	set: function(value) {
 		//_log('set', value);
 
 		this.input.set('value', value);
