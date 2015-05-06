@@ -45,7 +45,7 @@ UI.Dropdown = new Class({
 		this.element.addClass('type-dropdown');
 
 		this.input.addEvent('keydown', function(e) {
-			_log('keydown', e);
+			//_log('keydown', e);
 
 			if (e.key !== 'tab') {
 				e.stop();
@@ -127,7 +127,7 @@ UI.Dropdown = new Class({
 
 		this.addEvents({
 			select: function(name) {
-				_log('select');
+				//_log('select');
 				self.input.set('value', name);
 				self.fireEvent('change', name);
 			}
