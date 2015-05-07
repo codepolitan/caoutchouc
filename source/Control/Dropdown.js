@@ -28,7 +28,8 @@ UI.Dropdown = new Class({
 			_list: ['input', 'button'],
 			input: {
 				'input.mousedown': '_onMouseDown',
-				'input.keydown': '_onKeyDown'
+				'input.keydown': '_onKeyDown',
+				'input.keyup': '_onKeyUp'
 			},
 			button: {
 				'button.press': '_onButtonPress'
@@ -56,8 +57,6 @@ UI.Dropdown = new Class({
 			this._initButton();
 			this._initEvents();
 		}
-
-		
 	},
 
 	/**
@@ -65,14 +64,25 @@ UI.Dropdown = new Class({
 	 * @return {[type]} [description]
 	 */
 	_onKeyDown: function(e) {
+		_log('KeyDown');
 		if (e.key !== 'tab') {
 			e.stop();
+			return;
 		}
 
 		if (this.readonly) {
 			e.stop();
 			return;
 		}
+	},
+
+	/**
+	 * [_onKeyDown description]
+	 * @param  {[type]} e [description]
+	 * @return {[type]}   [description]
+	 */
+	_onKeyUp: function(e) {
+
 	},
 
 	/**
@@ -320,26 +330,24 @@ UI.Dropdown = new Class({
 			};
 		}
 
-		console.log(this.options.value, name);
+		//_log(this.options.value, name);
 
 		if (this.value === name) {
 			opts.klss = 'is-selected'
 		}
 
 
-		if (!name) return;
+		if (!name) {
+			return;
+		}
 
 		var	Clss = mnml.strToClss(clss);
 
 		if (clss === 'UI.Button' || clss === 'UI.ButtonMenu')
 			opts.text = Locale.get('control.'+name, name) || name;
 
-		//_log('n', n, opts);
-		var role = floor.controller.session.role;
-
 		this.options.control = this.options.control || {};
 
-		//console.log('----', name, opts);
 		this.control[name] = new Clss(opts).inject(element);
 
 		if (clss === 'UI.Button')

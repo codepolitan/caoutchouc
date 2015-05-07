@@ -55,8 +55,6 @@ UI.Textarea = new Class({
 
 		if (opts.klss)
 			this.input.addClass(opts.klss);
-
-		this._initError();
 	},
 
 	/**
