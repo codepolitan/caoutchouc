@@ -65,6 +65,7 @@ UI.Control = new Class({
 
 		var opts = this.options;
 
+		this.value = opts.value;
 		this.readonly = opts.read;
 	},
 

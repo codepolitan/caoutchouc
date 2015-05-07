@@ -24,12 +24,15 @@ UI.Dropdown = new Class({
 		    link: 'chain',
 		    transition: Fx.Transitions.Quart.easeOut
 		},
-		input: {
-			'input.keyup': '_onKeyUp',
-			'input.keydown': '_onKeyDown',
-			'input.mousedown': '_onMouseDown',
-			'input.focus': '_onFocus',
-			'input.blur': '_onBlur'
+		binding: {
+			_list: ['input', 'button'],
+			input: {
+				'input.mousedown': '_onMouseDown',
+				'input.keydown': '_onKeyDown'
+			},
+			button: {
+				'button.press': '_onButtonPress'
+			}
 		}
 	},
 
@@ -44,22 +47,32 @@ UI.Dropdown = new Class({
 
 		this.element.addClass('type-dropdown');
 
-		this.input.addEvent('keydown', function(e) {
-			//_log('keydown', e);
-
-			if (e.key !== 'tab') {
-				e.stop();
-			}
-		});
+		//this.input.set('readonly', 'readonly');
 
 		var opts = this.options;
 
 		if (!this.readonly) {
 			this._initMenu(opts);
+			this._initButton();
 			this._initEvents();
 		}
 
-		this._initButton();
+		
+	},
+
+	/**
+	 *           
+	 * @return {[type]} [description]
+	 */
+	_onKeyDown: function(e) {
+		if (e.key !== 'tab') {
+			e.stop();
+		}
+
+		if (this.readonly) {
+			e.stop();
+			return;
+		}
 	},
 
 	/**
@@ -69,16 +82,36 @@ UI.Dropdown = new Class({
 	_initButton: function() {
 		var self = this;
 
-		new UI.Button({
+		this.button = new UI.Button({
 			'clss': 'right',
 			type: 'icon',
 			name: 'movedown',
 			icon: 'icon-times-circle',
-		}).inject(this.element, 'top').addEvent('press', function() {
-			self._showMenu();
-		});
+		}).inject(this.element, 'top');
 	},
 
+	/**
+	 * [_onButtonClick description]
+	 * @return {[type]} [description]
+	 */
+	_onButtonPress: function(e) {
+		//_log('_onButtonClick', e);
+		if (this.isFocused) {
+			this._showMenu();
+		} else {
+			this.input.focus();
+		}
+	},
+
+	/**
+	 * [_onMouseDown description]
+	 * @return {[type]} [description]
+	 */
+	_onMouseDown: function(e) {
+		this.parent(e);
+
+		this._onButtonPress(e);
+	}, 
 
 	/**
 	 * [_initToolbarComp description]
@@ -98,7 +131,20 @@ UI.Dropdown = new Class({
 
 		var menu = this.menu = new Element('ul', {
 			class: 'ui-menu',
-		}).inject(this.element, 'bottom');
+		}).inject(this.element, 'bottom').addEvents({
+			mouseleave: function() {
+				clearTimeout(timer);
+				timer = setTimeout(function() {
+					menu.setStyle('display', 'none');
+				}, 500);
+			},
+			mouseenter: function() {
+				clearTimeout(timer);
+			},
+			click: function() {
+				menu.setStyle('display', 'none');
+			}
+		});
 
 		for (var i= 0; i < opts.list.length; i++) {
 			var name = opts.list[i];
@@ -274,7 +320,12 @@ UI.Dropdown = new Class({
 			};
 		}
 
-		if (typeof name === 'string')
+		console.log(this.options.value, name);
+
+		if (this.value === name) {
+			opts.klss = 'is-selected'
+		}
+
 
 		if (!name) return;
 
@@ -297,6 +348,7 @@ UI.Dropdown = new Class({
 				var name =  this.options.name;
 				//_log('press', name, this.isEnable());
 				if (this.isEnable()) {
+					self.value = name;
 					//self.fireEvent('control::'+name, this);
 					self.fireEvent('select', name);
 				}
