@@ -352,8 +352,6 @@ UI.Container = new Class({
 		});
 	},
 
-
-
 	_initUnderlay: function() {
 		//_log('_initUnderlay', this.device);
 		var self = this;
@@ -366,13 +364,9 @@ UI.Container = new Class({
 			}
 		}).inject(this.element, 'before');
 
-
-
-
 		this.underlay.addEvent('click', function() {
 			self.minimize();
 		});
-
 
  		this.addEvent('close', function(){
 			self.underlay.destroy();
