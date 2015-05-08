@@ -476,7 +476,6 @@ UI.Window = new Class({
 	*/
 	close: function(){
 		//_log('close');
-		this.fireEvent('close');
 		ui.window.close(this);
 		this.fireEvent('closed');
 
