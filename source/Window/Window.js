@@ -282,7 +282,7 @@ UI.Window = new Class({
 				this.coord = this.element.getCoordinates();
 			},
 			onDragStart: function(){
-				_log('darg start', this);
+				//_log('darg start', this);
 			},
 			'onDragComplete': function() {
 				//_log('darg com', ui.window.underlay);
