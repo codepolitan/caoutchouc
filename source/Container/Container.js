@@ -87,7 +87,7 @@ UI.Container = new Class({
 
 		if (opts.node === null) return;
 
-		_log('_initComponent', opts.node);
+		//_log('_initComponent', opts.node);
 
 		this.node = [];
 
