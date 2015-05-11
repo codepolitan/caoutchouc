@@ -56,13 +56,13 @@ UI.List = new Class({
 
 
 	_initList: function(string) {
-
+		_log('_initList', string);
 		var self = this;
 		this.items = [];
 		/**/
 		this.items = [];
 
-		//_log('Minimal.Lisz.initlist()', this.container);
+		_log('UI.List.initlist()', this.container);
 
 		this.content = new Element('div', {
 			'class': 'list-content'
@@ -240,10 +240,12 @@ UI.List = new Class({
 			tmpl = opts.template,
 			type = info.type;
 
-		//_log(type, info, tmpl);
+		_log('renderItem', type, info, tmpl);
 
-		info = mnml.data.type[type]._process.render(info);
-		tmpl = mnml.data.type[type].default.list.template.simple || tmpl;
+		if (mnml.data.type[type] && mnml.data.type[type]._process) {
+			info = mnml.data.type[type]._process.render(info);
+			tmpl = mnml.data.type[type].default.list.template.simple || tmpl;
+		}
 
 		var body = Mustache.render(tmpl, info);
 
