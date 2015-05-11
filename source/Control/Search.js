@@ -30,6 +30,7 @@ UI.Search = new Class({
 
 	options: {
 		name: 'search',
+		error: false,
 		label: false,
 		timer: 100
 	},
