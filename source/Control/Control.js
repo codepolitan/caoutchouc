@@ -32,6 +32,7 @@ UI.Control = new Class({
 
 	options: {
 		//disabled: false
+		error: false
 	},
 
 	/**

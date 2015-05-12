@@ -13,7 +13,7 @@ UI.Field = new Class({
 		tag: 'div',
 		type: 'input',
 		value: null,
-		error: null,
+		error: true,
 		useTextAsLabel: false,
 		inkFx: {
 		    duration: 200,
@@ -54,7 +54,7 @@ UI.Field = new Class({
 
 		this._initInput();
 
-		//if (opts.error)
+		if (opts.error)
 			this._initError();
 	},
 
