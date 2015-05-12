@@ -24,6 +24,7 @@ UI.Component.implement({
 		return this;
 	},
 
+
 	/**
 	 * [hide description]
 	 * @return {[type]} [description]
@@ -34,6 +35,18 @@ UI.Component.implement({
 
 		return this;
 	},
+
+	/**
+	 * [show description]
+	 * @return {[type]} [description]
+	 */
+	fade: function(value){
+		this.fireEvent('fade');
+		this.element.fade(value);
+
+		return this;
+	},
+
 
 	/**
 	 * [getStyle description]
