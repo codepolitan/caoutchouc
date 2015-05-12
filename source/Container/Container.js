@@ -198,29 +198,29 @@ UI.Container = new Class({
 			});
 	},
 
-	/*
-	Function: setTitle
-		set title html
-
-	Arguments:
-		html - (string) html formatted title
-
-	Returns:
-		this
-	*/
+	/**
+	 * [setTitle description]
+	 * @param {[type]} title [description]
+	 */
 	setTitle: function(title){
 		if (this.title && this.head)
 			return this.title.set('text', title);
 	},
 
-	/*
-	Method: setMenu
-		inject a menu in da head
+	/**
+	 * [setTitle description]
+	 * @param {[type]} title [description]
+	 */
+	getTitle: function(){
+		//_log('getTitle', this.title);
+		if (this.title)
+			return this.title.get('html');
+	},
 
 
-
-	Returns:
-		(void)
+	/**
+	 * [setMenu description]
+	 * @param {[type]} opts [description]
 	 */
 	setMenu: function(opts) {
 		var self = this,
