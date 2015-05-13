@@ -153,16 +153,22 @@ UI.Date = new Class({
 	 * [set description]
 	 * @param {[type]} d [description]
 	 */
-	set: function(d) {
-		//_log('set', d);
+	set: function(date) {
+		//_log('set', date);
 		var opts = this.options;
+		var text;
 
-		var date = moment(d).format(opts.format);
-		var text = moment(d).toISOString();
+		if (date) {
+			date = moment(date).format(opts.format);
+			text = moment(date).toISOString();
 
-		self.fireEvent('change', text);
+			//the window was trigger 'chnage' because self was not define
+			//I just comment this (bsantos)
+			//self.fireEvent('change', text);
+		}
 
 		this.input.set('value', date);
+		this.input.set('placeholder', opts.text);
 		this.text.set('value', text);
 	}
 

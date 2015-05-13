@@ -35,8 +35,11 @@ UI.Hour = new Class({
 
 		this.date = this.options.value  || this.options.date;
 
-		var tmp = new Date(this.date);
-		var time = this.convertDateTimeToHour(tmp);
+		var time;
+		if (this.date) {
+			var tmp = new Date(this.date);
+			time = this.convertDateTimeToHour(tmp);
+		}
 
 		this.input.set('value', time);
 
@@ -68,7 +71,7 @@ UI.Hour = new Class({
 		}).inject(controls);
 
 		this.plus.addEvent('click', function() {
-			tmp = new Date(self.date).increment('minute', '15').toJSON();
+			var tmp = new Date(self.date).increment('minute', '15').toJSON();
 			self.date = new Date(self.date).increment('minute', '15');
 			var time = self.convertDateTimeToHour(tmp);
 			self.input.set('value', time);
@@ -82,7 +85,7 @@ UI.Hour = new Class({
 		}).inject(controls);
 
 		this.minus.addEvent('click', function() {
-			tmp = new Date(self.date).decrement('minute', '15').toJSON();
+			var tmp = new Date(self.date).decrement('minute', '15').toJSON();
 			self.date = new Date(self.date).decrement('minute', '15');
 			var time = self.convertDateTimeToHour(tmp);
 			self.input.set('value', time);
@@ -183,9 +186,21 @@ UI.Hour = new Class({
 	 * @param {[type]} name  [description]
 	 * @param {[type]} value [description]
 	 */
-	set: function(name, value) {
+	setOld: function(name, value) {
 		this.element.set(name, value);
 
+	},
+
+	set: function(date) {
+		//_log('set', date);
+
+		this.date = moment(date).toISOString();
+
+		var time = this.convertDateTimeToHour(this.date);
+
+		this.input.set('value', time);
+
+		this.fireEvent('change', this.date);
 	}
 
 });
