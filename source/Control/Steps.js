@@ -89,7 +89,7 @@ UI.Steps = new Class({
 			'data-value': item
 		}).inject(this.list)
 		 .addEvent('click', function(){
-		 	_log('step emit', idx, item, name);
+		 	//_log('step emit', idx, item, name);
 			self.fireEvent('step', idx);
 			self.fireEvent(item);
 		 });
