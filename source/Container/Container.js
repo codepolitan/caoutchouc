@@ -339,7 +339,7 @@ UI.Container = new Class({
 				self.overlay.hide();
 			},
 			onDragStart: function(){
-				_log('darg start', this);
+				//_log('darg start', this);
 				self.overlay.show();
 			},
 			onResizeComplete: function() {
