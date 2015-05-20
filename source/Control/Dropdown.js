@@ -64,7 +64,7 @@ UI.Dropdown = new Class({
 	 * @return {[type]} [description]
 	 */
 	_onKeyDown: function(e) {
-		_log('KeyDown');
+		//_log('KeyDown');
 		if (e.key !== 'tab') {
 			e.stop();
 			return;
