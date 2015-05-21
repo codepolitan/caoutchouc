@@ -261,43 +261,10 @@ UI.List = new Class({
 
 	},
 
-	_initDragItem: function(item) {
-		var self = this;
-		item.makeDraggable({
-
-			droppables: $$('#droppables DIV'),
-
-			onEnter: function(draggable, droppable){
-				droppable.setStyle('background', '#E79D35');
-			},
-
-			onLeave: function(draggable, droppable){
-				droppable.setStyle('background', '#6B7B95');
-			},
-
-			onDrop: function(draggable, droppable){
-				if (!droppable){
-					var drop =  {
-						draggable: draggable,
-						droppable: droppable
-					};
-
-					self.fireEvent('drop', drop);
-				} else {
-					_log(draggable, droppable);
-					self.fireEvent('move', draggable);
-				}
-			}
-		});
-
-	},
-
-
 	_initEvents: function() {
 		var self = this;
 		this.parent();
 	},
-
 
 	next: function() {
 		//_log('next', this.id);
