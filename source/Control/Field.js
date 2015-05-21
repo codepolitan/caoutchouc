@@ -229,16 +229,9 @@ UI.Field = new Class({
 	_inputFocus: function(e) {
 		//_log('_inputFocus', e);
 
-		if (this.ink) return;
-
-		var x = e.event.offsetX || 0;
-		var y = e.event.offsetY || 0;
-
-		coord = this.input.getCoordinates(this.element);
-
-		this._showInk(this.ink, x, y, coord);
-
 		this.fireEvent('mousedown');
+
+		this._showInk(e);
 
 		this.isFocused = true;
 	},
@@ -264,13 +257,24 @@ UI.Field = new Class({
 	 * @param  {[type]} y     [description]
 	 * @return {[type]}       [description]
 	 */
-	_showInk: function(inner, x, y, coord) {
-		//_log('_showInk');
+	_showInk: function(e) {
+		_log('_showInk');
+
+		if (this.readonly) return;
+
+		//if (this.ink) return;
+
+		var coord = this.input.getCoordinates(this.element);
+
+		var x = coord.width / 2;
+
+		if (e === 0)
+			x = 0;
+		else if (e && e.event && e.event.offsetX)
+			x = e.event.offsetX;
 
 		var size = coord.width,
 			top = 0;
-
-		if (this.readonly) return;
 
 		if (!this.ink)
 			this._initInk();
@@ -283,7 +287,41 @@ UI.Field = new Class({
 		    width: size,
 		    top: coord.top + coord.height - 2,
 		    bottom: 'initial',
-		    left:coord.left,
+		    left: coord.left,
+		    opacity: 1
+		});
+	},
+
+
+	/**
+	 * [_initEffect description]
+	 * @param  {[type]} inner [description]
+	 * @param  {[type]} x     [description]
+	 * @param  {[type]} y     [description]
+	 * @return {[type]}       [description]
+	 */
+	_setInk: function(e) {
+		_log('_showInk');
+
+		if (this.readonly) return;
+
+		//if (this.ink) return;
+
+		var coord = this.input.getCoordinates(this.element);
+
+		var x = coord.width / 2;
+
+		var size = coord.width,
+			top = 0;
+
+		if (!this.ink)
+			this._initInk();
+
+		this.inkFx.set({
+		    width: size,
+		    top: coord.top + coord.height - 2,
+		    bottom: 'initial',
+		    left: coord.left,
 		    opacity: 1
 		});
 	},
