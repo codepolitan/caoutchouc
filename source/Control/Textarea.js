@@ -30,7 +30,18 @@ UI.Textarea = new Class({
 
 		// default options
 		name: 'ui-input',
-		value: ''
+		value: '',
+		binding: {
+			_list: ['input', 'button'],
+			input: {
+				'input.mousedown': '_onMouseDown',
+				'input.keydown': '_onKeyDown',
+				'input.keyup': '_onKeyUp'
+			},
+			button: {
+				'button.press': '_onButtonPress'
+			}
+		}
 	},
 
 
@@ -41,7 +52,7 @@ UI.Textarea = new Class({
 	_initInput: function()  {
 		var	opts = this.options;
 
-		this.input = new Element('textarea', {
+		var input = this.input = new Element('textarea', {
 			name: opts.name,
 			placeholder: opts.text,
 			type: opts.type,
@@ -55,6 +66,47 @@ UI.Textarea = new Class({
 
 		if (opts.klss)
 			this.input.addClass(opts.klss);
+
+		this._initAutogrow(input);
+	},
+
+
+	/**
+	 * [_initAutogrow description]
+	 * @param  {[type]} input [description]
+	 * @return {[type]}       [description]
+	 */
+	_initAutogrow: function(input) {
+		var self = this;
+
+		clearTimeout(this.autogrowTimeout);
+
+		this.autogrowTimeout = setTimeout(function() {
+			var autogrow = new Form.AutoGrow(input, {
+				minHeightFactor: 1
+			});
+			input.store('autogrow', autogrow);
+
+			input.addEvent('focus', function() {
+				autogrow.resize();
+			});
+		}, 200);
+	},
+
+	/**
+	 *           
+	 * @return {[type]} [description]
+	 */
+	_onKeyUp: function(e) {
+		_log('KeyDown');
+
+		if (this.readonly) {
+			e.stop();
+			return;
+		}
+
+		if (this._setInk)
+			this._setInk(1);
 	},
 
 	/**
@@ -63,8 +115,6 @@ UI.Textarea = new Class({
 	 */
 	_initEvents: function(){
 		this.parent();
-		var self = this;
-
 
 		this.addEvents({
 			blur: this.setState.bind(this, 'default'),
