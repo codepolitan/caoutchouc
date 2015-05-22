@@ -98,7 +98,7 @@ UI.Textarea = new Class({
 	 * @return {[type]} [description]
 	 */
 	_onKeyUp: function(e) {
-		_log('KeyDown');
+		//_log('KeyDown');
 
 		if (this.readonly) {
 			e.stop();
