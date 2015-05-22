@@ -35,8 +35,8 @@ UI.Textarea = new Class({
 			_list: ['input', 'button'],
 			input: {
 				'input.mousedown': '_onMouseDown',
-				'input.keydown': '_onKeyDown',
-				'input.keyup': '_onKeyUp'
+				'input.keydown': '_updateInk',
+				'input.keyup': '_updateInk'
 			},
 			button: {
 				'button.press': '_onButtonPress'
@@ -97,8 +97,8 @@ UI.Textarea = new Class({
 	 *           
 	 * @return {[type]} [description]
 	 */
-	_onKeyUp: function(e) {
-		_log('KeyDown');
+	_updateInk: function(e) {
+		//_log('_updateInk');
 
 		if (this.readonly) {
 			e.stop();
