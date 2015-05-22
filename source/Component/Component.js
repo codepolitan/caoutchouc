@@ -143,7 +143,7 @@ UI.Component = new Class({
 		this.fireEvent('created');
 
 		if (opts.container && opts.container != 'window') {
-			//console.log('_initElement', opts.name, opts.container);
+			//_log('_initElement', opts.name, opts.container);
 			this.inject(opts.container);
 			this.fireEvent('injected');
 		}
@@ -235,6 +235,10 @@ UI.Component = new Class({
 			this.enableDrag();
 	},
 
+	/**
+	 * [getName description]
+	 * @return {[type]} [description]
+	 */
 	getName: function() {
 		return this.options.name || this.name;
 	},
