@@ -40,6 +40,8 @@ UI.Layout.implement({
 		//comp.opts.container = comp.container;
 		var component = this.component[name] = this[name] = new clss(comp.opts);
 		
+		//_log(component.container);
+
 		// register component
 		this._componentRegister(name, component);
 
@@ -136,6 +138,7 @@ UI.Layout.implement({
 					if (this.settings[name].width < 32)
 						this.settings[name].width = 32;
 
+					
 
 					element.setStyle('width', this.settings[name].width || 160);
 				}
