@@ -59,6 +59,7 @@ UI.Container = new Class({
 		<UI.Component::_initElement>
 	*/
 	_initElement: function() {
+		//_log('_initElement', this);
 		this.parent();
 
 		var opts = this.options;
@@ -70,6 +71,12 @@ UI.Container = new Class({
 		if ( opts.useOverlay ) this._initOverlay();
 
 		if ( opts.foot ) this._initFoot( opts.foot );
+
+		var self = this;
+		this.addEvent('injected', function() {
+			var direction = self.container.getStyle('flex-direction');
+			//_log('direction', direction, this.element);
+		});
 
 		if (this.options.useUnderlay)
 			this._initUnderlay();

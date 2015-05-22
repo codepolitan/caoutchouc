@@ -109,7 +109,6 @@ UI.Layout = new Class({
 			var name = list[i],
 				comp = node[name] || {};
 
-
 			comp.clss = comp.clss || this.options.clss;
 			comp.opts = comp.opts || {};
 			comp.opts.name = name;

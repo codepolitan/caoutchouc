@@ -258,7 +258,7 @@ UI.Field = new Class({
 	 * @return {[type]}       [description]
 	 */
 	_showInk: function(e) {
-		_log('_showInk');
+		//_log('_showInk');
 
 		if (this.readonly) return;
 
@@ -301,7 +301,7 @@ UI.Field = new Class({
 	 * @return {[type]}       [description]
 	 */
 	_setInk: function(e) {
-		_log('_showInk');
+		//_log('_showInk');
 
 		if (this.readonly) return;
 

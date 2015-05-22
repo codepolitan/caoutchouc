@@ -128,7 +128,9 @@ UI.Layout.implement({
 				self.fireEvent('resizer', [component.main, modifier.size, size]);
 				component.fireEvent('resizeComplete', [modifier.size, size]);
 
-				component.width = size;
+				//_log('size', modifier, size);
+
+				component[modifier.size] = size;
 			}
 		});
 

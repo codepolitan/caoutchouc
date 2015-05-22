@@ -38,6 +38,13 @@ UI.Display = new Class({
 
  		this._modifier = 'width';
 
+ 		var direction = this.container.getStyle('flex-direction');
+
+		if (direction == 'column')
+			this._modifier = 'height';
+
+		//_log('direction', direction, this._modifier);
+
 		var self = this,
 			opts = this.options.display,
 			fx = opts.fx.default,
@@ -112,7 +119,7 @@ UI.Display = new Class({
 
 		(function(){ 
 			//self.element.setStyle('display', 'none');
-		}).delay(160	);
+		}).delay(160);
 
 		this._display = 'minimized';
 
