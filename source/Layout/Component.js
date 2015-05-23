@@ -1,7 +1,7 @@
 
 /**
- * [options description]
- * @type {Object}
+ * UI Layout Component
+ * @implement UI.Layout
  */
 UI.Layout.implement({
 	options: {
@@ -32,7 +32,11 @@ UI.Layout.implement({
 	 */
 	_initComponent: function(comp) {
 		//_log('_initComponent', comp.opts.name, comp);
-		comp.opts.flex = comp.flex;
+
+		// shortcuts
+		comp.opts.flex = comp.opts.flex || comp.flex;
+		comp.opts.hide = comp.opts.hide || comp.hide;
+		comp.opts.theme = comp.opts.theme || comp.theme;
 
 		var name = comp.opts.name;
 		var clss = mnml.strToClss(comp.clss);
@@ -97,6 +101,20 @@ UI.Layout.implement({
 		if (component.options.flex) {
 			//component.element.setStyle('flex', component.options.flex);
 			component.element.addClass('flex-'+component.options.flex);
+
+		}
+
+		if (component.options.hide) {
+			_log('h---ide');
+			//component.element.setStyle('flex', component.options.flex);
+			component.element.setStyle('display', 'none');
+
+		}
+
+		if (component.options.theme) {
+			_log('h---ide');
+			//component.element.setStyle('flex', component.options.flex);
+			component.element.addClass('theme' + '-' + component.options.theme);
 
 		}
 	},
