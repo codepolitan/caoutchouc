@@ -1,7 +1,7 @@
 
 /**
- * [options description]
- * @type {Object}
+ * UI Layout Resize
+ * @implement UI.Layout
  */
 UI.Layout.implement({
 	options: {
