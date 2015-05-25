@@ -1,26 +1,10 @@
-/*
-Class: UI.Selector.Toolbar
-	Create Selector Toolbar
 
-Arguments:
-	options
-
-Options:
-	element - (object) a ref to the element object
-	clss - (string)
-	borderSize - (int) size in pixel
-
- Public Methods
-
-
-Example:
-	(start code)
-		var toolbar = new UI.Selector.Toolbar({
-
-		});
-	(end)
-*/
-
+/**
+ * UI Selector Menu Class
+ * @class UI.Selector.Menu
+ * @extends {UI.Selector}
+ * @type {Class}
+ */
 UI.Selector.Menu = new Class({
 
 	Implements: [Events, Options],

@@ -1,18 +1,10 @@
 
 /**
-* Minimalistic ContextMenu Class
-*
-* @class UI.Context
-* @Extends UI.Menu
-* @Require Mootools
-* @param {object} json
-* @param {parent} container
-* @return {parent} Class
-* @example (start code)	new UI.Context(object); (end)
-* @author Jerome Vial
-* @copyright © 1999-2014 - Jerome D. Vial. All Rights reserved.
-*/
-
+ * UI Menu Context Class
+ * @class UI.Menu.Context
+ * @extends {UI.Menu}
+ * @type {Class}
+ */
 UI.Context = new Class({
 
 	Extends: UI.Menu,

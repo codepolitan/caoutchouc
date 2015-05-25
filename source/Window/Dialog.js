@@ -1,7 +1,7 @@
 
 /**
- * UI Dialog Class
- * @class UI.Container.Dialog
+ * UI Window Dialog Class
+ * @class UI.Window.Dialog
  * @extends {UI.Container}
  * @type {Class}
  */

@@ -1,28 +1,11 @@
-/*
-Class: UI.Resizer
-	Creates Resizer handler
-
-Arguments:
-	options
-
-Options:
-	el - (object) a ref to the el object
-	clss - (string)
-	borderSize - (int) size in pixel
-
-Public Methods
 
 
-Example:
-	(start code)
-		var resizer = new UI.Resizer({
-			'el' : 'content',
-			'clss' : 'eSect',
-			'borderSize	: '1px'
-		});
-	(end)
-*/
-
+/**
+ * UI Selector Resizer Class
+ * @class UI.Selector.Resizer
+ * @extends {UI.Selector}
+ * @type {Class}
+ */
 UI.Selector.Resizer = new Class({
 	Implements: [Events, Options],
 

@@ -1,6 +1,7 @@
 
 /**
- * @class UI.Button
+ * UI Control Separator
+ * @class UI.Control.Separator
  * @extends {UI.Control}
  * @type {Class}
  */

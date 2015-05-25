@@ -1,28 +1,10 @@
-/*
-Class: UI.Border
-	Creates border
 
-Arguments:
-	options
-
-Options:
-	el - (object) a ref to the el object
-	clss - (string)
-	borderSize - (int) size in pixel
-
-Public Methods
-
-
-Example:
-	(start code)
-		var border = new UI.Border({
-			'el' : 'content',
-			'clss' : 'eSect',
-			'borderSize	: '1px'
-		});
-	(end)
-*/
-
+/**
+ * UI Selector Maks Class
+ * @class UI.Selector.Mask
+ * @extends {UI.Selector}
+ * @type {Class}
+ */
 UI.Selector.Mask = new Class({
 	Implements: [Events, Options],
 

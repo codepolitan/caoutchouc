@@ -1,12 +1,12 @@
 
-/**
-* Minimalistic Implement for Minimal.View Class
-*
-* @implement Minimal.View
-* @author Jerome Vial, Bruno Santos
-*/
 var UI = UI || {};
 
+/**
+ * UI Toolbar Class
+ * @class UI.Toolbar
+ * @extends {UI.Component}
+ * @type {Class}
+ */
 UI.Toolbar = new Class({
 
 	/*	Implements: [Events, Options, Minimal.Binding],*/

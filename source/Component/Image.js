@@ -1,45 +1,17 @@
-/*
----
-description: UI.Image is used to make a skinnable image container
 
-authors: [moolego,r2d2]
-
-requires:
-- core:1.2.1: '*'
-
-provides: [UI.Image]
-
-...
-*/
-/*
-	Class: UI.Image
-		UI.Image is used to make a skinnable image container
-
-	Arguments:
-		options
-
-	Options:
-		- tag - (string) element tag, by default 'span'
-		- html - (string) text text, by default Text
-		- src - (string) path to the image
-	Returns:
-		Box element
-
-	Example:
-		(start code)
-		var image = new UI.Image({
-			src	: 'http://ui.moolego.org/img/head/moolego.png',
-		}).inject(this.element);
-		(end)
-
-	Discussion:
-
-*/
-
+/**
+ * UI Component Image
+ * @class UI.Component.Image
+ * @extends {UI.Component}
+ */
 UI.Image = new Class({
 
 	Extends: UI.Component,
 
+	/**
+	 * [options description]
+	 * @type {Object}
+	 */
 	options: {
 		name: 'image',
 
@@ -49,12 +21,11 @@ UI.Image = new Class({
 		selectable: false
 	},
 
-	/*
-		Function: _initElement
-		private function
-
-		Call UI.Component _initElement
-	*/
+	/**
+	 * [_initElement description]
+	 * @param  {[type]} options [description]
+	 * @return {[type]}         [description]
+	 */
 	_initElement: function(options){
 		this.parent(options);
 	}

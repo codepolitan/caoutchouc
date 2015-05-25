@@ -1,27 +1,10 @@
-/*
-Class: UI.element
-	Creates overlay for selector
 
-Arguments:
-	options
-
-Options:
-	element - (object) a ref to the element object
-	clss - (string)
-	borderSize - (int) size in pixel
-
-Public Methods
-
-Example:
-	(start code)
-		var overlay = new UI.element({
-			'element': 'content',
-			'clss': 'eSect',
-			'borderSize': '1px'
-		});
-	(end)
-*/
-
+/**
+ * UI Selector Overlay Class
+ * @class UI.Selector.Overlay
+ * @extends {UI.Selector}
+ * @type {Class}
+ */
 UI.Overlay = new Class({
 	Implements: [Events, Options],
 

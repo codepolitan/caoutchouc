@@ -1,36 +1,10 @@
 
-/*
-Script: Selector.js
-	Contains the Selector Component Class of the Content Floor App.
-
-License:
-	MIT-style license.
-
-iFramework Copyright:
-	copyright (c) 2007 Jerome Vial, <http://iframework.org>
-
-iFramework Credits:
-	- Class is based on MooTools framework <http://www.mootools.net/> (c) 2007 Valerio Proietti, MIT-style license
-	- Classes were coded by David Mignot, Lucas Pillonel, Denis Schneiter, Gregory Paccaud and Jerome Vial
-*/
-
-/*
-Class: UI.Selector
-	The flying selector object of the <http://iframework.org> framework.
-	Creates a new div element, its initialize method will bind button with a group of elements.
-
-Arguments:
-	options - clss and id
-
-Example:
-	(start code)
-	var my_selector = new UI.Selector({
-		'clss'	: 'ui-select'
-		]
-	});
-	(end)
-*/
-
+/**
+ * UI Selector Class
+ * @class UI.Selector
+ * @extends {UI.Component}
+ * @type {Class}
+ */
 UI.Selector = new Class({
 
 	Implements: [Events, Options],

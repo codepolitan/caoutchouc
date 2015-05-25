@@ -1,7 +1,9 @@
 
 /**
  * UI Layout Resize
+ * @class UI.Layout.Resize
  * @implement UI.Layout
+ * @author Jerome D. Vial
  */
 UI.Layout.implement({
 	options: {

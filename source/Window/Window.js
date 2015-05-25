@@ -2,7 +2,7 @@
 /**
  * UI Window Class
  * 
- * @class UI.Container.Window
+ * @class UI.Window
  * @extends {UI.Container}
  * @type {Class}
  */

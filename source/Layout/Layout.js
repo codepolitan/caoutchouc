@@ -1,6 +1,6 @@
 
 /**
- * UI Layout
+ * UI Layout Class
  * @class UI.Layout
  * @implements {Events, Options}
  */
@@ -10,7 +10,7 @@ UI.Layout = new Class({
 
 	/**
 	 * Layout options
-	 * @type {Object}pack
+	 * @type {Object}
 	 * @param {name} [name] layout
 	 * @param {Object} [clss] Default component class
 	 */

@@ -1,53 +1,10 @@
-/*
-	Class: UI.Menu
-		Creates a new menu, manages submenus and positionning as well
 
-	Extends:
-		<UI.Component>
-
-	Arguments:
-		options
-
-	Options:
-		- node
-		- _parent - component
-		- context -
-
-
-		- name - (string) name of the compnent, it is automatically add to the css class
-		- base - (string) base component, if define the name of it will be add the the css class
-
-		- tag - (string) Tag name for menu elements
-
-		- position - (string) Specify where the new menu must be positionned.
-			It could be normal (element will be positionned on parent's side),
-			over (element will be positionned over the parent element, used for <UI.Select>),
-			bottom (element will be positionned on bottom of parent element, used for <UI.Toolbar>)
-
-		- scrollToSelected - (boolean) Determine if a menu (specifically a <UI.Select>) should remember last item selected
-		- scrollMargin - (integer) Determine remaining margin on top and bottom when a menu is too large to feet in window
-		- menu - (array) Array containing menu definition
-
-	Example:
-		(start code)
-		var submenu = new UI.Menu({
-			container : this.container.element,
-			underlay : this.options.underlay,
-			zIndex : 1
-		});
-		(end)
-
-	Implied global:
-		- MooLego - UI,ui,
-		- MooTools - Class, Element, Event, Fx, Window
-		- Javascript - document
-
-	Discussion
-		Should use listView
-
-*/
-
-
+/**
+ * UI Menu Class
+ * @class UI.Menu
+ * @extends {UI.Component}
+ * @type {Class}
+ */
 UI.Menu = new Class({
 
 	Extends: UI.Container,

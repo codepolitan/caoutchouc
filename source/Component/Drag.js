@@ -1,4 +1,10 @@
 
+/**
+ * UI Component Drag
+ * @implements {UI.Component}
+ * @example
+ * @author Jerome D. Vial
+ */
 
 UI.Component.implement({
 
