@@ -101,19 +101,14 @@ UI.Layout.implement({
 		if (component.options.flex) {
 			//component.element.setStyle('flex', component.options.flex);
 			component.element.addClass('flex-'+component.options.flex);
-
 		}
 
 		if (component.options.hide) {
-			_log('h---ide');
-			//component.element.setStyle('flex', component.options.flex);
 			component.element.setStyle('display', 'none');
 
 		}
 
 		if (component.options.theme) {
-			_log('h---ide');
-			//component.element.setStyle('flex', component.options.flex);
 			component.element.addClass('theme' + '-' + component.options.theme);
 
 		}
@@ -143,7 +138,6 @@ UI.Layout.implement({
 			//console.log('---flex', name, component.options);
 		} else {
 			
-
 			if (this.settings[name] && this.settings[name].width) {
 				//_log('settings', name, display);
 				//element.setStyle('flex', 'none');
@@ -157,7 +151,7 @@ UI.Layout.implement({
 						this.settings[name].width = 32;
 
 					
-
+					//console.log('----', name, element);
 					element.setStyle('width', this.settings[name].width || 160);
 				}
 
