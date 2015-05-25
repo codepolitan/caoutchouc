@@ -1,36 +1,10 @@
-/*
-	Class: UI.Field
-		Create a skinnable input element
 
-	Extends:
-		<UI.Control>
-
-	Arguments:
-		options
-
-	Options:
-		name - (string) name for the input element
-		value - (string) value
-		name - (string) name name
-
-	Example:
-		(start code)
-		var button = new UI.Button({
-			name: 'myInput',
-			value: 'Hello world'
-		}).inject(document.body);
-		(end)
-
-	Implied global:
-		Class - 25
-		UI - 25 27
-
-	Members:
-		Control, Extends, Input, addEvents, bind, blur, name,
-		focus, name, options, parent, _initEvents, setState, value
-
-*/
-
+/**
+ * UI Control Url
+ * @class UI.Control.Url
+ * @extends {UI.COntrol}
+ * @author Jerome Vial, Bruno Santos
+ */
 UI.URL = new Class({
 
 	Extends: UI.Field,

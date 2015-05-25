@@ -1,44 +1,10 @@
-/*
-	Class: UI.RadiosGroup
-		Create a radios group able to make radio
 
-	Extends:
-		<UI.Control>
-
-	Arguments:
-		options
-
-	Options (RadiosGroup):
-		name - (string) name of the radiosgroup input
-
-	Options (RadiosGroup.newRadio):
-		text - (string) radio text
-		value - (string) radio value
-		selected - (boolean) define if the radio must be selected at creation or not
-
-	Example:
-		(start code)
-			var radios = new UI.Control.RadioGroup({
-				name		: 'radioname'
-			});
-			radios.newRadio({
-				text		: 'FooBar',
-				value		: 'foobar'
-			}).inject(document.body);
-			radios.newRadio({
-				text		: 'FooBar 2',
-				value		: 'foobar_2',
-				selected	: true
-			}).inject(document.body);
-		(end)
-
-	Implied global:
-		Class, Element, UI
-
-	Discussion:
-		Should use UI.Controller group instead of a radiogroup, then create a UI.Radio class
-*/
-
+/**
+ * UI Control RadiosGroup Class
+ * @class UI.Control.RadiosGroup
+ * @extends {UI.Control}
+ * @type {Class}
+ */
 UI.RadiosGroup = new Class({
 
 	Extends				: UI.Control,

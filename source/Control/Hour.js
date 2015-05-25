@@ -4,6 +4,7 @@ var Class = Class || function() {};
 
 /**
  * UI Control Hour Class
+ * @class UI.Control.Hour
  * @extends {UI.Control}
  * @type {Class}
  */
