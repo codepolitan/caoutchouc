@@ -1,21 +1,10 @@
-/*
-	Class: UI.Select
-		Create <select> like element
 
-	Extends:
-		<UI.Field>
-
-	Require:
-		<UI.Control>
-		<UI.Menu>
-
-	Arguments:
-		options
-
-
-*/
-
-
+/**
+ * UI Control Select Class
+ * @class UI.Control.Select
+ * @extends {UI.Control}
+ * @type {Class}
+ */
 UI.Select = new Class({
 
 	Extends: UI.Field,

@@ -21,6 +21,12 @@
 		(end)
 */
 
+/**
+ * UI Control Textarea
+ * @class UI.Control.Textarea
+ * @extends {UI.Control}
+ * @type {Class}
+ */
 UI.Textarea = new Class({
 
 	Extends: UI.Field,

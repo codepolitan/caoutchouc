@@ -4,8 +4,8 @@ var Class = Class || function() {};
 var _log = _log || function() {};
 
 /**
- * Create <select> like element
- * @class UI.Steps
+ * UI Control Steps Class
+ * @class UI.Control.Steps
  * @extends {UI.Control}
  * @type {Class}
  */

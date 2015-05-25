@@ -1,6 +1,7 @@
 
 /**
- * @class UI.Button
+ * UI COntrol ButtonMenu Class
+ * @class UI.Control.ButtonMenu
  * @extends {UI.Control}
  * @type {Class}
  */

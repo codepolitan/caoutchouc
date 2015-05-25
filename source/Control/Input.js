@@ -31,6 +31,12 @@
 
 */
 
+/**
+ * UI Control Input Class
+ * @class UI.Control.Input
+ * @extends {UI.Control}
+ * @type {Class}
+ */
 UI.Input = new Class({
 
 	Extends: UI.Control,

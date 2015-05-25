@@ -1,8 +1,10 @@
 
 /**
- * UI.Field
+ * UI Control Field Class
+ * @class UI.Control.Field
+ * @extends {UI.Control}
+ * @type {Class}
  */
-
 UI.Field = new Class({
 
 	Extends: UI.Control,

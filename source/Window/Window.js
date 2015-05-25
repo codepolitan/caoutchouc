@@ -1,8 +1,9 @@
 
 /**
- * Class Window
+ * UI Window Class
  * 
- * [Window description]
+ * @class UI.Container.Window
+ * @extends {UI.Container}
  * @type {Class}
  */
 UI.Window = new Class({
@@ -11,11 +12,17 @@ UI.Window = new Class({
 
 	name: 'window',
 
+	/**
+	 * options
+	 * @type {Object}
+	 */
 	options: {
 		name: 'window',
 		title: 'Window',
 
 		container: $(document.body),
+		context: 'top',
+
 
 		content: true,
 		// Size options
@@ -315,15 +322,19 @@ UI.Window = new Class({
 	},
 
 	_initUnderlay: function() {
-		//_log('_initUnderlay');
+		_log('_initUnderlay', this.options.container);
 		var self = this;
+
+		var container = this.options.container || $(document.body)
+
+		_log(container);
 
 		this.underlay = new Element('div', {
 			'class': 'dialog-underlay',
 			styles: {
 				zIndex: 900
 			}
-		}).inject(this.options.container);
+		}).inject(container);
 
 		this.underlay.show();
 

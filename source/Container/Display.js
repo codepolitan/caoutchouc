@@ -3,8 +3,11 @@
 var UI = UI || {};
 var _log = _log || (function(){});
 var Class = Class || (function(){});
+
 /**
- * Display
+ * UI Container Display Class
+ * @class  UI.Container.Display
+ * @type {Class}
  */
 UI.Display = new Class({
 

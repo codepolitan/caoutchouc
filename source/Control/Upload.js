@@ -1,6 +1,7 @@
 
 /**
- * @class UI.Button
+ * UI Control Upload
+ * @class UI.Control.Upload
  * @extends {UI.Control}
  * @type {Class}
  */

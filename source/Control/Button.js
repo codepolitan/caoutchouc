@@ -1,6 +1,6 @@
 
 /**
- * @class UI.Button
+ * @class UI.Control.Button
  * @extends {UI.Control}
  * @type {Class}
  */

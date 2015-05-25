@@ -1,7 +1,7 @@
 
 /**
- * Create <select> like element
- * @class UI.Choice
+ * Ui Choice Control
+ * @class UI.Control.Choice
  * @extends {UI.Control}
  * @type {Class}
  */

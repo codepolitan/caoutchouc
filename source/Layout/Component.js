@@ -1,7 +1,8 @@
 
 /**
- * UI Layout Component
- * @implement UI.Layout
+ * UI Layout Class
+ * @class UI.Layout
+ * @implements UI.Layout
  */
 UI.Layout.implement({
 	options: {

@@ -5,8 +5,10 @@ var UI = UI || {},
 	mnml = mnml || {},
 	floor = floor || {};
 
+
 /**
- * @class UI.Button
+ * UI Control Dropdown Class
+ * @class UI.Control.Dropdown
  * @extends {UI.Control}
  * @type {Class}
  */

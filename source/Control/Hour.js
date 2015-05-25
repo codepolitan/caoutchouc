@@ -3,7 +3,9 @@ var UI = UI || {};
 var Class = Class || function() {};
 
 /**
- * [_initElement description]
+ * UI Control Hour Class
+ * @extends {UI.Control}
+ * @type {Class}
  */
 UI.Hour = new Class({
 

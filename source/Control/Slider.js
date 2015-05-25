@@ -1,45 +1,10 @@
-/*
-	Class: UI.Slider
-		Creates slider and let you _initEvents events action.
-		Additionnaly to UI.Component and UI.Control methods and events, 
-		it handle all the properties of the mootools slider.
 
-	Extend:
-		<UI.Component>
-
-	Requires:
-		Mootools Slider plugin
-
-	Arguments:
-		options
-
-	Options:
-		type - (string) 'horizontal' or 'vertical'
-
-		onStart - (function) see mootools slider plugin doc
-		onChange - (function) see mootools slider plugin doc
-		onComplete - (function) see mootools slider plugin doc
-		onTick - (function) see mootools slider plugin doc
-
-		snap - (boolean) see mootools slider plugin doc
-		offset - (boolean) see mootools slider plugin doc
-		range - (boolean) see mootools slider plugin doc
-		wheel - (boolean) see mootools slider plugin doc
-		steps - (boolean) see mootools slider plugin doc
-
-	Example:
-		(start code)
-		var step;
-		new UI.Slider({
-			range				: [0, 255],
-			wheel				: true,
-			onChange: function(step){
-				step = step;
-			}
-		}).inject(form);
-		(end)
-*/
-
+/**
+ * UI Control Slider Class
+ * @class UI.Control.Slider
+ * @extends {UI.Control}
+ * @type {Class}
+ */
 UI.Slider = new Class({
 
 	Extends: UI.Component,

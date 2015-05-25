@@ -1,39 +1,7 @@
-/*
-	Class: UI.Checkbox
-		Creates checkbox control
-
-	Extends:
-		<UI.Control>
-
-	Arguments:
-		options
-
-	Options:
-		text - (string) checkbox text
-		name - (string) input element name
-		value - (string) checkbox's value
-		checked - (boolean) set to true to check on initialize
-
-	Example:
-		(start code)
-			var checkbox = new UI.Checkbox({
-				name		: 'myCheckbox'
-				value		: 'check',
-				text		: 'Hello world!'
-			}).inject(document.body);
-		(end)
-
-
-	Implied global:
-		Class - 27
-		Event - 118
-		UI - 27 29 61
-*/
-
 
 /**
- * Creates checkbox control
- * @class UI.Check
+ * UI Control Check
+ * @class UI.Control.Check
  * @extends {UI.Control}
  * @type {Class}
  */

@@ -1,29 +1,10 @@
-/*
-	Class: UI.Search
-		Create a skinnable search input element with reset button
 
-	Extends:
-		<UI.Field>
-
-	Arguments:
-		options
-
-	Options:
-		name - (string) name for the input element
-		value - (string) value
-		name - (string) name name
-
-	Example:
-		(start code)
-		var searchInput = new UI.Search({
-			name: 'myInput',
-			value: 'Hello world'
-		}).inject(document.body);
-		(end)
-
-
-*/
-
+/**
+ * UI Control Search Class
+ * @class UI.Control.Search
+ * @extends {UI.Control}
+ * @type {Class}
+ */
 UI.Search = new Class({
 
 	Extends: UI.Field,

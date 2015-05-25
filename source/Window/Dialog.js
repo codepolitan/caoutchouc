@@ -1,41 +1,10 @@
-/*
-	Class: UI.Dialog
-		The UI.Dialog class defines objects that manage and coordinate the dialog an application displays on the screen.
 
-	Arguments
-		options
-
-	Options:
-			width
-			height
-
-	Example:
-		(start code)
-		var dialog = new UI.Dialog({
-			width': '260',
-			height': '400',
-		});
-		(end)
-
-	Discussion:
-		Still we need this class? yes
-
-	Implied global:
-		UI,
-		$,
-		Class, Element,
-		document
-
-	Members
-		Button, Dialog, Extends, Window, addEvent, backgroundColor,
-		bind, content, _initElement, buildButtons, buildMessage, buildUnderlay, buttons,
-		center, components, content, control, controls, destroy, each, element,
-		foot, head, height, inject, left, location, log, message, opacity,
-		options, padding, parent, position, props, resizable, scrollbar, set,
-		setStyle, setStyles, styles, title, top, type, underlay, container, width,
-		zIndex
-
-*/
+/**
+ * UI Dialog Class
+ * @class UI.Container.Dialog
+ * @extends {UI.Container}
+ * @type {Class}
+ */
 
 UI.Dialog = new Class({
 
@@ -43,6 +12,10 @@ UI.Dialog = new Class({
 
 	name: 'dialog',
 
+	/**
+	 * options
+	 * @type {Object}
+	 */
 	options: {
 		center: true,
 		title: 'Dialog',

@@ -1,27 +1,6 @@
 
-/*
-	Class: UI.Control
-		UI.Control is the base class of most control compoenents.
-		It provides mainly functions for accessibilty
-
-	Extends:
-		<UI.Component>
-
-	Arguments:
-		options
-
-	Returns:
-		object.
-
-	Implied global:
-		Class, Element, UI
-
-	Discussion:
-
-*/
-
 /**
- * Abstract class for all controls
+ * UI Control Class
  * @class  UI.Control
  * @extends {UI.Component}
  * @author Jerome Vial

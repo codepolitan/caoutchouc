@@ -1,7 +1,10 @@
-/**
- * 
- */
 
+/**
+ * UI Control Currency Class
+ * @class UI.Control.Currency
+ * @extends {UI.Control}
+ * @author Jerome Vial
+ */
 UI.Currency = new Class({
 
 	Extends: UI.Field,
