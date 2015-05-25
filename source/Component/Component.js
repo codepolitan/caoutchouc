@@ -1,7 +1,7 @@
 
 /**
 * Component Class
-* The base object for all ui components
+* The base class for all ui components
 *
 * @class UI.Component
 * @extends {UI}

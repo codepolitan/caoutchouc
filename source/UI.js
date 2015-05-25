@@ -40,6 +40,11 @@
 
 */
 
+
+/**
+ * UI
+ * @type {Object}
+ */
 var UI = {
 	props: {}
 };
