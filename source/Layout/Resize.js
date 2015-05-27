@@ -173,7 +173,7 @@ UI.Layout.implement({
 	},
 
 	_updateSize: function(component, resizer, modifier) {
-		_log('_updazeSize');
+		//_log('_updazeSize');
 		var container = component.container,
 			element = component.element;
 
