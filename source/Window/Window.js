@@ -322,12 +322,12 @@ UI.Window = new Class({
 	},
 
 	_initUnderlay: function() {
-		_log('_initUnderlay', this.options.container);
+		//_log('_initUnderlay', this.options.container);
 		var self = this;
 
 		var container = this.options.container || $(document.body)
 
-		_log(container);
+		//_log(container);
 
 		this.underlay = new Element('div', {
 			'class': 'dialog-underlay',
