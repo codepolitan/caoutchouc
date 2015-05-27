@@ -209,6 +209,11 @@ UI.Selector = new Class({
 
 		this.mask = new UI.Selector.Mask(this.wrapper, opts);
 
+
+		this.mask.addEvent('click', function(ev) {
+			self.fireEvent('click', ev);
+		}); 
+
 		this.addEvents({
 			show: function(){ self.mask.show(); },
 			hide: function(){ self.mask.hide(); },
