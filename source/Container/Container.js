@@ -275,14 +275,10 @@ UI.Container = new Class({
 		return menu;
 	},
 
-	/*
-	Method: _initFoot
-		private function
-
-		inject a container, add it to the bottom
-
-	Returns:
-		(void)
+	/**
+	 * [_initFoot description]
+	 * @param  {[type]} options [description]
+	 * @return {[type]}         [description]
 	 */
 	_initFoot: function(options) {
 		var self = this;
@@ -292,14 +288,11 @@ UI.Container = new Class({
 		}).inject(this.element, 'bottom');
 	},
 
-	/*
-	Method: _initStatus
-		private function
-
-		inject a container, add it to the bottom
-
-	Returns:
-		(void)
+	/**
+	 * [_initStatus description]
+	 * @param  {[type]} component [description]
+	 * @param  {[type]} context   [description]
+	 * @return {[type]}           [description]
 	 */
 	_initStatus: function(component, context) {
 		var self = this;
@@ -314,14 +307,9 @@ UI.Container = new Class({
 		}).inject(this[component]);
 	},
 
-	/*
-	Method: _initOverlay
-		private function
-
-		create an overlay displayed when container is disabled (when moved or resized)
-
-	Returns:
-		(void)
+	/**
+	 * create an overlay displayed when container is disabled (when moved or resized)
+	 * @return {[type]} [description]
 	 */
 	_initOverlay: function() {
 		var self = this;
@@ -359,8 +347,12 @@ UI.Container = new Class({
 		});
 	},
 
+	/**
+	 * [_initUnderlay description]
+	 * @return {[type]} [description]
+	 */
 	_initUnderlay: function() {
-		//_log('_initUnderlay', this.device);
+		_log('_initUnderlay', this.device);
 		var self = this;
 
 		this.underlay = new Element('div', {
@@ -371,7 +363,9 @@ UI.Container = new Class({
 			}
 		}).inject(this.element, 'before');
 
+		
 		this.underlay.addEvent('click', function() {
+			_log('click underlay');
 			self.minimize();
 		});
 
@@ -380,6 +374,10 @@ UI.Container = new Class({
 		});
    	},
 
+   	/**
+   	 * [focus description]
+   	 * @return {[type]} [description]
+   	 */
 	focus: function(){
 		//_log('focus');
 		//this.fireEvent('focus');
