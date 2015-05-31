@@ -322,7 +322,7 @@ UI.Window = new Class({
 	},
 
 	_initUnderlay: function() {
-		_log('_initUnderlay', this.options.container);
+		//_log('_initUnderlay', this.options.container);
 		var self = this;
 
 		var container = this.options.container || $(document.body)
@@ -338,12 +338,12 @@ UI.Window = new Class({
 
 		this.underlay.addEvents({
 			mousedown: function() {
-				_log('click underlay');
+				//_log('click underlay');
 				//_log(self.editForm.control.apply);
 				self.element.addClass('reveal-window');
 			},
 			mouseup: function() {
-				_log('click underlay');
+				//_log('click underlay');
 				//_log(self.editForm.control.apply);
 				self.element.removeClass('reveal-window');
 			},
