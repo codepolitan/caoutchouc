@@ -236,9 +236,14 @@ UI.Dropdown = new Class({
 		});
 
 
-		var coord = this.input.getCoordinates();
+		var coord = this.input.getCoordinates(this.element);
+
+		var top = coord.height + coord.top;
+		menu.setStyle('top', top);
 
 		var width = coord.width;
+
+
 
 		//_log('widh', menu.scrollWidth, coord.width);
 
@@ -249,7 +254,7 @@ UI.Dropdown = new Class({
 
 
 		this.menuFx.start({
-		    height: this.menu.scrollHeight + 20,
+		    height: this.menu.scrollHeight,
 		  	paddingTop: 10,
 		  	paddingBottom: 10,
 		  	opacity: 1
