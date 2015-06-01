@@ -254,7 +254,7 @@ UI.Dropdown = new Class({
 
 
 		this.menuFx.start({
-		    height: this.menu.scrollHeight,
+		    height: this.menu.scrollHeight + 22,
 		  	paddingTop: 10,
 		  	paddingBottom: 10,
 		  	opacity: 1
