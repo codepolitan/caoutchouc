@@ -91,6 +91,9 @@ UI.Layout = new Class({
 		this.container.addClass('ui-layout');
 		this.container.addClass('layout-' + opts.node._name);
 
+		if (this.options.theme)
+			this.container.addClass('theme-' + this.options.theme);
+
 		opts.node.container = this.container;
 	},
 
