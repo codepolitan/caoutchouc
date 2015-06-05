@@ -97,10 +97,14 @@ UI.Steps = new Class({
 		new Element('span', {
 			html: idx,
 			'class': 'step-index'
-		}).inject(li)
+		}).inject(li);
+
+		this.options.opts = this.options.opts || {};
+		var map = this.options.opts.text || {};
+		var text = map[item] || item;
 
 		new Element('span', {
-			html: item,
+			html: text,
 			'class': 'step-label'
 		}).inject(li);
 
