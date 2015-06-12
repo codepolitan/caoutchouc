@@ -7,9 +7,11 @@
  * @type {Class}
  */
 define([
-	'UI/Container/Container'
+	'UI/Container/Container',
+	'UI/Control/Button'
 ], function(
-	Container
+	Container,
+	ButtonControl
 ) {
 
 	var exports = UI.Window = new Class({
@@ -183,7 +185,7 @@ define([
 			.inject(this.head);
 
 			opts.controls.each(function(action){
-				new UI.Button({
+				new ButtonControl({
 					icon: action,
 					text: action,
 					klss: 'button-'+action
