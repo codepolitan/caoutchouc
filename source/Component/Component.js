@@ -39,18 +39,17 @@ define([
 	var exports = new Class({
 
 		Implements: [
-			Events, 
+			Events,
 			Options,
+			Binding,
 			Method,
 			Location,
 			Drag,
 			Resize
 		],
 
-
-		Implements: [Options, Events, Binding],
-
 		name: 'component',
+
 		component: 'component',
 
 		options: {

@@ -12,19 +12,17 @@
  */
 define([
 	"UI/Component/Component",
-	"UI/Component/Method",
 	"UI/Container/Display"
 ], function(
 	Component,
-	Method,
 	Display
 ) {
 
 	var exports = new Class({
 
 		Extends: Component,
-
-		Implements: [Options, Events, Method, Display],
+ 
+		Implements: [Options, Events, Display],
 
 		name: 'container',
 

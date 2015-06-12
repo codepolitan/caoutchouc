@@ -7,7 +7,7 @@
  * @type {Class}
  */
 define([
-	"UI/Container/Container"
+	'UI/Container/Container'
 ], function(
 	Container
 ) {
