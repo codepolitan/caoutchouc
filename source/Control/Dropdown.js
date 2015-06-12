@@ -13,9 +13,13 @@ var UI = UI || {},
  * @type {Class}
  */
 define([
-	"UI/Control/Field"
+	'UI/Control/Field',
+	'UI/Control/Button',
+	'UI/Control/ButtonMenu'
 ], function(
-	Field
+	Field,
+	ButtonControl,
+	ButtonMenu
 ) {
 
 	var exports = new Class({
@@ -100,7 +104,7 @@ define([
 		_initButton: function() {
 			var self = this;
 
-			this.button = new UI.Button({
+			this.button = new ButtonControl({
 				'clss': 'right',
 				type: 'icon',
 				name: 'movedown',
@@ -314,7 +318,7 @@ define([
 		 */
 		_initItem: function(name, def, element, value){
 			var self = this,
-				clss = 'UI.Button',
+				clss = ButtonControl,
 				comp,
 				opts,
 				comps = name.split(/\./);
@@ -325,7 +329,7 @@ define([
 			} 
 
 			if (name === 'separator')
-				clss = 'UI.Separator';
+				clss = Separator;
 
 			if (def && def.clss)
 				clss = def.clss;
@@ -356,14 +360,14 @@ define([
 
 			var	Clss = mnml.strToClss(clss);
 
-			if (clss === 'UI.Button' || clss === 'UI.ButtonMenu')
+			if (clss === ButtonControl || clss === ButtonMenu)
 				opts.text = Locale.get('control.'+name, name) || name;
 
 			this.options.control = this.options.control || {};
 
 			this.control[name] = new Clss(opts).inject(element);
 
-			if (clss === 'UI.Button')
+			if (clss === ButtonControl)
 			this.control[name].addEvents({
 				press: function() {
 					var name =  this.options.name;
