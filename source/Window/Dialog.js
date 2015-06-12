@@ -7,12 +7,14 @@
  */
 
 define([
-	"UI/Window/Window"
+	'UI/Control/Button',
+	'UI/Window/Window'
 ], function(
+	ButtonControl,
 	Window
 ) {
 
-	var exports = UI.Dialog = new Class({	
+	var exports = new Class({	
 
 		Extends: Window,
 
@@ -155,7 +157,7 @@ define([
 
 			var klss = n[1];
 
-			var action = new UI.Button({
+			var action = new ButtonControl({
 				name: name,
 				text: name,
 				klss: klss
