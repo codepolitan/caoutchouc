@@ -5,126 +5,141 @@
  * @extends {UI.Control}
  * @type {Class}
  */
-UI.Search = new Class({
+define([
+	'UI/Control/Field',
+	'UI/Control/Button',
+	'UI/Component/Method'
+], function(
+	Field,
+	Button,
+	Method
+) {
 
-	Extends: UI.Field,
+	var exports = new Class({
 
-	options: {
-		name: 'search',
-		error: false,
-		label: false,
-		timer: 100
-	},
+		Extends: Field,
 
-	initialize: function(options){
-		this.setOptions(options);
-		var opts = this.options;
+		Implements: [Options, Events, Method],
 
-		this.fireEvent('init');
+		options: {
+			name: 'search',
+			error: false,
+			label: false,
+			timer: 100
+		},
 
-		this._initOptions(opts);
-		this._initElement();
-		this._initEvents();
+		initialize: function(options){
+			this.setOptions(options);
+			var opts = this.options;
 
-		return this;
-	},
-	/*
-	Function: _initElement
-		private function
+			this.fireEvent('init');
 
-		Create a div and a hidden input to receive the selected value
+			this._initOptions(opts);
+			this._initElement();
+			this._initEvents();
 
-	Return:
-		(void)
+			return this;
+		},
+		/*
+		Function: _initElement
+			private function
 
-	See also:
-		<UI.Field::_initElement>
-		<UI.Control::_initElement>
-		<UI.Component::_initElement>
-	*/
+			Create a div and a hidden input to receive the selected value
 
-	_initElement: function(){
-		//create a new div as input element
-		this.parent();
-		var opts = this.options;
+		Return:
+			(void)
 
-		this.element.addClass('ui-search');
+		See also:
+			<UI.Field::_initElement>
+			<UI.Control::_initElement>
+			<UI.Component::_initElement>
+		*/
 
-		this._initReset();
-	},
+		_initElement: function(){
+			//create a new div as input element
+			this.parent();
+			var opts = this.options;
 
-	/*
-	Function: _initReset
-		private function
+			this.element.addClass('ui-search');
 
-		Reset the value
+			this._initReset();
+		},
 
+		/*
+		Function: _initReset
+			private function
 
-
-	*/
-	_initReset: function() {
-		var self = this;
-		var icon = mnml.icon.font.clear || 'mdi-action-help';
-		this.reset = new UI.Button({
-			name: 'clear',
-			icon: icon,
-		}).inject(this.element).addEvent('press', function() {
-			self.empty();
-		});
-	},
-
-	_initEvents: function() {
-		this.parent();
-
-		var self = this,
-			opts = this.options,
-			timer;
-
-		this.input.addEvents({
-			keyup: function() {
-				clearTimeout(timer);
-				timer = setTimeout(function() {
-					self.fireEvent('search', self.input.get('value'));
-				}, opts.timer);
-			},
-			mousedown: function(e) {
-				e.stopPropagation();
-			}
-		});
-	},
+			Reset the value
 
 
-	/*
-	Function: focus
 
-		Focus
+		*/
+		_initReset: function() {
+			var self = this;
+			var icon = mnml.icon.font.clear || 'mdi-action-help';
+			this.reset = new Button({
+				name: 'clear',
+				icon: icon,
+			}).inject(this.element).addEvent('press', function() {
+				self.empty();
+			});
+		},
 
-	Return:
-		this
+		_initEvents: function() {
+			this.parent();
 
-	*/
+			var self = this,
+				opts = this.options,
+				timer;
 
-	focus: function() {
-		this.input.focus();
-		this.fireEvent('focus');
+			this.input.addEvents({
+				keyup: function() {
+					clearTimeout(timer);
+					timer = setTimeout(function() {
+						self.fireEvent('search', self.input.get('value'));
+					}, opts.timer);
+				},
+				mousedown: function(e) {
+					e.stopPropagation();
+				}
+			});
+		},
 
-		return this;
-	},
 
-	/*
-	Function: empty
+		/*
+		Function: focus
 
-		Create a div and a hidden input to receive the selected value
+			Focus
 
-	Return:
-		this
+		Return:
+			this
 
-	*/
+		*/
 
-	empty: function() {
-		this.input.set('value', '');
-		this.fireEvent('reset');
+		focus: function() {
+			this.input.focus();
+			this.fireEvent('focus');
 
-		return this;
-	}
+			return this;
+		},
+
+		/*
+		Function: empty
+
+			Create a div and a hidden input to receive the selected value
+
+		Return:
+			this
+
+		*/
+
+		empty: function() {
+			this.input.set('value', '');
+			this.fireEvent('reset');
+
+			return this;
+		}
+	});
+
+	return exports;
 });

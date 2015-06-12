@@ -1,56 +1,64 @@
-/*
----
-class: UI.Progress
-description: minimalistic progress visual indicator
-author: jv
-...
-*/
 
-UI.Progress = new Class({
+/**
+ * UI Component Location
+ * @class UI.Component.Location
+ * @author Jerome D. Vial
+ */
+define([
+	"UI/Component/Component"
+], function(
+	Component
+) {
 
-	Extends: UI.Component,
+	console.log('UI.Progress' , Component);
 
-	options: {
-		name: 'progress',
-		klass: 'ui-progress',
+	var exports = UI.Progress = new Class({
 
-		tag: 'div',
-	},
+		Extends: Component,
 
-	// public API
+		options: {
+			name: 'progress',
+			klass: 'ui-progress',
 
-	set: function(ratio) {
-		var width = 0;
+			tag: 'div',
+		},
 
-		var percentage = (ratio[0] * 100) / ratio[1];
+		// public API
 
-		if (percentage > 0)
-			width = this.element.getSize().x * percentage / 100;
+		set: function(ratio) {
+			var width = 0;
 
-		this.bar.setStyle('width', width.toInt());
-		this.status.set('html', ratio[0] + ' / '+ ratio[1]);
+			var percentage = (ratio[0] * 100) / ratio[1];
 
-		return this;
-	},
+			if (percentage > 0)
+				width = this.element.getSize().x * percentage / 100;
 
-	setStatus: function(text) {
-		this.status.set('html', text);
+			this.bar.setStyle('width', width.toInt());
+			this.status.set('html', ratio[0] + ' / '+ ratio[1]);
 
-		return this;
-	},
+			return this;
+		},
 
-	// pivate API
+		setStatus: function(text) {
+			this.status.set('html', text);
 
-	_initElement: function() {
-		this.parent();
+			return this;
+		},
 
-		this.status = new Element('span', {
-			'class': 'progress-status'
-		}).inject(this.element);
+		// pivate API
 
-		this.bar = new Element('div', {
-			'class': 'progress-bar'
-		}).inject(this.element);
-	}
+		_initElement: function() {
+			this.parent();
+
+			this.status = new Element('span', {
+				'class': 'progress-status'
+			}).inject(this.element);
+
+			this.bar = new Element('div', {
+				'class': 'progress-bar'
+			}).inject(this.element);
+		}
+	});
+
+	return exports;
 });
-

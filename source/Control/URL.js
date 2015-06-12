@@ -5,94 +5,103 @@
  * @extends {UI.COntrol}
  * @author Jerome Vial, Bruno Santos
  */
-UI.URL = new Class({
+define([
+	"UI/Control/Field"
+], function(
+	Field
+) {
 
-	Extends: UI.Field,
+	var exports = UI.URL = new Class({
 
-	options: {
-		name: 'URL',
-		base: 'control',
-		tag: 'div',
-		type: 'input',
-		value: null,
-		useTextAsLabel: false
-	},
+		Extends: Field,
 
-	initialize: function(options){
-		this.setOptions(options);
+		options: {
+			name: 'URL',
+			base: 'control',
+			tag: 'div',
+			type: 'input',
+			value: null,
+			useTextAsLabel: false
+		},
 
-		var opts = this.options;
+		initialize: function(options){
+			this.setOptions(options);
 
-		this.fireEvent('init');
+			var opts = this.options;
 
-		this._initOptions(opts);
-		this._initElement();
-		this._initEvents();
+			this.fireEvent('init');
 
-		return this;
-	},
-	/*
-	Function: _initElement
-		private function
+			this._initOptions(opts);
+			this._initElement();
+			this._initEvents();
 
-		Create a div and a hidden input to receive the selected value
+			return this;
+		},
+		/*
+		Function: _initElement
+			private function
 
-	Return:
-		(void)
+			Create a div and a hidden input to receive the selected value
 
-	See also:
-		<UI.Control::_initElement>
-		<UI.Component::_initElement>
-	*/
+		Return:
+			(void)
 
-	_initElement: function(){
-		//create a new div as input element
-		this.parent();
+		See also:
+			<UI.Control::_initElement>
+			<UI.Component::_initElement>
+		*/
 
-		var opts = this.options;
+		_initElement: function(){
+			//create a new div as input element
+			this.parent();
 
-		this.element.addClass('ui-field');
+			var opts = this.options;
 
-		if (opts.klss)
-			this.element.addClass(opts.klss);
+			this.element.addClass('ui-field');
 
-		if (opts.label != false)
-			this._initLabel();
+			if (opts.klss)
+				this.element.addClass(opts.klss);
 
-		this._initInput();
-	},
+			if (opts.label != false)
+				this._initLabel();
 
-	_initLabel: function()  {
-		var text = this.options.name;
+			this._initInput();
+		},
 
-		if (this.options.useTextAsLabel)
-			text = this.options.text;
+		_initLabel: function()  {
+			var text = this.options.name;
 
-		this.label = new Element('label', {
-			html: text
-		}).inject(this.element);
-	},
+			if (this.options.useTextAsLabel)
+				text = this.options.text;
 
-	_initInput: function()  {
-		var self = this;
+			this.label = new Element('label', {
+				html: text
+			}).inject(this.element);
+		},
 
-		//_log('imput option', this.options);
+		_initInput: function()  {
+			var self = this;
 
-		this.input = new Element('input', {
-			name: this.options.name,
-			type: this.options.type,
-			value: this.options.value,
-			placeholder: this.options.text
-		}).inject(this.element);
+			//_log('imput option', this.options);
 
-		this.input.addEvents({
-			keyup: function() {
-				self.fireEvent('change', this.get('value'));
-			},
-			mousedown: function(e) {
-				e.stopPropagation();
-				//this.focus();
-			}
-		});
-	}
+			this.input = new Element('input', {
+				name: this.options.name,
+				type: this.options.type,
+				value: this.options.value,
+				placeholder: this.options.text
+			}).inject(this.element);
+
+			this.input.addEvents({
+				keyup: function() {
+					self.fireEvent('change', this.get('value'));
+				},
+				mousedown: function(e) {
+					e.stopPropagation();
+					//this.focus();
+				}
+			});
+		}
+	});
+
+	return exports;
 });

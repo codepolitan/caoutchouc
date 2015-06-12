@@ -1,105 +1,114 @@
 
 /**
- * Resize module for Comopnent Class
- * @param  {Array}
- * @return {[type]}
+ * Resize Component Class
+ * @class UI.Component.Resize
+ * @author Jerome D. Vial
  */
-UI.Component.implement({
-	options: {
-		// Resize options
-		resizer: {
-			'class': 'ui-resizer'
+define([
+	
+], function(
+
+) {
+
+	var exports = new Class({
+		options: {
+			// Resize options
+			resizer: {
+				'class': 'ui-resizer'
+			},
+			resizable: false,
+			resizeLimitX: [100, screen.width],
+			resizeLimitY: [100, screen.height]
 		},
-		resizable: false,
-		resizeLimitX: [100, screen.width],
-		resizeLimitY: [100, screen.height]
-	},
 
-	/**
-	 * [_initResizer description]
-	 * @return {[type]}
-	 */
-	_initResizer: function(){
-		//_log('_initResizer', this.options.resizable);
-		this.resizeHandlers = [];
+		/**
+		 * [_initResizer description]
+		 * @return {[type]}
+		 */
+		_initResizer: function(){
+			//_log('_initResizer', this.options.resizable);
+			this.resizeHandlers = [];
 
-		var wrapper = new Element('div', {
-			'class': 'layer-resizer'
-		}).inject(this.element, 'bottom');
+			var wrapper = new Element('div', {
+				'class': 'layer-resizer'
+			}).inject(this.element, 'bottom');
 
-		this.resizer = new Element('div', this.options.resizer)
-		.addEvents({
-			click: function(e){
-				e.stop();
-			},
-			mousedown: function(e) {
-				e.stop();
+			this.resizer = new Element('div', this.options.resizer)
+			.addEvents({
+				click: function(e){
+					e.stop();
+				},
+				mousedown: function(e) {
+					e.stop();
+				}
+			}).inject(wrapper, 'bottom');
+
+			this.resizeHandlers.push(this.resizer);
+
+			this.enableResize(0);
+
+			if (this.options.resizeBorders) {
+				this.options.resizeBorders.each(function(border,i){
+					this.resizeHandlers.push(new Element('div', {
+						style: border+": 0",
+						'class': 'ui-resizer-'+border
+					})
+					.addEvents({
+						click: function(e){
+							e.stop();
+						},
+						mousedown: function(e) {
+							e.stop();
+						}
+					}).inject(wrapper, 'top'));
+
+					this.enableResize(i+1);
+				},this);
 			}
-		}).inject(wrapper, 'bottom');
+		},
 
-		this.resizeHandlers.push(this.resizer);
+		/**
+		 * [enableResize description]
+		 * @param  {[type]}
+		 * @return {[type]}
+		 */
+		enableResize: function(i){
+			var self = this;
+			var options = {
+				handle: this.resizeHandlers[i],
+				limit: {
+					x: self.options.resizeLimitX,
+					y: self.options.resizeLimitY
+				},
+				modifiers: {
+					'x': 'width',
+					'y': 'height'
+				},
+				onStart: function(el){
+					self.fireEvent('resizeStart', el);
+				},
+				onDrag: function(el, ev){
+					self.fireEvent('resizeDrag', [el, ev]);
+					self.fireEvent('resize', el);
+				},
+				onComplete: function(el){
+					self.fireEvent('resizeComplete', el);
+				}
+			};
 
-		this.enableResize(0);
+			if (i === 1 || i === 3) options.modifiers.x = false;
+			if (i === 2 || i === 4) options.modifiers.y = false;
 
-		if (this.options.resizeBorders) {
-			this.options.resizeBorders.each(function(border,i){
-				this.resizeHandlers.push(new Element('div', {
-					style: border+": 0",
-					'class': 'ui-resizer-'+border
-				})
-				.addEvents({
-					click: function(e){
-						e.stop();
-					},
-					mousedown: function(e) {
-						e.stop();
-					}
-				}).inject(wrapper, 'top'));
-
-				this.enableResize(i+1);
-			},this);
-		}
-	},
-
-	/**
-	 * [enableResize description]
-	 * @param  {[type]}
-	 * @return {[type]}
-	 */
-	enableResize: function(i){
-		var self = this;
-		var options = {
-			handle: this.resizeHandlers[i],
-			limit: {
-				x: self.options.resizeLimitX,
-				y: self.options.resizeLimitY
-			},
-			modifiers: {
-				'x': 'width',
-				'y': 'height'
-			},
-			onStart: function(el){
-				self.fireEvent('resizeStart', el);
-			},
-			onDrag: function(el, ev){
-				self.fireEvent('resizeDrag', [el, ev]);
-				self.fireEvent('resize', el);
-			},
-			onComplete: function(el){
-				self.fireEvent('resizeComplete', el);
+			if (i === 1 || i === 4) {
+				this.dragHandlers.push(this.resizeHandlers[i]);
+				options.invert = true;
 			}
-		};
 
-		if (i == 1 || i == 3) options.modifiers.x = false;
-		if (i == 2 || i == 4) options.modifiers.y = false;
+			this.element.makeResizable(options);
 
-		if (i == 1 || i == 4) {
-			this.dragHandlers.push(this.resizeHandlers[i]);
-			options.invert = true;
+			return this;
 		}
+	});
 
-		this.element.makeResizable(options);
-
-		return this;
-	}
+	return exports;
 });

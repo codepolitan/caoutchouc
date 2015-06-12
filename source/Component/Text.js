@@ -1,101 +1,66 @@
-/*
----
-description: UI.Text is used to make text element with css skin
 
-authors: [moolego,r2d2]
+/**
+ * UI Component Text
+ * @class UI.Text
+ * @extends {UI.Component}
+ * @author Jerome D. Vial
+ */
+define([
+	"UI/Component/Component",
+], function(
+	Component
+) {
 
-requires:
-- core:1.2.1: '*'
+	var exports = UI.Text = new Class({
 
-...
-*/
-/*
-	Class: UI.Text
-		UI.Text is used to make text element with css skin
+		Extends: Component,
 
-	Extends:
-		<UI.Component>
+		options: {
+			name: 'text',
+			klass: 'ui-text',
+			tag: 'span',
+			text: '&nbsp;',
+			emboss: false,
+			selectable: false
+		},
 
-	Arguments:
-		options
+		/*
+			Method: _initElement
+				private method
 
-	Options:
-		- tag - (string) element tag, by default 'span'
-		- html - (string) text text, by default Text
-		- emboss - (boolean) duplicate the text to create an emboss effect
-		- selectable - (boolean) Define if the text is selectable or not
+			Make a  Text and set the fade Fx
 
-	Returns:
-		Image element
+			Return:
+			(void)
 
-	Example:
-		(start code)
-		var text = new UI.Text({
-			html	: 'Hello world!',
-		}).inject(this.element);
-		(end)
+			See also:
+			<UI.Component::_initElement>
+		*/
+		_initElement: function(){
+			this.parent();
 
-	Implied global:
-		- MooLego - UI
-		- MooTools - Class, Element
+			if (this.options.text)
+				this.set(this.options.text);
+		},
 
-	Members:
-		Element, Extends, Text, bind, _initElement, buildImage, name,
-		components, element, emboss, events, fireEvent, html, image, inject,
-		load, options, parent, props, selectable, src, tag
+		/**
+		 * Default setter for the class
+		 * @param {string} property [description]
+		 * @param {mixin} value    [description]
+		 */
+		set: function(property, value) {
+			//_log('set', what, value);
 
-	Discussion:
+			// if set has a single params
+			if (value === undefined) {
+				value = property;
+				property = 'text';
+			}
 
-*/
-
-UI.Text = new Class({
-
-	Extends: UI.Component,
-
-	options: {
-		name: 'text',
-		klass: 'ui-text',
-		tag: 'span',
-		text: '&nbsp;',
-		emboss: false,
-		selectable: false
-	},
-
-	/*
-		Method: _initElement
-			private method
-
-		Make a  Text and set the fade Fx
-
-		Return:
-		(void)
-
-		See also:
-		<UI.Component::_initElement>
-	*/
-	_initElement: function(){
-		this.parent();
-
-		if (this.options.text)
-			this.set(this.options.text);
-	},
-
-	/**
-	 * Default setter for the class
-	 * @param {string} property [description]
-	 * @param {mixin} value    [description]
-	 */
-	set: function(property, value) {
-		//_log('set', what, value);
-
-		// if set has a single params
-		if (value === undefined) {
-			value = property;
-			property = 'text';
+			if (property == 'text')
+				this.element.set('html', value);
 		}
+	});
 
-		if (property == 'text')
-			this.element.set('html', value);
-	}
+	return exports;
 });
-

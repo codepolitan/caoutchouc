@@ -5,79 +5,88 @@
  * @extends {UI.Selector}
  * @type {Class}
  */
-UI.Overlay = new Class({
-	Implements: [Events, Options],
+define([
 
-	options: {
-		container: document.body,
-		clss: 'selector-overlay',
-		offset: '0',
-		styles: {
-			position: 'absolute',
-			zIndex:'1000'
-			//background: 'rgba(0,0,0,.2)'
-		}
-	},
+], function(
 
-	initialize: function(options){
-		this.setOptions(options);
-		this._initElement();
-	},
+) {
 
-	_initElement: function(){
-		var self = this;
-		var position = 'absolute';
-		//if (element.isFixed()) position = 'fixed';
-		var timer;
-		this.element = new Element("div", {
-			'class': this.options.clss
-		}).setStyles(this.options.styles)
-		.setStyle('position',position)
-		.addEvents({
-			'mouseover': function(e){
+	var exports = new Class({
+		Implements: [Events, Options],
 
-			},
-			'click': function(e){
-				e.stop();
-				clearTimeout(timer);
-					timer = (function(){
-					self.fireEvent('click', self.el);
-					self.hide();
-				}).delay(200, this);
-			},
-			dblclick: function() {
-				clearTimeout(timer);
-				self.fireEvent('dblclick');
+		options: {
+			container: document.body,
+			clss: 'selector-overlay',
+			offset: '0',
+			styles: {
+				position: 'absolute',
+				zIndex:'1000'
+				//background: 'rgba(0,0,0,.2)'
 			}
-		}).inject(this.options.container, 'top');
-	},
+		},
 
-	reach: function(el){
-		this.el = el;
-		var offset = this.options.offset;
-		var c = el.getCoordinates();
+		initialize: function(options){
+			this.setOptions(options);
+			this._initElement();
+		},
 
-		this.element.setStyles({
-			'margin-top': c.top - offset,
-			'margin-left': c.left - offset,
-			'width': c.right - c.left +  (2 * offset),
-			'height': c.bottom - c.top +  (2 * offset)
-		});
-	},
+		_initElement: function(){
+			var self = this;
+			var position = 'absolute';
+			//if (element.isFixed()) position = 'fixed';
+			var timer;
+			this.element = new Element("div", {
+				'class': this.options.clss
+			}).setStyles(this.options.styles)
+			.setStyle('position',position)
+			.addEvents({
+				'mouseover': function(e){
 
-	remove: function(){
-		this.element.destroy();
-	},
+				},
+				'click': function(e){
+					e.stop();
+					clearTimeout(timer);
+						timer = (function(){
+						self.fireEvent('click', self.el);
+						self.hide();
+					}).delay(200, this);
+				},
+				dblclick: function() {
+					clearTimeout(timer);
+					self.fireEvent('dblclick');
+				}
+			}).inject(this.options.container, 'top');
+		},
 
-	hide: function(){
-		this.element.hide();
-	},
+		reach: function(el){
+			this.el = el;
+			var offset = this.options.offset;
+			var c = el.getCoordinates();
 
-	show: function(){
-		this.element.show();
-	},
+			this.element.setStyles({
+				'margin-top': c.top - offset,
+				'margin-left': c.left - offset,
+				'width': c.right - c.left +  (2 * offset),
+				'height': c.bottom - c.top +  (2 * offset)
+			});
+		},
 
-	highlight: function(color){
-		this.element.highlight(color);
-	}
+		remove: function(){
+			this.element.destroy();
+		},
+
+		hide: function(){
+			this.element.hide();
+		},
+
+		show: function(){
+			this.element.show();
+		},
+
+		highlight: function(color){
+			this.element.highlight(color);
+		}
+	});
+
+	return exports;
 });

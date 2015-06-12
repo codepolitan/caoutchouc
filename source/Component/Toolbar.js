@@ -1,123 +1,89 @@
-/*
-	Class: UI.Menu
-		Creates a new menu, manages submenus and positionning as well
 
-	Extends:
-		<UI.Component>
+/**
+ * UI Component Location
+ * @class UI.Component.Location
+ * @author Jerome D. Vial
+ */
+define([
+	"UI/Component/Component",
+	'UI/Control/Button'
+], function(
+	Component
+) {
 
-	Arguments:
-		options
+	var exports = UI.Toolbar = new Class({
 
-	Options:
-		- node
-		- _parent - component
-		- context -
+		Extends: Component,
 
+		name: 'toolbar',
 
-		- name - (string) name of the compnent, it is automatically add to the css class
-		- base - (string) base component, if define the name of it will be add the the css class
+		options: {
+			base: 'component',
+			name: 'toolbar'
+		},
 
-		- tag - (string) Tag name for menu elements
+		/*
+		Function: _initElement
+			private function
 
-		- position - (string) Specify where the new menu must be positionned.
-			It could be normal (element will be positionned on parent's side),
-			over (element will be positionned over the parent element, used for <UI.Select>),
-			bottom (element will be positionned on bottom of parent element, used for <UI.Toolbar>)
+			Call UI.Component _initElement, then create a menu wrapper
 
-		- scrollToSelected - (boolean) Determine if a menu (specifically a <UI.Select>) should remember last item selected
-		- scrollMargin - (integer) Determine remaining margin on top and bottom when a menu is too large to feet in window
-		- menu - (array) Array containing menu definition
+		Return:
+			(void)
 
-	Example:
-		(start code)
-		var submenu = new UI.Menu({
-			container : this.container.element,
-			underlay : this.options.underlay,
-			zIndex : 1
-		});
-		(end)
+		See also:
+			<UI.Component::_initElement>
+		*/
+		_initElement: function(){
+			this.parent();
 
-	Implied global:
-		- MooLego - UI,ui,
-		- MooTools - Class, Element, Event, Fx, Window
-		- Javascript - document
+			this._initComponent();
+		},
 
-	Discussion
-		Should use listView
+		/*
+		Function: _initComponent
+			private function
 
-*/
+			Process the node object and inject the initialized component in the content of the container.
 
+		Return:
+			(void)
 
-UI.Toolbar = new Class({
+		Note:
+			Override UI.Component._initComponent
 
-	Extends: UI.Component,
+		See also:
+			<UI.Component::_initHead>
+		*/
+		_initComponent: function() {
+			var self = this,
+				opts = this.options,
+				element = this.element;
 
-	name: 'toolbar',
+			this.control = {};
 
-	options: {
-		base: 'component',
-		name: 'toolbar'
-	},
+			if (opts.comp.klss)
+				element.addClass(opts.comp.klss);
 
-	/*
-	Function: _initElement
-		private function
+			element.addClass('toolbar-' + opts.comp.name);
 
-		Call UI.Component _initElement, then create a menu wrapper
+			opts.comp.list.each(function(n) {
+				_log('---', n, mnml.control);
+				var comp = mnml.control[n];
 
-	Return:
-		(void)
-
-	See also:
-		<UI.Component::_initElement>
-	*/
-	_initElement: function(){
-		this.parent();
-
-		this._initComponent();
-	},
-
-	/*
-	Function: _initComponent
-		private function
-
-		Process the node object and inject the initialized component in the content of the container.
-
-	Return:
-		(void)
-
-	Note:
-		Override UI.Component._initComponent
-
-	See also:
-		<UI.Component::_initHead>
-	*/
-	_initComponent: function() {
-		var self = this,
-			opts = this.options,
-			element = this.element;
-
-		this.control = {};
-
-		if (opts.comp.klss)
-			element.addClass(opts.comp.klss);
-
-		element.addClass('toolbar-' + opts.comp.name);
-
-		opts.comp.list.each(function(n) {
-			_log('---', n, mnml.control);
-			var comp = mnml.control[n];
-
-			if (comp) {
-				var clss = comp.clss || UI.Button;
-				var opts = comp.opts || {};
-				self.control[n] = new clss(opts).inject(element).addEvents({
-					click: function() {
-						if (self.control[n].isEnable())
-							self.fireEvent('emit', n);
-					}
-				});
-			}
-		});
-	}
+				if (comp) {
+					var clss = comp.clss || Button;
+					var opts = comp.opts || {};
+					self.control[n] = new clss(opts).inject(element).addEvents({
+						click: function() {
+							if (self.control[n].isEnable())
+								self.fireEvent('emit', n);
+						}
+					});
+				}
+			});
+		}
+	});
+	
+	return exports;
 });

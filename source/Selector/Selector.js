@@ -5,102 +5,146 @@
  * @extends {UI.Component}
  * @type {Class}
  */
-UI.Selector = new Class({
+define([
+	'UI/Selector/Border',
+	'UI/Selector/Menu',
+	'UI/Selector/Resizer',
+	'UI/Selector/Overlay',
+	'UI/Selector/Mask'
+], function(
+	Border,
+	Menu,
+	Resizer,
+	Overlay,
+	Mask
+) {
 
-	Implements: [Events, Options],
+	var exports = UI.Selector = new Class({
 
-	options: {
-		container: document.body,
-		scope: document.body,
-		target: document.body,
-		trigger: 'click',
+		Implements: [Events, Options],
 
-		clss: 'ui-selector',
-		prefix: 'pages',
-		zIndex: 1100,
-		wrapper: {
-			tagName: 'div',
-			clss: 'ui-selector'
+		options: {
+			container: document.body,
+			scope: document.body,
+			target: document.body,
+			trigger: 'click',
+
+			clss: 'ui-selector',
+			prefix: 'pages',
+			zIndex: 1100,
+			wrapper: {
+				tagName: 'div',
+				clss: 'ui-selector'
+			},
+
+			components: [],
+			toolbar: false,
+			menu: false,
+			border: {
+				size: 1,
+				display:'none'
+			},
+			resizer: true,
+			overlay: false,
+			cookie: {
+				duration: 365,
+				path: '/'
+			},
+			usefx: false,
+			enable : true,
+			timerOnHide: 0,
+			onCatch: {},
+			onDisable: {},
+			onEnable: {},
+			positionning: 'relative'
 		},
 
-		components: [],
-		toolbar: false,
-		menu: false,
-		border: {
-			size: 1,
-			display:'none'
+		initialize: function(options){
+			//_log('UI.Selector.initilize()');
+			this.setOptions(options);
+
+			this.selectors = [];
+
+			this.container = this.options.container;
+
+			var scope = this.options.scope || this.container;
+			var target = this.options.target;
+
+			this.name = this.options.prefix+'-'+this.options.name;
+			this.size = {};
+
+			this.timer = null;
+
+			//_log('UI.Selector.init(scope,target)',this.name);
+
+			this._initElement(this.options.components);
+			this._initEvents(scope,target);
+
+			//_log('shoud hide this');
+
+			this.hideNow();
 		},
-		resizer: true,
-		overlay: false,
-		cookie: {
-			duration: 365,
-			path: '/'
+
+		update: function(){
+
+			var scope = this.options.scope;
+			var target = this.options.target;
+
+			this._initEvents(scope,target);
 		},
-		usefx: false,
-		enable : true,
-		timerOnHide: 0,
-		onCatch: {},
-		onDisable: {},
-		onEnable: {},
-		positionning: 'relative'
-	},
 
-	initialize: function(options){
-		//_log('UI.Selector.initilize()');
-		this.setOptions(options);
+		_initEvents: function(scope,target) {
+			//_log('UI.Selector._initEvents(scope,target)',typeOf(scope),target);
+			var delay = 20;
+			var self = this;
 
-		this.selectors = [];
+			//_log('UI.Selector._initEvents(scope,target)',typeOf(scope),target);
 
-		this.container = this.options.container;
+			var delegation = self.options.trigger+':relay('+target+')';
 
-		var scope = this.options.scope || this.container;
-		var target = this.options.target;
+			scope.addEvent(delegation, function(ev, el) {
+				self.reach(el)
+			});
 
-		this.name = this.options.prefix+'-'+this.options.name;
-		this.size = {};
+			/*var list = scope.querySelectorAll( target );
 
-		this.timer = null;
+			//_log(list);
 
-		//_log('UI.Selector.init(scope,target)',this.name);
+			new Array()
 
-		this._initElement(this.options.components);
-		this._initEvents(scope,target);
+			Array.each(list, function(el) {
+				//_log('UI.Selector.target',el,self.options.trigger);
+				el.store('selector', self);
+				el.addEvent(self.options.trigger, function(){
+					self.reach(el);
+				});
 
-		//_log('shoud hide this');
+				el.addEvents({
+					mouseenter: function(e) {
+						//e.stop();
+						clearTimeout(self.timer);
+					},
+					mouseover: function(e) {
+						//self.reach(el);
+						//e.stop();
+						clearTimeout(self.timer);
+					}
+				});
+			});*/
 
-		this.hideNow();
-	},
+			/*pages.addEvent('resize', function() {
+				self.reach(self.el);
+			});*/
+		},
 
-	update: function(){
+		attachElement: function(el) {
+			//_log('UI.Selector._initEvents(scope,target)',scope,target);
+			var delay = 20;
+			var self = this;
 
-		var scope = this.options.scope;
-		var target = this.options.target;
 
-		this._initEvents(scope,target);
-	},
+			//_log('UI.Selector._setEventsElement',el,self.options.trigger);
 
-	_initEvents: function(scope,target) {
-		//_log('UI.Selector._initEvents(scope,target)',typeOf(scope),target);
-		var delay = 20;
-		var self = this;
-
-		//_log('UI.Selector._initEvents(scope,target)',typeOf(scope),target);
-
-		var delegation = self.options.trigger+':relay('+target+')';
-
-		scope.addEvent(delegation, function(ev, el) {
-			self.reach(el)
-		});
-
-		/*var list = scope.querySelectorAll( target );
-
-		//_log(list);
-
-		new Array()
-
-		Array.each(list, function(el) {
-			//_log('UI.Selector.target',el,self.options.trigger);
-			el.store('selector', self);
 			el.addEvent(self.options.trigger, function(){
 				self.reach(el);
 			});
@@ -116,148 +160,87 @@ UI.Selector = new Class({
 					clearTimeout(self.timer);
 				}
 			});
-		});*/
 
-		/*pages.addEvent('resize', function() {
-			self.reach(self.el);
-		});*/
-	},
-
-	attachElement: function(el) {
-		//_log('UI.Selector._initEvents(scope,target)',scope,target);
-		var delay = 20;
-		var self = this;
+			/*pages.addEvent('resize', function() {
+				self.reach(self.el);
+			});*/
+		},
 
 
-		//_log('UI.Selector._setEventsElement',el,self.options.trigger);
+		_initElement: function(components){
+			var self = this;
 
-		el.addEvent(self.options.trigger, function(){
-			self.reach(el);
-		});
+			this.wrapper = new Element('div', {
+				'class': this.options.wrapper.clss,
+				zIndex: this.options.zIndex
+			}).set('data-selector', this.options.name)
+			.inject(this.options.container, 'top');
 
-		el.addEvents({
-			mouseenter: function(e) {
-				//e.stop();
-				clearTimeout(self.timer);
-			},
-			mouseover: function(e) {
-				//self.reach(el);
-				//e.stop();
-				clearTimeout(self.timer);
-			}
-		});
+			components.each(function(name){
+				//_log('Selector _initElement',name);
+				self.options[name].content = self.options.container;
+				var build = 'build'+name.capitalize();
+				if (!self.options[name].usefx)
+					self.options[name].usefx = self.options.usefx;
 
-		/*pages.addEvent('resize', function() {
-			self.reach(self.el);
-		});*/
-	},
+				self.selectors.push(self[build](self.options[name]));
+			});
 
+			if (this.isEnable()) this.enable();
+			else this.disable();
 
-	_initElement: function(components){
-		var self = this;
+			return this.wrapper;
+		},
 
-		this.wrapper = new Element('div', {
-			'class': this.options.wrapper.clss,
-			zIndex: this.options.zIndex
-		}).set('data-selector', this.options.name)
-		.inject(this.options.container, 'top');
-
-		components.each(function(name){
-			//_log('Selector _initElement',name);
-			self.options[name].content = self.options.container;
-			var build = 'build'+name.capitalize();
-			if (!self.options[name].usefx)
-				self.options[name].usefx = self.options.usefx;
-
-			self.selectors.push(self[build](self.options[name]));
-		});
-
-		if (this.isEnable()) this.enable();
-		else this.disable();
-
-		return this.wrapper;
-	},
-
-	buildComponent: function() {
+		buildComponent: function() {
 
 
-	},
+		},
 
-	buildBorder: function(options){
-		var self = this;
-		//_log();
+		buildBorder: function(options){
+			var self = this;
+			//_log();
 
-		options.positionning = this.options.positionning;
+			options.positionning = this.options.positionning;
 
-		this.border = new UI.Selector.Border(this.wrapper, options);
+			this.border = new Border(this.wrapper, options);
 
-		this.addEvents({
-			show: function(){ self.border.show(); },
-			hide: function(){ self.border.hide(); },
-			reach: function(el){ self.border.reach(el); },
-			repos: function(el){ self.border.reach(el); },
-			highlight: function(color){	self.border.highlight(color); }
-		});
-	},
+			this.addEvents({
+				show: function(){ self.border.show(); },
+				hide: function(){ self.border.hide(); },
+				reach: function(el){ self.border.reach(el); },
+				repos: function(el){ self.border.reach(el); },
+				highlight: function(color){	self.border.highlight(color); }
+			});
+		},
 
-	buildMask: function(opts){
-		var self = this;
+		buildMask: function(opts){
+			var self = this;
 
-		opts.positionning = this.options.positionning;
+			opts.positionning = this.options.positionning;
 
-		opts.scope = this.options.scope;
+			opts.scope = this.options.scope;
 
-		this.mask = new UI.Selector.Mask(this.wrapper, opts);
+			this.mask = new Mask(this.wrapper, opts);
 
 
-		this.mask.addEvent('click', function(ev) {
-			self.fireEvent('click', ev);
-		}); 
+			this.mask.addEvent('click', function(ev) {
+				self.fireEvent('click', ev);
+			}); 
 
-		this.addEvents({
-			show: function(){ self.mask.show(); },
-			hide: function(){ self.mask.hide(); },
-			reach: function(el){	self.mask.reach(el); },
-			repos: function(el){	self.mask.reach(el); },
-			highlight: function(color){	self.mask.highlight(color); }
-		});
-	},
+			this.addEvents({
+				show: function(){ self.mask.show(); },
+				hide: function(){ self.mask.hide(); },
+				reach: function(el){	self.mask.reach(el); },
+				repos: function(el){	self.mask.reach(el); },
+				highlight: function(color){	self.mask.highlight(color); }
+			});
+		},
 
-	buildResizer: function(options){
-		var self = this;
+		buildResizer: function(options){
+			var self = this;
 
-		this.resizer = new UI.Selector.Resizer(this.wrapper, options).addEvents({
-			mouseleave: function() {
-				self.hide();
-			},
-			mouseenter: function() {
-				clearTimeout(self.timer);
-			}
-		});
-
-		this.addEvents({
-			show: function(el){ self.resizer.show(); },
-			hide: function(el){	self.resizer.hide(); },
-			reach: function(el){ self.resizer.reach(el); },
-			repos: function(el){ self.resizer.reach(el); }
-		});
-	},
-
-	buildMenu: function(options){
-		//_log('buildMenu', this.options.name, options);
-
-		var self = this,
-			left = null,
-			right = null;
-
-		// _log( this.wrapper, options);
-
-		options.positionning = this.options.positionning;
-
-		this.menu = new UI.Selector.Menu( this.wrapper, options);
-
-		if (this.options.timerOnHide) {
-			this.menu.element.addEvents({
+			this.resizer = new Resizer(this.wrapper, options).addEvents({
 				mouseleave: function() {
 					self.hide();
 				},
@@ -265,187 +248,221 @@ UI.Selector = new Class({
 					clearTimeout(self.timer);
 				}
 			});
-		}
 
-		this.addEvents({
-			show: function(){ self.menu.element.show(); },
-			hide: function(){	self.menu.element.hide(); },
-			reach: function(el) { self.menu.reach(el);	},
-			repos: function(el) { self.menu.reach(el); },
-			highlight: function(color){	self.menu.element.highlight(color); }
-		});
-	},
-
-
-	buildStatus: function(options){
-		//_log('buildMenu', this.options.name, options);
-
-		var self = this,
-			left = null,
-			right = null;
-
-		//_log( this.wrapper);
-
-		this.status = new UI.Selector.Status( this.wrapper, options);
-
-		if (this.options.timerOnHide) {
-			this.status.element.addEvents({
-				mouseleave: function() {
-					self.hide();
-				},
-				mouseenter: function() {
-					clearTimeout(self.timer);
-				}
+			this.addEvents({
+				show: function(el){ self.resizer.show(); },
+				hide: function(el){	self.resizer.hide(); },
+				reach: function(el){ self.resizer.reach(el); },
+				repos: function(el){ self.resizer.reach(el); }
 			});
-		}
+		},
 
-		this.addEvents({
-			show: function(){ self.status.element.show(); },
-			hide: function(){	self.status.element.hide(); },
-			reach: function(el) { self.status.reach(el); },
-			repos: function(el) { self.status.reach(el); },
-			highlight: function(color){	self.status.element.highlight(color); }
-		});
-	},
+		buildMenu: function(options){
+			//_log('buildMenu', this.options.name, options);
 
-	_initOverlay: function(){
-		var self = this;
+			var self = this,
+				left = null,
+				right = null;
 
-		this.overlay = new UI.Overlay({
-			container: this.options.container
-		}).addEvents({
-			click: function() {
-				self.fireEvent('click', self.el);
-			},
-			dblclick: function() {
-				self.fireEvent('dblclick',self.el);
+			// _log( this.wrapper, options);
+
+			options.positionning = this.options.positionning;
+
+			this.menu = new Menu( this.wrapper, options);
+
+			if (this.options.timerOnHide) {
+				this.menu.element.addEvents({
+					mouseleave: function() {
+						self.hide();
+					},
+					mouseenter: function() {
+						clearTimeout(self.timer);
+					}
+				});
 			}
-		});
 
-		if (this.options.timerOnHide) {
-			this.overlay.element.addEvents({
-				mouseleave: function() {
-					clearTimeout(self.timer);
-					self.hide();
-				},
-				mouseenter: function() {
-					//_log('enteroverlay');
-					clearTimeout(self.timer);
-				}
-
+			this.addEvents({
+				show: function(){ self.menu.element.show(); },
+				hide: function(){	self.menu.element.hide(); },
+				reach: function(el) { self.menu.reach(el);	},
+				repos: function(el) { self.menu.reach(el); },
+				highlight: function(color){	self.menu.element.highlight(color); }
 			});
-		}
+		},
 
-		this.addEvents({
-			show: function(el){ self.overlay.show(); },
-			hide: function(el){	self.overlay.hide(); },
-			reach: function(el){	self.overlay.reach(el); },
-			repos: function(el){	self.overlay.reach(el); },
-			highlight: function(color){	self.overlay.highlight(color); }
-		});
-	},
 
-	reach: function(el){
-		if (el) {
-			this.el = el;
-		} else if (this.el) {
-			el = this.el;
-		} else { return; }
+		buildStatus: function(options){
+			//_log('buildMenu', this.options.name, options);
 
-		//_log('reach',el);
+			var self = this,
+				left = null,
+				right = null;
 
-		if (this.isEnable) {
-			this.show();
-			this.fireEvent('reach',el);
-		}
-	},
+			//_log( this.wrapper);
 
-	repos: function(el){
-		if (el) {
-			this.el = el;
-		} else if (this.el) {
-			el = this.el;
-		} else { return; }
+			this.status = new Status( this.wrapper, options);
 
-		if (this.isEnable) {
-			this.show();
-			this.fireEvent('repos',el);
-		}
-	},
+			if (this.options.timerOnHide) {
+				this.status.element.addEvents({
+					mouseleave: function() {
+						self.hide();
+					},
+					mouseenter: function() {
+						clearTimeout(self.timer);
+					}
+				});
+			}
 
-	set: function(name,value,name){
-		//_log(name,value,name);
+			this.addEvents({
+				show: function(){ self.status.element.show(); },
+				hide: function(){	self.status.element.hide(); },
+				reach: function(el) { self.status.reach(el); },
+				repos: function(el) { self.status.reach(el); },
+				highlight: function(color){	self.status.element.highlight(color); }
+			});
+		},
 
-		if (name)
-			self[name][name](value);
-		else
-		this.selectors.each(function(name) {
-			self[name][name](value);
-		});
+		_initOverlay: function(){
+			var self = this;
 
-		return this;
-	},
+			this.overlay = new Overlay({
+				container: this.options.container
+			}).addEvents({
+				click: function() {
+					self.fireEvent('click', self.el);
+				},
+				dblclick: function() {
+					self.fireEvent('dblclick',self.el);
+				}
+			});
 
-	/*
+			if (this.options.timerOnHide) {
+				this.overlay.element.addEvents({
+					mouseleave: function() {
+						clearTimeout(self.timer);
+						self.hide();
+					},
+					mouseenter: function() {
+						//_log('enteroverlay');
+						clearTimeout(self.timer);
+					}
 
-			Note: Should be cool if we can also add and remove selectors
+				});
+			}
 
-	*/
-	add: function(type) {
+			this.addEvents({
+				show: function(el){ self.overlay.show(); },
+				hide: function(el){	self.overlay.hide(); },
+				reach: function(el){ self.overlay.reach(el); },
+				repos: function(el){ self.overlay.reach(el); },
+				highlight: function(color){	self.overlay.highlight(color); }
+			});
+		},
 
-	},
+		reach: function(el){
+			if (el) {
+				this.el = el;
+			} else if (this.el) {
+				el = this.el;
+			} else { return; }
 
-	remove: function(type) {
+			//_log('reach',el);
 
-	},
+			if (this.isEnable) {
+				this.show();
+				this.fireEvent('reach',el);
+			}
+		},
 
-	hide: function(){
-		clearTimeout(this.timer);
-		this.timer = (function() {
+		repos: function(el){
+			if (el) {
+				this.el = el;
+			} else if (this.el) {
+				el = this.el;
+			} else { return; }
+
+			if (this.isEnable) {
+				this.show();
+				this.fireEvent('repos',el);
+			}
+		},
+
+		set: function(name,value,name){
+			//_log(name,value,name);
+
+			if (name)
+				self[name][name](value);
+			else
+			this.selectors.each(function(name) {
+				self[name][name](value);
+			});
+
+			return this;
+		},
+
+		/*
+
+				Note: Should be cool if we can also add and remove selectors
+
+		*/
+		add: function(type) {
+
+		},
+
+		remove: function(type) {
+
+		},
+
+		hide: function(){
+			clearTimeout(this.timer);
+			this.timer = (function() {
+				this.fireEvent('hide');
+			}).delay(this.options.timerOnHide,this);
+		},
+
+		hideNow: function(){
+			clearTimeout(this.timer);
 			this.fireEvent('hide');
-		}).delay(this.options.timerOnHide,this);
-	},
+		},
 
-	hideNow: function(){
-		clearTimeout(this.timer);
-		this.fireEvent('hide');
-	},
+		show: function(){
+			clearTimeout(this.timer);
+			if (this.isEnable)
+				this.fireEvent('show');
+		},
 
-	show: function(){
-		clearTimeout(this.timer);
-		if (this.isEnable)
-			this.fireEvent('show');
-	},
+		highlight: function(color){
+			if (this.isEnable)
+				this.fireEvent('highlight',color);
+		},
 
-	highlight: function(color){
-		if (this.isEnable)
-			this.fireEvent('highlight',color);
-	},
+		enable: function(selector) {
+			//_log('enable', this.options.name);
 
-	enable: function(selector) {
-		//_log('enable', this.options.name);
+			this.isEnable = true;
+			Cookie.write(this.name, '1', this.options.cookie);
+			//this.show();
+		},
 
-		this.isEnable = true;
-		Cookie.write(this.name, '1', this.options.cookie);
-		//this.show();
-	},
+		disable: function(selector) {
+			//_log('disable', this.options.name);
 
-	disable: function(selector) {
-		//_log('disable', this.options.name);
+			this.isEnable = false;
+			Cookie.write(this.name, '0', this.options.cookie);
+			this.hideNow();
+		},
 
-		this.isEnable = false;
-		Cookie.write(this.name, '0', this.options.cookie);
-		this.hideNow();
-	},
+		isEnable: function() {
+			if (Cookie.read(this.name) === '1') return true;
+				else return false;
+		},
 
-	isEnable: function() {
-		if (Cookie.read(this.name) == '1') return true;
-			else return false;
-	},
+		toggle: function(){
+			if (Cookie.read(this.name) === '1') this.disable();
+			else this.enable();
+		}
+	});
 
-	toggle: function(){
-		if (Cookie.read(this.name) == '1') this.disable();
-		else this.enable();
-	}
+	return exports;
 });
 

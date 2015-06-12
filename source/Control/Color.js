@@ -5,64 +5,79 @@
  * @extends {UI.Control}
  */
 
-UI.Color = new Class({
 
-	Extends: UI.Choice,
+/**
+ * @class UI.Control.Button
+ * @extends {UI.Control}
+ * @type {Class}
+ */
+define([
+	"UI/Control/Field"
+], function(
+	Field
+) {
 
-	options: {
-		name: 'choice'
-	},
+	var exports = new Class({
 
-	_initElement: function() {
-		this.parent();
+		Extends: Field,
 
-		
-		this.element.addClass('choice-color');
-	},
+		options: {
+			name: 'choice'
+		},
 
-	_initItem: function(info) {
-		var self = this,
-			opts = this.options;
+		_initElement: function() {
+			this.parent();
 
-		var item = new Element('li', {
-			'class': info
-		}).inject(this.list).addEvent('click', function(){
-			//_log('jjj');
-			if (self.selected)
-				self.selected.removeClass('selected');
+			
+			this.element.addClass('choice-color');
+		},
 
-			if (self.selected && self.selected == this) {
-				self.selected.removeClass('selected');
-				self.selected = null;
-				self.select(null);
-			} else {
-				this.addClass('selected');
-				self.selected = this;
-				self.select(info);
-			}
-		});
+		_initItem: function(info) {
+			var self = this,
+				opts = this.options;
 
-		var color = new Element('span', {
-			html: '&nbsp;'
-		}).inject(item);
+			var item = new Element('li', {
+				'class': info
+			}).inject(this.list).addEvent('click', function(){
+				//_log('jjj');
+				if (self.selected)
+					self.selected.removeClass('selected');
 
-		this.itemList.push(item);
+				if (self.selected && self.selected == this) {
+					self.selected.removeClass('selected');
+					self.selected = null;
+					self.select(null);
+				} else {
+					this.addClass('selected');
+					self.selected = this;
+					self.select(info);
+				}
+			});
 
-		if (opts.value == info ) {
-			item.addClass('selected');
-			self.selected = item;
-		}
-	},
+			var color = new Element('span', {
+				html: '&nbsp;'
+			}).inject(item);
 
-	set: function(color) {
-		//_log(color);
-		var list = this.itemList;
+			this.itemList.push(item);
 
-		for(var i = 0; i < list.length; i++) {
-			var item = list[i];
-			if (item.hasClass(color))
+			if (opts.value == info ) {
 				item.addClass('selected');
-			else item.removeClass('selected');
+				self.selected = item;
+			}
+		},
+
+		set: function(color) {
+			//_log(color);
+			var list = this.itemList;
+
+			for(var i = 0; i < list.length; i++) {
+				var item = list[i];
+				if (item.hasClass(color))
+					item.addClass('selected');
+				else item.removeClass('selected');
+			}
 		}
-	}
+	});
+
+	return exports;
 });

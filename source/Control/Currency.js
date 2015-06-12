@@ -5,29 +5,39 @@
  * @extends {UI.Control}
  * @author Jerome Vial
  */
-UI.Currency = new Class({
+define([
+	"UI/Control/Field"
+], function(
+	Field
+) {
 
-	Extends: UI.Field,
+	var exports = new Class({
 
-	options: {
-		name: 'currency',
-		base: 'control'
-	},
+		Extends: Field,
 
-	/**
-	 * [_initElement description]
-	 * @return {[type]} [description]
-	 */
-	_initElement: function(){
+		options: {
+			name: 'currency',
+			base: 'control'
+		},
 
-		//create a new div as input element
-		this.parent();
+		/**
+		 * [_initElement description]
+		 * @return {[type]} [description]
+		 */
+		_initElement: function(){
 
-		//_log(this.element);
+			//create a new div as input element
+			this.parent();
 
-		this.input.addClass('mask');
-		this.input.set('alt', "{ type:'number', groupSymbol: ',', groupDigits: 3, decSymbol: '', decDigits: 0,	stripMask: false}");
+			//_log(this.element);
 
-		this.element.addClass('field-currency');
-	}
+			this.input.addClass('mask');
+			this.input.set('alt', "{ type:'number', groupSymbol: ',', groupDigits: 3, decSymbol: '', decDigits: 0,	stripMask: false}");
+
+			this.element.addClass('field-currency');
+		}
+	});
+
+	return exports;
 });
+

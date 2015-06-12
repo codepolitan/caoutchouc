@@ -5,202 +5,212 @@
  * @extends {UI.Selector}
  * @type {Class}
  */
-UI.Selector.Border = new Class({
-	Implements: [Events, Options],
+define([
 
-	options: {
-		container: document.body,
-		type: 'solid',
-		clss: 'selector-border',
-		zIndex: 2,
-		size: 1,
-		color: '#000',
-		opacity: '1',
-		location: 'outside'  // inside or outside
-	},
+], function(
 
-	initialize: function(container, options){
-		this.setOptions(options);
+) {
 
-		//_log('UI.Selector.Border:',container, options);
+	var exports = new Class({
 
-		this.container = container;
-		this.lines = [];
+		Implements: [Events, Options],
 
-		this._initElement();
-	},
+		options: {
+			container: document.body,
+			type: 'solid',
+			clss: 'selector-border',
+			zIndex: 2,
+			size: 1,
+			color: '#000',
+			opacity: '1',
+			location: 'outside'  // inside or outside
+		},
 
-	_initElement: function(){
-		var lines = [[], [], [], []];
+		initialize: function(container, options){
+			this.setOptions(options);
 
-		lines.each(function(line){
-			this.buildBorder();
-		}, this);
-	},
+			//_log('UI.Selector.Border:',container, options);
 
-	buildBorder: function(){
-		var self = this;
+			this.container = container;
+			this.lines = [];
 
-		var line = new Element("div", {
-			'class': this.options.clss
-		}).addClass('type-' + self.options.type).setStyles({
-			'zIndex': this.options.zIndex,
-			'backgroundColor': this.options.color,
-			'opacity': this.options.opacity
-		}).addEvent('click', function(){
-			self.fireEvent('click');
-		}).inject(this.container, 'top');
+			this._initElement();
+		},
 
-		line.set('morph', {
-			duration: 250,
-			transition: 'expo:out',
-			link: 'cancel'
-		});
+		_initElement: function(){
+			var lines = [[], [], [], []];
 
+			lines.each(function(line){
+				this.buildBorder();
+			}, this);
+		},
 
-		this.lines.push(line);
-	},
+		buildBorder: function(){
+			var self = this;
 
-	reach: function(el){
-		if (!el) {
-			if (this.el) {
-				el = this.el;
-			} else return;
-		} else {
-			this.el = el;
-		}
+			var line = new Element("div", {
+				'class': this.options.clss
+			}).addClass('type-' + self.options.type).setStyles({
+				'zIndex': this.options.zIndex,
+				'backgroundColor': this.options.color,
+				'opacity': this.options.opacity
+			}).addEvent('click', function(){
+				self.fireEvent('click');
+			}).inject(this.container, 'top');
 
-		var infos = [];
-		var o = [];
-		//_log('boder reach', el);
-		var bs = this.options.size;
-		var c = el.getCoordinates();
-
-		if (this.options.positionning == 'relative') {
-			var pos = el.getPosition(this.container);
-			c.left = pos.x;
-			c.right = pos.x + c.width;
-			c.top = pos.y;
-			c.bottom = pos.y + c.height;
-		}
-
-		//_log('coord',c,pos);
-
-		if (this.options.location == 'inside') {
-			infos = [
-				[c.top, c.left, c.right - c.left - bs, bs],
-				[c.top, c.right - bs, bs, c.bottom - c.top],
-				[c.bottom - bs, c.left + bs, c.right - c.left - (2 * bs), bs],
-				[c.top + bs, c.left, bs, c.bottom - c.top -bs]
-			];
-		} else {
-			infos = [
-				[c.top - bs, c.left - bs, c.right - c.left + (2 * bs), bs],
-				[c.top, c.right, bs, c.bottom - c.top],
-				[c.bottom, c.left - bs, c.right - c.left + (2 * bs), bs],
-				[c.top, c.left - bs, bs, c.bottom - c.top]
-			];
-		}
-
-		this.lines.each(function(line, i){
-			this._setLinePosition(line, infos[i]);
-		}, this);
-
-		this.fireEvent('selected');
-
-		return this;
-	},
-
-	addClass: function(c) {
-		this.lines.each(function(line, i){
-			line.addClass(c);
-		}, this);
-	},
-
-	removeClass: function(c) {
-		this.lines.each(function(line, i){
-			line.addClass(c);
-		}, this);
-	},
-
-	_setLinePosition: function(line, info){
-
-		if (this.options.usefx)
-			line.morph({
-				'margin-top': info[0],
-				'margin-left': info[1],
-				'width': info[2],
-				'height': info[3]
+			line.set('morph', {
+				duration: 250,
+				transition: 'expo:out',
+				link: 'cancel'
 			});
-		else
-			line.setStyles({
-				'margin-top': info[0],
-				'margin-left': info[1],
-				'width': info[2],
-				'height': info[3]
+
+
+			this.lines.push(line);
+		},
+
+		reach: function(el){
+			if (!el) {
+				if (this.el) {
+					el = this.el;
+				} else return;
+			} else {
+				this.el = el;
+			}
+
+			var infos = [];
+			var o = [];
+			//_log('boder reach', el);
+			var bs = this.options.size;
+			var c = el.getCoordinates();
+
+			if (this.options.positionning == 'relative') {
+				var pos = el.getPosition(this.container);
+				c.left = pos.x;
+				c.right = pos.x + c.width;
+				c.top = pos.y;
+				c.bottom = pos.y + c.height;
+			}
+
+			//_log('coord',c,pos);
+
+			if (this.options.location == 'inside') {
+				infos = [
+					[c.top, c.left, c.right - c.left - bs, bs],
+					[c.top, c.right - bs, bs, c.bottom - c.top],
+					[c.bottom - bs, c.left + bs, c.right - c.left - (2 * bs), bs],
+					[c.top + bs, c.left, bs, c.bottom - c.top -bs]
+				];
+			} else {
+				infos = [
+					[c.top - bs, c.left - bs, c.right - c.left + (2 * bs), bs],
+					[c.top, c.right, bs, c.bottom - c.top],
+					[c.bottom, c.left - bs, c.right - c.left + (2 * bs), bs],
+					[c.top, c.left - bs, bs, c.bottom - c.top]
+				];
+			}
+
+			this.lines.each(function(line, i){
+				this._setLinePosition(line, infos[i]);
+			}, this);
+
+			this.fireEvent('selected');
+
+			return this;
+		},
+
+		addClass: function(c) {
+			this.lines.each(function(line, i){
+				line.addClass(c);
+			}, this);
+		},
+
+		removeClass: function(c) {
+			this.lines.each(function(line, i){
+				line.addClass(c);
+			}, this);
+		},
+
+		_setLinePosition: function(line, info){
+
+			if (this.options.usefx)
+				line.morph({
+					'margin-top': info[0],
+					'margin-left': info[1],
+					'width': info[2],
+					'height': info[3]
+				});
+			else
+				line.setStyles({
+					'margin-top': info[0],
+					'margin-left': info[1],
+					'width': info[2],
+					'height': info[3]
+				});
+		},
+
+		set: function(name,value){
+			if (selector)
+				self[selector][name](value);
+			else
+			this.selectors.each(function(selector) {
+				self[selector][name](value);
 			});
-	},
 
-	set: function(name,value){
-		if (selector)
-			self[selector][name](value);
-		else
-		this.selectors.each(function(selector) {
-			self[selector][name](value);
-		});
+			return this;
+		},
 
-		return this;
-	},
+		setColor: function(color) {
+			this._setStyle('backgroundColor',color);
+		},
 
-	setColor: function(color) {
-		this._setStyle('backgroundColor',color);
-	},
+		setOpacity: function(opacity) {
+			this._setStyle('opacity',opacity);
+		},
 
-	setOpacity: function(opacity) {
-		this._setStyle('opacity',opacity);
-	},
+		_setStyle: function(name,value){
+			this.lines.each(function(line){
+				line.setStyle(name,value);
+			});
 
-	_setStyle: function(name,value){
-		this.lines.each(function(line){
-			line.setStyle(name,value);
-		});
+			return this;
+		},
 
-		return this;
-	},
+		setStyles: function(styles){
+			this.lines.each(function(line){
+				line.setStyles(styles);
+			});
 
-	setStyles: function(styles){
-		this.lines.each(function(line){
-			line.setStyles(styles);
-		});
+			return this;
+		},
 
-		return this;
-	},
+		hide: function(){
+			this._setStyle('display','none');
 
-	hide: function(){
-		this._setStyle('display','none');
+			return this;
+		},
 
-		return this;
-	},
+		show: function(){
+			this._setStyle('display','block');
 
-	show: function(){
-		this._setStyle('display','block');
+			return this;
+		},
 
-		return this;
-	},
+		highlight: function(color){
+			this.lines.each(function(line){
+				line.highlight(color);
+			});
 
-	highlight: function(color){
-		this.lines.each(function(line){
-			line.highlight(color);
-		});
+			return this;
+		},
 
-		return this;
-	},
+		remove: function(){
+			this.lines.each(function(line){
+				line.destroy();
+			});
 
-	remove: function(){
-		this.lines.each(function(line){
-			line.destroy();
-		});
+			return this;
+		}
+	});
 
-		return this;
-	}
+	return exports;
 });
