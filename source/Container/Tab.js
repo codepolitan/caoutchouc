@@ -14,12 +14,14 @@
  * @author Jerome Vial
  */
 define([
-	"UI/Container/Container"
+	'UI/Component/Component',
+	'UI/Container/Container'
 ], function(
+	Component,
 	Container
 ) {
 
-	var exports = UI.Tab = new Class({
+	var exports = new Class({
 
 		Extends: Container,
 
@@ -208,7 +210,7 @@ define([
 		*/
 		_initBar: function(){
 			var self = this;
-			this.bar = new UI.Component({
+			this.bar = new Component({
 				tag: 'div',
 				klass: 'tab-bar',
 				name: 'bar'
