@@ -135,5 +135,5 @@ define([
 		}
 	});
 
-	return exportts;
+	return exports;
 });
