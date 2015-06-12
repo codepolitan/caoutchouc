@@ -15,9 +15,11 @@
  */
 define([
 	'UI/Component/Component',
+	'UI/Control/Button',
 	'UI/Container/Container'
 ], function(
 	Component,
+	ButtonControl,
 	Container
 ) {
 
@@ -73,7 +75,7 @@ define([
 
 			var text = opts.text || opts.name;
 
-			var tab = new UI.Button({
+			var tab = new ButtonControl({
 				type: 'tab',
 				text: text,
 				name: opts.name,
