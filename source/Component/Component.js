@@ -34,8 +34,6 @@ define([
 	Resize
 ) {
 
-	_log('Component Class', Class);
-
 	var exports = new Class({
 
 		Implements: [
