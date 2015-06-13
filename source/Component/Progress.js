@@ -1,7 +1,7 @@
 
 /**
- * UI Component Location
- * @class UI.Component.Location
+ * UI Component Progress
+ * @class UI.Component.Progress
  * @author Jerome D. Vial
  */
 define([
@@ -10,9 +10,7 @@ define([
 	Component
 ) {
 
-	console.log('UI.Progress' , Component);
-
-	var exports = UI.Progress = new Class({
+	var exports = new Class({
 
 		Extends: Component,
 
@@ -23,8 +21,10 @@ define([
 			tag: 'div',
 		},
 
-		// public API
-
+		/**
+		 * [set description]
+		 * @param {[type]} ratio [description]
+		 */
 		set: function(ratio) {
 			var width = 0;
 
@@ -39,14 +39,20 @@ define([
 			return this;
 		},
 
+		/**
+		 * [setStatus description]
+		 * @param {[type]} text [description]
+		 */
 		setStatus: function(text) {
 			this.status.set('html', text);
 
 			return this;
 		},
 
-		// pivate API
-
+		/**
+		 * [_initElement description]
+		 * @return {[type]} [description]
+		 */
 		_initElement: function() {
 			this.parent();
 
