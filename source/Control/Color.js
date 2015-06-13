@@ -25,6 +25,10 @@ define([
 			name: 'choice'
 		},
 
+		/**
+		 * [_initElement description]
+		 * @return {[type]} [description]
+		 */
 		_initElement: function() {
 			this.parent();
 
@@ -32,6 +36,11 @@ define([
 			this.element.addClass('choice-color');
 		},
 
+		/**
+		 * [_initItem description]
+		 * @param  {[type]} info [description]
+		 * @return {[type]}      [description]
+		 */
 		_initItem: function(info) {
 			var self = this,
 				opts = this.options;
@@ -66,6 +75,10 @@ define([
 			}
 		},
 
+		/**
+		 * [set description]
+		 * @param {[type]} color [description]
+		 */
 		set: function(color) {
 			//_log(color);
 			var list = this.itemList;
