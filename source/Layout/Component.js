@@ -45,7 +45,7 @@ define([
 			comp.opts.hide = comp.opts.hide || comp.hide;
 			comp.opts.theme = comp.opts.theme || comp.theme;
 
-			_log('comp', comp.clss);
+			//_log('comp', comp.clss);
 
 			var name = comp.opts.name;
 			var clss = mnml.strToClss(comp.clss);
