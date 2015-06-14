@@ -1,263 +1,275 @@
-/*
-	---
-	description: Scrollbar element
-	authors: [moolego,r2d2]
-	requires:
-	- core:1.2.1: '*'
 
-
-	...
+/**
+ * Scroll Class
+ * @class Scroll
+ *
+ * 
+ * Credits:
+ * based on Valerio's Mootools scrollbar plugin.
+ * found in upload folder of mootools website
  */
-/*
-	Class: UI.Scroll
-	Manage scrolls for views.
+define([
+	'UI/Component/Component'
+], function(
+	Component
+) {
 
-	Extend:
-	<UI.Component>
+	var exports = new Class({
 
-	Arguments:
-	options
+		Extends: Component,
 
-	Options:
-	- width - (integer) The scollbar track width
-	- maxThumbSize - (integer)
-	- wheel - (integer) The scroll increment
+		options: {
+			name: 'scrollbar',
+			klass: 'ui-scrollbar',
+			type: 'track',
 
-	Example:
-	(start code)
-	var scrollbar = new UI.Scroll({
-	container	: this.content
-	});
-	(end)
+			maxThumbSize: 36,
+			wheel: 16,
+			autoHide: 1000,
+			size: 8
+		},
 
-	Implied global:
-	- MooLego - UI
-	- MooTools -Class
-	- Javascript - document
+		/**
+		 * [initialize description]
+		 * @param  {[type]} options [description]
+		 * @return {[type]}         [description]
+		 */
+		initialize: function(options){
 
-	Credits:
-	based on Valerio's Mootools scrollbar plugin.
-	found in upload folder of mootools website
-*/
-UI.Scroll = new Class({
+			this.parent(options);
 
-	Extends: UI.Component,
+			this.bound = {
+				start: this.start.bind(this),
+				end: this.end.bind(this),
+				drag: this.drag.bind(this),
+				wheel: this.wheel.bind(this),
+				page: this.page.bind(this)
+			};
 
-	options: {
-		name: 'scrollbar',
-		klass: 'ui-scrollbar',
-		type: 'track',
+			//_log('initalize',this.options.container,'before');
 
-		maxThumbSize: 36,
-		wheel: 16,
-		autoHide: 1000,
-		size: 8
-	},
-	/*
-		Constructor: initialize
-			Construtor
+			this.container = this.options.container;
+			this.position = {};
+			this.mouse = {};
+			this.update();
+			this.attachEvent();
+		},
 
-		Arguments:
-			options - (object) options
+		/**
+		 * [_initElement description]
+		 * @return {[type]} [description]
+		 */
+		_initElement: function(){
+			if (!this.options.container)
+				return;
 
-		See also:
-			<UI.Component::initialize>
-	 */
-	initialize: function(options){
+			this.options.width = this.options.size;
 
-		this.parent(options);
+			this.parent();
 
-		this.bound = {
-			start: this.start.bind(this),
-			end: this.end.bind(this),
-			drag: this.drag.bind(this),
-			wheel: this.wheel.bind(this),
-			page: this.page.bind(this)
-		};
+			this.element.inject(this.options.container,'before');
 
-		//_log('initalize',this.options.container,'before');
+			this.thumb = new UI.Component({
+				name: 'thumb',
+				klass: 'ui-thumb'
+			}).inject(this.element);
+		},
 
-		this.container = this.options.container;
-		this.position = {};
-		this.mouse = {};
-		this.update();
-		this.attachEvent();
-	},
-	/*
-		Method: _initElement
-			private method
+		/**
+		 * [update description]
+		 * @return {[type]} [description]
+		 */
+		update: function(){
+			//_log(this.options.container.getSize().y, this.options.container.scrollHeight);
 
-			Make a  Text and set the fade Fx
+			this.containerSize = this.options.container.getSize().y;
 
-		Return:
-			(void)
+			this.setSize(this.options.width.toInt(), this.containerSize);
+			this.containerScrollSize = this.options.container.scrollHeight;
+			//this.containerScrollSize = this.options.containerSize;_log(this.containerScrollSize);
+			this.trackSize = this.element.offsetHeight.toInt();
+			//this.trackSize = this.element.offsetHeight.toInt();_log(this.trackSize);
 
-		See also:
-			<UI.Component::_initElement>
-	 */
-	_initElement: function(){
-		if (!this.options.container)
-			return;
+			if (this.containerScrollSize === 0)
+				return;
 
-		this.options.width = this.options.size;
-
-		this.parent();
-
-		this.element.inject(this.options.container,'before');
-
-		this.thumb = new UI.Component({
-			name: 'thumb',
-			klass: 'ui-thumb'
-		}).inject(this.element);
-	},
-
-	update: function(){
-		//_log(this.options.container.getSize().y, this.options.container.scrollHeight);
-
-		this.containerSize = this.options.container.getSize().y;
-
-		this.setSize(this.options.width.toInt(), this.containerSize);
-		this.containerScrollSize = this.options.container.scrollHeight;
-		//this.containerScrollSize = this.options.containerSize;_log(this.containerScrollSize);
-		this.trackSize = this.element.offsetHeight.toInt();
-		//this.trackSize = this.element.offsetHeight.toInt();_log(this.trackSize);
-
-		if (this.containerScrollSize === 0)
-			return;
-
-		if (this.visible())
-			this.thumb.element.setStyle('visibility', 'visible');
-		else
-			this.thumb.element.setStyle('visibility', 'hidden');
-
-		this.containerRatio = this.containerSize / this.containerScrollSize;
-		this.thumbSize = this.trackSize * this.containerRatio;
-
-		var offset;
-
-		if (this.thumbSize < this.options.maxThumbSize.toInt()) {
-			offset = this.trackSize - (this.options.maxThumbSize.toInt() - this.thumbSize);
-			this.thumbSize = this.options.maxThumbSize.toInt();
-		} else
-			if (this.thumbSize > this.trackSize)
-				this.thumbSize = this.options.maxThumbSize.toInt();
+			if (this.visible())
+				this.thumb.element.setStyle('visibility', 'visible');
 			else
-				offset = this.trackSize;
+				this.thumb.element.setStyle('visibility', 'hidden');
 
-		this.scrollRatio = this.containerScrollSize / offset;
+			this.containerRatio = this.containerSize / this.containerScrollSize;
+			this.thumbSize = this.trackSize * this.containerRatio;
 
-		this.thumb.setSize(this.options.width, this.thumbSize);
+			var offset;
 
-		this.updateThumbFromContentScroll();
-		this.updateContentFromThumbPosition();
+			if (this.thumbSize < this.options.maxThumbSize.toInt()) {
+				offset = this.trackSize - (this.options.maxThumbSize.toInt() - this.thumbSize);
+				this.thumbSize = this.options.maxThumbSize.toInt();
+			} else
+				if (this.thumbSize > this.trackSize)
+					this.thumbSize = this.options.maxThumbSize.toInt();
+				else
+					offset = this.trackSize;
 
-		var el = this.element;
+			this.scrollRatio = this.containerScrollSize / offset;
 
-		if (this.options.autoHide)
-		this.timer = (function() {
-			el.fade(0);
-		}).delay(this.options.autoHide);
-	},
+			this.thumb.setSize(this.options.width, this.thumbSize);
 
-	updateContentFromThumbPosition: function(){
-		this.options.container.scrollTop = this.position.now * this.scrollRatio;
-	},
+			this.updateThumbFromContentScroll();
+			this.updateContentFromThumbPosition();
 
-	updateThumbFromContentScroll: function(){
-		//_log('this.options.container', this.options.container);
-		clearTimeout(this.timer);
-		this.element.setStyle('opacity','1');
-		//this.element.set('opacity','1');
+			var el = this.element;
 
-		this.position.now = (this.options.container.scrollTop / this.scrollRatio).limit(0, (this.trackSize));
-		this.thumb.setStyle('top', this.position.now + 'px');
+			if (this.options.autoHide)
+			this.timer = (function() {
+				el.fade(0);
+			}).delay(this.options.autoHide);
+		},
 
-		var el = this.element;
+		/**
+		 * [updateContentFromThumbPosition description]
+		 * @return {[type]} [description]
+		 */
+		updateContentFromThumbPosition: function(){
+			this.options.container.scrollTop = this.position.now * this.scrollRatio;
+		},
 
-		if (this.options.autoHide)
-		this.timer = (function() {
-			el.fade(0);
-		}).delay(this.options.autoHide);
+		/**
+		 * [updateThumbFromContentScroll description]
+		 * @return {[type]} [description]
+		 */
+		updateThumbFromContentScroll: function(){
+			//_log('this.options.container', this.options.container);
+			clearTimeout(this.timer);
+			this.element.setStyle('opacity','1');
+			//this.element.set('opacity','1');
 
-	},
+			this.position.now = (this.options.container.scrollTop / this.scrollRatio).limit(0, (this.trackSize));
+			this.thumb.setStyle('top', this.position.now + 'px');
 
-	attachEvent: function(){
-		this.thumb.element.addEvent('mousedown', this.bound.start);
+			var el = this.element;
 
-		if (this.options.wheel) {
-			this.options.container.addEvent('mousewheel', this.bound.wheel);
+			if (this.options.autoHide)
+			this.timer = (function() {
+				el.fade(0);
+			}).delay(this.options.autoHide);
+
+		},
+
+		/**
+		 * [attachEvent description]
+		 * @return {[type]} [description]
+		 */
+		attachEvent: function(){
+			this.thumb.element.addEvent('mousedown', this.bound.start);
+
+			if (this.options.wheel) {
+				this.options.container.addEvent('mousewheel', this.bound.wheel);
+			}
+			this.element.addEvent('mouseup', this.bound.page);
+		},
+
+		/**
+		 * [wheel description]
+		 * @param  {[type]} event [description]
+		 * @return {[type]}       [description]
+		 */
+		wheel: function(event){
+			var opts = this.options;
+
+			clearTimeout(this.timer);
+			this.element.setStyle('visibility','visible');
+
+			opts.container.scrollTop -= event.wheel * opts.wheel;
+			this.updateThumbFromContentScroll();
+
+			this.fireEvent('scrolling', event);
+
+			event.stop();
+		},
+
+		/**
+		 * [page description]
+		 * @param  {[type]} event [description]
+		 * @return {[type]}       [description]
+		 */
+		page: function(event){
+			var opts = this.options,
+				container = opts.container;
+
+			if (event.page.y > this.thumb.element.getPosition().y)
+				container.scrollTop += container.offsetHeight;
+			else
+				container.scrollTop -= container.offsetHeight;
+
+
+			this.updateThumbFromContentScroll();
+			event.stop();
+		},
+
+		/**
+		 * [start description]
+		 * @param  {[type]} event [description]
+		 * @return {[type]}       [description]
+		 */
+		start: function(event){
+			this.mouse.start = event.page.y;
+			this.position.start = this.thumb.element.getStyle('top').toInt();
+
+			document.addEvent('mousemove', this.bound.drag);
+			document.addEvent('mouseup', this.bound.end);
+			this.thumb.element.addEvent('mouseup', this.bound.end);
+
+			event.stop();
+		},
+
+		/**
+		 * [end description]
+		 * @param  {[type]} event [description]
+		 * @return {[type]}       [description]
+		 */
+		end: function(event){
+			document.removeEvent('mousemove', this.bound.drag);
+			document.removeEvent('mouseup', this.bound.end);
+			this.thumb.element.removeEvent('mouseup', this.bound.end);
+			this.fireEvent('dragCompplete');
+			event.stop();
+		},
+
+		/**
+		 * [drag description]
+		 * @param  {[type]} event [description]
+		 * @return {[type]}       [description]
+		 */
+		drag: function(event){
+			this.mouse.now = event.page.y;
+
+			this.position.now = (this.position.start + (this.mouse.now - this.mouse.start)).limit(0, (this.trackSize - this.thumbSize));
+			this.updateContentFromThumbPosition();
+			this.updateThumbFromContentScroll();
+
+			if (Math.ceil(this.position.now + this.thumbSize) >= this.trackSize)
+				this.options.container.scrollTop = this.containerScrollSize;
+
+			this.fireEvent('drag', event);
+
+			event.stop();
+		},
+
+		/**
+		 * [visible description]
+		 * @return {[type]} [description]
+		 */
+		visible: function(){
+			if (this.containerSize < this.containerScrollSize) {
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
-		this.element.addEvent('mouseup', this.bound.page);
-	},
+	});
 
-	wheel: function(event){
-		var opts = this.options;
-
-		clearTimeout(this.timer);
-		this.element.setStyle('visibility','visible');
-
-		opts.container.scrollTop -= event.wheel * opts.wheel;
-		this.updateThumbFromContentScroll();
-
-		this.fireEvent('scrolling', event);
-
-		event.stop();
-	},
-
-	page: function(event){
-		var opts = this.options,
-			container = opts.container;
-
-		if (event.page.y > this.thumb.element.getPosition().y)
-			container.scrollTop += container.offsetHeight;
-		else
-			container.scrollTop -= container.offsetHeight;
-
-
-		this.updateThumbFromContentScroll();
-		event.stop();
-	},
-
-	start: function(event){
-		this.mouse.start = event.page.y;
-		this.position.start = this.thumb.element.getStyle('top').toInt();
-
-		document.addEvent('mousemove', this.bound.drag);
-		document.addEvent('mouseup', this.bound.end);
-		this.thumb.element.addEvent('mouseup', this.bound.end);
-
-		event.stop();
-	},
-
-	end: function(event){
-		document.removeEvent('mousemove', this.bound.drag);
-		document.removeEvent('mouseup', this.bound.end);
-		this.thumb.element.removeEvent('mouseup', this.bound.end);
-		this.fireEvent('dragCompplete');
-		event.stop();
-	},
-
-	drag: function(event){
-		this.mouse.now = event.page.y;
-
-		this.position.now = (this.position.start + (this.mouse.now - this.mouse.start)).limit(0, (this.trackSize - this.thumbSize));
-		this.updateContentFromThumbPosition();
-		this.updateThumbFromContentScroll();
-
-		if (Math.ceil(this.position.now + this.thumbSize) >= this.trackSize)
-			this.options.container.scrollTop = this.containerScrollSize;
-
-		this.fireEvent('drag', event);
-
-		event.stop();
-	},
-
-	visible: function(){
-		if (this.containerSize < this.containerScrollSize) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
+	return exports;
 });
