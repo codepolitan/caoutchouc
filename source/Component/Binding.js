@@ -1,9 +1,8 @@
 
-
 /**
- * Class Binding
+ * Binding Component Class
  *
- * @class Minimal.Binding
+ * @class UI.Component.Binding
  * @author Jerome Vial, Bruno Santos
  */
 define([

@@ -1,7 +1,7 @@
 /**
 * Wrapper for ScrollerJS
 *
-* @class Minimal.Scrolling
+* @class UI.Scrolling
 * @author Jerome Vial, Bruno Santos
 */
 

@@ -1,7 +1,7 @@
 /**
-* Minimalistic Class for Minimal.List.Desktop Management
+* List
 *
-* @class Minimal.List.Desktop
+* @class UI.List
 * @author Jerome Vial
 */
 
