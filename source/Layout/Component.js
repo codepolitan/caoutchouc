@@ -5,9 +5,9 @@
  * @author Jerome D. Vial
  */
 define([
-	
+	'utils/api',
 ], function(
-
+	api
 ) {
 
 	var exports = new Class({
@@ -48,7 +48,7 @@ define([
 			//_log('comp', comp.clss);
 
 			var name = comp.opts.name;
-			var clss = mnml.strToClss(comp.clss);
+			var clss = api.strToClss(comp.clss);
 
 			//comp.opts.container = comp.container;
 			var component = this.component[name] = this[name] = new clss(comp.opts);

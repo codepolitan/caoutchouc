@@ -13,10 +13,12 @@ var UI = UI || {},
  * @type {Class}
  */
 define([
+	'utils/api',
 	'UI/Control/Field',
 	'UI/Control/Button',
 	'UI/Control/ButtonMenu'
 ], function(
+	api,
 	Field,
 	ButtonControl,
 	ButtonMenu
@@ -358,7 +360,7 @@ define([
 				return;
 			}
 
-			var	Clss = mnml.strToClss(clss);
+			var	Clss = api.strToClss(clss);
 
 			if (clss === ButtonControl || clss === ButtonMenu)
 				opts.text = Locale.get('control.'+name, name) || name;

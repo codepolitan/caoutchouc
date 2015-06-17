@@ -6,9 +6,11 @@
  * @type {Class}
  */
 define([
+	'utils/api',
 	'UI/Control/Button',
 	'UI/Control/Separator'
 ], function(
+	api,
 	Button,
 	Separator
 ) {
@@ -143,7 +145,7 @@ define([
 
 			if (!name) return;
 
-			var	Clss = mnml.strToClss(clss);
+			var	Clss = api.strToClss(clss);
 
 			if (clss === Button || clss === ButtonMenu)
 				opts.text = Locale.get('control.'+name, name) || name;
