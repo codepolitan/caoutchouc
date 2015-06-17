@@ -9,8 +9,10 @@ var Class = Class || function() {};
  * @type {Class}
  */
 define([
+	'moment',
 	"UI/Control/Field"
 ], function(
+	moment,
 	Field
 ) {
 
