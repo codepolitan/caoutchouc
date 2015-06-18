@@ -90,13 +90,9 @@ define([
 				'class': 'ui-layout layout-' + opts.node._name
 			}).inject(opts.container);
 
-
-	/*		this.map = new UI.Container({
-				resizable: false,
-				'class': 'ui-map map-' + opts.node._name
-			});*/
-
 			//_log('Layout container', this.container);
+
+			
 
 			this.container.addClass('ui-layout');
 			this.container.addClass('layout-' + opts.node._name);
@@ -113,9 +109,14 @@ define([
 		 * @return {[type]}      [description]
 		 */
 		_processComponents: function(node, type, level) {
-			//_log('_process', node, type, level);
+			_log('_processComponents', node, type, level || 1);
 			var list = node._list || [];
 				level = level++ || 1;
+
+			_log('---!!! axis', node._axis);
+
+			this._initFlexDirection(node.container, node._axis);
+
 
 			for (var i = 0, len = list.length; i < list.length; i++) {
 				//_log('--', list[i]);
@@ -139,6 +140,8 @@ define([
 
 				if (type !== 'tab') {
 					comp.opts.container = node.container;
+
+
 				}
 
 				var component = this._initComponent(comp);
@@ -155,11 +158,29 @@ define([
 					comp.node.container = component;
 
 					if (component.options.clss === 'tab') {
-						var c = this._processComponents(comp.node, 'tab');
+						var c = this._processComponents(comp.node, 'tab', level);
 					} else {
-						this._processComponents(comp.node);
+						this._processComponents(comp.node, null, level);
 					}
 				}
+			}
+		},
+
+		/**
+		 * [_initFlexDirection description]
+		 * @param  {[type]} container [description]
+		 * @param  {[type]} axis      [description]
+		 * @return {[type]}           [description]
+		 */
+		_initFlexDirection: function(container, axis) {
+			_log('_initFlexDirection', container, axis);
+
+			if (!container) return;
+
+			if (axis === 'x') {
+				container.addClass('flex-horizontal');
+			} else if (axis === 'y') {
+				container.addClass('flex-vertical');
 			}
 		},
 
