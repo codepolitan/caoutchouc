@@ -155,10 +155,10 @@ define([
 			this.parent(options);
 			this.dragHandlers.push(this.head);
 
-			this.title = new UI.Text({
-				type: 'title',
-				text: this.options.title
-			}).inject(this.head);
+			// this.title = new UI.Text({
+			// 	type: 'title',
+			// 	text: this.options.title
+			// }).inject(this.head);
 		},
 
 		/*
@@ -171,6 +171,7 @@ define([
 			(void)
 		*/
 		_initControl: function(){
+			return;
 			var opts = this.options;
 
 			if (!this.head) return;
@@ -250,6 +251,7 @@ define([
 			this
 		*/
 		setTitle: function(title){
+			return;
 			if (this.title && this.head)
 				return this.title.set('text', title);
 		},
