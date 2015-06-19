@@ -109,13 +109,14 @@ define([
 		 * @return {[type]}      [description]
 		 */
 		_processComponents: function(node, type, level) {
-			_log('_processComponents', node, type, level || 1);
+			//_log('_processComponents', node, type, level || 1);
 			var list = node._list || [];
 				level = level++ || 1;
 
-			_log('---!!! axis', node._axis);
+			//_log('---!!! axis', node._axis);
 
-			this._initFlexDirection(node.container, node._axis);
+			if (type !== 'tab')
+				this._initFlexDirection(node.container, node._axis);
 
 
 			for (var i = 0, len = list.length; i < list.length; i++) {
@@ -173,9 +174,11 @@ define([
 		 * @return {[type]}           [description]
 		 */
 		_initFlexDirection: function(container, axis) {
-			_log('_initFlexDirection', container, axis);
+			//_log('_initFlexDirection', container, axis);
 
 			if (!container) return;
+
+			axis = axis || 'x';
 
 			if (axis === 'x') {
 				container.addClass('flex-horizontal');
