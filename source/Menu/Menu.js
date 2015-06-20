@@ -197,7 +197,7 @@ define([
 				//_log('---',comp);
 				var itemopts = comp;
 				//var itemopts = Object.merge(opts.item.options, comp);
-				//_log('---',itemopts);
+				_log('---',itemopts);
 				// instantiate de menu component
 
 				var item = new UI[component](itemopts);
