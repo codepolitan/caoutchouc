@@ -14,7 +14,7 @@ define([
 	ButtonControl
 ) {
 
-	var exports = UI.Window = new Class({
+	var exports = new Class({
 
 		Extends: Container,
 

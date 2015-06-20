@@ -82,7 +82,7 @@ UI.Slider = new Class({
 		this.element.setStyle('visibility', 'visible');
 		this.setSize();
 		this.setCanvas();
-		ui.controller.element.register(this);
+		//ui.controller.element.register(this);
 
 		this.slider = new Slider(this.paint.canvas, this.handler.element, {
 			snap: this.options.snap,

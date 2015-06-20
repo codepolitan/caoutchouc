@@ -6,13 +6,10 @@
  * @type {Class}
  */
 define([
-	'utils/api',
 	'UI/Control/Button',
 	'UI/Control/Separator'
 ], function(
-	api,
-	Button,
-	Separator
+	Button
 ) {
 
 	var exports = new Class({
@@ -33,6 +30,8 @@ define([
 		_initElement: function(){
 			this.parent();
 
+			_log();
+
 			this.control = {};
 		},
 
@@ -41,7 +40,7 @@ define([
 		 * @type {[type]}
 		 */
 		_initMenu: function(opts) {
-			//_log('_initMenu');
+			_log('_initMenu');
 			var self = this,
 				list = opts.list,
 				timer = null;
@@ -112,18 +111,22 @@ define([
 		 */
 		_initItem: function(name, def, element){
 			var self = this,
-				clss = Button,
+				clss = 'UI/Control/Button',
 				comp,
-				opts,
-				comps = name.split(/\./);
+				opts;
 
-			if (comps.length > 1) {
-				clss = 'UI.'+comps[0].capitalize();
-				name = comps[1];
-			} 
+
+			// init class
+			var l = name.split(/\:\:/);
+
+			name = l[0];
+			l.splice(0,1);
+
+			var klss = l.join(' ');
+
 
 			if (name === 'separator')
-				clss = Separator;
+				clss = 'UI/Control/Separator';
 
 			if (def && def.clss)
 				clss = def.clss;
@@ -141,51 +144,53 @@ define([
 				};
 			}
 
-			if (typeof name === 'string')
-
 			if (!name) return;
 
-			var	Clss = api.strToClss(clss);
-
-			if (clss === Button || clss === ButtonMenu)
+			if (clss === 'UI/Control/Button' || clss === 'UI/Control/ButtonMenu') {
 				opts.text = Locale.get('control.'+name, name) || name;
-
-			//_log('n', n, opts);
-			var role = floor.controller.session.role;
-			var inject = true;
-
-			this.options.control = this.options.control || {};
-
-			if (!this.options.control[role]) {
-				inject = true;
-			} else {
-				if (!this.options.control[role].disallowed) {
-					inject = true;
-				} else if (this.options.control[role].disallowed.indexOf(name) > -1) {
-					inject = false;
-				}
 			}
 
-			if (inject) {
+
+			this._requireModule(clss, function(Clss) {
+
 				//console.log('----', name, opts);
-				this.control[name] = new Clss(opts).inject(element);
+				self.control[name] = new Clss(opts).inject(element);
 				
-				if (clss === 'UI.Button')
-				this.control[name].addEvents({
-					press: function() {
-						var name =  this.options.name;
-						//_log('press', name, this.isEnable());
-						if (this.isEnable()) {
-							//self.fireEvent('control::'+name, this);
-							self.fireEvent('press', name);
-							
+				if (clss === 'UI/Control/Button') {
+					self.control[name].addEvents({
+						press: function() {
+							var name =  this.options.name;
+							_log('press', name, this.isEnable());
+							if (this.isEnable()) {
+								//self.fireEvent('control::'+name, this);
+								self.fireEvent('press', name);
+								
+							}
+							self.menu.hide();
 						}
-						self.menu.hide();
-					}
-				});
-			}
+					});
+				}
+			});
 		},
 
+		/**
+		 * [_requireView description]
+		 * @return {[type]} [description]
+		 */
+		_requireModule: function(module, cb) {
+			//console.log('_requireModule', module);
+			if (typeOf(module) === 'class') {
+				cb(module);
+				return;
+			}
+
+			require([module], function(Class) {
+				cb(Class);
+			}, function(err) {
+				//console.log('ERROR', err);
+				cb();
+			});
+		},
 
 		/**
 		 * [_onElementMouseDown description]
@@ -193,7 +198,7 @@ define([
 		 * @return {[type]}   [description]
 		 */
 		_onClick: function(e) {
-			//_log('_onElementClick');
+			_log('_onElementClick');
 			var opts = this.options;
 			e.stopPropagation();
 			

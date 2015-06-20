@@ -11,7 +11,7 @@ define([
 	Field
 ) {
 
-	var exports = UI.Date = new Class({
+	var exports = new Class({
 
 		Extends: Field,
 

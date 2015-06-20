@@ -11,7 +11,7 @@ define([
 	Component
 ) {
 
-	var exports = UI.Text = new Class({
+	var exports = new Class({
 
 		Extends: Component,
 

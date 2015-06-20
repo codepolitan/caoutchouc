@@ -19,7 +19,7 @@ define([
 	Mask
 ) {
 
-	var exports = UI.Selector = new Class({
+	var exports = new Class({
 
 		Implements: [Events, Options],
 
