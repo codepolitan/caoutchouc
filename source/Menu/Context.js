@@ -11,7 +11,7 @@ define([
 	Menu
 ) {
 
-	var exports = UI.Context = new Class({	
+	var exports = new Class({	
 
 		Extends: Menu,
 
