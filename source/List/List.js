@@ -23,7 +23,10 @@ UI.List = new Class({
 			list: ['action', 'info', 'view', 'alternate', 'status'],
 			info: {
             	container: 'head',
-            	list: ['text.title']
+				list: ['title'],
+				title: {
+					clss: 'UI/Component/Text'
+				}
         	},
 		},
 		filetype: {
