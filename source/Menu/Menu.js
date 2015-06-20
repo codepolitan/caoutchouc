@@ -6,12 +6,14 @@
  * @type {Class}
  */
 define([
-	"UI/Container/Container"
+	'UI/Window/controller',
+	'UI/Container/Container'
 ], function(
+	controller,
 	Container
 ) {
 
-	var exports = UI.Menu = new Class({
+	var exports = new Class({
 
 		Extends: Container,
 
@@ -60,6 +62,16 @@ define([
 			ui.menu.register(this);
 
 			return this;
+		},
+
+		/**
+		 * [_initController description]
+		 * @return {[type]} [description]
+		 */
+		_initController: function() {
+			if (!ui.menu) {
+				this.controller = ui.menu = controller;
+			}
 		},
 
 		/*

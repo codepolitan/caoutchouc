@@ -7,9 +7,11 @@
  * @type {Class}
  */
 define([
+	'UI/Window/controller',
 	'UI/Container/Container',
 	'UI/Control/Button'
 ], function(
+	controller,
 	Container,
 	ButtonControl
 ) {
@@ -30,7 +32,6 @@ define([
 
 			container: $(document.body),
 			context: 'top',
-
 
 			content: true,
 			// Size options
@@ -84,11 +85,12 @@ define([
 		 * @return {[type]}         [description]
 		 */
 		initialize: function(options) {
+			this._initController();
 			this.parent(options);
+
 
 			this._initLocation();
 			this.adaptLocation();
-
 
 			if (this.options.position == 'fixed'){
 				this.element.setStyle('position', 'fixed');
@@ -103,9 +105,20 @@ define([
 				ui.window.resetMinimized();
 			};
 
-
-
 			this.inject(this.options.container);
+		},
+
+		/**
+		 * [_initController description]
+		 * @return {[type]} [description]
+		 */
+		_initController: function() {
+			if (!ui.window) {
+				this.controller = ui.window = controller;
+
+				ui.window.init();
+			}
+
 		},
 
 		/**
