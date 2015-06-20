@@ -12,14 +12,14 @@
  * @type {Class}
  */
 define([
-	"UI/Control/Field"
+	"UI/Control/Choice"
 ], function(
-	Field
+	Choice
 ) {
 
 	var exports = new Class({
 
-		Extends: Field,
+		Extends: Choice,
 
 		options: {
 			name: 'choice'
