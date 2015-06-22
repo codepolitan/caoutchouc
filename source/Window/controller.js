@@ -100,7 +100,7 @@ define([
 		*/
 
 		init: function(container){
-			_log('init');
+			//_log('init');
 			this.container = container;
 			this.list = [];
 			this.zIndex = this.options.zBase;
