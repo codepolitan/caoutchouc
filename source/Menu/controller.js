@@ -31,7 +31,7 @@ define([
 ], function(
 
 ) {
-	var export = ui.menu = {
+	var exports =  {
 		options: {
 			version: '0.1',
 			zBase: 300,
