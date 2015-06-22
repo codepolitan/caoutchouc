@@ -9,7 +9,6 @@ define([
 	'moment',
 	'UI/Control/Field',
 	'Mootools/DatePicker/Locale.en-US.DatePicker',
-	'Mootools/DatePicker/Picker.Attach',
 	'Mootools/DatePicker/Picker.Date'
 ], function(
 	moment,
