@@ -7,10 +7,12 @@
  */
 define([
 	'UI/Window/controller',
-	'UI/Container/Container'
+	'UI/Container/Container',
+	'UI/Control/Button'
 ], function(
 	controller,
-	Container
+	Container,
+	ButtonControl
 ) {
 
 	var exports = new Class({
@@ -59,7 +61,7 @@ define([
 			this._initComponent();
 			this._initEvents();
 
-			ui.menu.register(this);
+			//ui.menu.register(this);
 
 			return this;
 		},
@@ -209,10 +211,10 @@ define([
 				//_log('---',comp);
 				var itemopts = comp;
 				//var itemopts = Object.merge(opts.item.options, comp);
-				_log('---',itemopts);
+				_log('---',component);
 				// instantiate de menu component
 
-				var item = new UI[component](itemopts);
+				var item = new ButtonControl(itemopts);
 
 				self.item[comp.name] = item;
 
