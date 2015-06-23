@@ -132,8 +132,8 @@ define([
 			//this.name = this.options.name;
 			this.main = opts.main || opts.name;
 
-			// ui.node = ui.node || {};
-			// ui.node[this.main] = ui.node[this.main] || {};
+			ui.node = ui.node || {};
+			ui.node[this.main] = ui.node[this.main] || {};
 
 			this.layout = opts.layout || {};
 			this.layout[this.main] = this.layout[this.main] || {};
