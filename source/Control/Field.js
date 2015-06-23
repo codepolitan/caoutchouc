@@ -345,7 +345,7 @@ define([
 			var size = coord.width / 2;
 
 			if (!this.inkFx) {
-				//console.log('errorrrrrrr');
+				//_log('errorrrrrrr');
 				return;
 			}
 

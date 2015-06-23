@@ -60,7 +60,7 @@ define([
 
 			if (!modifier) return;
 
-			//console.log('direction', direction, modifier);
+			//_log('direction', direction, modifier);
 
 			//_log(element, coord);
 			var resizer = this.resizer[name] = new Element('div', {
@@ -255,7 +255,7 @@ define([
 				var component = components[i];
 
 				if (component.options.noResizer) {
-					//console.log('--', component.main);
+					//_log('--', component.main);
 					continue;
 				}
 

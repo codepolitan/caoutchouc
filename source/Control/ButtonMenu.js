@@ -47,9 +47,9 @@ define([
 			//_log(opts.list, this.element);
 
 			opts.list = opts.list || [];
-			//console.log(this.element);
+			//_log(this.element);
 			this.container = $(this.element).getParent();
-			//console.log(this.container);
+			//_log(this.container);
 
 			
 
@@ -133,7 +133,7 @@ define([
 
 			if (def && def.opts) {
 				opts = def.opts;
-				console.log('--', name, def.opts);
+				_log('--', name, def.opts);
 				opts.text = Locale.get('control.'+name, name) || name;
 				opts.icon = mnml.icon.font[name] || 'mdi-action-help';
 				opts.tag = 'span';
@@ -153,7 +153,7 @@ define([
 
 			this._requireModule(clss, function(Clss) {
 
-				//console.log('----', name, opts);
+				//_log('----', name, opts);
 				self.control[name] = new Clss(opts).inject(element);
 				
 				if (clss === 'UI/Control/Button') {
@@ -178,7 +178,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		_requireModule: function(module, cb) {
-			//console.log('_requireModule', module);
+			//_log('_requireModule', module);
 			if (typeOf(module) === 'class') {
 				cb(module);
 				return;
@@ -187,7 +187,7 @@ define([
 			require([module], function(Class) {
 				cb(Class);
 			}, function(err) {
-				//console.log('ERROR', err);
+				//_log('ERROR', err);
 				cb();
 			});
 		},

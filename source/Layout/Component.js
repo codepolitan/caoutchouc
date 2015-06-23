@@ -144,7 +144,7 @@ define([
 			component.setDisplay(display, 'width');
 
 			if (component.options.flex) {
-				//console.log('---flex', name, component.options);
+				//_log('---flex', name, component.options);
 			} else {
 				
 				if (this.settings[name] && this.settings[name].width) {
@@ -160,7 +160,7 @@ define([
 							this.settings[name].width = 32;
 
 						
-						//console.log('----', name, element);
+						//_log('----', name, element);
 						element.setStyle('width', this.settings[name].width || 160);
 					}
 
@@ -188,7 +188,7 @@ define([
 
 			component.addEvents({
 				toggled:  function() {
-					//console.log('toggled');
+					//_log('toggled');
 					self.fireEvent('resize');
 				},
 				display: function(state) {

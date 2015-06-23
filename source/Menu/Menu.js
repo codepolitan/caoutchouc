@@ -45,7 +45,7 @@ define([
 		},
 
 		initialize: function(options){
-			//console.log('meni init');
+			//_log('meni init');
 			this.setOptions(options);
 
 			this.timer = null;
@@ -311,7 +311,7 @@ define([
 		},
 
 		select: function(menu) {
-			//console.log('select', menu);
+			//_log('select', menu);
 			if (menu === false || menu === null) {
 				if (this.selected) {
 					//_log('selected');

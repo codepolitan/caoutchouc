@@ -135,7 +135,7 @@ define([
 					comp.opts.useUnderlay = true;
 
 				if (i === list.length - 1) {
-					//console.log('last--', name);
+					//_log('last--', name);
 					comp.opts.last = true;
 				}
 
@@ -148,7 +148,7 @@ define([
 				var component = this._initComponent(comp);
 
 				if (type === 'tab') {
-					//console.log('tab', component);
+					//_log('tab', component);
 					component.options.noResizer = true;
 					node.container.addTab(component);
 				}

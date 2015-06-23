@@ -338,7 +338,7 @@ define([
 
 			if (def && def.opts) {
 				opts = def.opts;
-				console.log('--', name, def.opts);
+				_log('--', name, def.opts);
 				opts.text = Locale.get('control.'+name, name) || name;
 				opts.icon = mnml.icon.font[name] || 'mdi-action-help';
 				opts.tag = 'span';
