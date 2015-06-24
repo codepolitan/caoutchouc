@@ -10,6 +10,8 @@ define([
 	Control
 ) {
 
+	var _log = __debug('ui:button');
+
 	var exports = new Class({
 
 		Extends: Control,
@@ -207,7 +209,6 @@ define([
 				ink.destroy();
 			}).delay(duration);
 		},
-
 
 		/**
 		 * [_onElementMouseDown description]
