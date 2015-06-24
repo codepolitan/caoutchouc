@@ -77,6 +77,11 @@ define([
 				}
 				//self.layout.fireEvent('resize');
 			});
+
+
+			(function() {
+				self.fireEvent('drag');
+			}).delay(1000);
 		},
 
 		/**
@@ -91,8 +96,6 @@ define([
 			}).inject(opts.container);
 
 			//_log('Layout container', this.container);
-
-			
 
 			this.container.addClass('ui-layout');
 			this.container.addClass('layout-' + opts.node._name);
