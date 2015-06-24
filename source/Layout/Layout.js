@@ -75,7 +75,7 @@ define([
 					self.navi.minimize();
 					//self.resizer.navi.hide();
 				}
-				//self.layout.fireEvent('resize');
+				self.fireEvent('drag');
 			});
 
 

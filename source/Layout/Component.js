@@ -191,6 +191,10 @@ define([
 					//_log('toggled');
 					self.fireEvent('resize');
 				},
+				resizing:  function() {
+					//_log('toggled');
+					self.fireEvent('resize');
+				},
 				display: function(state) {
 					//_log('display', name, state);
 					self.fireEvent('display', [name, state]);

@@ -63,7 +63,8 @@ define([
 
 			fx.property = modifier;
 
-			this.display.fx = new Fx.Tween(this.element, fx).addEvent('complete', function() {
+			this.display.fx = new Fx.Tween(this.element, fx)
+			.addEvent('complete', function() {
 				self.fireEvent('toggled');
 			});
 
