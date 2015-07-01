@@ -14,6 +14,8 @@ define([
 	Resize
 ) {
 
+	_log = __debug('ui:layout');
+
 	var exports = new Class({
 
 		Implements: [Events, Options, Component, Resize],
@@ -118,8 +120,9 @@ define([
 
 			//_log('---!!! axis', node._axis);
 
-			if (type !== 'tab')
+			if (type !== 'tab') {
 				this._initFlexDirection(node.container, node._axis);
+			}
 
 
 			for (var i = 0, len = list.length; i < list.length; i++) {
@@ -133,7 +136,6 @@ define([
 				comp.opts.position = i + 1;
 				comp.opts.nComp = list.length;
 
-
 				if (name === "navi")
 					comp.opts.useUnderlay = true;
 
@@ -144,8 +146,6 @@ define([
 
 				if (type !== 'tab') {
 					comp.opts.container = node.container;
-
-
 				}
 
 				var component = this._initComponent(comp);
@@ -195,6 +195,8 @@ define([
 		 * @param {[type]} device [description]
 		 */
 		setDevice: function(device) {
+			//_log('setDevice');
+
 			this.device = device;
 
 			this.fireEvent('device', device);
