@@ -177,6 +177,13 @@ define([
 			});
 		},
 
+		/**
+		 * [_updateSize description]
+		 * @param  {[type]} component [description]
+		 * @param  {[type]} resizer   [description]
+		 * @param  {[type]} modifier  [description]
+		 * @return {[type]}           [description]
+		 */
 		_updateSize: function(component, resizer, modifier) {
 			//_log('_updazeSize');
 			var container = component.container,
