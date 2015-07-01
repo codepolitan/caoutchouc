@@ -44,7 +44,7 @@ define([
 
 	 		var direction = this.container.getStyle('flex-direction');
 
-			if (direction == 'column')
+			if (direction === 'column')
 				this._modifier = 'height';
 
 			//_log('direction', direction, this._modifier);
