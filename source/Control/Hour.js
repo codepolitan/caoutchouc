@@ -78,7 +78,7 @@ define([
 			}).inject(this.input, 'after');
 
 			this.plus = new Element('span', {
-				'class': 'icon-font mdi-navigation-expand-more'
+				'class': 'icon-font mdi-navigation-expand-less icon-more'
 			}).inject(controls);
 
 			this.plus.addEvent('click', function() {
@@ -92,7 +92,7 @@ define([
 
 
 			this.minus = new Element('span', {
-				'class': 'icon-font mdi-navigation-expand-less'
+				'class': 'icon-font mdi-navigation-expand-more icon-less'
 			}).inject(controls);
 
 			this.minus.addEvent('click', function() {
