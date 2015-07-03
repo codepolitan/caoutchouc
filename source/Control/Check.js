@@ -50,8 +50,6 @@ define([
 
 
 			if (this.checked) this.check.addClass('checked');
-
-			
 		},
 
 		/**
@@ -61,37 +59,41 @@ define([
 		_initCheck: function() {
 			var self = this;
 
-			this.check = new Element('span', {
+			var check = this.check = new Element('span', {
 				'class': 'control-check',
-			}).addEvents({
-				click: function() {
-					//_log(self.checked);
-					if (self.checked) {
-						self.checked = false;
-						this.removeClass('checked');
-					} else {
-						self.checked = true;
-						this.addClass('checked');
-					}
-
-					self.fireEvent('change', self.checked);
-				}
 			}).inject(this.wrapper);
+
+			if (!this.readonly) {
+				check.addEvents({
+					click: function() {
+						//_log(self.checked);
+						if (self.checked) {
+							self.checked = false;
+							this.removeClass('checked');
+						} else {
+							self.checked = true;
+							this.addClass('checked');
+						}
+
+						self.fireEvent('change', self.checked);
+					}
+				});
+			}
 
 			this.on = new Element('span', {
 				'class': 'check-text check-on',
 				'html': 'oui'
-			}).inject(this.check);
+			}).inject(check);
 
 			this.knob = new Element('span', {
 				'class': 'ckeck-knob',
 				html: '&nbsp;'
-			}).inject(this.check);
+			}).inject(check);
 
 			this.off = new Element('span', {
 				'class': 'check-text check-off',
 				'html': 'non'
-			}).inject(this.check);
+			}).inject(check);
 		},
 
 		/**
