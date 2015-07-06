@@ -14,7 +14,7 @@ define([
 	Window
 ) {
 
-	var exports = new Class({	
+	var exports = new Class({
 
 		Extends: Window,
 
@@ -28,6 +28,8 @@ define([
 			center: true,
 			title: 'Dialog',
 			type:'dialog',
+
+			alert: false,
 
 			// Default size
 			width: 480,
@@ -68,7 +70,7 @@ define([
 			}*/
 		},
 
-		initialize: function(options){
+		initialize: function(options) {
 			this.parent(options);
 		},
 
@@ -128,6 +130,14 @@ define([
 			var toolbar = new Element('div', {
 				'class': 'ui-toolbar toolbar-action'
 			}).inject(this.foot);
+
+			if (this.options.alert) {
+				var list = this.options.control._list;
+				var idx = list.indexOf('cancel');
+				if (idx > -1) {
+				    list.splice(idx, 1);
+				}
+			}
 
 			var control = this.options.control || {};
 			var list = control._list || [];
