@@ -5,11 +5,12 @@
  * @extends {UI.Container}
  * @type {Class}
  */
-
 define([
+	//'UI/Control/Textarea',
 	'UI/Control/Button',
 	'UI/Window/Window'
 ], function(
+	//TextareaControl,
 	ButtonControl,
 	Window
 ) {
@@ -27,7 +28,7 @@ define([
 		options: {
 			center: true,
 			title: 'Prompt',
-			type:'dialog',
+			type: 'dialog',
 
 			// Default size
 			width: 480,
@@ -68,23 +69,21 @@ define([
 			}*/
 		},
 
-		initialize: function(options){
+		initialize: function(options) {
 			this.parent(options);
+
+			this.message.focus();
 		},
 
 		/**
 		 * [_initElement description]
 		 * @return {[type]} [description]
 		 */
-		_initElement:function(){
+		_initElement: function() {
 			this.parent();
 
 			this._initBody();
 			this._initActions();
-
-			/*
-			this.buildButtons(this.options.action);
-			*/
 		},
 
 		/**
@@ -93,16 +92,11 @@ define([
 		 */
 		_initBody: function() {
 			//_log('_initBody', this.content);
-
-			var message = this.options.message;
-
-			this.message = new Element('input', {
-				class: 'container-body',
-				styles : { padding:'16px' },
-				//html: message
-			}).inject(this.foot, 'before');
-
 			var self = this;
+
+			this.message = new Element('textarea', {
+				class: 'ui-prompt'
+			}).inject(this.foot, 'before');
 
 			this.addEvents({
 				ok: function() {
@@ -110,17 +104,6 @@ define([
 					self.fireEvent('confirm', val);
 				},
 			});
-		},
-
-
-		/**
-		 * [_initMessage description]
-		 * @param  {[type]} message [description]
-		 * @return {[type]}         [description]
-		 */
-		_initMessage: function(message) {
-
-			
 		},
 
 		/**
@@ -147,7 +130,7 @@ define([
 				var opts = control[name];
 
 				self._initAction(name, opts, toolbar);
-			};
+			}
 		},
 
 		/**
@@ -162,7 +145,8 @@ define([
 			var self = this;
 
 			var n = name.split('::');
-			var name = n[0];
+
+			name = n[0];
 
 			var klss = n[1];
 
@@ -170,7 +154,7 @@ define([
 				name: name,
 				text: name,
 				klss: klss
-			}).addEvent('press', function(e){ 
+			}).addEvent('press', function() {
 				//_log('press', name);
 				self.fireEvent(name);
 				self.close();
@@ -180,6 +164,7 @@ define([
 		}
 
 	});
-	
+
 	return exports;
+
 });
