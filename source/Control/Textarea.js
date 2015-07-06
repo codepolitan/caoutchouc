@@ -33,6 +33,8 @@ define([
 	Field
 ) {
 
+	var _log = __debug('ui:textarea');
+
 	var exports = UI.Textarea = new Class({
 
 		Extends: Field,
@@ -62,6 +64,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		_initInput: function()  {
+			_log('_initInput');
 			var	opts = this.options;
 
 			var input = this.input = new Element('textarea', {
