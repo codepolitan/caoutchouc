@@ -19,6 +19,7 @@ define([
 		options: {
 			text: null,
 			checked: false,
+			error: false,
 			opts: {
 				type: 'ckeck',
 				
@@ -48,6 +49,7 @@ define([
 			this._initText(opts);
 			this._initCheck(opts);
 
+			this._initError();
 
 			if (this.checked) this.check.addClass('checked');
 		},
