@@ -72,7 +72,7 @@ define([
 		 * @return {[type]}   [description]
 		 */
 		_onElementMouseDown: function(e) {
-			console.log
+			console.log();
 			this.fireEvent('mousedown');
 			e.stop();
 		},
