@@ -6,10 +6,12 @@
  * @type {Class}
  */
 define([
+	'UI/Component/Text',
 	//'UI/Control/Textarea',
 	'UI/Control/Button',
 	'UI/Window/Window'
 ], function(
+	UIText,
 	//TextareaControl,
 	ButtonControl,
 	Window
@@ -28,7 +30,7 @@ define([
 		options: {
 			center: true,
 			title: 'Prompt',
-			type: 'dialog',
+			type: 'prompt',
 
 			// Default size
 			width: 480,
@@ -84,6 +86,16 @@ define([
 
 			this._initBody();
 			this._initActions();
+		},
+
+		_initHead: function(options){
+			//_log('_initHead', options);
+			this.parent(options);
+
+			this.title = new UIText({
+				type: 'title',
+				text: this.options.title
+			}).inject(this.head);
 		},
 
 		/**
