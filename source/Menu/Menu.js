@@ -19,6 +19,7 @@ define([
 
 		Extends: Container,
 
+		Implements: [Options, Events],
 
 		name: 'menu',
 
@@ -144,12 +145,14 @@ define([
 		*/
 		_initHead: function() {
 			var self = this,
-				opts = this.options;
+				opts = this.options,
 				trigger = opts.trigger;
 
 			if (!opts.head) return;
 
-			head = new Element('div', {
+			console.log('++++', this);
+
+			var head = new Element('div', {
 				'class': 'menu-head',
 				html: opts.head.text
 			}).inject(this);

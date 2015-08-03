@@ -224,9 +224,11 @@ define([
 
 		/**
 		 * [setMenu description]
+		 * @deprecated Use toolbar instead
 		 * @param {[type]} opts [description]
 		 */
-		setMenu: function(opts) {
+		/*setMenu: function(opts) {
+			console.log('setMenu', opts);
 			var self = this,
 				comp = opts.comp || 'head';
 
@@ -242,7 +244,7 @@ define([
 			}
 
 			//_log('_init'+comp.capitalize());
-			var menu = new UI.Menu(opts);
+			var menu = new Menu(opts);
 
 			this.menu[opts.name] = menu;
 
@@ -270,7 +272,7 @@ define([
 			this.element.setStyle('padding-top', this[comp].getSize().y+'px');
 
 			return menu;
-		},
+		},*/
 
 		/**
 		 * [_initFoot description]
