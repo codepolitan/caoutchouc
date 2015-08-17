@@ -41,8 +41,7 @@ define([
 		},
 
 		_initInput: function()  {
-			var self = this,
-				opts = this.options;
+			var opts = this.options;
 
 			//_log('input option', opts.read, opts.name);
 
@@ -78,11 +77,9 @@ define([
 		},
 
 		_initPicker: function() {
-			var self = this,
-				opts = this.options;
+			var opts = this.options;
 
-
-			var options =  opts.picker;
+			var options = opts.picker;
 
 			//comment this because we already handle the select in the method down '_initEvents'
 
@@ -91,13 +88,12 @@ define([
 				self.fireEvent('change', [d, opts.name]);
 			};*/
 
-			options.onShow = function(d){
-				//_log('-show-', d);
+			options.onShow = function() {
+				_log('picker date show');
 			};
 
-			options.onHide = function(d){
-				//_log('-hide-', d);
-
+			options.onHide = function() {
+				_log('picker date hide');
 			};
 
 			this.picker = new Picker.Date(this.input, options);
