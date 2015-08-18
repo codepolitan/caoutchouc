@@ -38,7 +38,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		_initDisplay: function() {
-	 		//_log('_initDisplay', this.element);
+	 		//_log.debug('_initDisplay', this.element);
 
 	 		this._modifier = 'width';
 
@@ -47,7 +47,7 @@ define([
 			if (direction === 'column')
 				this._modifier = 'height';
 
-			//_log('direction', direction, this._modifier);
+			//_log.debug('direction', direction, this._modifier);
 
 			var self = this,
 				opts = this.options.display,
@@ -96,7 +96,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		toggle: function() {
-			//_log('__toggle click, display', this._display);
+			//_log.debug('__toggle click, display', this._display);
 
 			if (this._display === 'normalized'){
 				this.minimize();
@@ -112,7 +112,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		minimize: function() {
-			//_log('------start minimalization', this.device);
+			//_log.debug('------start minimalization', this.device);
 			var self = this;	
 			if (!this.display) {
 				this._initDisplay();
@@ -140,7 +140,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		normalize: function() {
-			// _log('normalize');
+			// _log.debug('normalize');
 			var self = this;
 			if (!this.display) {
 				this._initDisplay();
@@ -158,7 +158,7 @@ define([
 				this.element.setStyle(this._modifier, size);
 			}
 			if (this.underlay && this.device != 'desktop') {
-				//_log('---', this.device);
+				//_log.debug('---', this.device);
 				this.underlay.show();
 				this.underlay.fade(1);
 			}
@@ -172,7 +172,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		maximize: function() {
-			//_log('maximize', size);
+			//_log.debug('maximize', size);
 
 			return;
 			this.toggleFx.start(size);

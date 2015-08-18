@@ -87,7 +87,7 @@ UI.ContextTool = new Class({
 	initialize: function(options){
 		this.parent(options);
 
-		_log(this.options.container, this.element);
+		_log.debug(this.options.container, this.element);
 
 		this.element.inject(this.options.container);
 
@@ -110,7 +110,7 @@ UI.ContextTool = new Class({
 		var self = this,
 			opts = this.options;
 
-		_log('UI.MEnu._initElement()', opts);
+		_log.debug('UI.MEnu._initElement()', opts);
 
 		this.element = new Element('div', {
 			'class': 'ui-context',
@@ -163,11 +163,11 @@ UI.ContextTool = new Class({
 			opts = this.options;
 			scope = opts.scope || $(document.body);
 
-		_log(scope, scope.getElements(opts.target));
+		_log.debug(scope, scope.getElements(opts.target));
 
 		var delegation = self.options.trigger+':relay('+opts.target+')';
 
-		_log(delegation);
+		_log.debug(delegation);
 
 		scope.addEvent(delegation, function(ev) {
 			ev.stop();
@@ -215,14 +215,14 @@ UI.ContextTool = new Class({
 	*/
 
 	removeContexts: function(){
-		//_log('removeContext',this.options.scope);
+		//_log.debug('removeContext',this.options.scope);
 		this.els.each(function(el) {
 			el.removeEvents('contextmenu');
 		});
 
 		/*this.options.contexts.each(function(context){
 			this.options.scope.getElements(context.target).each(function(el){
-				//_log(context.target,el);
+				//_log.debug(context.target,el);
 				el.removeEvents('contextmenu');
 			},this);
 		},this);*/
@@ -261,7 +261,7 @@ UI.ContextTool = new Class({
 
 		var pos = container.getPosition();
 
-		_log(pos, x, y);
+		_log.debug(pos, x, y);
 		var y = y - pos.y;
 
 		var coor = this.element.getCoordinates(container);
@@ -270,7 +270,7 @@ UI.ContextTool = new Class({
 
 		if ((x + coor.width) > this.options.container.getWidth()) { left =  left - coor.width; }
 		if ((y + coor.height) > this.options.container.getHeight()) {
-			//_log('top', top);
+			//_log.debug('top', top);
 			top =  top; // - coor.height;
 		}
 

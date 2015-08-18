@@ -48,7 +48,7 @@ define([
 			var item = new Element('li', {
 				'class': info
 			}).inject(this.list).addEvent('click', function(){
-				//_log('jjj');
+				//_log.debug('jjj');
 				if (self.selected)
 					self.selected.removeClass('selected');
 
@@ -80,7 +80,7 @@ define([
 		 * @param {[type]} color [description]
 		 */
 		set: function(color) {
-			//_log(color);
+			//_log.debug(color);
 			var list = this.itemList;
 
 			for(var i = 0; i < list.length; i++) {

@@ -24,14 +24,14 @@ define([
 		 * @return {[type]} [description]
 		 */
 		_initElement: function() {
-			//_log('_initElement');
+			//_log.debug('_initElement');
 			this.parent();
 
 			this.item = {};
 
 			var opts = this.options;
 
-			//_log(opts);
+			//_log.debug(opts);
 			this.input.set('type', 'text');
 			this.input.addClass(opts.klss);
 			this.element.addClass('ui-steps');
@@ -47,7 +47,7 @@ define([
 
 			this._initList(opts.list);
 
-			//_log(opts.value);
+			//_log.debug(opts.value);
 
 			if (!opts.value)
 				opts.value = 1;
@@ -63,7 +63,7 @@ define([
 		 * @return {[type]}      [description]
 		 */
 		_initList: function(list) {
-			//_log('_initList', list);
+			//_log.debug('_initList', list);
 
 			this.list = new Element('ul', {
 				'class': 'steps-list'
@@ -83,7 +83,7 @@ define([
 		 * @return {[type]}      [description]
 		 */
 		_initItem: function(item, idx) {
-			//_log('_initItem', item);
+			//_log.debug('_initItem', item);
 			var self = this,
 				opts = this.options;
 
@@ -91,7 +91,7 @@ define([
 				'data-value': item
 			}).inject(this.list)
 			 .addEvent('click', function(){
-			 	//_log('step emit', idx, item, name);
+			 	//_log.debug('step emit', idx, item, name);
 				self.fireEvent('step', idx);
 				self.fireEvent(item);
 			 });
@@ -139,7 +139,7 @@ define([
 		 * @return {[type]}       [description]
 		 */
 		set: function(value) {
-			//_log('steps set', value, this.item);
+			//_log.debug('steps set', value, this.item);
 			var item = this.item[value];
 
 			if (!item) return;

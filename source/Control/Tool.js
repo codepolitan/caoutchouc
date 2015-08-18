@@ -69,7 +69,7 @@ UI.Tool = new Class({
 		var self = this,
 			opts = this.options;
 
-		//_log('UI.MEnu._initElement()', opts);
+		//_log.debug('UI.MEnu._initElement()', opts);
 
 		this.element = new Element('div', {
 			'class': 'ui-menu',
@@ -143,7 +143,7 @@ UI.Tool = new Class({
 				this.head.removeClass('open');
 			},
 			change: function(value) {
-				//_log('change',value);
+				//_log.debug('change',value);
 				if (opts.showValue && self.head)
 					self.head.set('html', value);
 			}
@@ -176,7 +176,7 @@ UI.Tool = new Class({
 			node = opts.menu,
 			container = this.content;
 
-		//_log(node);
+		//_log.debug(node);
 
 		node.each(function(comp,i){
 			if (!comp.text)
@@ -186,7 +186,7 @@ UI.Tool = new Class({
 			var component = opts.item.component.capitalize();
 
 			var itemopts = Object.merge(opts.item.options,comp);
-			// _log('---',itemopts);
+			// _log.debug('---',itemopts);
 			// instantiate de menu component
 
 			var item = new UI[component](itemopts);
@@ -211,7 +211,7 @@ UI.Tool = new Class({
 			if (comp.call) {
 				item.element.addEvents({
 					click: function(e) {
-						//_log('click event menu', opts.hideOnCall, opts.type);
+						//_log.debug('click event menu', opts.hideOnCall, opts.type);
 						//e.stop();
 
 						self.fireEvent('change', this.get('name'));
@@ -235,7 +235,7 @@ UI.Tool = new Class({
 					click: function(e) {
 						e.stop();
 						if (self.state == 'disabled') return;
-						//_log('---',opts.type);
+						//_log.debug('---',opts.type);
 						self.value = this.get('name');
 						self.fireEvent('change', this.get('name'));
 						self.fireEvent('selectItem', comp);
@@ -257,7 +257,7 @@ UI.Tool = new Class({
 
 	_initEvents: function() {
 
-		//_log('_initEvents',this.options.name);
+		//_log.debug('_initEvents',this.options.name);
 		var self = this,
 			opts = this.options;
 
@@ -276,10 +276,10 @@ UI.Tool = new Class({
 
 
 		if (opts.type == 'push') {
-			//_log('push',this);
+			//_log.debug('push',this);
 			this.addEvents({
 				'select': function(menu) {
-					//_log('mmm', menu.get('name'));
+					//_log.debug('mmm', menu.get('name'));
 					self.select(menu.get('name'));
 				}
 			});
@@ -290,7 +290,7 @@ UI.Tool = new Class({
 
 		if (menu === false || menu === null) {
 			if (this.selected) {
-				//_log('selected');
+				//_log.debug('selected');
 				this.selected.removeClass('state-active');
 				this.selected.removeClass('state-checked');
 			}
@@ -313,7 +313,7 @@ UI.Tool = new Class({
 	unselect: function(menu) {
 
 		var self = this;
-		//_log(typeOf(menu));
+		//_log.debug(typeOf(menu));
 
 		if (typeOf(menu) == 'string') {
 			menu = this.element.getElement('[name="'+ menu +'"]');

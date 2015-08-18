@@ -46,7 +46,7 @@ define([
 		},
 
 		initialize: function(options){
-			//_log('meni init');
+			//_log.debug('meni init');
 			this.setOptions(options);
 
 			this.timer = null;
@@ -93,7 +93,7 @@ define([
 			var self = this,
 				opts = this.options;
 
-			//_log('UI.MEnu._initElement()', opts);
+			//_log.debug('UI.MEnu._initElement()', opts);
 
 			this.element = new Element('div', {
 				'class': 'ui-menu',
@@ -169,7 +169,7 @@ define([
 					this.head.removeClass('open');
 				},
 				change: function(value) {
-					//_log('change',value);
+					//_log.debug('change',value);
 					if (opts.showValue && self.head)
 						self.head.set('html', value);
 				}
@@ -202,7 +202,7 @@ define([
 				node = opts.menu,
 				container = this.content;
 
-			//_log(node);
+			//_log.debug(node);
 
 			node.each(function(comp, i){
 				if (!comp.text)
@@ -211,10 +211,10 @@ define([
 
 				var component = opts.item.component.capitalize();
 
-				//_log('---',comp);
+				//_log.debug('---',comp);
 				var itemopts = comp;
 				//var itemopts = Object.merge(opts.item.options, comp);
-				_log('---',component);
+				_log.debug('---',component);
 				// instantiate de menu component
 
 				var item = new ButtonControl(itemopts);
@@ -239,7 +239,7 @@ define([
 				if (comp.call) {
 					item.element.addEvents({
 						click: function(e) {
-							//_log('click event menu', opts.hideOnCall, opts.type);
+							//_log.debug('click event menu', opts.hideOnCall, opts.type);
 							//e.stop();
 							self.fireEvent('change', this.get('data-name'));
 							self.fireEvent('select', this);
@@ -262,13 +262,13 @@ define([
 						click: function(e) {
 							e.stop();
 							if (self.state === 'disabled') return;
-							//_log('---',opts.type);
+							//_log.debug('---',opts.type);
 							self.value = this.get('data-name');
 							self.fireEvent('change', this.get('data-name'));
 							self.fireEvent('selectItem', comp);
 
 							if (opts.type === 'push') {
-								_log('select', this);
+								_log.debug('select', this);
 								self.fireEvent('select', this);
 							}
 							else if (opts.type === 'drop')
@@ -284,7 +284,7 @@ define([
 
 		_initEvents: function() {
 
-			//_log('_initEvents',this.options.name);
+			//_log.debug('_initEvents',this.options.name);
 			var self = this,
 				opts = this.options;
 
@@ -303,10 +303,10 @@ define([
 
 
 			if (opts.type === 'push') {
-				//_log('push',this);
+				//_log.debug('push',this);
 				this.addEvents({
 					'select': function(menu) {
-						_log('mmm', menu.get('data-name'));
+						_log.debug('mmm', menu.get('data-name'));
 						self.select(menu.get('data-name'));
 					}
 				});
@@ -314,10 +314,10 @@ define([
 		},
 
 		select: function(menu) {
-			//_log('select', menu);
+			//_log.debug('select', menu);
 			if (menu === false || menu === null) {
 				if (this.selected) {
-					//_log('selected');
+					//_log.debug('selected');
 					this.selected.removeClass('state-active');
 					this.selected.removeClass('state-checked');
 				}
@@ -340,7 +340,7 @@ define([
 		unselect: function(menu) {
 
 			var self = this;
-			//_log(typeOf(menu));
+			//_log.debug(typeOf(menu));
 
 			if (typeOf(menu) === 'string') {
 				menu = this.element.getElement('[name="'+ menu +'"]');

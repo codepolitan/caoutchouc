@@ -22,7 +22,7 @@ define([
 				}
 			}
 
-			// _log('location', location);
+			// _log.debug('location', location);
 
 			this.element.setStyles(location);
 		},

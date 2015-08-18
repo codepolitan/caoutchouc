@@ -78,7 +78,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		_onKeyDown: function(e) {
-			//_log('KeyDown');
+			//_log.debug('KeyDown');
 			if (e.key !== 'tab') {
 				e.stop();
 				return;
@@ -119,7 +119,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		_onButtonPress: function(e) {
-			//_log('_onButtonClick', e);
+			//_log.debug('_onButtonClick', e);
 			if (this.isFocused) {
 				this._showMenu();
 			} else {
@@ -142,7 +142,7 @@ define([
 		 * @type {[type]}
 		 */
 		_initMenu: function(opts) {
-			//_log('_initMenu', opts);
+			//_log.debug('_initMenu', opts);
 			var self = this,
 				//list = opts.list,
 				timer = null;
@@ -179,7 +179,7 @@ define([
 			this.menuFx = new Fx.Morph(this.menu, opts.menuFx);
 
 
-			//_log('menu coord', menu.getCoordinates());
+			//_log.debug('menu coord', menu.getCoordinates());
 			//menu.setStyle('display', 'none');
 
 			return menu;
@@ -197,7 +197,7 @@ define([
 
 			this.addEvents({
 				select: function(name) {
-					//_log('select');
+					//_log.debug('select');
 					self.input.set('value', name);
 					self.fireEvent('change', name);
 				}
@@ -210,7 +210,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		_onFocus: function(e) {
-			//_log('_onFocus');
+			//_log.debug('_onFocus');
 
 			this._showMenu(e);
 
@@ -223,7 +223,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		_onBlur: function(e) {
-			//_log('_onBlur');
+			//_log.debug('_onBlur');
 			this.parent(e);
 			this._hideMenu(e);
 		},
@@ -257,7 +257,7 @@ define([
 
 
 
-			//_log('widh', menu.scrollWidth, coord.width);
+			//_log.debug('widh', menu.scrollWidth, coord.width);
 
 			if (menu.scrollWidth > coord.width)
 				width = menu.scrollWidth;
@@ -304,7 +304,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		_initMenuPosition: function() {
-			//_log('_initMenuPosition');
+			//_log.debug('_initMenuPosition');
 			//var container = this.container.getParent().getCoordinates();
 			var coord = this.element.getCoordinates(this.container);
 
@@ -338,7 +338,7 @@ define([
 
 			if (def && def.opts) {
 				opts = def.opts;
-				_log('--', name, def.opts);
+				_log.debug('--', name, def.opts);
 				opts.text = Locale.get('control.'+name, name) || name;
 				opts.icon = mnml.icon.font[name] || 'mdi-action-help';
 				opts.tag = 'span';
@@ -349,7 +349,7 @@ define([
 				};
 			}
 
-			//_log(this.options.value, name);
+			//_log.debug(this.options.value, name);
 
 			if (this.value === name) {
 				opts.klss = 'is-selected'
@@ -373,7 +373,7 @@ define([
 			this.control[name].addEvents({
 				press: function() {
 					var name =  this.options.name;
-					//_log('press', name, this.isEnable());
+					//_log.debug('press', name, this.isEnable());
 					if (this.isEnable()) {
 						self.value = name;
 						//self.fireEvent('control::'+name, this);
@@ -390,7 +390,7 @@ define([
 		 * @return {[type]}   [description]
 		 */
 		_onClick: function(e) {
-			//_log('_onElementClick');
+			//_log.debug('_onElementClick');
 			var opts = this.options;
 			e.stopPropagation();
 

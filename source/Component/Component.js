@@ -103,14 +103,14 @@ define([
 		 * @param {[type]} node [description]
 		 */
 		addComponent: function(node) {
-			_log('addComponent', node);
+			_log.debug('addComponent', node);
 			if (!node.component)
 				node.component = 'container';
 
 			node.container = this.element;
 			node.main = this.main;
 
-			//_log(node);
+			//_log.debug(node);
 
 			var container = new UI[node.component.capitalize()](node);
 
@@ -175,7 +175,7 @@ define([
 			this.fireEvent('created');
 
 			if (opts.container && opts.container !== 'window') {
-				//_log('_initElement', opts.name, opts.container);
+				//_log.debug('_initElement', opts.name, opts.container);
 				this.inject(opts.container);
 				this.fireEvent('injected');
 			}
@@ -189,7 +189,7 @@ define([
 		 * @return {[type]}
 		 */
 		_initProps: function() {
-			//_log('_initProps');
+			//_log.debug('_initProps');
 			var opts = this.options,
 				prop = {},
 				props = [
@@ -206,7 +206,7 @@ define([
 				if (name === 'klass')
 					name = 'class';
 
-				//_log('-', name, props[i]);
+				//_log.debug('-', name, props[i]);
 
 				if (opts.element.attr[name])
 					prop[name] = opts.element.attr[props[i]];
@@ -248,7 +248,7 @@ define([
 
 		*/
 		_initEvents: function(){
-			//_log('_initEvents');
+			//_log.debug('_initEvents');
 			var self = this,
 				opts = this.options;
 
@@ -258,7 +258,7 @@ define([
 						self._initResizer();
 				},
 				device: function(device) {
-					//_log('device', device);
+					//_log.debug('device', device);
 					self.device = device;
 				}
 			});
@@ -328,9 +328,9 @@ define([
 				this.container = container.element;
 			}
 
-			//_log('container', container);
+			//_log.debug('container', container);
 			if(container && container.component !== 'window') {
-				//_log('element', this.element, this.container);
+				//_log.debug('element', this.element, this.container);
 				//if (!this.container )
 				this.element.inject(this.container, position);
 				/*this.element

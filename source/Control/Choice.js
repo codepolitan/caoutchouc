@@ -31,7 +31,7 @@ define([
 			var self = this,
 				opts = this.options;
 
-			//_log(opts);
+			//_log.debug(opts);
 			this.input.set('type', 'text');
 			this.input.addClass(opts.klss);
 			this.element.addClass('ui-choice');
@@ -86,7 +86,7 @@ define([
 				'data-value': item
 			}).inject(this.list).addEvent('click', function(){
 				if (opts.read) return;
-				//_log('click', this);
+				//_log.debug('click', this);
 				if (self.selected)
 					self.selected.removeClass('selected');
 
@@ -118,7 +118,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		toggle_selected: function() {
-			//_log('toggle_selected', this.element);
+			//_log.debug('toggle_selected', this.element);
 
 			if (this.selected)
 				this.selected.removeClass('selected');
@@ -152,7 +152,7 @@ define([
 		 * @return {[type]}       [description]
 		 */
 		set: function(value) {
-			//_log('choice set', value, this.item);
+			//_log.debug('choice set', value, this.item);
 			var item = this.item[value];
 
 			if (!item) return;

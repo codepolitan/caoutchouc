@@ -46,7 +46,7 @@ define([
 				page: this.page.bind(this)
 			};
 
-			//_log('initalize',this.options.container,'before');
+			//_log.debug('initalize',this.options.container,'before');
 
 			this.container = this.options.container;
 			this.position = {};
@@ -80,15 +80,15 @@ define([
 		 * @return {[type]} [description]
 		 */
 		update: function(){
-			//_log(this.options.container.getSize().y, this.options.container.scrollHeight);
+			//_log.debug(this.options.container.getSize().y, this.options.container.scrollHeight);
 
 			this.containerSize = this.options.container.getSize().y;
 
 			this.setSize(this.options.width.toInt(), this.containerSize);
 			this.containerScrollSize = this.options.container.scrollHeight;
-			//this.containerScrollSize = this.options.containerSize;_log(this.containerScrollSize);
+			//this.containerScrollSize = this.options.containerSize;_log.debug(this.containerScrollSize);
 			this.trackSize = this.element.offsetHeight.toInt();
-			//this.trackSize = this.element.offsetHeight.toInt();_log(this.trackSize);
+			//this.trackSize = this.element.offsetHeight.toInt();_log.debug(this.trackSize);
 
 			if (this.containerScrollSize === 0)
 				return;
@@ -140,7 +140,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		updateThumbFromContentScroll: function(){
-			//_log('this.options.container', this.options.container);
+			//_log.debug('this.options.container', this.options.container);
 			clearTimeout(this.timer);
 			this.element.setStyle('opacity','1');
 			//this.element.set('opacity','1');

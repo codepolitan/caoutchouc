@@ -86,7 +86,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		_initInput: function()  {
-			//_log('_initInput', this.options);
+			//_log.debug('_initInput', this.options);
 
 			this.input = new Element('input', {
 				name: this.options.name,
@@ -174,7 +174,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		onKeyDown: function(e) {
-			//_log('keydown');
+			//_log.debug('keydown');
 			if (this.readonly) { 
 				e.stop();
 				return;
@@ -188,7 +188,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		_onMouseDown: function(e) {
-			//_log('mousedown');
+			//_log.debug('mousedown');
 			
 			if (this.readonly) return;
 
@@ -205,7 +205,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		_onFocus: function(e) {
-			//_log('focus');
+			//_log.debug('focus');
 
 			if (this.readonly) return;
 
@@ -219,7 +219,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		_onBlur: function(e) {
-			//_log('_onBlur');
+			//_log.debug('_onBlur');
 
 			if (this.readonly) return;
 
@@ -234,7 +234,7 @@ define([
 		 * @return {[type]}   [description]
 		 */
 		_inputFocus: function(e) {
-			//_log('_inputFocus', e);
+			//_log.debug('_inputFocus', e);
 
 			this.fireEvent('mousedown');
 
@@ -265,7 +265,7 @@ define([
 		 * @return {[type]}       [description]
 		 */
 		_showInk: function(e) {
-			//_log('_showInk');
+			//_log.debug('_showInk');
 
 			if (this.readonly) return;
 
@@ -345,7 +345,7 @@ define([
 			var size = coord.width / 2;
 
 			if (!this.inkFx) {
-				//_log('errorrrrrrr');
+				//_log.debug('errorrrrrrr');
 				return;
 			}
 
@@ -381,7 +381,7 @@ define([
 		 * @param {[type]} value [description]
 		 */
 		set: function(value) {
-			//_log('set', value);
+			//_log.debug('set', value);
 
 			this.input.set('value', value);
 			this.fireEvent('change', value);

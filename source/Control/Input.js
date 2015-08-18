@@ -41,7 +41,7 @@ define([
 			this.parent();
 
 
-			_log('_initElement', this);
+			_log.debug('_initElement', this);
 			//create input
 			this.setInput('text');
 			this.input.setStyle('width', this.props.width - this.input.getStyle('paddingLeft').toInt() - this.input.getStyle('paddingRight').toInt());

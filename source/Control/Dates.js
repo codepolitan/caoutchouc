@@ -92,7 +92,7 @@ define([
 
 			});
 
-			//_log('plus', self.element, self.minus);
+			//_log.debug('plus', self.element, self.minus);
 		},
 
 		convertDateTimeToHour: function(dateTime) {

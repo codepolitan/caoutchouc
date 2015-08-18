@@ -38,7 +38,7 @@ define([
 
 			this.container = container;
 
-			//_log('resizer init:',container,options);
+			//_log.debug('resizer init:',container,options);
 
 			this.handlers = [];
 			this.container = container;
@@ -70,7 +70,7 @@ define([
 			.addEvents({
 				click: function(e){
 					new Event(e).stop();
-					//_log(this.get('class')+':click');
+					//_log.debug(this.get('class')+':click');
 				},
 				mouseenter: function(e){
 					self.fireEvent('mouseenter',this);

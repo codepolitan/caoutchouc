@@ -82,7 +82,7 @@ define([
 		_initInput: function()  {
 			var self = this;
 
-			//_log('imput option', this.options);
+			//_log.debug('imput option', this.options);
 
 			this.input = new Element('input', {
 				name: this.options.name,

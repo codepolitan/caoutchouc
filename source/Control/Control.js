@@ -32,7 +32,7 @@ define([
 		 * @return {Boolean} [description]
 		 */
 		isEnable: function() {
-			//_log(this.state)
+			//_log.debug(this.state)
 			if (this.state === 'disabled')
 				return false;
 			else return true;

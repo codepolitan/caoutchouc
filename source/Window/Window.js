@@ -189,7 +189,7 @@ define([
 
 			if (!this.head) return;
 
-			//_log('buildControls');
+			//_log.debug('buildControls');
 			if (!this.options.controls) { return; }
 			var self = this;
 
@@ -204,7 +204,7 @@ define([
 					text: action,
 					klss: 'button-'+action
 				}).addEvent('press', function(ev) {
-					//_log('press', ev);
+					//_log.debug('press', ev);
 					self.control(action);
 				}).inject(self.controls);
 			});
@@ -300,7 +300,7 @@ define([
 
 			this.addEvents({
 				onFocus: function() {
-					//_log('OnFocus');
+					//_log.debug('OnFocus');
 				},
 				injected: function() {
 					self.adaptLocation();
@@ -312,10 +312,10 @@ define([
 					this.coord = this.element.getCoordinates();
 				},
 				onDragStart: function(){
-					//_log('darg start', this);
+					//_log.debug('darg start', this);
 				},
 				'onDragComplete': function() {
-					//_log('darg com', ui.window.underlay);
+					//_log.debug('darg com', ui.window.underlay);
 					this.coord = this.element.getCoordinates();
 				},
 				resizeComplete: function(){
@@ -345,12 +345,12 @@ define([
 		},
 
 		_initUnderlay: function() {
-			//_log('_initUnderlay', this.options.container);
+			//_log.debug('_initUnderlay', this.options.container);
 			var self = this;
 
 			var container = this.options.container || $(document.body)
 
-			//_log(container);
+			//_log.debug(container);
 
 			this.underlay = new Element('div', {
 				'class': 'dialog-underlay',
@@ -361,13 +361,13 @@ define([
 
 			this.underlay.addEvents({
 				mousedown: function() {
-					//_log('click underlay');
-					//_log(self.editForm.control.apply);
+					//_log.debug('click underlay');
+					//_log.debug(self.editForm.control.apply);
 					self.element.addClass('reveal-window');
 				},
 				mouseup: function() {
-					//_log('click underlay');
-					//_log(self.editForm.control.apply);
+					//_log.debug('click underlay');
+					//_log.debug(self.editForm.control.apply);
 					self.element.removeClass('reveal-window');
 				},
 
@@ -438,7 +438,7 @@ define([
 
 			var coord = ui.window.getcoord('minimized');
 
-			// _log('--',coord);
+			// _log.debug('--',coord);
 
 			this.element.setStyles(coord);
 
@@ -461,7 +461,7 @@ define([
 				this.coord = this.element.getCoordinates();
 				this.max = this.container.getCoordinates();
 
-				//_log(this.coord);
+				//_log.debug(this.coord);
 
 				this.setState('maximized');
 
@@ -524,7 +524,7 @@ define([
 			(void)
 		*/
 		close: function(){
-			//_log('close');
+			//_log.debug('close');
 			ui.window.close(this);
 			this.fireEvent('closed');
 

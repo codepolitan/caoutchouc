@@ -28,7 +28,7 @@ define([
 			this.setOptions(options);
 
 			var offset = this.options.offset;
-			//_log(typeOf(offset));
+			//_log.debug(typeOf(offset));
 
 			if (typeOf(offset) == 'number') {
 				this.offset = [offset,offset];
@@ -40,7 +40,7 @@ define([
 		},
 
 		_initElement: function(container){
-			//_log('_initElement menu', this.options);
+			//_log.debug('_initElement menu', this.options);
 
 			this.element = new Element('span', {
 				'class': this.options.clss,
@@ -103,7 +103,7 @@ define([
 			}
 
 			if (opts.position.indexOf('right') > -1) {
-				//_log('sdfasdfasdfasdfasdfa');
+				//_log.debug('sdfasdfasdfasdfasdfa');
 				left = coord.left + coord.width - size.width + this.offset[0];
 			}
 

@@ -60,7 +60,7 @@ define([
 		},
 
 		initialize: function(options){
-			//_log('UI.Selector.initilize()');
+			//_log.debug('UI.Selector.initilize()');
 			this.setOptions(options);
 
 			this.selectors = [];
@@ -75,12 +75,12 @@ define([
 
 			this.timer = null;
 
-			//_log('UI.Selector.init(scope,target)',this.name);
+			//_log.debug('UI.Selector.init(scope,target)',this.name);
 
 			this._initElement(this.options.components);
 			this._initEvents(scope,target);
 
-			//_log('shoud hide this');
+			//_log.debug('shoud hide this');
 
 			this.hideNow();
 		},
@@ -94,11 +94,11 @@ define([
 		},
 
 		_initEvents: function(scope,target) {
-			//_log('UI.Selector._initEvents(scope,target)',typeOf(scope),target);
+			//_log.debug('UI.Selector._initEvents(scope,target)',typeOf(scope),target);
 			var delay = 20;
 			var self = this;
 
-			//_log('UI.Selector._initEvents(scope,target)',typeOf(scope),target);
+			//_log.debug('UI.Selector._initEvents(scope,target)',typeOf(scope),target);
 
 			var delegation = self.options.trigger+':relay('+target+')';
 
@@ -108,12 +108,12 @@ define([
 
 			/*var list = scope.querySelectorAll( target );
 
-			//_log(list);
+			//_log.debug(list);
 
 			new Array()
 
 			Array.each(list, function(el) {
-				//_log('UI.Selector.target',el,self.options.trigger);
+				//_log.debug('UI.Selector.target',el,self.options.trigger);
 				el.store('selector', self);
 				el.addEvent(self.options.trigger, function(){
 					self.reach(el);
@@ -138,12 +138,12 @@ define([
 		},
 
 		attachElement: function(el) {
-			//_log('UI.Selector._initEvents(scope,target)',scope,target);
+			//_log.debug('UI.Selector._initEvents(scope,target)',scope,target);
 			var delay = 20;
 			var self = this;
 
 
-			//_log('UI.Selector._setEventsElement',el,self.options.trigger);
+			//_log.debug('UI.Selector._setEventsElement',el,self.options.trigger);
 
 			el.addEvent(self.options.trigger, function(){
 				self.reach(el);
@@ -177,7 +177,7 @@ define([
 			.inject(this.options.container, 'top');
 
 			components.each(function(name){
-				//_log('Selector _initElement',name);
+				//_log.debug('Selector _initElement',name);
 				self.options[name].content = self.options.container;
 				var build = 'build'+name.capitalize();
 				if (!self.options[name].usefx)
@@ -199,7 +199,7 @@ define([
 
 		buildBorder: function(options){
 			var self = this;
-			//_log();
+			//_log.debug();
 
 			options.positionning = this.options.positionning;
 
@@ -258,13 +258,13 @@ define([
 		},
 
 		buildMenu: function(options){
-			//_log('buildMenu', this.options.name, options);
+			//_log.debug('buildMenu', this.options.name, options);
 
 			var self = this,
 				left = null,
 				right = null;
 
-			// _log( this.wrapper, options);
+			// _log.debug( this.wrapper, options);
 
 			options.positionning = this.options.positionning;
 
@@ -292,13 +292,13 @@ define([
 
 
 		buildStatus: function(options){
-			//_log('buildMenu', this.options.name, options);
+			//_log.debug('buildMenu', this.options.name, options);
 
 			var self = this,
 				left = null,
 				right = null;
 
-			//_log( this.wrapper);
+			//_log.debug( this.wrapper);
 
 			this.status = new Status( this.wrapper, options);
 
@@ -343,7 +343,7 @@ define([
 						self.hide();
 					},
 					mouseenter: function() {
-						//_log('enteroverlay');
+						//_log.debug('enteroverlay');
 						clearTimeout(self.timer);
 					}
 
@@ -366,7 +366,7 @@ define([
 				el = this.el;
 			} else { return; }
 
-			//_log('reach',el);
+			//_log.debug('reach',el);
 
 			if (this.isEnable) {
 				this.show();
@@ -388,7 +388,7 @@ define([
 		},
 
 		set: function(name,value,name){
-			//_log(name,value,name);
+			//_log.debug(name,value,name);
 
 			if (name)
 				self[name][name](value);
@@ -437,7 +437,7 @@ define([
 		},
 
 		enable: function(selector) {
-			//_log('enable', this.options.name);
+			//_log.debug('enable', this.options.name);
 
 			this.isEnable = true;
 			Cookie.write(this.name, '1', this.options.cookie);
@@ -445,7 +445,7 @@ define([
 		},
 
 		disable: function(selector) {
-			//_log('disable', this.options.name);
+			//_log.debug('disable', this.options.name);
 
 			this.isEnable = false;
 			Cookie.write(this.name, '0', this.options.cookie);

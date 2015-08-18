@@ -43,7 +43,7 @@ define(function() {
 		*/
 
 		_initElement: function(object, container) {
-			//_log('builder._initElement container ',object.level,object.name);
+			//_log.debug('builder._initElement container ',object.level,object.name);
 
 			var container = {};
 
@@ -60,11 +60,11 @@ define(function() {
 
 				ui.controller.workspace[object.name] = container;
 
-				//_log(ui.controller.workspace);
+				//_log.debug(ui.controller.workspace);
 
 			}
 
-			//_log('UI.Builder._initElement()', container.views);
+			//_log.debug('UI.Builder._initElement()', container.views);
 
 			if (object.views) {
 				object.views.each( function(sub, i) {

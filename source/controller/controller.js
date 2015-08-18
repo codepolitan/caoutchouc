@@ -136,7 +136,7 @@ ui.builder = {
 		},
 	*/
 	/*process: function(object, container) {
-		//_log('ui.builder.process()', object.name, container);
+		//_log.debug('ui.builder.process()', object.name, container);
 
 		var container = {};
 
@@ -196,13 +196,13 @@ ui.builder = {
 		var opts = this.opts,
 			obj = null;
 
-		//_log('ui.builder._initElement()', name, typeOf(node), opts);
+		//_log.debug('ui.builder._initElement()', name, typeOf(node), opts);
 
 		if (typeOf(node) == 'object') {
-			//_log('starting building',node);
+			//_log.debug('starting building',node);
 			// define class to intaciate
 
-			//_log(ui.builder.opts.clss.define);
+			//_log.debug(ui.builder.opts.clss.define);
 			if (!node.clss) node.clss = ui.builder.opts.clss.define;
 
 			var clss = node.clss.split('.');
@@ -210,7 +210,7 @@ ui.builder = {
 			if (clss.length > 1) {
 
 			} else {
-				//_log('_initElement', clss);
+				//_log.debug('_initElement', clss);
 				obj = new window[clss](node.tag, node.opts)
 				.inject(container);
 
@@ -220,9 +220,9 @@ ui.builder = {
 
 				ui.dom[name][node.name] = obj;
 
-				//_log('builded', obj);
+				//_log.debug('builded', obj);
 
-				//_log('builded ', node.name, node.node, obj);
+				//_log.debug('builded ', node.name, node.node, obj);
 
 				if (node.node)
 					this.process(node.name, node.node, obj);
@@ -230,7 +230,7 @@ ui.builder = {
 
 		} else if (typeOf(node) == 'array') {
 			node.each(function(sub, i) {
-				//_log('that is a list', name, sub, container);
+				//_log.debug('that is a list', name, sub, container);
 				this.process(name, sub, container);
 			},this);
 		}
@@ -258,18 +258,18 @@ ui.builder = {
 
 	form: function(name, node, container) {
 		ui.dom = {};
-		//_log(node, typeOf(node));// node - object
+		//_log.debug(node, typeOf(node));// node - object
 
 		var opts = this.opts,
 			obj = null;
 
-		//_log('ui.builder._initElement()', name, typeOf(node), opts);
+		//_log.debug('ui.builder._initElement()', name, typeOf(node), opts);
 
 		if (typeOf(node) == 'object') {
-			//_log('starting building',node);
+			//_log.debug('starting building',node);
 			// define class to intaciate
 
-			//_log(ui.builder.opts.clss.define);
+			//_log.debug(ui.builder.opts.clss.define);
 			if (!node.clss) node.clss = ui.builder.opts.clss.define;
 
 			var clss = node.clss.split('.');
@@ -277,7 +277,7 @@ ui.builder = {
 			if (clss.length > 1) {
 
 			} else {
-				//_log('_initElement', clss);
+				//_log.debug('_initElement', clss);
 				obj = new window[clss](node.tag, node.opts)
 				.inject(container);
 
@@ -287,9 +287,9 @@ ui.builder = {
 
 				ui.dom[name][node.name] = obj;
 
-				//_log('builded', obj);
+				//_log.debug('builded', obj);
 
-				//_log('builded ', node.name, node.node, obj);
+				//_log.debug('builded ', node.name, node.node, obj);
 
 				if (node.node)
 					this.process(node.name, node.node, obj);
@@ -297,7 +297,7 @@ ui.builder = {
 
 		} else if (typeOf(node) == 'array') {
 			node.each(function(sub, i) {
-				//_log('that is a list', name, sub, container);
+				//_log.debug('that is a list', name, sub, container);
 				this.process(name, sub, container);
 			},this);
 		}
@@ -356,44 +356,44 @@ ui.builder = {
 ui.request = {
 
 	get: function(url) {
-		// _log('ui.request.get()', url);
+		// _log.debug('ui.request.get()', url);
 		return new Request({
 			url: url,
 			onComplete: function(json, text) {
-				//_log('ui.request.get() ...ok', json, text);
+				//_log.debug('ui.request.get() ...ok', json, text);
 				this.fireEvent('ok', json, text);
 			},
 			onError: function(text, error) {
-				//_log('ui.request.get() ...error', text);
+				//_log.debug('ui.request.get() ...error', text);
 				this.fireEvent('error', json, text);
 			},
 			onFailure: function(xhr) {
-				//_log('ui.request.get() ...fail', xhr);
+				//_log.debug('ui.request.get() ...fail', xhr);
 				this.fireEvent('fail', json, text);
 			}
 		}).get();
 	},
 
 	html: function(url) {
-		// _log('ui.request.get()', url);
+		// _log.debug('ui.request.get()', url);
 		return new Request.HTML({
 			url: url,
 			onSuccess: function(json, text) {
-				//_log('ui.request.get() ...success', json, text);
+				//_log.debug('ui.request.get() ...success', json, text);
 				this.fireEvent('ok', obj);
 			},
 			onError: function(text, error) {
-				//_log('ui.request.get() ...error', text);
+				//_log.debug('ui.request.get() ...error', text);
 			},
 			onFailure: function(xhr) {
-				//_log('ui.request.get() ...failure', xhr);
+				//_log.debug('ui.request.get() ...failure', xhr);
 			}
 		}).get();
 	},
 
 
 	json: function(url) {
-		//_log('ui.request.get()', url);
+		//_log.debug('ui.request.get()', url);
 		return new Request.JSON({
 			url: url,
 			onSuccess: function(json, text) {
@@ -431,16 +431,16 @@ ui.keyboard = {
 	init: function(){
 		keyboard.opts.container.addEvent('keydown', function(e){
 			if (e.key == 'down') {
-				//_log('ui.keyboard.handle(down)');
+				//_log.debug('ui.keyboard.handle(down)');
 			}
 			else if (e.key == 'up') {
-				//_log('ui.keyboard.handle(up)');
+				//_log.debug('ui.keyboard.handle(up)');
 			}
 			else if (e.key == 'enter') {
-				//_log('ui.keyboard.handle(enter)');
+				//_log.debug('ui.keyboard.handle(enter)');
 			}
 			else if (e.key == 'tab') {
-				//_log('ui.keyboard.handle(tab)');
+				//_log.debug('ui.keyboard.handle(tab)');
 			}
 			// var ev = new Event(e).stop();
 		});
@@ -482,7 +482,7 @@ ui.controller.element = {
 		var oid = this.list.push(object) - 1;
 
 
-		//_log('ui.controller.register()',object.element,object);
+		//_log.debug('ui.controller.register()',object.element,object);
 
 		//set z-index
 		if (object.element.getStyle('zIndex') == 'auto' || object.element.getStyle('zIndex') === 0) {

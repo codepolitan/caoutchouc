@@ -75,7 +75,7 @@ define([
 			var self = this,
 				opts = this.options;
 
-			//_log('UI.MEnu._initElement()', opts);
+			//_log.debug('UI.MEnu._initElement()', opts);
 
 			this.element = new Element('div', {
 				'class': 'ui-context',
@@ -140,7 +140,7 @@ define([
 				scope = opts.scope || opts.container;
 
 			scope.getElements(opts.target).each(function(el) {
-				//_log(el);
+				//_log.debug(el);
 				self.addTarget(el);
 			});
 
@@ -189,7 +189,7 @@ define([
 
 				self.target = e.target;
 
-				//_log(e.target);
+				//_log.debug(e.target);
 
 				//.hide(0);
 				//self.buildMenu(context.menu);
@@ -223,14 +223,14 @@ define([
 		*/
 
 		removeContexts: function(){
-			//_log('removeContext',this.options.scope);
+			//_log.debug('removeContext',this.options.scope);
 			this.els.each(function(el) {
 				el.removeEvents('contextmenu');
 			});
 
 			/*this.options.contexts.each(function(context){
 				this.options.scope.getElements(context.target).each(function(el){
-					//_log(context.target,el);
+					//_log.debug(context.target,el);
 					el.removeEvents('contextmenu');
 				},this);
 			},this);*/
@@ -272,7 +272,7 @@ define([
 
 			if ((x + coor.width) > container.getWidth()) { left =  left - coor.width; }
 			if ((y + coor.height) > container.getHeight()) {
-				//_log('top', top);
+				//_log.debug('top', top);
 				top = top - coor.height;
 			}
 

@@ -26,7 +26,7 @@ define([
 		 * @return {[type]}
 		 */
 		_initResizer: function(){
-			//_log('_initResizer', this.options.resizable);
+			//_log.debug('_initResizer', this.options.resizable);
 			this.resizeHandlers = [];
 
 			var wrapper = new Element('div', {

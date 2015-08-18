@@ -33,7 +33,7 @@ define([
 
 			var offset = this.options.offset;
 
-			_log('selector-view', this.options);
+			_log.debug('selector-view', this.options);
 
 			if (typeOf(offset) == 'number') {
 				this.offset = [offset,offset];
@@ -47,7 +47,7 @@ define([
 		},
 
 		_initElement: function(container){
-			//_log('_initElement menu', this.options);
+			//_log.debug('_initElement menu', this.options);
 
 			this.element = new Element('ul', {
 				'class': 'ui-menu type-selector',
@@ -102,7 +102,7 @@ define([
 					item.addEvents({
 						click: function(e) {
 							e.stop();
-							//_log(menu.action);
+							//_log.debug(menu.action);
 							menu.action();
 
 							//(function() { menu.action() });
@@ -121,7 +121,7 @@ define([
 				else return;
 			else this.el = el;
 
-			//_log(this.options.content, this.options.content.scrollWidth);
+			//_log.debug(this.options.content, this.options.content.scrollWidth);
 
 			var opts = this.options;
 			var size = this.element.getCoordinates();
@@ -136,7 +136,7 @@ define([
 				c.bottom = pos.y + c.height;
 			}
 
-			//_log('reach',pos.x, pos.y);
+			//_log.debug('reach',pos.x, pos.y);
 			var top = 'auto',
 				left = 'auto',
 				bottom = 'auto',
@@ -147,7 +147,7 @@ define([
 			}
 
 			if (opts.position.indexOf('right') > -1) {
-				//_log('sdfasdfasdfasdfasdfa');
+				//_log.debug('sdfasdfasdfasdfasdfa');
 				left = c.left + c.width - size.width + this.offset[0];
 			}
 

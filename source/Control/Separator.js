@@ -55,7 +55,7 @@ define([
 		 */
 		_initClass: function() {
 			var opts = this.options;
-			//_log(this.name);
+			//_log.debug(this.name);
 
 			if (this.options.klss)
 				this.element.addClass('button-'+opts.klss);

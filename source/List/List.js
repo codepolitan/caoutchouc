@@ -59,13 +59,13 @@ UI.List = new Class({
 
 
 	_initList: function(string) {
-		_log('_initList', string);
+		_log.debug('_initList', string);
 		var self = this;
 		this.items = [];
 		/**/
 		this.items = [];
 
-		_log('UI.List.initlist()', this.container);
+		_log.debug('UI.List.initlist()', this.container);
 
 		this.content = new Element('div', {
 			'class': 'list-content'
@@ -73,7 +73,7 @@ UI.List = new Class({
 
 		this.content.addEvents({
 			'click:relay(div)': function(ev) {
-				_log('click', ev.target);
+				_log.debug('click', ev.target);
 				if (self.item)
 					self.item.removeClass('is-selected');
 
@@ -85,7 +85,7 @@ UI.List = new Class({
 				//self.fireEvent('settings', ['selected', item]);
 			},
 			'dblclick:relay(div)': function(ev) {
-				//_log('dclick', ev.target);
+				//_log.debug('dclick', ev.target);
 				if (self.item)
 					self.item.removeClass('item-selected');
 
@@ -97,7 +97,7 @@ UI.List = new Class({
 
 				var item = mnml.DOM.getAttrFirst(ev.target, 'data-id');
 				self.item = item;
-				_log('contact: --',item);
+				_log.debug('contact: --',item);
 				self.fireEvent('context', item.retrieve('doc'));
 			}*/
 		});
@@ -106,7 +106,7 @@ UI.List = new Class({
 	},
 
 	_initCollection: function() {
-		_log('_initCollection', this.options.name, this.options.params);
+		_log.debug('_initCollection', this.options.name, this.options.params);
 		var self = this;
 
 		this.collection = new Minimal.Collection({
@@ -114,7 +114,7 @@ UI.List = new Class({
 		}).addEvents({
 			ready: function(list) {
 				if (!list) return;
-				//_log('collection ready', list);
+				//_log.debug('collection ready', list);
 				self.fireEvent('setList');
 
 	
@@ -134,7 +134,7 @@ UI.List = new Class({
 	 * @param {[type]} id [description]
 	 */
 	set: function(cid, type) {
-		//_log('set', cid, type);
+		//_log.debug('set', cid, type);
 		var self = this;
 		if (this.listReady) {
 
@@ -157,7 +157,7 @@ UI.List = new Class({
 
 
 	update: function(data) {
-		//_log('upate(data)',data.length);
+		//_log.debug('upate(data)',data.length);
 
 		if (this.options.reverse)
 			data.reverse();
@@ -182,7 +182,7 @@ UI.List = new Class({
 
 	initMasonry: function() {
 		var e = this.content;
-		//_log('masonry', e);
+		//_log.debug('masonry', e);
 		if (!e) return;
 
 		this.content.masonry({
@@ -193,7 +193,7 @@ UI.List = new Class({
 	},
 
 	insert: function(id, x, y) {
-		//_log('insert', x, y);
+		//_log.debug('insert', x, y);
 		this.addItem(couch.doc[id], x, y);
 		this.fireEvent('resize');
 	},
@@ -213,7 +213,7 @@ UI.List = new Class({
 		var self = this,
 			tmpl = this.tmpl;
 
-		//_log('addItem', info);
+		//_log.debug('addItem', info);
 
 		var where = 'bottom';
 
@@ -243,7 +243,7 @@ UI.List = new Class({
 			tmpl = opts.template,
 			type = info.type;
 
-		_log('renderItem', type, info, tmpl);
+		_log.debug('renderItem', type, info, tmpl);
 
 		if (mnml.data.type[type] && mnml.data.type[type]._process) {
 			info = mnml.data.type[type]._process.render(info);
@@ -270,16 +270,16 @@ UI.List = new Class({
 	},
 
 	next: function() {
-		//_log('next', this.id);
+		//_log.debug('next', this.id);
 		var array = this.list,
 			next;
 
 		var index = array.indexOf(this.id);
-		_log('index', index);
+		_log.debug('index', index);
 		if(index >= 0 && index < array.length - 1)
 		   next = array[index + 1];
 
-		_log('next', next);
+		_log.debug('next', next);
 
 		if (next) {
 			this.id = next;
@@ -289,18 +289,18 @@ UI.List = new Class({
 	},
 
 	previous: function() {
-		//_log('previous', this.id);
+		//_log.debug('previous', this.id);
 
-		//_log('next', this.id);
+		//_log.debug('next', this.id);
 		var array = this.list,
 			previous;
 
 		var index = array.indexOf(this.id);
-		//_log('index', index);
+		//_log.debug('index', index);
 		if(index >= 0 && index < array.length)
 		   previous = array[index - 1];
 
-		//_log('previous', previous);
+		//_log.debug('previous', previous);
 
 		if (previous) {
 			this.id = previous;
@@ -310,8 +310,8 @@ UI.List = new Class({
 	},
 
 	_editInfo: function(v) {
-		// _log('editInfo', this.id);
-		// _log('editInfo', couch.doc[this.id]);
+		// _log.debug('editInfo', this.id);
+		// _log.debug('editInfo', couch.doc[this.id]);
 
 		if (!this.id) return;
 
@@ -319,7 +319,7 @@ UI.List = new Class({
 	},
 
 	_viewDidTrash: function() {
-    	//_log('_viewDidTrash', this.id);
+    	//_log.debug('_viewDidTrash', this.id);
     	if (!this.id) return;
     	this.fireEvent('deleteInfo', this.id);
     	this.item.destroy();

@@ -60,7 +60,7 @@ define([
 			if (opts.name)
 				this.element.set('data-name', opts.name);
 
-			//_log('title', this.element,  opts.text);
+			//_log.debug('title', this.element,  opts.text);
 			this.element.set('title', opts.text);
 
 			if (opts.icon)
@@ -81,7 +81,7 @@ define([
 		 * @return {[type]}      [description]
 		 */
 		_initIcon: function(type, name) {
-			//_log('_initIcon', type, name);
+			//_log.debug('_initIcon', type, name);
 			var opts = this.options;
 
 			var tag = 'span';
@@ -96,11 +96,11 @@ define([
 
 
 			if (mnml.icon.mdi[name]) {
-				//_log('mdi');
+				//_log.debug('mdi');
 				klss = 'icon-mdi';
 				code = mnml.icon.mdi[name];
 			} else if (mnml.icon.font[name]) {
-				//_log('iocn font name', name);
+				//_log.debug('iocn font name', name);
 				klss = 'icon-font';
 				code = mnml.icon.font[name];
 			}
@@ -140,7 +140,7 @@ define([
 		 */
 		_initClass: function() {
 			var opts = this.options;
-			//_log(this.name);
+			//_log.debug(this.name);
 
 			if (this.options.isPrimary)
 				this.element.addClass('is-primary');
@@ -216,7 +216,7 @@ define([
 		 * @return {[type]}   [description]
 		 */
 		_onClick: function(e) {
-			//_log('_onElementClick', e);
+			//_log.debug('_onElementClick', e);
 			var opts = this.options;
 			e.stopPropagation();
 			if (opts.emit && this.state !== 'disabled')
@@ -247,7 +247,7 @@ define([
 		 * @return {[type]}   [description]
 		 */
 		_onMouseDown: function(e) {
-			//_log('_onElementMouseDown', e);
+			//_log.debug('_onElementMouseDown', e);
 
 			e.stop();
 
@@ -277,7 +277,7 @@ define([
 		 * @return {[type]}   [description]
 		 */
 		_onMouseLeave: function(e) {
-			//_log('_onMouseLeave', e);
+			//_log.debug('_onMouseLeave', e);
 
 
 		},
@@ -288,7 +288,7 @@ define([
 		 * @return {[type]}   [description]
 		 */
 		_onMouseEnter: function(e) {
-			//_log('_onElementMouseDown', e);
+			//_log.debug('_onElementMouseDown', e);
 
 
 		},
@@ -298,7 +298,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		_onMouseUp: function(e){
-			//_log('_onElementMouseUp', e);
+			//_log.debug('_onElementMouseUp', e);
 
 			var opts = this.options;
 			if (this.options.type === 'check') {

@@ -35,7 +35,7 @@ define([
 			//create a new div as input element
 			this.parent();
 
-			//_log(this.element, this.options.read);
+			//_log.debug(this.element, this.options.read);
 
 			if (!this.options.read) {
 				this.input.addClass('mask');
@@ -104,7 +104,7 @@ define([
 
 			});
 
-			//_log('plus', self.element, self.minus);
+			//_log.debug('plus', self.element, self.minus);
 		},
 
 		convertDateTimeToHour: function(dateTime) {
@@ -203,7 +203,7 @@ define([
 		},
 
 		set: function(date) {
-			//_log('set', date);
+			//_log.debug('set', date);
 
 			this.date = moment(date).toISOString();
 

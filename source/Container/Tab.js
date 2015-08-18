@@ -69,7 +69,7 @@ define([
 				Create tab and its related container and addEvent
 		 */
 		addTab: function(container, position){
-			//_log('AddTab', this, container);
+			//_log.debug('AddTab', this, container);
 			var self = this,
 				opts = container.options;
 
@@ -176,7 +176,7 @@ define([
 				self.components.push(container);
 
 				self.addEvent('resize', function() {
-					//_log('tab resize,, views', container.name);
+					//_log.debug('tab resize,, views', container.name);
 					container.fireEvent('resize');
 				});
 

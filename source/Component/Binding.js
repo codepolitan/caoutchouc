@@ -27,7 +27,7 @@ define([
 		 */
 		_initBinding: function() {
 			var binding = this.options.binding;
-			//_log('_initBinding', binding);
+			//_log.debug('_initBinding', binding);
 
 			if (!binding) return;
 
@@ -49,7 +49,7 @@ define([
 		 * @return {void}
 		 */
 		_bindObject: function(obj) {
-			//_log('_bindObject', obj);
+			//_log.debug('_bindObject', obj);
 			for (var key in obj) {
 				var value = obj[key];
 
@@ -68,7 +68,7 @@ define([
 		 * @return {void}
 		 */
 		_bindList: function(key, values) {
-			//_log('_bindList', key, values);
+			//_log.debug('_bindList', key, values);
 			for (var i = 0; i < values.length; i++) {
 				this._bindkey(key, values[i]);
 			}
@@ -84,7 +84,7 @@ define([
 		 * @return {void}
 		 */
 		_bindkey: function(key, val) {
-			//_log('_bindkey', key, val);
+			//_log.debug('_bindkey', key, val);
 			var eventKeys = key.split('.');
 			var ev = eventKeys[eventKeys.length - 1];
 
@@ -111,7 +111,7 @@ define([
 		 * @return {void}
 		 */
 		_bindEvent: function(listenerCtx, ev, emit, val) {
-			//_log('_bindEvent', listenerCtx, ev, emit, val);
+			//_log.debug('_bindEvent', listenerCtx, ev, emit, val);
 			var emitter = this.options.api.emit;
 
 			var valKeys = val.split('.');
@@ -126,7 +126,7 @@ define([
 			} else if (listenerCtx && listenerCtx.on && boundCtx && boundCtx.fireEvent) {
 				listenerCtx.on(ev, boundCtx.fireEvent.bind(boundCtx, emit));
 			} else {
-				_log('Missing context or method', listenerCtx, val);
+				_log.debug('Missing context or method', listenerCtx, val);
 			}
 		},
 
@@ -138,7 +138,7 @@ define([
 		 * @return {void}
 		 */
 		_bindMethod: function(listenerCtx, ev, val) {
-			//_log('_bindMethod', listenerCtx, ev, val);
+			//_log.debug('_bindMethod', listenerCtx, ev, val);
 			var method = this._path(val);
 
 			var valKeys = val.split('.');
@@ -152,7 +152,7 @@ define([
 			} else if (listenerCtx && listenerCtx.on && method) {
 				listenerCtx.on(ev, method.bind(boundCtx));
 			} else {
-				//_log('Missing context or method', listenerCtx, val);
+				//_log.debug('Missing context or method', listenerCtx, val);
 			}
 		},
 
@@ -162,7 +162,7 @@ define([
 		 * @return {object}
 		 */
 		_path: function(str) {
-			//_log('_path', str);
+			//_log.debug('_path', str);
 			if (!str) return this;
 			else if (!str.match(/\./)) return this[str];
 

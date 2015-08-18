@@ -39,7 +39,7 @@ define([
 		 * @return {[type]}           [description]
 		 */
 		_initResizer: function(component) {
-			//_log('_initResizer', component.options.name);
+			//_log.debug('_initResizer', component.options.name);
 
 			var self = this,
 				name = component.options.name,
@@ -60,9 +60,9 @@ define([
 
 			if (!modifier) return;
 
-			//_log('direction', direction, modifier);
+			//_log.debug('direction', direction, modifier);
 
-			//_log(element, coord);
+			//_log.debug(element, coord);
 			var resizer = this.resizer[name] = new Element('div', {
 				'class': 'ui-resizer',
 				'data-name': component.options.name
@@ -80,7 +80,7 @@ define([
 			}
 
 			if (last) {
-				//_log('------last' );
+				//_log.debug('------last' );
 				//resizer.addClass('resizer-last');
 			}
 
@@ -98,7 +98,7 @@ define([
 		 */
 		_initResizerDrag: function(resizer, modifier, component) {
 			var self = this;
-			//_log('initResizerDrag', resizer, modifier);
+			//_log.debug('initResizerDrag', resizer, modifier);
 
 			var element = component.element,
 				container = component.container,
@@ -107,18 +107,18 @@ define([
 			var drag = new Drag.Move(resizer, {
 				modifiers: modifier.mode,
 			    onStart: function(el){
-					//_log('onStart', el);
+					//_log.debug('onStart', el);
 					//self.fireEvent('resizeStart', el);
 				},
 				onDrag: function(el, ev){
-					//_log('onDrag', el);
+					//_log.debug('onDrag', el);
 					var coord = element.getCoordinates(container);
 					var coordc = container.getCoordinates();
 					var c = resizer.getCoordinates(container);
 					//element.setStyle('flex','none');
 					//element.setStyle(modifier.size, c[modifier.from] - coord[modifier.from]);
 					if (last){
-						//_log(modifier.size, coordc[modifier.size], c[modifier.from]);
+						//_log.debug(modifier.size, coordc[modifier.size], c[modifier.from]);
 						element.setStyle(modifier.size, coordc[modifier.size] - c[modifier.from]);
 					}
 					else {
@@ -128,14 +128,14 @@ define([
 					self.fireEvent('drag');
 				},
 				onComplete: function(el){
-					//_log('onComplete', component.main, modifier.size, size);
-					//_log('onComplete', modifier.size, element.getCoordinates(container)[modifier.size]);
+					//_log.debug('onComplete', component.main, modifier.size, size);
+					//_log.debug('onComplete', modifier.size, element.getCoordinates(container)[modifier.size]);
 					var coord = element.getCoordinates(container);
 					var size = element.getCoordinates(container)[modifier.size];
 					self.fireEvent('resizer', [component.main, modifier.size, size]);
 					component.fireEvent('resizeComplete', [modifier.size, size]);
 
-					//_log('size', modifier, size);
+					//_log.debug('size', modifier, size);
 
 					component[modifier.size] = size;
 				}
@@ -153,24 +153,24 @@ define([
 		 */
 		// will definitly use a controller for that
 		_initResizerEvent: function(component, resizer, modifier) {
-			//_log('_initResizerEvent', component.options.name, component.options.last);
+			//_log.debug('_initResizerEvent', component.options.name, component.options.last);
 			var self = this;
 
 			this.addEvents({
 				drag: function(e) {
-					//_log('drag', e);
+					//_log.debug('drag', e);
 					self._updateSize(component, resizer, modifier);
 				},
 				maximize: function() {
-					//_log(direction);
+					//_log.debug(direction);
 					self._updateSize(component, resizer, modifier);
 				},
 				normalize: function() {
-					//_log(direction);
+					//_log.debug(direction);
 					self._updateSize(component, resizer, modifier);
 				},
 				resize: function() {
-					//_log('resize', component.element, resizer);
+					//_log.debug('resize', component.element, resizer);
 					
 					self._updateSize(component, resizer, modifier);
 				}
@@ -185,12 +185,12 @@ define([
 		 * @return {[type]}           [description]
 		 */
 		_updateSize: function(component, resizer, modifier) {
-			//_log('_updazeSize');
+			//_log.debug('_updazeSize');
 			var container = component.container,
 				element = component.element;
 
 			var coord = element.getCoordinates(container);
-			//_log('coord',  coord[modifier.from]);
+			//_log.debug('coord',  coord[modifier.from]);
 			//
 			// the last container doesnt need resizedr
 			if (component.options.last) {
@@ -208,7 +208,7 @@ define([
 		 * @return {[type]}           [description]
 		 */
 		_initMaximize: function(component) {
-			//_log('_initMaximize', component);
+			//_log.debug('_initMaximize', component);
 			var self = this;
 			var element = component.element;
 			var container = component.container;
@@ -218,7 +218,7 @@ define([
 			component.addEvent('max', function() {
 				var name = component.options.name;
 
-				_log('max', component);
+				_log.debug('max', component);
 				if (element.hasClass('container-max')) {
 					element.removeClass('container-max');
 					container.getChildren('.ui-container').each(function(c) {
@@ -253,7 +253,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		_initResizers: function(components) {
-			//_log('_initResizers');
+			//_log.debug('_initResizers');
 			var len = components.length;
 
 			// add resize Border on the right or on the bottom
@@ -262,7 +262,7 @@ define([
 				var component = components[i];
 
 				if (component.options.noResizer) {
-					//_log('--', component.main);
+					//_log.debug('--', component.main);
 					continue;
 				}
 

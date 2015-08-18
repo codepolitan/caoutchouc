@@ -68,7 +68,7 @@ define([
 			element.addClass('toolbar-' + opts.comp.name);
 
 			opts.comp.list.each(function(n) {
-				_log('---', n, mnml.control);
+				_log.debug('---', n, mnml.control);
 				var comp = mnml.control[n];
 
 				if (comp) {

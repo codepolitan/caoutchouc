@@ -67,7 +67,7 @@ define([
 			<UI.Component::_initElement>
 		*/
 		_initElement: function() {
-			//_log('_initElement', this);
+			//_log.debug('_initElement', this);
 			this.parent();
 
 			var opts = this.options;
@@ -83,7 +83,7 @@ define([
 			var self = this;
 			this.addEvent('injected', function() {
 				var direction = self.container.getStyle('flex-direction');
-				//_log('direction', direction, this.element);
+				//_log.debug('direction', direction, this.element);
 			});
 
 			if (this.options.useUnderlay)
@@ -100,7 +100,7 @@ define([
 
 			if (opts.node === null) return;
 
-			//_log('_initComponent', opts.node);
+			//_log.debug('_initComponent', opts.node);
 
 			this.node = [];
 
@@ -122,7 +122,7 @@ define([
 		 * @return {[type]}      [description]
 		 */
 		_initComp: function(comp) {
-			//_log('_initComp', comp);
+			//_log.debug('_initComp', comp);
 			var self = this;
 
 			if (typeOf(comp) === 'string' ) {
@@ -142,12 +142,12 @@ define([
 		 * @return {[type]}      [description]
 		 */
 		addComp: function(name, position, element) {
-			//_log('addComp', name, position, element);
+			//_log.debug('addComp', name, position, element);
 			var self = this;
 			position = position || 'bottom';
 			element = element || this.element;
 
-			//_log('_addComp', name);
+			//_log.debug('_addComp', name);
 
 			if (!element) {
 				_warn('Container is ', element);
@@ -161,7 +161,7 @@ define([
 			return comp;
 			/*this.addEvents({
 				resize: function() {
-					//_log('resize from head', this, this.head.getSize().y+'px');
+					//_log.debug('resize from head', this, this.head.getSize().y+'px');
 					this.element.setStyle('padding-top', this.head.getSize().y+'px');
 				}
 			});*/
@@ -216,7 +216,7 @@ define([
 		 * @param {[type]} title [description]
 		 */
 		getTitle: function(){
-			//_log('getTitle', this.title);
+			//_log.debug('getTitle', this.title);
 			if (this.title)
 				return this.title.get('html');
 		},
@@ -243,12 +243,12 @@ define([
 				}).inject(this[comp]);
 			}
 
-			//_log('_init'+comp.capitalize());
+			//_log.debug('_init'+comp.capitalize());
 			var menu = new Menu(opts);
 
 			this.menu[opts.name] = menu;
 
-			// _log('setMenu', opts.name, menu);
+			// _log.debug('setMenu', opts.name, menu);
 
 			menu.addEvents({
 				'toggle': function() {
@@ -325,15 +325,15 @@ define([
 
 			this.addEvents({
 				onBlur: function() {
-					//_log('blur');
+					//_log.debug('blur');
 					self.overlay.show();
 				},
 				onDragComplete: function() {
-					//_log('darg com', ui.window.underlay);
+					//_log.debug('darg com', ui.window.underlay);
 					self.overlay.hide();
 				},
 				onDragStart: function(){
-					//_log('darg start', this);
+					//_log.debug('darg start', this);
 					self.overlay.show();
 				},
 				onResizeComplete: function() {
@@ -351,7 +351,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		_initUnderlay: function() {
-			//_log('_initUnderlay', this.device);
+			//_log.debug('_initUnderlay', this.device);
 			var self = this;
 
 			this.underlay = new Element('div', {
@@ -364,7 +364,7 @@ define([
 
 			
 			this.underlay.addEvent('click', function() {
-				_log('click underlay');
+				_log.debug('click underlay');
 				self.minimize();
 			});
 

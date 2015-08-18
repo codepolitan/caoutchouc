@@ -100,7 +100,7 @@ define([
 		*/
 
 		init: function(container){
-			//_log('init');
+			//_log.debug('init');
 			this.container = container;
 			this.list = [];
 			this.zIndex = this.options.zBase;
@@ -123,7 +123,7 @@ define([
 		*/
 
 		register: function(win, group) {
-			//_log('register', win);
+			//_log.debug('register', win);
 			this.list.push(win);
 
 			if (group) {
@@ -179,7 +179,7 @@ define([
 			(void)
 		*/
 		focus: function(win) {
-			//_log('focus', win);
+			//_log.debug('focus', win);
 			if (win === null) {
 				//make next highest window focus
 				var zIndex = 0;
@@ -208,7 +208,7 @@ define([
 				this.active = win;
 				win.fireEvent('focus');
 
-				//_log('focus', win, win.grid, win.coord);
+				//_log.debug('focus', win, win.grid, win.coord);
 				if (win.grid) {
 					this.list.each(function(w){
 						win.setStyles(coord);
@@ -253,14 +253,14 @@ define([
 		getcoord: function(etat) {
 			var opts = this.options;
 			var x = 0;
-			//_log('getcoord:', opts[etat]);
+			//_log.debug('getcoord:', opts[etat]);
 			var coord = opts[etat].coord;
 			x += coord.left;
 
 			this.list.each(function(w, i) {
 				if (w.state === etat) {
 
-					//_log('getStackCoord:', i, x, coord.width,coord.offset);
+					//_log.debug('getStackCoord:', i, x, coord.width,coord.offset);
 
 					x += (coord.width) + coord.offset.x;
 				}
@@ -310,7 +310,7 @@ define([
 			(void)
 		*/
 		resizeMaximizedWindow: function(){
-			//_log('resizeMaximizedWindow');
+			//_log.debug('resizeMaximizedWindow');
 
 			this.list.each(function(win) {
 				if (win.state === 'maximized') {
@@ -452,7 +452,7 @@ define([
 
 				coord.left = start[0] + (offset[0] + size[0]) * column;
 
-				//_log(column);
+				//_log.debug(column);
 
 				if (coord.left > 1000) {
 					coord.left = start[0];

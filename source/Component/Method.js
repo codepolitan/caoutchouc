@@ -69,9 +69,9 @@ define([
 		 * @return {[type]} [description]
 		 */
 		getSize: function() {
-			//_log('------',typeOf(this.element));
+			//_log.debug('------',typeOf(this.element));
 			if (typeOf(this.element) == 'object')
-				//_log(this.options.name);
+				//_log.debug(this.options.name);
 
 			return this.element.getSize();
 		},

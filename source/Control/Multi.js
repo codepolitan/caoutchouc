@@ -26,7 +26,7 @@ define([
 
 			this.value = opts.value || [];
 
-			//_log(opts);
+			//_log.debug(opts);
 			this.input.set('type', 'text');
 			this.input.addClass(opts.klss);
 			this.element.addClass('ui-choice');
@@ -71,7 +71,7 @@ define([
 				if (this.hasClass('selected')) {
 					this.removeClass('selected');
 					var idx = self.value.indexOf(item);
-					_log(idx, item);
+					_log.debug(idx, item);
 					if (idx > -1)
 					self.value.splice(idx, 1);
 				} else {
@@ -79,7 +79,7 @@ define([
 					self.value.push(item);
 				}
 
-				_log(self.value);
+				_log.debug(self.value);
 
 				self.fireEvent('change', {
 					value: self.value,
@@ -93,7 +93,7 @@ define([
 
 
 		toggle: function() {
-			_log('toggle_selected', this.element);
+			_log.debug('toggle_selected', this.element);
 
 			if (this.selected)
 				this.selected.removeClass('selected');

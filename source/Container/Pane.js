@@ -96,7 +96,7 @@ UI.Pane = new Class({
 
 	add: function(where){
 		var self = this;
-		//_log(this, where);
+		//_log.debug(this, where);
 		where = where || 'bottom';
 
 		var pane = new UI.Container(this.options.pane)
@@ -196,7 +196,7 @@ UI.Pane = new Class({
 	back: function(){
 		var prev = this.list.indexOf(this.pane)-1;
 		if (this.list[prev]) {
-			//_log(prev);
+			//_log.debug(prev);
 			this.applyTransition(this.list[prev]);
 		}
 	},

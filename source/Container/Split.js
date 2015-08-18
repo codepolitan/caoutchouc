@@ -95,7 +95,7 @@ UI.Split = new Class({
 		this._initSize();
 
 		this.addEvent('resize', function() {
-			//_log('split resize');
+			//_log.debug('split resize');
 			self._render();
 			self.node.each(function(n) {
 				n.fireEvent('resize');
@@ -265,7 +265,7 @@ UI.Split = new Class({
 
 		this.addEvents({
 			resize: function() {
-				//_log('split resize', self.options.name, self.options.type);
+				//_log.debug('split resize', self.options.name, self.options.type);
 				self._initSize();
 
 			},
@@ -277,8 +277,8 @@ UI.Split = new Class({
 	},
 
 	toggleSide: function() {
-		//_log('toggle');
-		//_log(this.node[this.fixed].element,this.node[this.fixed].element.getStyle('width'));
+		//_log.debug('toggle');
+		//_log.debug(this.node[this.fixed].element,this.node[this.fixed].element.getStyle('width'));
 		var modifier = 'width';
 
 		if (this.options.type == 'horizontal')
@@ -307,7 +307,7 @@ UI.Split = new Class({
 			render
 	*/
 	_render: function() {
-		//_log('split view _remndre');
+		//_log.debug('split view _remndre');
 		var opts = this.options,
 			node = this.node;
 
@@ -317,7 +317,7 @@ UI.Split = new Class({
 		var space = splittercoord[opts.modifier[opts.type]];
 
 		if (this.options.type == 'vertical') {
-			//_log('---');
+			//_log.debug('---');
 			this.splitter.setStyle('top', this.element.getStyle('padding-top'));
 			node[0].setStyle('width', splittercoord.left - this.element.getCoordinates().left);
 			node[1].setStyles({

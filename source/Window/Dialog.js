@@ -94,7 +94,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		_initBody: function() {
-			//_log('_initBody', this.content);
+			//_log.debug('_initBody', this.content);
 
 			var message = this.options.message;
 
@@ -122,7 +122,7 @@ define([
 		 * @return {[type]}          [description]
 		 */
 		_initActions: function() {
-			//_log('_initActions', this.foot);
+			//_log.debug('_initActions', this.foot);
 			var self = this;
 
 			this.actions = this.actions || [];
@@ -143,7 +143,7 @@ define([
 			var list = control._list || [];
 
 			for (var i = 0; i < list.length; i++) {
-				//_log('for..loop', i);
+				//_log.debug('for..loop', i);
 				var name = list[i];
 				var opts = control[name];
 
@@ -159,7 +159,7 @@ define([
 		 * @return {[type]}           [description]
 		 */
 		_initAction: function(name, opts, toolbar) {
-			//_log('_intiAction', name, opts, toolbar);
+			//_log.debug('_intiAction', name, opts, toolbar);
 			var self = this;
 
 			var n = name.split('::');
@@ -172,7 +172,7 @@ define([
 				text: name,
 				klss: klss
 			}).addEvent('press', function(e){ 
-				//_log('press', name);
+				//_log.debug('press', name);
 				self.fireEvent(name);
 				self.close();
 			}).inject(toolbar);

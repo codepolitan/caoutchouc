@@ -29,7 +29,7 @@ define([
 		initialize: function(container, options){
 			this.setOptions(options);
 
-			//_log('UI.Selector.Border:',container, options);
+			//_log.debug('UI.Selector.Border:',container, options);
 
 			this.container = container;
 			this.lines = [];
@@ -79,7 +79,7 @@ define([
 
 			var infos = [];
 			var o = [];
-			//_log('boder reach', el);
+			//_log.debug('boder reach', el);
 			var bs = this.options.size;
 			var c = el.getCoordinates();
 
@@ -91,7 +91,7 @@ define([
 				c.bottom = pos.y + c.height;
 			}
 
-			//_log('coord',c,pos);
+			//_log.debug('coord',c,pos);
 
 			if (this.options.location == 'inside') {
 				infos = [

@@ -64,7 +64,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		_initInput: function()  {
-			_log('_initInput');
+			_log.debug('_initInput');
 			var	opts = this.options;
 
 			var input = this.input = new Element('textarea', {
@@ -113,7 +113,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		_updateInk: function(e) {
-			//_log('_updateInk');
+			//_log.debug('_updateInk');
 
 			if (this.readonly) {
 				e.stop();

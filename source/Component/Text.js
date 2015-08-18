@@ -49,7 +49,7 @@ define([
 		 * @param {mixin} value    [description]
 		 */
 		set: function(property, value) {
-			//_log('set', what, value);
+			//_log.debug('set', what, value);
 
 			// if set has a single params
 			if (value === undefined) {

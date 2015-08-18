@@ -64,7 +64,7 @@ UI.List.implement({
 	 * @return {[type]} [description]
 	 */
 	_initScrolling: function() {
-		//_log('_initScroller', this.scrolling);
+		//_log.debug('_initScroller', this.scrolling);
 
 		window.__S = null;
 
@@ -74,7 +74,7 @@ UI.List.implement({
 		// }
 
 		// this.scrolling = null;
-		//_log('destory ', this.scrolling);
+		//_log.debug('destory ', this.scrolling);
 
 		var wrapper = this.element;
 		var config = this.options.scrolling || {};
@@ -91,7 +91,7 @@ UI.List.implement({
 	 * @return {[type]} [description]
 	 */
 	_initScrollingIndicator: function() {
-		//_log('initScrollingIndicator', this.content);
+		//_log.debug('initScrollingIndicator', this.content);
 
 		//if (!this.content) return;
 

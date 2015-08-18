@@ -29,7 +29,7 @@ define([
 			//create a new div as input element
 			this.parent();
 
-			//_log(this.element);
+			//_log.debug(this.element);
 
 			this.input.addClass('mask');
 			this.input.set('alt', "{ type:'number', groupSymbol: ',', groupDigits: 3, decSymbol: '', decDigits: 0,	stripMask: false}");

@@ -84,7 +84,7 @@ UI.Slide = new Class({
 
 		this.options.container.addEvents({
 			resize: function() {
-				//_log('-----rrrr');
+				//_log.debug('-----rrrr');
 			},
 		})
 	},
@@ -98,7 +98,7 @@ UI.Slide = new Class({
 
 	add: function(where){
 		var self = this;
-		//_log(this, where);
+		//_log.debug(this, where);
 		where = where || 'bottom';
 
 		var slide = new UI.Container(this.options.slide)
@@ -191,7 +191,7 @@ UI.Slide = new Class({
 
 		this.reach(this.list[this.index]);
 
-		//_log('next',slide, this.index);
+		//_log.debug('next',slide, this.index);
 
 		return slide;
 	},
@@ -216,7 +216,7 @@ UI.Slide = new Class({
 
 		this.reach(this.list[this.index]);
 
-		//_log('back',slide, this.index);
+		//_log.debug('back',slide, this.index);
 
 		return slide;
 	},

@@ -50,7 +50,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		_initLayout: function(opts) {
-			//_log('initialize', opts);
+			//_log.debug('initialize', opts);
 			var node = opts.node;
 			this.settings = opts.settings || {};
 			this.component = {};
@@ -71,7 +71,7 @@ define([
 			var self = this;
 
 			window.addEvent('resize', function() {
-				//_log('layout resize', this.container.getCoordinates());
+				//_log.debug('layout resize', this.container.getCoordinates());
 				var coord = self.container.getCoordinates();
 				if (coord.width < 720 && self.navi) {
 					self.navi.minimize();
@@ -97,7 +97,7 @@ define([
 				'class': 'ui-layout layout-' + opts.node._name
 			}).inject(opts.container);
 
-			//_log('Layout container', this.container);
+			//_log.debug('Layout container', this.container);
 
 			this.container.addClass('ui-layout');
 			this.container.addClass('layout-' + opts.node._name);
@@ -114,11 +114,11 @@ define([
 		 * @return {[type]}      [description]
 		 */
 		_processComponents: function(node, type, level) {
-			//_log('_processComponents', node, type, level || 1);
+			//_log.debug('_processComponents', node, type, level || 1);
 			var list = node._list || [];
 				level = level++ || 1;
 
-			//_log('---!!! axis', node._axis);
+			//_log.debug('---!!! axis', node._axis);
 
 			if (type !== 'tab') {
 				this._initFlexDirection(node.container, node._axis);
@@ -126,7 +126,7 @@ define([
 
 
 			for (var i = 0, len = list.length; i < list.length; i++) {
-				//_log('--', list[i]);
+				//_log.debug('--', list[i]);
 				var name = list[i],
 					comp = node[name] || {};
 
@@ -140,7 +140,7 @@ define([
 					comp.opts.useUnderlay = true;
 
 				if (i === list.length - 1) {
-					//_log('last--', name);
+					//_log.debug('last--', name);
 					comp.opts.last = true;
 				}
 
@@ -151,7 +151,7 @@ define([
 				var component = this._initComponent(comp);
 
 				if (type === 'tab') {
-					//_log('tab', component);
+					//_log.debug('tab', component);
 					component.options.noResizer = true;
 					node.container.addTab(component);
 				}
@@ -177,7 +177,7 @@ define([
 		 * @return {[type]}           [description]
 		 */
 		_initFlexDirection: function(container, axis) {
-			//_log('_initFlexDirection', container, axis);
+			//_log.debug('_initFlexDirection', container, axis);
 
 			if (!container) return;
 
@@ -195,7 +195,7 @@ define([
 		 * @param {[type]} device [description]
 		 */
 		setDevice: function(device) {
-			//_log('setDevice');
+			//_log.debug('setDevice');
 
 			this.device = device;
 

@@ -68,7 +68,7 @@ define([
 			if (!this.readonly) {
 				check.addEvents({
 					click: function() {
-						//_log(self.checked);
+						//_log.debug(self.checked);
 						if (self.checked) {
 							self.checked = false;
 							this.removeClass('checked');
@@ -111,7 +111,7 @@ define([
 				html: opts.text
 			}).addEvents({
 				click: function() {
-					//_log(self.checked);
+					//_log.debug(self.checked);
 					if (self.checked) {
 						self.checked = false;
 						this.removeClass('checked');

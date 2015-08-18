@@ -76,7 +76,7 @@ define([
 			var infos = [];
 			var o = [];
 
-			//_log('maskreac',this.options.scope,el);
+			//_log.debug('maskreac',this.options.scope,el);
 
 			var content = this.options.scope.getScrollSize();
 

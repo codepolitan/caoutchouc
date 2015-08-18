@@ -23,16 +23,16 @@ ui.node = ui.node || {};
 // 			ui.node[name][node.name] = object;
 // 	} else if (typeOf(node) == 'array') {
 // 		node.each( function(sub, i) {
-// 			//_log('-----',name, sub, object.node[i]);
+// 			//_log.debug('-----',name, sub, object.node[i]);
 // 			//this.process(sub.name, sub, container);
 // 		},this);
 // 	}
 
-// 	//_log('node.node',node.node,object.node);
+// 	//_log.debug('node.node',node.node,object.node);
 // 	if (typeOf(node.node) == 'array') {
-// 	//_log('node.node',node.node);
+// 	//_log.debug('node.node',node.node);
 // 		node.node.each( function(sub, i) {
-// 			//_log('-----',name, sub, object.node[i]);
+// 			//_log.debug('-----',name, sub, object.node[i]);
 // 			this.process(name, sub, object.node[i]);
 // 		},this);
 // 	}

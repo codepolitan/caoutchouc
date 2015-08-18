@@ -54,12 +54,12 @@ define([
 			}).inject(this.element);
 
 			file.addEvent('change', function(info) {
-				_log('change', info);
+				_log.debug('change', info);
 			});
 
 			file.onchange = function(info) {
 				var files = this.files;
-				_log(files);
+				_log.debug(files);
 				if (files)
 				self.fireEvent('uploadFile', [files]);
 			};

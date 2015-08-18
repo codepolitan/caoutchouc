@@ -43,7 +43,7 @@ define([
 		_initInput: function()  {
 			var opts = this.options;
 
-			//_log('input option', opts.read, opts.name);
+			//_log.debug('input option', opts.read, opts.name);
 
 			this.element.addClass('field-date');
 			this.element.addClass('icon-text');
@@ -84,21 +84,21 @@ define([
 			//comment this because we already handle the select in the method down '_initEvents'
 
 			/*options.onSelect = function(d){
-				_log('onSelect', d);
+				_log.debug('onSelect', d);
 				self.fireEvent('change', [d, opts.name]);
 			};*/
 
 			options.onShow = function() {
-				_log('picker date show');
+				_log.debug('picker date show');
 			};
 
 			options.onHide = function() {
-				_log('picker date hide');
+				_log.debug('picker date hide');
 			};
 
 			this.picker = new Picker.Date(this.input, options);
 
-			//_log('pickcer', this.picker);
+			//_log.debug('pickcer', this.picker);
 		},
 
 		/*
@@ -122,7 +122,7 @@ define([
 
 			this.picker.addEvents({
 				select: function(date){
-					//_log('select', date);
+					//_log.debug('select', date);
 					self.set(date);
 					self.fireEvent('change', date);
 				}
@@ -134,7 +134,7 @@ define([
 		 * @param {[type]} d [description]
 		 */
 		set: function(date) {
-			//_log('set', date);
+			//_log.debug('set', date);
 			var opts = this.options;
 			var text;
 

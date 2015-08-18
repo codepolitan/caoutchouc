@@ -75,7 +75,7 @@ define([
 		*/
 
 		close: function(menu) {
-			//_log('close...');
+			//_log.debug('close...');
 			menu = menu || this.active;
 			menu.hide();
 			menu.fireEvent('onClose');

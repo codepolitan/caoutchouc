@@ -30,7 +30,7 @@ define([
 		_initElement: function(){
 			this.parent();
 
-			_log();
+			_log.debug();
 
 			this.control = {};
 		},
@@ -40,16 +40,16 @@ define([
 		 * @type {[type]}
 		 */
 		_initMenu: function(opts) {
-			_log('_initMenu');
+			_log.debug('_initMenu');
 			var self = this,
 				list = opts.list,
 				timer = null;
-			//_log(opts.list, this.element);
+			//_log.debug(opts.list, this.element);
 
 			opts.list = opts.list || [];
-			//_log(this.element);
+			//_log.debug(this.element);
 			this.container = $(this.element).getParent();
-			//_log(this.container);
+			//_log.debug(this.container);
 
 			
 
@@ -79,7 +79,7 @@ define([
 
 			var coord = this._initMenuPosition();
 			var size = this.menu.getSize();
-			//_log(size);
+			//_log.debug(size);
 
 			this.menu.setStyles({
 				top: coord.top,
@@ -87,7 +87,7 @@ define([
 
 			});
 
-			_log(this.menu);
+			_log.debug(this.menu);
 		},
 
 		/**
@@ -95,7 +95,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		_initMenuPosition: function() {
-			//_log('_initMenuPosition');
+			//_log.debug('_initMenuPosition');
 			var container = this.container.getParent().getCoordinates();
 			var coord = this.element.getCoordinates(this.container);
 
@@ -133,7 +133,7 @@ define([
 
 			if (def && def.opts) {
 				opts = def.opts;
-				_log('--', name, def.opts);
+				_log.debug('--', name, def.opts);
 				opts.text = Locale.get('control.'+name, name) || name;
 				opts.icon = mnml.icon.font[name] || 'mdi-action-help';
 				opts.tag = 'span';
@@ -153,14 +153,14 @@ define([
 
 			this._requireModule(clss, function(Clss) {
 
-				//_log('----', name, opts);
+				//_log.debug('----', name, opts);
 				self.control[name] = new Clss(opts).inject(element);
 				
 				if (clss === 'UI/Control/Button') {
 					self.control[name].addEvents({
 						press: function() {
 							var name =  this.options.name;
-							_log('press', name, this.isEnable());
+							_log.debug('press', name, this.isEnable());
 							if (this.isEnable()) {
 								//self.fireEvent('control::'+name, this);
 								self.fireEvent('press', name);
@@ -178,7 +178,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		_requireModule: function(module, cb) {
-			//_log('_requireModule', module);
+			//_log.debug('_requireModule', module);
 			if (typeOf(module) === 'class') {
 				cb(module);
 				return;
@@ -187,7 +187,7 @@ define([
 			require([module], function(Class) {
 				cb(Class);
 			}, function(err) {
-				//_log('ERROR', err);
+				//_log.debug('ERROR', err);
 				cb();
 			});
 		},
@@ -198,7 +198,7 @@ define([
 		 * @return {[type]}   [description]
 		 */
 		_onClick: function(e) {
-			_log('_onElementClick');
+			_log.debug('_onElementClick');
 			var opts = this.options;
 			e.stopPropagation();
 			
