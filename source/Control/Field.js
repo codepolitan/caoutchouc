@@ -49,20 +49,23 @@ define([
 
 			var opts = this.options;
 
-
+			_log.debug('_initElement', opts.name, opts.klss);
 
 			this.element.addClass('ui-field');
 
-			if (opts.klss)
+			if (opts.klss) {
 				this.element.addClass(opts.klss);
+			}
 
-			if (opts.label !== false)
+			if (opts.label !== false) {
 				this._initLabel();
+			}
 
 			this._initInput();
 
-			if (opts.error)
+			if (opts.error) {
 				this._initError();
+			}
 		},
 
 		/**
