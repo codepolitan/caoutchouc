@@ -14,7 +14,7 @@ define([
 	Resize
 ) {
 
-	_log = __debug('ui:layout');
+	var _log = __debug('ui:layout');
 
 	var exports = new Class({
 

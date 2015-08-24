@@ -10,6 +10,8 @@ define([
 	Control
 ) {
 
+	var _log = __debug('ui:control-field');
+
 	var exports = new Class({
 
 		Extends: Control,
