@@ -12,6 +12,8 @@ define([
 	Button
 ) {
 
+	var _log = __debug('ui:control-buttonMenu');
+
 	var exports = new Class({
 
 		Extends: Button,
@@ -30,7 +32,7 @@ define([
 		_initElement: function(){
 			this.parent();
 
-			_log.debug();
+			_log.debug('_initElement');
 
 			this.control = {};
 		},

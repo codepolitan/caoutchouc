@@ -10,7 +10,7 @@ define([
 	Control
 ) {
 
-	var _log = __debug('ui:button');
+	var _log = __debug('ui:control-button');
 
 	var exports = new Class({
 
