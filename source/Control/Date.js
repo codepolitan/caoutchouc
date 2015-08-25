@@ -15,6 +15,8 @@ define([
 	Field
 ) {
 
+	var _log = __debug('ui:control-date');
+
 	var exports = new Class({
 
 		Extends: Field,
