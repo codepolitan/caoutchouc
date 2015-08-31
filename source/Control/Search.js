@@ -65,6 +65,17 @@ define([
 			this._initReset();
 		},
 
+		/**
+		 * [_initInput description]
+		 * @return {[type]} [description]
+		 */
+		_initInput: function()  {
+			//_log.debug('_initInput', this.options);
+			this.parent();
+
+			this.input.set('autocomplete', 'off');
+		},
+
 		/*
 		Function: _initReset
 			private function
