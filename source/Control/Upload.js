@@ -32,10 +32,11 @@ define([
 		 * @return {[type]} [description]
 		 */
 		_initElement: function(){
+			console.log('upload');
 			this.parent();
 			var opts = this.options;
 
-			this._initFile(type);
+			this._initFile(opts.type);
 		},
 
 		/**
@@ -54,14 +55,17 @@ define([
 			}).inject(this.element);
 
 			file.addEvent('change', function(info) {
-				_log.debug('change', info);
+				_log.debug('change mootools', info);
 			});
 
 			file.onchange = function(info) {
+				_log.debug('onchage native', info, this.files);
 				var files = this.files;
-				_log.debug(files);
-				if (files)
-				self.fireEvent('uploadFile', [files]);
+				
+				if (files) {
+					_log.debug('fireevent uploadFile', files);
+					self.fireEvent('uploadFile', [files]);
+				}
 			};
 
 
