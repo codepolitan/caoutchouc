@@ -16,7 +16,8 @@ define([
 		Extends: Field,
 
 		options: {
-			name: 'choice'
+			name: 'choice',
+			//error: false,
 		},
 
 		/**
@@ -38,7 +39,7 @@ define([
 
 			this.wrapper = new Element('div', {
 				'class': 'choice-wrapper'
-			}).inject(this.element);
+			}).inject(this.label, 'after');
 
 			this.choice = new Element('span', {
 				'class': 'choice-text',
@@ -62,7 +63,7 @@ define([
 			var self = this;
 			this.list = new Element('ul', {
 				'class': 'choice-list'
-			}).inject(this.element);
+			}).inject(this.label, 'after');
 
 			this.itemList = [];
 
