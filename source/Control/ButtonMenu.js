@@ -42,7 +42,7 @@ define([
 		 * @return {void}
 		 */
 		_initMenu: function(opts) {
-			_log.debug('_initMenu');
+			_log.debug('_initMenu', opts);
 
 			var timer = null;
 
@@ -82,7 +82,7 @@ define([
 
 			for (var i = 0; i < opts.list.length; i++) {
 				var name = opts.list[i];
-				var def = opts.list[name];
+				var def = opts[name];
 				this._initItem(name, def, this.menu);
 			}
 
@@ -123,6 +123,8 @@ define([
 			var clss = 'UI/Control/Button';
 			var opts;
 
+			def = def || {};
+
 			// init class
 			var l = name.split(/\:\:/);
 
@@ -135,17 +137,17 @@ define([
 				clss = 'UI/Control/Separator';
 			}
 
-			if (def && def.clss) {
+			if (def.clss) {
 				clss = def.clss;
 			}
 
-			var icon = mnml.icon.font[name] || 'mdi-action-help';
+			var icon = mnml.icon.font[def.icon || name] || 'mdi-action-help';
 
 			_log.debug('_initItem', name, icon);
 
-			if (def && def.opts) {
+			if (def.opts) {
 				opts = def.opts;
-				opts.text = Locale.get('control.' + name, name) || name;
+				opts.text = def.text || Locale.get('control.' + name, name) || name;
 				opts.icon = icon;
 				opts.tag = 'span';
 			} else {
@@ -160,7 +162,7 @@ define([
 			}
 
 			if (clss === 'UI/Control/Button' || clss === 'UI/Control/ButtonMenu') {
-				opts.text = Locale.get('control.' + name, name) || name;
+				opts.text = def.text || Locale.get('control.' + name, name) || name;
 			}
 
 			this._requireModule(clss, function(Clss) {
