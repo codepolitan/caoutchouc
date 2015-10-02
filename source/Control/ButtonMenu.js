@@ -1,4 +1,3 @@
-
 /**
  * UI COntrol ButtonMenu Class
  * @class UI.Control.ButtonMenu
@@ -27,9 +26,9 @@ define([
 
 		/**
 		 * [_initElement description]
-		 * @return {[type]} [description]
+		 * @return {void}
 		 */
-		_initElement: function(){
+		_initElement: function() {
 			this.parent();
 
 			_log.debug('_initElement');
@@ -39,48 +38,56 @@ define([
 
 		/**
 		 * [_initToolbarComp description]
-		 * @type {[type]}
+		 * @param {Object} opts
+		 * @return {void}
 		 */
 		_initMenu: function(opts) {
 			_log.debug('_initMenu');
-			var self = this,
-				list = opts.list,
-				timer = null;
-			//_log.debug(opts.list, this.element);
+
+			var timer = null;
+
+			_log.debug(opts.list, this.element);
 
 			opts.list = opts.list || [];
 			//_log.debug(this.element);
 			this.container = $(this.element).getParent();
 			//_log.debug(this.container);
 
-			
-
 			var menu = this.menu = new Element('ul', {
 				class: 'button-menu'
 			}).addEvents({
+				/**
+				 * @ignore
+				 */
 				mouseleave: function() {
 					clearTimeout(timer);
 					timer = setTimeout(function() {
 						menu.setStyle('display', 'none');
 					}, 500);
 				},
+				/**
+				 * @ignore
+				 */
 				mouseenter: function() {
 					clearTimeout(timer);
 				},
+				/**
+				 * @ignore
+				 */
 				click: function() {
 					menu.setStyle('display', 'none');
 				}
 			}).inject(this.container, 'bottom');
 
 
-			for (var i= 0; i < opts.list.length; i++) {
+			for (var i = 0; i < opts.list.length; i++) {
 				var name = opts.list[i];
 				var def = opts.list[name];
 				this._initItem(name, def, this.menu);
 			}
 
 			var coord = this._initMenuPosition();
-			var size = this.menu.getSize();
+			//var size = this.menu.getSize();
 			//_log.debug(size);
 
 			this.menu.setStyles({
@@ -94,11 +101,11 @@ define([
 
 		/**
 		 * [_initMenuPosition description]
-		 * @return {[type]} [description]
+		 * @return {Object}
 		 */
 		_initMenuPosition: function() {
 			//_log.debug('_initMenuPosition');
-			var container = this.container.getParent().getCoordinates();
+			//var container = this.container.getParent().getCoordinates();
 			var coord = this.element.getCoordinates(this.container);
 
 			return coord;
@@ -106,37 +113,36 @@ define([
 
 		/**
 		 * [_initItem description]
-		 * @param  {[type]} name    [description]
-		 * @param  {[type]} def     [description]
-		 * @param  {[type]} element [description]
-		 * @return {[type]}         [description]
+		 * @param  {string} name
+		 * @param  {Object} def
+		 * @param  {HTMLElement} element
+		 * @return {void}
 		 */
-		_initItem: function(name, def, element){
-			var self = this,
-				clss = 'UI/Control/Button',
-				comp,
-				opts;
-
+		_initItem: function(name, def, element) {
+			var self = this;
+			var clss = 'UI/Control/Button';
+			var opts;
 
 			// init class
 			var l = name.split(/\:\:/);
 
 			name = l[0];
-			l.splice(0,1);
+			l.splice(0, 1);
 
-			var klss = l.join(' ');
+			//var klss = l.join(' ');
 
-
-			if (name === 'separator')
+			if (name === 'separator') {
 				clss = 'UI/Control/Separator';
+			}
 
-			if (def && def.clss)
+			if (def && def.clss) {
 				clss = def.clss;
+			}
 
 			if (def && def.opts) {
+				//_log.debug('--', name, def.opts);
 				opts = def.opts;
-				_log.debug('--', name, def.opts);
-				opts.text = Locale.get('control.'+name, name) || name;
+				opts.text = Locale.get('control.' + name, name) || name;
 				opts.icon = mnml.icon.font[name] || 'mdi-action-help';
 				opts.tag = 'span';
 			} else {
@@ -146,27 +152,29 @@ define([
 				};
 			}
 
-			if (!name) return;
-
-			if (clss === 'UI/Control/Button' || clss === 'UI/Control/ButtonMenu') {
-				opts.text = Locale.get('control.'+name, name) || name;
+			if (!name) {
+				return;
 			}
 
+			if (clss === 'UI/Control/Button' || clss === 'UI/Control/ButtonMenu') {
+				opts.text = Locale.get('control.' + name, name) || name;
+			}
 
 			this._requireModule(clss, function(Clss) {
 
-				//_log.debug('----', name, opts);
 				self.control[name] = new Clss(opts).inject(element);
-				
+
 				if (clss === 'UI/Control/Button') {
 					self.control[name].addEvents({
+						/**
+						 * @ignore
+						 */
 						press: function() {
-							var name =  this.options.name;
+							var name = this.options.name;
 							_log.debug('press', name, this.isEnable());
 							if (this.isEnable()) {
 								//self.fireEvent('control::'+name, this);
 								self.fireEvent('press', name);
-								
 							}
 							self.menu.hide();
 						}
@@ -177,10 +185,13 @@ define([
 
 		/**
 		 * [_requireView description]
-		 * @return {[type]} [description]
+		 * @param {string|Object} module
+		 * @param {Function} cb
+		 * @return {void}
 		 */
 		_requireModule: function(module, cb) {
-			//_log.debug('_requireModule', module);
+			_log.debug('_requireModule', module);
+
 			if (typeOf(module) === 'class') {
 				cb(module);
 				return;
@@ -189,25 +200,30 @@ define([
 			require([module], function(Class) {
 				cb(Class);
 			}, function(err) {
-				//_log.debug('ERROR', err);
+				_log.error(err);
 				cb();
 			});
 		},
 
 		/**
 		 * [_onElementMouseDown description]
-		 * @param  {event} e [description]
-		 * @return {[type]}   [description]
+		 * @param  {event} e
+		 * @return {void}
 		 */
 		_onClick: function(e) {
 			_log.debug('_onElementClick');
+
 			var opts = this.options;
+
 			e.stopPropagation();
-			
-			if (!this.menu) this._initMenu(opts);
+
+			if (!this.menu) {
+				this._initMenu(opts);
+			}
 
 			this.menu.setStyle('display', 'block');
 		}
+
 	});
 
 	return exports;
