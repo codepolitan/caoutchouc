@@ -1,15 +1,14 @@
-
 /**
-* Component Class
-* The base class for all ui components
-*
-* @class UI.Component
-* @extends {UI}
-* @return {parent} Class
-* @example (start code)	new UI.Context(object); (end)
-* @author [moolego,r2d2]
-* @copyright © 1999-2015 - Jerome D. Vial. All Rights reserved.
-*/
+ * Component Class
+ * The base class for all ui components
+ *
+ * @class UI.Component
+ * @extends {UI}
+ * @return {parent} Class
+ * @example (start code)	new UI.Context(object); (end)
+ * @author [moolego,r2d2]
+ * @copyright © 1999-2015 - Jerome D. Vial. All Rights reserved.
+ */
 define([
 	'UI/Component/Binding',
 	'UI/Component/Method',
@@ -61,7 +60,7 @@ define([
 		 * @param  {Object} options [description]
 		 * @return {Object}         [description]
 		 */
-		initialize: function(options){
+		initialize: function(options) {
 			this.setOptions(options);
 
 			this.fireEvent('init');
@@ -78,11 +77,11 @@ define([
 		 * Setter for the state of the component
 		 * @param {string} state active/disable etc...
 		 */
-		setState: function(state){
-			this.element.removeClass('state-'+this.state);
+		setState: function(state) {
+			this.element.removeClass('state-' + this.state);
 
 			if (state) {
-				this.element.addClass('state-'+state);
+				this.element.addClass('state-' + state);
 			}
 
 			this.state = state;
@@ -121,7 +120,7 @@ define([
 		 * [_initOptions description]
 		 * @return {void}
 		 */
-		_initOptions: function(){
+		_initOptions: function() {
 			var opts = this.options;
 			//this.name = this.options.name;
 			this.main = opts.main || opts.name;
@@ -139,7 +138,7 @@ define([
 		 * [_initState description]
 		 * @return {void}
 		 */
-		_initState: function(){
+		_initState: function() {
 			this.setState(this.options.state);
 		},
 
@@ -147,7 +146,7 @@ define([
 		 * [_initElement description]
 		 * @return {void}
 		 */
-		_initElement: function(){
+		_initElement: function() {
 			_log.debug('_initElement');
 
 			var opts = this.options;
@@ -189,14 +188,14 @@ define([
 			var opts = this.options;
 			var prop = {};
 			var props = [
-					'id', 'name', 'type',
-					'klass', 'styles',
-					'html',	'title',
-					'events'
-				];
+				'id', 'name', 'type',
+				'klass', 'styles',
+				'html', 'title',
+				'events'
+			];
 			//var cuts = ['name', 'tag'];
 
-			for (var i = 0; i < props.length; i++ ) {
+			for (var i = 0; i < props.length; i++) {
 				var name = props[i];
 
 				if (name === 'klass') {
@@ -246,7 +245,7 @@ define([
 		 * [_initEvents description]
 		 * @return {void}
 		 */
-		_initEvents: function(){
+		_initEvents: function() {
 			//_log.debug('_initEvents');
 			var self = this;
 			var opts = this.options;
@@ -288,8 +287,8 @@ define([
 		 * @return {Object}
 		 * @deprecated Use setContent instead
 		 */
-		setHtmlContent: function(source){
-			this.content.set('html',source);
+		setHtmlContent: function(source) {
+			this.content.set('html', source);
 			this.fireEvent('loadComplete');
 			this.fireEvent('resize');
 
@@ -301,7 +300,7 @@ define([
 		 * @param {string} content [description]
 		 */
 		setContent: function(content) {
-			this.content.set('html',content);
+			this.content.set('html', content);
 
 			this.fireEvent('resize');
 
@@ -314,7 +313,7 @@ define([
 		 * @param  {string} position
 		 * @return {Object}
 		 */
-		inject: function(container, position){
+		inject: function(container, position) {
 			_log.debug('inject', container, position);
 
 			this.fireEvent('inject');
@@ -328,7 +327,7 @@ define([
 			}
 
 			//_log.debug('container', container);
-			if(container && container.component !== 'window') {
+			if (container && container.component !== 'window') {
 				//_log.debug('element', this.element, this.container);
 				//if (!this.container )
 				this.element.inject(this.container, position);
@@ -352,4 +351,3 @@ define([
 
 	return exports;
 });
-
