@@ -139,16 +139,19 @@ define([
 				clss = def.clss;
 			}
 
+			var icon = mnml.icon.font[name] || 'mdi-action-help';
+
+			_log.debug('_initItem', name, icon);
+
 			if (def && def.opts) {
-				//_log.debug('--', name, def.opts);
 				opts = def.opts;
 				opts.text = Locale.get('control.' + name, name) || name;
-				opts.icon = mnml.icon.font[name] || 'mdi-action-help';
+				opts.icon = icon;
 				opts.tag = 'span';
 			} else {
 				opts = {
 					name: name,
-					icon: mnml.icon.font[name] || 'mdi-action-help'
+					icon: icon
 				};
 			}
 

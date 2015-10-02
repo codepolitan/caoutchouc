@@ -5,27 +5,17 @@
 *
 * @class UI.Component
 * @extends {UI}
-* @Require Mootools
 * @return {parent} Class
 * @example (start code)	new UI.Context(object); (end)
 * @author [moolego,r2d2]
 * @copyright © 1999-2015 - Jerome D. Vial. All Rights reserved.
 */
-
-/**
- * Core App
- *
- * @class Core.App
- * @extends {Minimal.View}
- * @author Jerome Vial, Bruno Santos
- */
-
 define([
-	"UI/Component/Binding",
-	"UI/Component/Method",
-	"UI/Component/Location",
-	"UI/Component/Drag",
-	"UI/Component/Resize"
+	'UI/Component/Binding',
+	'UI/Component/Method',
+	'UI/Component/Location',
+	'UI/Component/Drag',
+	'UI/Component/Resize'
 ], function(
 	Binding,
 	Method,
@@ -33,6 +23,8 @@ define([
 	Drag,
 	Resize
 ) {
+
+	var _log = __debug('ui:component');
 
 	var exports = new Class({
 
@@ -84,13 +76,14 @@ define([
 
 		/**
 		 * Setter for the state of the component
-		 * @param {String} state active/disable etc...
+		 * @param {string} state active/disable etc...
 		 */
 		setState: function(state){
 			this.element.removeClass('state-'+this.state);
 
-			if (state)
+			if (state) {
 				this.element.addClass('state-'+state);
+			}
 
 			this.state = state;
 			this.fireEvent('state', state);
@@ -100,12 +93,13 @@ define([
 
 		/**
 		 * [addComponent description]
-		 * @param {[type]} node [description]
+		 * @param {Object} node
 		 */
 		addComponent: function(node) {
 			_log.debug('addComponent', node);
-			if (!node.component)
+			if (!node.component) {
 				node.component = 'container';
+			}
 
 			node.container = this.element;
 			node.main = this.main;
@@ -125,7 +119,7 @@ define([
 
 		/**
 		 * [_initOptions description]
-		 * @return {[type]}
+		 * @return {void}
 		 */
 		_initOptions: function(){
 			var opts = this.options;
@@ -143,7 +137,7 @@ define([
 
 		/**
 		 * [_initState description]
-		 * @return {[type]}
+		 * @return {void}
 		 */
 		_initState: function(){
 			this.setState(this.options.state);
@@ -151,11 +145,12 @@ define([
 
 		/**
 		 * [_initElement description]
-		 * @return {[type]}
+		 * @return {void}
 		 */
 		_initElement: function(){
-			var self = this,
-				opts = this.options;
+			_log.debug('_initElement');
+
+			var opts = this.options;
 
 			this.fireEvent('create');
 
@@ -163,7 +158,7 @@ define([
 			var prop = this._initProps();
 
 			var tag = opts.tag || opts.element.tag;
-			var name = opts.name || opts.element.name;
+			//var name = opts.name || opts.element.name;
 
 			var element = new Element(tag, prop);
 
@@ -186,30 +181,33 @@ define([
 
 		/**
 		 * [_initProps description]
-		 * @return {[type]}
+		 * @return {Object}
 		 */
 		_initProps: function() {
-			//_log.debug('_initProps');
-			var opts = this.options,
-				prop = {},
-				props = [
+			_log.debug('_initProps');
+
+			var opts = this.options;
+			var prop = {};
+			var props = [
 					'id', 'name', 'type',
 					'klass', 'styles',
 					'html',	'title',
 					'events'
-				],
-				cuts = ['name', 'tag'];
+				];
+			//var cuts = ['name', 'tag'];
 
 			for (var i = 0; i < props.length; i++ ) {
 				var name = props[i];
 
-				if (name === 'klass')
+				if (name === 'klass') {
 					name = 'class';
+				}
 
 				//_log.debug('-', name, props[i]);
 
-				if (opts.element.attr[name])
+				if (opts.element.attr[name]) {
 					prop[name] = opts.element.attr[props[i]];
+				}
 			}
 
 			return prop;
@@ -217,13 +215,13 @@ define([
 
 		/**
 		 * [_initElementType description]
-		 * @return {[type]}
+		 * @return {void}
 		 */
 		_initElementType: function() {},
 
 		/**
 		 * [_initClass description]
-		 * @return {[type]}
+		 * @return {void}
 		 */
 		_initClass: function() {
 			var opts = this.options;
@@ -231,63 +229,63 @@ define([
 			//this.element.addClass(opts.prefix + opts.name);
 			var klass = opts.klass || opts.element.klass;
 
-			if (klass)
+			if (klass) {
 				this.element.addClass(klass);
+			}
 
-			if (opts.type && typeOf(opts.type) !== undefined)
+			if (opts.type && typeOf(opts.type) !== undefined) {
 				this.element.addClass('type-' + opts.type);
+			}
 
-			if (opts.state && typeOf(opts.state) !== undefined)
+			if (opts.state && typeOf(opts.state) !== undefined) {
 				this.element.addClass('state-' + opts.state);
+			}
 		},
 
-		/*
-			function : _initEvents
-
-				Build the split containers
-
-		*/
+		/**
+		 * [_initEvents description]
+		 * @return {void}
+		 */
 		_initEvents: function(){
 			//_log.debug('_initEvents');
-			var self = this,
-				opts = this.options;
+			var self = this;
+			var opts = this.options;
 
 			this.addEvents({
+				/**
+				 * @ignore
+				 */
 				injected: function() {
-					if ( opts.resizable && self._initResizer )
+					if (opts.resizable && self._initResizer) {
 						self._initResizer();
+					}
 				},
+				/**
+				 * @ignore
+				 */
 				device: function(device) {
 					//_log.debug('device', device);
 					self.device = device;
 				}
 			});
 
-			if (this.options.draggable && this.enableDrag)
+			if (this.options.draggable && this.enableDrag) {
 				this.enableDrag();
+			}
 		},
 
 		/**
 		 * [getName description]
-		 * @return {[type]} [description]
+		 * @return {string} name
 		 */
 		getName: function() {
 			return this.options.name || this.name;
 		},
 
-		/*
-		Function: setHtmlContent
-			Set html Content
-
-		Arguments:
-			source - (string) source's html
-
-		Returns:
-			this
-		*/
 		/**
 		 * set html to element
-		 * @param {String} source [description]
+		 * @param {string} source - (string) source's html
+		 * @return {Object}
 		 * @deprecated Use setContent instead
 		 */
 		setHtmlContent: function(source){
@@ -300,7 +298,7 @@ define([
 
 		/**
 		 * set content of the element
-		 * @param {String} content [description]
+		 * @param {string} content [description]
 		 */
 		setContent: function(content) {
 			this.content.set('html',content);
@@ -312,20 +310,21 @@ define([
 
 		/**
 		 * [inject description]
-		 * @param  {[type]}
-		 * @param  {[type]}
-		 * @return {[type]}
+		 * @param  {Object} container
+		 * @param  {string} position
+		 * @return {Object}
 		 */
 		inject: function(container, position){
-			var self = this;
+			_log.debug('inject', container, position);
 
 			this.fireEvent('inject');
 
-			if (typeOf(container) === 'element')
+			if (typeOf(container) === 'element') {
 				this.container = container;
-			else if (typeOf(container) === 'object') {
-				if (container.element)
-				this.container = container.element;
+			} else if (typeOf(container) === 'object') {
+				if (container.element) {
+					this.container = container.element;
+				}
 			}
 
 			//_log.debug('container', container);
@@ -337,8 +336,9 @@ define([
 				else this.element.inject(this.element, position);*/
 			}
 
-			if (this.setSize)
+			if (this.setSize) {
 				this.setSize();
+			}
 
 			//this.size = this.element.getSize();
 			//ui.controller.element.register(this);
