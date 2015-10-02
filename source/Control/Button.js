@@ -71,7 +71,7 @@ define([
 			this.element.set('title', opts.text);
 
 			if (opts.icon) {
-				this._initIcon(type, opts.name);
+				this._initIcon(type, opts.icon || opts.name);
 			}
 
 			if (opts.text) {
