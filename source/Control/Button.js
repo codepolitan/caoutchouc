@@ -1,11 +1,10 @@
-
 /**
  * @class UI.Control.Button
  * @extends {UI.Control}
  * @type {Class}
  */
 define([
-	"UI/Control/Control"
+	'UI/Control/Control'
 ], function(
 	Control
 ) {
@@ -37,52 +36,63 @@ define([
 			}
 		},
 
+		/**
+		 * [set description]
+		 */
 		set: function() {},
 
 		/**
 		 * [_initElement description]
-		 * @return {[type]} [description]
+		 * @return {void}
 		 */
-		_initElement: function(){
+		_initElement: function() {
 			this.parent();
-			var opts = this.options,
-				type = opts.type;
+
+			var opts = this.options;
+			var type = opts.type;
 
 			opts.text = opts.text || opts.n;
 
-			if (type === null)
+			if (type === null) {
 				type = 'icon-text';
+			}
 
-	/*		if (opts.text && type != 'icon')
-				this.element.set('html', opts.text);*/
+			/*if (opts.text && type != 'icon') {
+				this.element.set('html', opts.text);
+			}*/
 			//var text = opts.type.match(/text/g);
 
-			if (opts.name)
+			if (opts.name) {
 				this.element.set('data-name', opts.name);
+			}
 
-			//_log.debug('title', this.element,  opts.text);
+			_log.debug('title', this.element, opts.text);
+
 			this.element.set('title', opts.text);
 
-			if (opts.icon)
+			if (opts.icon) {
 				this._initIcon(type, opts.name);
+			}
 
-			if (opts.text)
+			if (opts.text) {
 				this._initText(type);
+			}
 
-			if (opts.ink)
+			if (opts.ink) {
 				this._initSensor();
-			else this.sensor = this.element;
+			} else {
+				this.sensor = this.element;
+			}
 		},
 
 
 		/**
 		 * [_initIcon description]
-		 * @param  {[type]} type [description]
-		 * @return {[type]}      [description]
+		 * @param  {string} type
+		 * @return {string}
 		 */
 		_initIcon: function(type, name) {
-			//_log.debug('_initIcon', type, name);
-			var opts = this.options;
+			_log.debug('_initIcon', type, name);
 
 			var tag = 'span';
 			var code = name;
@@ -105,19 +115,21 @@ define([
 				code = mnml.icon.font[name];
 			}
 
-			if (klss)
+			if (klss) {
 				this.icon.addClass(klss);
+			}
 
-			if (code)
+			if (code) {
 				this.icon.addClass(code);
+			}
 		},
 
 		/**
 		 * [_initText description]
-		 * @param  {[type]} type [description]
-		 * @return {[type]}      [description]
+		 * @param  {string} type
+		 * @return {void}
 		 */
-		_initText: function(type) {	
+		_initText: function(type) {
 			var opts = this.options;
 
 			var tag = 'span';
@@ -131,39 +143,41 @@ define([
 				'class': 'ui-text',
 				'html': opts.text
 			}).inject(this.element, pos);
-
 		},
 
 		/**
 		 * [_initClass description]
-		 * @return {[type]} [description]
+		 * @return {void}
 		 */
 		_initClass: function() {
 			var opts = this.options;
 			//_log.debug(this.name);
 
-			if (this.options.isPrimary)
+			if (this.options.isPrimary) {
 				this.element.addClass('is-primary');
+			}
 
-			if (this.options.klss)
+			if (this.options.klss) {
 				this.element.addClass(opts.klss);
+			}
 
-			if (this.options.type)
+			if (this.options.type) {
 				this.element.addClass('type-' + this.options.type);
+			}
 
 			this.element.addClass(opts.prefix + this.name);
 
-			if (this.options.clss)
+			if (this.options.clss) {
 				this.element.addClass(this.options.clss);
+			}
 		},
 
 		/**
 		 * [_initText description]
-		 * @param  {[type]} type [description]
-		 * @return {[type]}      [description]
+		 * @return {void}
 		 */
-		_initSensor: function(type) {
-			var opts = this.options;
+		_initSensor: function() {
+			_log.debug('_initSensor');
 
 			var tag = 'div';
 
@@ -174,15 +188,16 @@ define([
 
 		/**
 		 * [_initEffect description]
-		 * @param  {[type]} inner [description]
-		 * @param  {[type]} x     [description]
-		 * @param  {[type]} y     [description]
-		 * @return {[type]}       [description]
+		 * @param  {string} ink
+		 * @param  {string} x
+		 * @param  {string} y
+		 * @param  {Object} coord
+		 * @return {void}
 		 */
 		_touchInk: function(ink, x, y, coord) {
-			var size = coord.height,
-				top = 0,
-				duration = 1000;
+			var size = coord.height;
+			var top = 0;
+			var duration = 1000;
 
 			this.ink = ink;
 
@@ -192,16 +207,16 @@ define([
 			}
 
 			var fx = new Fx.Morph(ink, {
-			    duration: duration,
-			    link: 'chain',
-			    transition: Fx.Transitions.Quart.easeOut
+				duration: duration,
+				link: 'chain',
+				transition: Fx.Transitions.Quart.easeOut
 			});
 
 			fx.start({
-			    height: size,
-			    width: size,
-			    left: 0,
-			    top: top,
+				height: size,
+				width: size,
+				left: 0,
+				top: top,
 				opacity: 0
 			});
 
@@ -212,51 +227,62 @@ define([
 
 		/**
 		 * [_onElementMouseDown description]
-		 * @param  {event} e [description]
-		 * @return {[type]}   [description]
+		 * @param  {event} e
+		 * @return {void}
 		 */
 		_onClick: function(e) {
-			//_log.debug('_onElementClick', e);
-			var opts = this.options;
-			e.stopPropagation();
-			if (opts.emit && this.state !== 'disabled')
-				this.fireEvent(opts.emit);
-				this.fireEvent('press', opts.emit);
-				this.fireEvent('pressed', opts.emit);
+			_log.debug('_onElementClick', e);
 
-			if (opts.call && this.state !== 'disabled')
+			var opts = this.options;
+
+			e.stopPropagation();
+
+			if (opts.emit && this.state !== 'disabled') {
+				this.fireEvent(opts.emit);
+			}
+			this.fireEvent('press', opts.emit);
+			this.fireEvent('pressed', opts.emit);
+
+			if (opts.call && this.state !== 'disabled') {
 				opts.call();
+			}
 		},
 
 		/**
 		 * [_onElementMouseDown description]
-		 * @param  {event} e [description]
-		 * @return {[type]}   [description]
+		 * @param  {event} e
+		 * @return {void}
 		 */
 		_onDblClick: function(e) {
 			var opts = this.options;
+
 			e.stop();
-			if (opts.emit && this.state !== 'disabled')
+
+			if (opts.emit && this.state !== 'disabled') {
 				this.fireEvent('dblpress', opts.emit);
-				this.fireEvent('dblpressed', opts.emit);
+			}
+
+			this.fireEvent('dblpressed', opts.emit);
 		},
 
 		/**
 		 * [_onElementMouseDown description]
-		 * @param  {event} e [description]
-		 * @return {[type]}   [description]
+		 * @param  {event} e
+		 * @return {Object}
 		 */
 		_onMouseDown: function(e) {
 			//_log.debug('_onElementMouseDown', e);
 
 			e.stop();
 
-			if (this.state === 'disabled') return;
+			if (this.state === 'disabled') {
+				return;
+			}
 
 			var x = e.event.offsetX;
 			var y = e.event.offsetY;
 
-			coord = this.element.getCoordinates(this.element);
+			var coord = this.element.getCoordinates(this.element);
 
 			var ink = this.ink = new Element('span', {
 				class: 'ui-ink',
@@ -273,41 +299,44 @@ define([
 
 		/**
 		 * [_onElementMouseDown description]
-		 * @param  {event} e [description]
-		 * @return {[type]}   [description]
+		 * @param  {event} e
+		 * @return {void}
 		 */
 		_onMouseLeave: function(e) {
-			//_log.debug('_onMouseLeave', e);
+			_log.debug('_onMouseLeave', e);
 
 
 		},
 
 		/**
 		 * [_onElementMouseDown description]
-		 * @param  {event} e [description]
-		 * @return {[type]}   [description]
+		 * @param  {event} e
+		 * @return {void}
 		 */
 		_onMouseEnter: function(e) {
-			//_log.debug('_onElementMouseDown', e);
+			_log.debug('_onElementMouseDown', e);
 
 
 		},
 
 		/**
 		 * [_onElementMouseUp description]
-		 * @return {[type]} [description]
+		 * @return {void}
 		 */
-		_onMouseUp: function(e){
-			//_log.debug('_onElementMouseUp', e);
+		_onMouseUp: function(e) {
+			_log.debug('_onElementMouseUp', e);
 
-			var opts = this.options;
 			if (this.options.type === 'check') {
-				if (this.state === 'checked')
+				if (this.state === 'checked') {
 					this.setState(null);
-				else this.setState('checked');
+				} else {
+					this.setState('checked');
+				}
 			}
+
 			//this.react.destroy();
 		}
+
 	});
 
 	return exports;
