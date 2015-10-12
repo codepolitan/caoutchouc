@@ -1,4 +1,3 @@
-
 var UI = UI || {},
 	Class = Class || function() {},
 	Locale = Locale || {},
@@ -24,6 +23,8 @@ define([
 	ButtonMenu
 ) {
 
+	var _log = __debug('ui:control-dropdown').defineLevel();
+
 	var exports = new Class({
 
 		Extends: Field,
@@ -34,9 +35,9 @@ define([
 			name: 'dropdown',
 			type: 'text', // push, file
 			menuFx: {
-			    duration: 150,
-			    link: 'chain',
-			    transition: Fx.Transitions.Quart.easeOut
+				duration: 150,
+				link: 'chain',
+				transition: Fx.Transitions.Quart.easeOut
 			},
 			binding: {
 				_list: ['input', 'button'],
@@ -53,9 +54,9 @@ define([
 
 		/**
 		 * [_initElement description]
-		 * @return {[type]} [description]
+		 * @return {void} [description]
 		 */
-		_initElement: function(){
+		_initElement: function() {
 			this.parent();
 
 			this.control = {};
@@ -74,11 +75,12 @@ define([
 		},
 
 		/**
-		 *           
-		 * @return {[type]} [description]
+		 * _onKeyDown
+		 * @return {void}
 		 */
 		_onKeyDown: function(e) {
-			//_log.debug('KeyDown');
+			_log.debug('KeyDown');
+
 			if (e.key !== 'tab') {
 				e.stop();
 				return;
@@ -92,34 +94,36 @@ define([
 
 		/**
 		 * [_onKeyDown description]
-		 * @param  {[type]} e [description]
-		 * @return {[type]}   [description]
+		 * @param  {event} e
+		 * @return {void}
 		 */
 		_onKeyUp: function(e) {
+			_log.debug('_onKeyUp', e);
 
 		},
 
 		/**
 		 * [_initIcon description]
-		 * @return {[type]} [description]
+		 * @return {void} [description]
 		 */
 		_initButton: function() {
-			var self = this;
+			_log.debug('_initButton');
 
 			this.button = new ButtonControl({
 				'clss': 'right',
 				type: 'icon',
 				name: 'movedown',
-				icon: 'icon-times-circle',
+				icon: 'mdi-hardware-keyboard-arrow-down',
 			}).inject(this.element, 'top');
 		},
 
 		/**
 		 * [_onButtonClick description]
-		 * @return {[type]} [description]
+		 * @return {void} [description]
 		 */
 		_onButtonPress: function(e) {
-			//_log.debug('_onButtonClick', e);
+			_log.debug('_onButtonClick', e);
+
 			if (this.isFocused) {
 				this._showMenu();
 			} else {
@@ -129,23 +133,24 @@ define([
 
 		/**
 		 * [_onMouseDown description]
-		 * @return {[type]} [description]
+		 * @return {void} [description]
 		 */
 		_onMouseDown: function(e) {
 			this.parent(e);
 
 			this._onButtonPress(e);
-		}, 
+		},
 
 		/**
 		 * [_initToolbarComp description]
-		 * @type {[type]}
+		 * @param {Object} opts
+		 * @return {Object}
 		 */
 		_initMenu: function(opts) {
 			//_log.debug('_initMenu', opts);
-			var self = this,
-				//list = opts.list,
-				timer = null;
+			var self = this;
+			//var list = opts.list;
+			var timer = null;
 
 			opts.list = opts.list || [];
 
@@ -170,7 +175,7 @@ define([
 				}
 			});
 
-			for (var i= 0; i < opts.list.length; i++) {
+			for (var i = 0; i < opts.list.length; i++) {
 				var name = opts.list[i];
 				var def = opts.list[name];
 				this._initItem(name, def, this.menu, value);
@@ -188,12 +193,14 @@ define([
 
 		/**
 		 * [_initEvents description]
-		 * @return {[type]} [description]
+		 * @return {void}
 		 */
 		_initEvents: function() {
 			var self = this;
 
-			if (this.readonly) return;
+			if (this.readonly) {
+				return;
+			}
 
 			this.addEvents({
 				select: function(name) {
@@ -207,7 +214,7 @@ define([
 
 		/**
 		 * [_onFocus description]
-		 * @return {[type]} [description]
+		 * @return {void}
 		 */
 		_onFocus: function(e) {
 			//_log.debug('_onFocus');
@@ -215,12 +222,11 @@ define([
 			this._showMenu(e);
 
 			this.parent(e);
-			
 		},
 
 		/**
 		 * [_onFocus description]
-		 * @return {[type]} [description]
+		 * @return {void}
 		 */
 		_onBlur: function(e) {
 			//_log.debug('_onBlur');
@@ -230,11 +236,13 @@ define([
 
 		/**
 		 * [_showMenu description]
-		 * @return {[type]} [description]
+		 * @return {void}
 		 */
 		_showMenu: function() {
 
-			if (this.readonly) return;
+			if (this.readonly) {
+				return;
+			}
 
 			var menu = this.menu;
 
@@ -247,7 +255,6 @@ define([
 				opacity: 0
 			});
 
-
 			var coord = this.input.getCoordinates(this.element);
 
 			var top = coord.height + coord.top;
@@ -255,21 +262,19 @@ define([
 
 			var width = coord.width;
 
-
-
 			//_log.debug('widh', menu.scrollWidth, coord.width);
 
-			if (menu.scrollWidth > coord.width)
+			if (menu.scrollWidth > coord.width) {
 				width = menu.scrollWidth;
+			}
 
 			menu.setStyle('width', width);
 
-
 			this.menuFx.start({
-			    height: this.menu.scrollHeight + 22,
-			  	paddingTop: 10,
-			  	paddingBottom: 10,
-			  	opacity: 1
+				height: this.menu.scrollHeight + 22,
+				paddingTop: 10,
+				paddingBottom: 10,
+				opacity: 1
 			});
 
 			this.fireEvent('showMenu', menu);
@@ -278,17 +283,19 @@ define([
 
 		/**
 		 * [_showMenu description]
-		 * @return {[type]} [description]
+		 * @return {void}
 		 */
 		_hideMenu: function() {
 
-			if (this.input.get('readonly')) return;
+			if (this.input.get('readonly')) {
+				return;
+			}
 
 			this.menuFx.start({
-			    height: 0,
-			  	paddingTop: 0,
-			  	paddingBottom: 0,
-			  	opacity: 0
+				height: 0,
+				paddingTop: 0,
+				paddingBottom: 0,
+				opacity: 0
 			});
 
 			var self = this;
@@ -301,7 +308,7 @@ define([
 
 		/**
 		 * [_initMenuPosition description]
-		 * @return {[type]} [description]
+		 * @return {Object}
 		 */
 		_initMenuPosition: function() {
 			//_log.debug('_initMenuPosition');
@@ -313,88 +320,93 @@ define([
 
 		/**
 		 * [_initItem description]
-		 * @param  {[type]} name    [description]
-		 * @param  {[type]} def     [description]
-		 * @param  {[type]} element [description]
-		 * @return {[type]}         [description]
+		 * @param  {string} name
+		 * @param  {Object} def
+		 * @param  {DOMElement} element
+		 * @return {void}
 		 */
-		_initItem: function(name, def, element, value){
-			var self = this,
-				clss = ButtonControl,
-				comp,
-				opts,
-				comps = name.split(/\./);
+		_initItem: function(name, def, element, value) {
+			var self = this;
+			var clss = ButtonControl;
+			var opts;
+			var comps = name.split(/\./);
 
 			if (comps.length > 1) {
-				clss = 'UI.'+comps[0].capitalize();
+				clss = 'UI.' + comps[0].capitalize();
 				name = comps[1];
-			} 
+			}
 
-			if (name === 'separator')
+			if (name === 'separator') {
 				clss = Separator;
+			}
 
-			if (def && def.clss)
+			if (def && def.clss) {
 				clss = def.clss;
+			}
 
 			if (def && def.opts) {
 				opts = def.opts;
 				_log.debug('--', name, def.opts);
-				opts.text = Locale.get('control.'+name, name) || name;
-				opts.icon = mnml.icon.font[name] || 'mdi-action-help';
+				opts.text = Locale.get('control.' + name, name) || name;
+				//opts.icon = mnml.icon.font[name];
 				opts.tag = 'span';
 			} else {
 				opts = {
 					name: name,
-					icon: mnml.icon.font[name] || 'mdi-action-help'
+					//icon: mnml.icon.font[name]
 				};
 			}
 
 			//_log.debug(this.options.value, name);
 
 			if (this.value === name) {
-				opts.klss = 'is-selected'
+				opts.klss = 'is-selected';
 			}
-
 
 			if (!name) {
 				return;
 			}
 
-			var	Clss = api.strToClss(clss);
+			var Clss = api.strToClss(clss);
 
-			if (clss === ButtonControl || clss === ButtonMenu)
-				opts.text = Locale.get('control.'+name, name) || name;
+			if (clss === ButtonControl || clss === ButtonMenu) {
+				opts.text = Locale.get('control.' + name, name) || name;
+			}
 
 			this.options.control = this.options.control || {};
 
 			this.control[name] = new Clss(opts).inject(element);
 
-			if (clss === ButtonControl)
-			this.control[name].addEvents({
-				press: function() {
-					var name =  this.options.name;
-					//_log.debug('press', name, this.isEnable());
-					if (this.isEnable()) {
-						self.value = name;
-						//self.fireEvent('control::'+name, this);
-						self.fireEvent('select', name);
+			if (clss === ButtonControl) {
+				this.control[name].addEvents({
+					press: function() {
+						var name = this.options.name;
+						//_log.debug('press', name, this.isEnable());
+						if (this.isEnable()) {
+							self.value = name;
+							//self.fireEvent('control::'+name, this);
+							self.fireEvent('select', name);
+						}
+						self.menu.hide();
 					}
-					self.menu.hide();
-				}
-			});
+				});
+			}
 		},
 
 		/**
 		 * [_onElementMouseDown description]
-		 * @param  {event} e [description]
-		 * @return {[type]}   [description]
+		 * @param  {event} e
+		 * @return {void}
 		 */
 		_onClick: function(e) {
 			//_log.debug('_onElementClick');
 			var opts = this.options;
+
 			e.stopPropagation();
 
-			if (!this.menu) this._initMenu(opts);
+			if (!this.menu) {
+				this._initMenu(opts);
+			}
 
 			this.menuShow(e);
 		}
