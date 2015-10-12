@@ -3,9 +3,7 @@
  * UI.Builder Class
  *
  * @class UI.Builder
- * @Extends UI.Builder
- * @Require Mootools
- * @param {object} json
+ * @param {Object} json
  * @param {parent} container
  * @return {parent} the dom structure
  * @example (start code)	new UI.Builder(object); (end)
