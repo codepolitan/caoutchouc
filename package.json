@@ -1,0 +1,19 @@
+{
+  "name": "caoutchouc",
+  "version": "1.0.0",
+  "description": " A Set of Mootools UI Components",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codepolitan/caoutchouc.git"
+  },
+  "author": "Code Politan <codepolitan@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codepolitan/caoutchouc/issues"
+  },
+  "homepage": "https://github.com/codepolitan/caoutchouc#readme"
+}
