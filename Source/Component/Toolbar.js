@@ -9,7 +9,7 @@ define([
 	'UI/Control/Button'
 ], function(
 	Component
-) {
+) { 
 
 	var exports = UI.Toolbar = new Class({
 

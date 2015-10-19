@@ -14,7 +14,6 @@ UI.Component.implement({
 	 * @method setAjaxContent
 	 * @param {source} source's url
 	 * @return {this}
-	 * @api public
 	 */
 	setAjaxContent: function(source){
 		if (this.iframe)
@@ -39,7 +38,6 @@ UI.Component.implement({
 	 * @method setJsonContent
 	 * @param {source} source's url
 	 * @return {this}
-	 * @api public
 	 */
 	setJsonContent: function(source) {
 		var request = new Request.JSON({
@@ -59,7 +57,6 @@ UI.Component.implement({
 	 * @method setIFrameContent
 	 * @param {source} iFrame's url
 	 * @return {this}
-	 * @api public
 	 */
 	setIFrameContent: function(source) {
 		var self = this;
@@ -94,7 +91,6 @@ UI.Component.implement({
 	 * @method setIFrameContent
 	 * @param {source} iFrame's url
 	 * @return {this}
-	 * @api public
 	 */
 	setIFrameContent: function(source) {
 		var self = this;
