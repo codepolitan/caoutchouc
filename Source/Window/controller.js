@@ -25,7 +25,7 @@
 
 */
 
-var ui = ui || {};
+//var ui = ui || {};
 
 define([
 

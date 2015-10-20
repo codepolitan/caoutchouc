@@ -32,7 +32,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		_initElement: function(){
-			console.log('upload');
+			_log.debug('upload');
 			this.parent();
 			var opts = this.options;
 

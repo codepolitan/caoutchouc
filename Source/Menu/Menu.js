@@ -150,7 +150,7 @@ define([
 
 			if (!opts.head) return;
 
-			console.log('++++', this);
+			_log.debug('++++', this);
 
 			var head = new Element('div', {
 				'class': 'menu-head',

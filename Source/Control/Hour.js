@@ -1,6 +1,6 @@
 
-var UI = UI || {};
-var Class = Class || function() {};
+/*var UI = UI || {};
+var Class = Class || function() {};*/
 
 /**
  * UI Control Hour Class

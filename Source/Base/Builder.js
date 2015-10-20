@@ -1,4 +1,3 @@
-
 /**
  * UI.Builder Class
  *
@@ -25,7 +24,7 @@ define(function() {
 		initialize: function(object, container) {
 			this._initElement(object, container);
 
-	//		object.level++;
+			//object.level++;
 
 		},
 
@@ -45,16 +44,18 @@ define(function() {
 
 			var container = {};
 
-			if (typeOf(object) == 'object') {
-				if (!object.container)
+			if (typeOf(object) === 'object') {
+				if (!object.container) {
 					object.container = 'container';
+				}
 
 				container = new UI[object.container.capitalize()](object)
-				.inject(container);
+					.inject(container);
 
 				// shoub define ui.controller.container.register
-				if (!ui.controller.workspace)
+				if (!ui.controller.workspace) {
 					ui.controller.workspace = {};
+				}
 
 				ui.controller.workspace[object.name] = container;
 
@@ -65,7 +66,7 @@ define(function() {
 			//_log.debug('UI.Builder._initElement()', container.views);
 
 			if (object.views) {
-				object.views.each( function(sub, i) {
+				object.views.each(function(sub, i) {
 					new UI.Builder(sub, container.views[i]);
 				});
 			}
