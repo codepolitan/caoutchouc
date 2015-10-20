@@ -1,140 +1,149 @@
-
 /**
  * UI Control RadiosGroup Class
  * @class UI.Control.RadiosGroup
  * @extends {UI.Control}
  * @type {Class}
  */
-UI.RadiosGroup = new Class({
+define([
 
-	Extends				: UI.Control,
+], function(
 
-	options: {
-		// default options
-		name: 'radiosgroup',
-		name: 'radio'
-	},
+) {
 
-	/*
-	Constructor: initialize
-		Constructor
+	var exports = UI.RadiosGroup = new Class({
 
-	Arguments:
-		options - (object) options
+		Extends: UI.Control,
 
-	Returns:
-		this
+		options: {
+			// default options
+			name: 'radiosgroup',
+			name: 'radio'
+		},
 
-	See also:
-		<UI.Component::initialize>
-	*/
+		/*
+		Constructor: initialize
+			Constructor
 
-	initialize: function(options){
-		this.parent(options);
+		Arguments:
+			options - (object) options
 
-		this.radios = [];
-		this.selectedRadio = false;
+		Returns:
+			this
 
-		return this;
-	},
+		See also:
+			<UI.Component::initialize>
+		*/
 
-	/*
-	Function: newRadio
-		Create a new radio element and return it
+		initialize: function(options) {
+			this.parent(options);
 
-	Arguments:
-		opt - (object) options, see above
+			this.radios = [];
+			this.selectedRadio = false;
 
-	Return:
-		(element) radio element
+			return this;
+		},
 
-	Discussion:
-		this method shoul no longer exist.
-	*/
+		/*
+		Function: newRadio
+			Create a new radio element and return it
 
-	newRadio: function(opt){
-		var radio = new Element('span',{
-			'class': 'ui-radio',
-			styles: Object.merge({}, {
-				position: 'relative',
-				display: 'inline-block',
-				height: 15,
-				zIndex: this.radios.length+1
-			}, opt.styles)
-		}).store('value', opt.value);
+		Arguments:
+			opt - (object) options, see above
 
-		this.radios.push(radio);
-		if(!this.radios[1]) {
-			this.control = radio;
-			this.setInput();
-		}
+		Return:
+			(element) radio element
 
-		if (opt.text) {
-			var text = new UI.Text({
-				skin: this.options.skin,
-				'for': this.options.name,
-				html: opt.text
-			}).inject(radio);
+		Discussion:
+			this method shoul no longer exist.
+		*/
 
-			//set width to element
-			radio.setStyle('width', 100);
-		} else {
-			//radio.setStyle('width', this.props.width);
-		}
+		newRadio: function(opt) {
+			var radio = new Element('span', {
+				'class': 'ui-radio',
+				styles: Object.merge({}, {
+					position: 'relative',
+					display: 'inline-block',
+					height: 15,
+					zIndex: this.radios.length + 1
+				}, opt.styles)
+			}).store('value', opt.value);
 
-		if(opt.selected && !this.selectedRadio) {
-			this.selectedRadio = radio;
-			this.input.value = radio.retrieve('value');
-			this.setState(radio, 'selected');
-		}
-		this.addRadioAction(radio);
+			this.radios.push(radio);
+			if (!this.radios[1]) {
+				this.control = radio;
+				this.setInput();
+			}
 
-		return radio;
-	},
+			if (opt.text) {
+				var text = new UI.Text({
+					skin: this.options.skin,
+					'for': this.options.name,
+					html: opt.text
+				}).inject(radio);
 
-	/*
-	Function: newRadio
-		private function
+				//set width to element
+				radio.setStyle('width', 100);
+			} else {
+				//radio.setStyle('width', this.props.width);
+			}
 
-		Add event to radio
-
-	Arguments:
-		radio - (element) the radio element where event will be _setEventsed
-
-	Return:
-		(void)
-	*/
-
-	addRadioAction: function(radio){
-		radio.addEvents({
-			'click': function(){
-				if (this.selectedRadio) {
-					this.setState(this.selectedRadio, 'default');
-				}
-				this.setState(radio, 'selected');
+			if (opt.selected && !this.selectedRadio) {
 				this.selectedRadio = radio;
 				this.input.value = radio.retrieve('value');
-			}.bind(this)
-		});
-	},
+				this.setState(radio, 'selected');
+			}
+			this.addRadioAction(radio);
+
+			return radio;
+		},
+
+		/*
+		Function: newRadio
+			private function
+
+			Add event to radio
+
+		Arguments:
+			radio - (element) the radio element where event will be _setEventsed
+
+		Return:
+			(void)
+		*/
+
+		addRadioAction: function(radio) {
+			radio.addEvents({
+				'click': function() {
+					if (this.selectedRadio) {
+						this.setState(this.selectedRadio, 'default');
+					}
+					this.setState(radio, 'selected');
+					this.selectedRadio = radio;
+					this.input.value = radio.retrieve('value');
+				}.bind(this)
+			});
+		},
 
 
-	/*
-	Function: setState
-		private function
+		/*
+		Function: setState
+			private function
 
-		set the state for the radio
+			set the state for the radio
 
-	Arguments:
-		radio - (element) the radio element
-		state - (string) state
+		Arguments:
+			radio - (element) the radio element
+			state - (string) state
 
-	Return:
-		(void)
-	*/
+		Return:
+			(void)
+		*/
 
-	setState: function(radio, state){
-		radio.paint.draw(this.skin[state]);
-	}
+		setState: function(radio, state) {
+			radio.paint.draw(this.skin[state]);
+		}
+
+	});
+
+	return exports;
 
 });

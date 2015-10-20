@@ -1,21 +1,27 @@
-
 /**
  * UI
  * @type {Object}
  */
-var UI = {
-	props: {}
-};
+define([
 
-var ui = {
-	version: '1.0.0',
-	_initElement: '%_initElement%'
-};
+], function(
 
-/*
-	Object: ui.controller
+) {
 
-*/
+	var UI = {
+		props: {}
+	};
 
-ui.controller = {};
+	var ui = {
+		version: '1.0.0',
+		_initElement: '%_initElement%'
+	};
 
+	/*
+		Object: ui.controller
+
+	*/
+
+	ui.controller = {};
+
+});
