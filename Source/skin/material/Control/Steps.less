@@ -1,0 +1,78 @@
+.ui-steps {
+	display: inline-block;
+	vertical-align: top;
+	margin: 0;
+	input {
+		display: none;
+	}
+	.steps-wrapper {
+		display: none;
+	}
+	.steps-list {
+		overflow: hidden;
+		vertical-align: bottom;
+		position: relative;
+		display: block;
+		min-height: inherit;
+		min-width: inherit;
+		margin:0;
+		top: 0;
+		left: 0;
+		padding:0;
+		margin-right: 10px;
+		background-color: transparent;
+		li {
+			
+			cursor: pointer;
+			color: rgba(255, 255, 255, 0.5);
+			font-weight: normal;
+			//font-size: .85em;
+			display: inline-block;
+			width: 170px;
+			text-transform: uppercase;
+			text-transform: capitalize;
+			padding: 0;
+			margin: 0 16px 0 0;
+			color: rgba(0,0,0,.2);
+			border-radius: 2px;
+			vertical-align: top;
+			border-bottom: 1px solid rgba(100, 100, 100, 0.1);
+			display: none;
+			.step-index {
+				color: rgba(0, 0, 0, 0.5);
+				text-align: center;
+				font-weight: bold;
+				display: inline-block;
+				height: 32px;
+				width: 32px;
+				padding: 8px;
+				margin: 3px 0;
+				border-radius: 50%;
+				background-color: rgba(255, 255, 255, 0.5);
+			}
+			.step-label {
+				font-size: 1em;
+				line-height: 1.3em;
+				color: rgba(255, 255, 255, 0.5);
+				vertical-align: top;
+				display: inline-block;
+				height: 32px;
+				width: 130px;
+				padding: 0 8px;
+			}
+			&.selected,
+			&:active {
+				display: inline-block;
+				.step-index {
+					color: rgba(0, 0, 0, 1);	
+					background-color: rgba(255, 255, 255, 0.9);
+
+				}
+				.step-label {
+					color: rgba(255, 255, 255, 1);	
+				}	
+			}
+
+		}
+	}
+}
