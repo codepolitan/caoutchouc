@@ -1,22 +1,16 @@
-
 /**
  * UI Control Class
  * @class  UI.Control
  * @extends {UI.Component}
  * @author Jerome Vial
  */
-
-/**
- * [initialize description]
- * @class  UI.Container
- * @extends {UI.Component}
- * @author Jerome Vial
- */
 define([
-	"UI/Component/Component"
+	'UI/Component/Component'
 ], function(
 	Component
 ) {
+
+	var _log = __debug('ui:control');
 
 	var exports = new Class({
 
@@ -29,29 +23,33 @@ define([
 
 		/**
 		 * [isEnable description]
-		 * @return {Boolean} [description]
+		 * @return {boolean}
 		 */
 		isEnable: function() {
 			//_log.debug(this.state)
-			if (this.state === 'disabled')
+			if (this.state === 'disabled') {
 				return false;
-			else return true;
+			} else {
+				return true;
+			}
 		},
 
 		/**
 		 * [isActive description]
-		 * @return {Boolean} [description]
+		 * @return {boolean} [description]
 		 */
 		isActive: function() {
-			if (this.state === 'active')
+			if (this.state === 'active') {
 				return true;
-			else return false;
+			} else {
+				return false;
+			}
 		},
 
 
 		/**
 		 * [_initOptions description]
-		 * @return {[type]} [description]
+		 * @return {void} [description]
 		 */
 		_initOptions: function() {
 			this.parent();
@@ -64,23 +62,31 @@ define([
 
 		/**
 		 * [_initEvents description]
-		 * @return {[type]} [description]
+		 * @return {void} [description]
 		 */
-		_initEvents: function(){
+		_initEvents: function() {
 			var self = this;
 
 			//this.element.set('tabindex', 0);
 
 			this.element.addEvents({
-				click: function(e){
+				/**
+				 * @ignore
+				 */
+				click: function(e) {
+					_log.debug('click', e);
 					//e.stopPropagation();
 					self.fireEvent('click');
 				},
-				mouseup: function(){
+				/**
+				 * @ignore
+				 */
+				mouseup: function() {
 					self.fireEvent('mouseup');
 				}
 			});
 		}
+
 	});
 
 	return exports;
