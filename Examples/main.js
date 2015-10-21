@@ -8,16 +8,21 @@ require.config({
 	shim: {
 		'dist/caoutchouc-min': {
 			deps: [
-				'dist/debug'
+				'https://cdnjs.cloudflare.com/ajax/libs/mootools/1.5.2/mootools-core.min.js',
+				'https://cdnjs.cloudflare.com/ajax/libs/mootools-more/1.5.2/mootools-more.js',
+				'UI/utils/debug'
 			]
-		}
+		},
+		'https://cdnjs.cloudflare.com/ajax/libs/mootools-more/1.5.2/mootools-more.js': {
+			deps: [
+				'https://cdnjs.cloudflare.com/ajax/libs/mootools/1.5.2/mootools-core.min.js',
+			],
+		},
 	}
 });
 
 require(['dist/caoutchouc-min'], function() {
-	console.log('caoutchouc loaded');
 	require(['UI/Layout/Layout'], function(Layout) {
-		console.log('layout');
 		var layout = new Layout({
 			container: $(document.body),
 			node: {
