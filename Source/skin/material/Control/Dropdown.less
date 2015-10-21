@@ -1,0 +1,78 @@
+
+.type-dropdown {
+	> input {
+		.disableselect;
+	}
+	> .ui-button {
+		position: absolute;
+		bottom: 12px;
+		right: 0;
+		.ui-icon {
+			font-size: 1.3em;
+		}
+	}
+	.ui-menu {
+		z-index: 100;
+		position: absolute;
+		//top: 34px;
+		left: 16px;
+		padding: 10px 0;
+		white-space: nowrap;
+		background-color: white;
+		border-radius: 0;
+		display: none;
+		overflow: auto;
+		margin: 0;
+		text-align: left;
+		box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.1);
+		border: 1px solid rgba(0, 0, 0, 0.5);
+		border: none;
+		.ui-separator {
+			display: block;
+			border-top: 1px solid #ECECEC;
+			margin: 10px 0;
+			width: 100%;
+		}
+		.ui-button {
+			display: block;
+			width: 100%;
+			color: rgb(136, 136, 136);
+			border: none;
+			cursor: default;
+			text-align: left;
+			padding: 8px 48px 8px 16px;
+			border-radius: 0;
+			background-color: rgba(0, 0, 0, 0);
+			margin: 0;
+			line-height: .75em;
+			vertical-align: bottom;
+			&:hover {
+				background-color: #EEEEEE;
+			}
+			
+			.ui-icon {
+				float: left;
+				//font-size: .75em;
+				//display: none;
+				padding: 0 4px;
+			}
+			> .ui-text {
+				text-transform: initial;
+				color: rgba(0,0,0,.7);
+				display: inline;
+				line-height: 1.2em;
+				font-size: .9em;
+			}
+			&.is-selected {
+				> .ui-text {
+					font-weight: bold;
+				}
+			}
+		}
+	}
+}
+
+
+
+
+

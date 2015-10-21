@@ -1,0 +1,81 @@
+
+.ui-progress {
+	position: relative;
+	display: none;
+	vertical-align: top;
+	cursor: default;
+	text-transform: capitalize;
+	padding: 4px 6px;
+	border-radius: 2px;
+	background-color: rgba(135, 135, 135, 0.3);
+	margin: 4px 2px 0;
+	padding:0;
+	height:23px;
+	width: 50px;
+	.progress-bar {
+		top:0;
+		left:0;
+		display:block;
+		height: 23px;
+		width: 0;
+		border-radius: 2px;
+		background-color: rgba(135, 135, 135, 0.5);
+	}
+	.progress-status {
+		position: absolute;
+		display:none;
+		height: 100%;
+		width: 100%;
+		padding-top: 4px;
+		padding-right: 8px;
+		font-size: .8em;
+		text-align: right;
+		color: rgba(255, 255, 255, 0.5);
+	}
+}
+
+.ui-button[title=sync] {
+
+	position: relative;
+	&.state-active {
+		color: #fff;
+		background-color: transparent;
+		.button-text {
+			z-index: 10;
+			color: #fff;
+		}
+	}
+	
+	.ui-progress {
+		position: absolute;
+		top:0;
+		left:0;
+		//display: none;
+		padding: 0;
+		border-radius: 3px;
+		margin: 0;
+		padding:0;
+		height:30px;
+		width: 33px;
+		.progress-bar {
+			top:0;
+			left:0;
+			display:block;
+			height: 30px;
+			width: 0;
+			border-radius: 2px;
+			background-color: rgba(0, 134, 202, 0.3);
+		}
+		.progress-status {
+			position: absolute;
+			display:none;
+			height: 100%;
+			width: 100%;
+			padding-top: 4px;
+			padding-right: 8px;
+			font-size: .8em;
+			text-align: right;
+			color: rgba(255, 255, 255, 0.5);
+		}
+	}
+}
