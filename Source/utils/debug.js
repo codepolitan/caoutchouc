@@ -5,7 +5,7 @@
  * @since [0.1.0]
  */
 define([
-	'dist/lib/js-logger/src/logger'
+	'https://rawgit.com/jonnyreeves/js-logger/master/src/logger.min.js'
 ],
 function(
 	Logger
