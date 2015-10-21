@@ -113,7 +113,7 @@ define([
 
 			this.node.push(container);
 			this.layout[this.main][container.name] = container;
-			ui.node[this.main][node.name] = container;
+			//ui.node[this.main][node.name] = container;
 		},
 
 		/**
@@ -125,8 +125,8 @@ define([
 			//this.name = this.options.name;
 			this.main = opts.main || opts.name;
 
-			ui.node = ui.node || {};
-			ui.node[this.main] = ui.node[this.main] || {};
+			//ui.node = ui.node || {};
+			//ui.node[this.main] = ui.node[this.main] || {};
 
 			this.layout = opts.layout || {};
 			this.layout[this.main] = this.layout[this.main] || {};
