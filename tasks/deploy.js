@@ -5,7 +5,7 @@ module.exports = function(grunt) {
 		concat: {
 			ui: {
 				src: ['dist/**/*.js'],
-				dest: 'dist/UI.js',
+				dest: 'dist/caoutchouc-min.js',
 			},
 		},
 	});
@@ -13,7 +13,7 @@ module.exports = function(grunt) {
 	grunt.config.merge({
 		clean: {
 			js: {
-				src: ['dist/**/*', '!dist/UI.js']
+				src: ['dist/**/*', '!dist/caoutchouc-min.js']
 			}
 		}
 	});
@@ -50,7 +50,7 @@ module.exports = function(grunt) {
 		}
 	});
 
-	grunt.registerTask('deploy-ui', ['requirejs:ui', 'concat:ui', 'clean:js']);
+	grunt.registerTask('deploy', ['requirejs:ui', 'concat:ui', 'clean:js']);
 
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	grunt.loadNpmTasks('grunt-contrib-concat');

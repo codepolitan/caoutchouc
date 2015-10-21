@@ -4,7 +4,7 @@ module.exports = function(grunt) {
 
 	grunt.config.merge({
 		less: {
-			floor: {
+			caoutchouc: {
 				files: {
 					'dist/skin/material.css': 'Source/skin/material/material.less',
 				}
