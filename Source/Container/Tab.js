@@ -183,7 +183,7 @@ define([
 
 
 				self.layout[self.main][container.name] = container;
-				ui.node[self.main][node.name] = container;
+				//ui.node[self.main][node.name] = container;
 
 			});
 
