@@ -13,7 +13,7 @@ module.exports = function(grunt) {
 	grunt.config.merge({
 		clean: {
 			js: {
-				src: ['dist/**/*', '!dist/caoutchouc-min.js']
+				src: ['dist/**/*', '!dist/skin', '!dist/caoutchouc-min.js']
 			}
 		}
 	});
