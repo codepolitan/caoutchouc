@@ -157,7 +157,7 @@
 	//font-weight: bold;
 	text-transform: uppercase;
 	padding: 2px 4px;
-	margin: 1px 0;
+	margin: 1px 3px 0 0;
 	display: inline-block;
 	border-radius: 2px;
 	background-color: #ccc;
@@ -188,6 +188,42 @@
 		background-color: rgba(194, 192, 57, 0.89);
 		color: rgb(255, 255, 255);
 	}
+	&.pill-closed {
+		background-color: rgb(158, 158, 158);
+		color: rgb(255, 255, 255);
+	}
+	&.pill-approved {
+		background-color: rgb(130, 190, 66);
+		color: rgb(255, 255, 255);
+	}
+	&.pill-refused {
+		background-color: rgb(102, 102, 102);
+		color: rgb(255, 255, 255);
+	}
+	&.pill-cancelled {
+		background-color: rgb(255, 255, 255);
+		color: rgb(255, 255, 255);
+	}
+	&.pill-draft {
+		background-color: rgba(255, 0, 0, 0.7);
+		color: rgb(255, 255, 255);
+	}
+	&.pill-pending-approval {
+		background-color: rgb(247, 148, 72);
+		color: rgb(255, 255, 255);
+	}
+	&.pill-pending-review {
+		background-color: rgb(116, 72, 157);
+		color: rgb(255, 255, 255);
+	}
+	&.pill-in-progress {
+		background-color: rgb(27, 117, 188);
+		color: rgb(255, 255, 255);
+	}
+	&.pill-closed {
+		background-color: rgb(116, 72, 157);
+		color: rgb(255, 255, 255);
+	}
 }
 
 .ui-item {
@@ -195,6 +231,8 @@
 		color: rgba(255, 255, 255, 0.95);
 		text-align: center;
 		font-weight: bold;
+		font-size: 1em;
+		line-height: 1.1em;
 		display: inline-block;
 		height: 32px;
 		width: 32px;
