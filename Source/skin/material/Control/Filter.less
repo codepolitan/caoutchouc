@@ -3,12 +3,33 @@
 	.flex(none);
 	font-size: .75em;
 	background-color: rgba(224, 224, 224, .85);
-	//background-color: rgba(0,0,0,.05);
-	//border-top: 1px solid rgb(224, 224, 224);
 	padding: 0 2px;
 	position: relative;
 	.ui-field {
 		font-size: .95em;
 		padding-top:0;
+	}
+
+	.type-dropdown {
+		&.ui-field {
+			font-size: .75em;
+			padding: 8px 0 0 16px;
+			float: left;
+		}
+		> .ui-button {
+		    position: absolute;
+		    bottom: 12px;
+		    right: 0;
+		}
+		label {
+			font-size: 1.2em;
+			padding-right: 5px;
+			float: left;
+		}
+		input {
+		    background: none;
+		    border: none;
+		    border-bottom: 1px solid rgb(199, 199, 199);
+		}
 	}
 }

@@ -46,7 +46,6 @@ docs
 reports/*
 *-min*
 public/js/*
-dist/*
 README.*
 *.css
 *.codekit
