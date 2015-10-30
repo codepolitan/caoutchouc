@@ -42,10 +42,4 @@ Thumbs.db
 *.sublime-project
 *.sublime-workspace
 node_modules
-docs
-reports/*
-*-min*
-public/js/*
-README.*
-*.css
 *.codekit
