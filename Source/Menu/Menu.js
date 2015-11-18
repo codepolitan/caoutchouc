@@ -15,6 +15,8 @@ define([
 	ButtonControl
 ) {
 
+	var _log = __debug('ui:menu');
+
 	var exports = new Class({
 
 		Extends: Container,
