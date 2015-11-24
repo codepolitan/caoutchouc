@@ -1588,24 +1588,23 @@ form .fieldset .group .ui-field {
   background-color: transparent;
 }
 .ui-progress {
-  position: relative;
   display: none;
-  vertical-align: top;
-  cursor: default;
-  text-transform: capitalize;
-  padding: 4px 6px;
-  border-radius: 2px;
-  background-color: rgba(135, 135, 135, 0.3);
-  margin: 4px 2px 0;
-  padding: 0;
-  height: 23px;
-  width: 50px;
+  /*position: relative;
+	vertical-align: top;
+	cursor: default;
+	text-transform: capitalize;
+	padding: 4px 6px;
+	border-radius: 2px;
+	background-color: rgba(135, 135, 135, 0.3);
+	margin: 4px 2px 0;
+	padding:0;*/
+  height: 3px;
 }
 .ui-progress .progress-bar {
   top: 0;
   left: 0;
   display: block;
-  height: 23px;
+  height: 3px;
   width: 0;
   border-radius: 2px;
   background-color: rgba(135, 135, 135, 0.5);
