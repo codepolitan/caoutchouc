@@ -1,4 +1,3 @@
-
 /**
  * UI Control Upload
  * @class UI.Control.Upload
@@ -6,12 +5,14 @@
  * @type {Class}
  */
 define([
-	"UI/Control/Button"
+	'UI/Control/Button'
 ], function(
 	Button
 ) {
 
-	var exports = UI.Upload = new Class({
+	var _log = __debug('ui:control-upload');
+
+	var exports = new Class({
 
 		Extends: Button,
 
@@ -28,23 +29,24 @@ define([
 		},
 
 		/**
-		 * [_initElement description]
-		 * @return {[type]} [description]
+		 * init element
+		 * @return {void}
 		 */
-		_initElement: function(){
+		_initElement: function() {
 			_log.debug('upload');
+
 			this.parent();
+
 			var opts = this.options;
 
 			this._initFile(opts.type);
 		},
 
 		/**
-		 * [_initFile description]
-		 * @param  {[type]} type [description]
-		 * @return {[type]}      [description]
+		 * init file
+		 * @return {void}
 		 */
-		_initFile: function(type) {
+		_initFile: function() {
 			var self = this;
 
 			var file = new Element('input', {
@@ -58,10 +60,14 @@ define([
 				_log.debug('change mootools', info);
 			});
 
+			/**
+			 * @ignore
+			 */
 			file.onchange = function(info) {
 				_log.debug('onchage native', info, this.files);
+
 				var files = this.files;
-				
+
 				if (files) {
 					_log.debug('fireevent uploadFile', files);
 					self.fireEvent('uploadFile', [files]);
@@ -82,4 +88,5 @@ define([
 	});
 
 	return exports;
+
 });
