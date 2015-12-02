@@ -1,0 +1,14 @@
+{
+    "safeContextKeyword": ["self"],
+    "disallowMultipleVarDecl": true,
+    "disallowMultipleSpaces": true,
+    "disallowSpaceBeforeComma": true,
+
+	"jsDoc": {
+		"checkParamNames": true,
+		"requireParamTypes": true,
+		"checkAnnotations": "closurecompiler",
+		"checkTypes": "strictNativeCase",
+		"enforceExistence": "exceptExports"
+	}
+}
