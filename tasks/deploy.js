@@ -50,7 +50,7 @@ module.exports = function(grunt) {
 		}
 	});
 
-	grunt.registerTask('deploy', ['requirejs:ui', 'concat:ui', 'clean:js']);
+	grunt.registerTask('deploy', ['requirejs:ui', 'concat:ui', 'clean:js', 'less']);
 
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	grunt.loadNpmTasks('grunt-contrib-concat');
