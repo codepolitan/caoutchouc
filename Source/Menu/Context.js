@@ -9,6 +9,8 @@ define([
 	Menu
 ) {
 
+	var _log = __debug('ui-menu-context').defineLevel();
+
 	var exports = new Class({
 
 		Extends: Menu,
@@ -30,6 +32,8 @@ define([
 		 * @return {Object}
 		 */
 		initialize: function(options) {
+			_log.debug('initialize', options);
+
 			this.parent(options);
 			var opts = this.options;
 			if (opts.underlay) {
@@ -48,10 +52,10 @@ define([
 		 * @return {void}
 		 */
 		_initElement: function() {
+			_log.debug('_initElement');
+
 			var self = this;
 			var opts = this.options;
-
-			//_log.debug('UI.MEnu._initElement()', opts);
 
 			this.element = new Element('div', {
 				'class': 'ui-context',
@@ -83,9 +87,11 @@ define([
 
 			this.addEvents({
 				show: function() {
+					_log.debug('show');
 					self.content.getStyle('display', 'block');
 				},
 				hide: function() {
+					_log.debug('hide');
 					self.content.getStyle('display', 'none');
 				}
 			});
@@ -133,6 +139,7 @@ define([
 				}
 			}).addEvents({
 				click: function() {
+					_log.debug('click');
 					underlay.setStyle('display', 'none');
 					self.element.hide();
 				}
@@ -140,6 +147,7 @@ define([
 
 			this.addEvents({
 				show: function() {
+					_log.debug('show');
 					underlay.setStyle('display', 'block');
 				}
 			});
@@ -190,7 +198,11 @@ define([
 
 			this.addEvents({
 				show: function() {
-					ui.menu.hideAll();
+					_log.debug('show');
+					//ui.menu.hideAll();
+				},
+				hide: function() {
+					_log.debug('hide');
 				}
 			});
 		},
@@ -253,6 +265,8 @@ define([
 		 * @return {void}
 		 */
 		hide: function() {
+			_log.debug('hide');
+
 			clearTimeout(this.timer);
 			this.timer = (function() {
 				this.close();
@@ -274,11 +288,13 @@ define([
 		 * @return {Object}
 		 */
 		show: function(e) {
+			_log.debug('show', this);
+
 			this.fireEvent('show', e.target);
 
 			this.element.show();
 
-			var coord = this.content.getCoordinates();
+			//var coord = this.content.getCoordinates();
 			//this.setSize(coord.width, coord.height);
 			this.setPosition(e.client.x, e.client.y);
 
