@@ -1,23 +1,21 @@
-
 /**
  * UI Menu Context Class
  * @class UI.Menu.Context
  * @extends {UI.Menu}
- * @type {Class}
  */
 define([
-	"UI/Menu/Menu"
+	'UI/Menu/Menu'
 ], function(
 	Menu
 ) {
 
-	var exports = new Class({	
+	var exports = new Class({
 
 		Extends: Menu,
 
 		name: 'context',
 
-		options:{
+		options: {
 			name: 'context',
 			scope: $(document.body),
 			container: $(document.body),
@@ -26,28 +24,17 @@ define([
 			underlay: false
 		},
 
-		/*
-		Constructor: initialize
-			Construtor
-
-		Arguments:
-			options - (object) options
-
-		See also:
-			<UI.Menu::initialize>
-			<UI.Element::initialize>
-		*/
-
 		/**
-		 * [initialize description]
-		 * @param  {[type]} options
-		 * @return {[type]}
+		 * initialize
+		 * @param  {Object} options
+		 * @return {Object}
 		 */
-		initialize: function(options){
+		initialize: function(options) {
 			this.parent(options);
 			var opts = this.options;
-			if (opts.underlay)
+			if (opts.underlay) {
 				this._initUnderlay();
+			}
 
 			this.element.inject(opts.container);
 			this._initContext();
@@ -55,25 +42,14 @@ define([
 			return this;
 		},
 
-		/*
-		Function: _initElement
-			private function
-
-			
-		Return:
-			(void)
-
-		See also:
-			<UI.Component::_initElement>
-		*/
-
 		/**
-		 * Call UI.Component _initElement, then create a menu wrapper
-		 * @return {[type]}
+		 * Call UI.Component _initElement,
+		 * then create a menu wrapper
+		 * @return {void}
 		 */
-		_initElement: function(){
-			var self = this,
-				opts = this.options;
+		_initElement: function() {
+			var self = this;
+			var opts = this.options;
 
 			//_log.debug('UI.MEnu._initElement()', opts);
 
@@ -83,19 +59,21 @@ define([
 					zIndex: opts.zIndex + 10
 				}
 			}).addEvents({
-				mousediown: function(e){
+				mousediown: function(e) {
 					self.fireEvent('mousedown');
 					e.stop();
 				}
 			});
 
-			this.element.addClass('context-'+opts.name);
+			this.element.addClass('context-' + opts.name);
 
-			if (opts.klss)
+			if (opts.klss) {
 				this.element.addClass(opts.klss);
+			}
 
-			if (opts.type)
-				this.element.addClass('type-'+opts.type);
+			if (opts.type) {
+				this.element.addClass('type-' + opts.type);
+			}
 
 			this._initHead(opts.head);
 
@@ -112,32 +90,21 @@ define([
 				}
 			});
 
-			this.element.addEvent('click', function(e){
+			this.element.addEvent('click', function(e) {
 				e.stop();
 			});
 
 			this.element.hide();
 		},
 
-
-		/*
-		Method: addContexts
-			Attach context to elements (provided by contexts.target)
-
-		Arguments:
-			contexts - (array) an array containing contexts definition. See above in class' options for more details
-
-		Return:
-			this
-		*/
 		/**
-		 * [_initContext description]
-		 * @return {[type]}
+		 * init context
+		 * @return {Object}
 		 */
-		_initContext: function(){
+		_initContext: function() {
 			var self = this;
-				opts = this.options;
-				scope = opts.scope || opts.container;
+			var opts = this.options;
+			var scope = opts.scope || opts.container;
 
 			scope.getElements(opts.target).each(function(el) {
 				//_log.debug(el);
@@ -151,11 +118,13 @@ define([
 			return this;
 		},
 
-
+		/**
+		 * init underlay
+		 * @return {void}
+		 */
 		_initUnderlay: function() {
-			var self = this,
-				opts = this.options;
-
+			var self = this;
+			var opts = this.options;
 
 			var underlay = this.underlay = new Element('div', {
 				'class': 'context-underlay',
@@ -163,7 +132,7 @@ define([
 					zIndex: opts.zIndex
 				}
 			}).addEvents({
-				click: function(){
+				click: function() {
 					underlay.setStyle('display', 'none');
 					self.element.hide();
 				}
@@ -173,17 +142,24 @@ define([
 				show: function() {
 					underlay.setStyle('display', 'block');
 				}
-			})
+			});
 		},
 
+		/**
+		 * @ignore
+		 */
 		addList: function() {
 
 		},
 
+		/**
+		 * add target
+		 * @param {DOMElement} el
+		 */
 		addTarget: function(el) {
 			var self = this;
 
-			el.addEvent(self.options.trigger, function(e){
+			el.addEvent(self.options.trigger, function(e) {
 				e.stop();
 				e.preventDefault();
 
@@ -197,32 +173,33 @@ define([
 			});
 		},
 
+		/**
+		 * remove list
+		 * @return {void}
+		 */
 		removeList: function() {
 
 		},
 
+		/**
+		 * init events
+		 * @return {void}
+		 */
 		_initEvents: function() {
 			this.parent();
 
 			this.addEvents({
-				show: function(){
+				show: function() {
 					ui.menu.hideAll();
 				}
 			});
 		},
 
-		/*
-		Method: removeContexts
-			Remove context to elements (defined by target)
-
-		Arguments:
-			target - (string) target defining elements where context will be detached
-
-		Return:
-			this
-		*/
-
-		removeContexts: function(){
+		/**
+		 * Remove context to elements (defined by target)
+		 * @return {Object}
+		 */
+		removeContexts: function() {
 			//_log.debug('removeContext',this.options.scope);
 			this.els.each(function(el) {
 				el.removeEvents('contextmenu');
@@ -238,27 +215,14 @@ define([
 			return this;
 		},
 
-		/*
-		Method: setPosition
-			private function
-
-			Overwrite the setPosition method of UI.Menu to use mouse coordinates to set menu location
-
-		Arguments:
-			x - (integer) X mouse's coordinates
-			y - (integer) Y mouse's coordinates
-
-		Return:
-			(void)
-
-		See also:
-			<UI.Menu::setPosition>
-
-		*/
-
-		setPosition: function(x,y){
-			var opts = this.options,
-				container = opts.container;
+		/**
+		 * Overwrite the setPosition method of UI.Menu to use mouse coordinates to set menu location
+		 * @param {integer} x X mouse's coordinates
+		 * @param {integer} y Y mouse's coordinates
+		 */
+		setPosition: function(x, y) {
+			var opts = this.options;
+			var container = opts.container;
 
 			if ((x === null) || (y === null)) {
 				return;
@@ -270,39 +234,25 @@ define([
 			var top = y - ctop;
 			var left = x + container.getScrollLeft();
 
-			if ((x + coor.width) > container.getWidth()) { left =  left - coor.width; }
+			if ((x + coor.width) > container.getWidth()) {
+				left = left - coor.width;
+			}
 			if ((y + coor.height) > container.getHeight()) {
 				//_log.debug('top', top);
 				top = top - coor.height;
 			}
 
 			this.element.setStyles({
-				'top' : top,
-				'left' : left
+				'top': top,
+				'left': left
 			});
 		},
 
-		/*
-			Method: show
-				private function
-
-				Hide 
-
-			Arguments:
-				e - (event) Event who provide cursor's position
-
-			Return:
-				this
-
-			See also:
-				<UI.Menu::show>
-				<UI.Element::show>
-		*/
-	/**
-	 * [hide description]
-	 * @return {[type]}
-	 */
-		hide: function(){
+		/**
+		 * hide
+		 * @return {void}
+		 */
+		hide: function() {
 			clearTimeout(this.timer);
 			this.timer = (function() {
 				this.close();
@@ -310,43 +260,33 @@ define([
 		},
 
 
+		/**
+		 * hideNow
+		 * @return {void}
+		 */
 		hideNow: function() {
 			this.element.hide();
 		},
 
-		/*
-			Method: show
-				private function
-
-				Overwrite the show method of UI.Menu to use mouse coordinates
-
-			Arguments:
-				e - (event) Event who provide cursor's position
-
-			Return:
-				this
-
-			See also:
-				<UI.Menu::show>
-				<UI.Element::show>
-		*/
-
 		/**
-		 * [show description]
-		 * @param  {[type]} e
-		 * @return {[type]}
+		 * Overwrite the show method of UI.Menu to use mouse coordinates
+		 * @param  {Object} e
+		 * @return {Object}
 		 */
-		show: function(e){
+		show: function(e) {
 			this.fireEvent('show', e.target);
 
 			this.element.show();
+
 			var coord = this.content.getCoordinates();
 			//this.setSize(coord.width, coord.height);
-			this.setPosition(e.client.x,e.client.y);
+			this.setPosition(e.client.x, e.client.y);
 
 			return this;
 		}
+
 	});
 
 	return exports;
+
 });
