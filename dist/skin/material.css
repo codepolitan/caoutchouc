@@ -1718,13 +1718,13 @@ form .fieldset .group .ui-field {
   opacity: .8;
   background-repeat: no-repeat;
   background-position: center;
-  background-image: url('/vendors/icon/mdi/svg/checkbox.svg');
+  background-image: url('/vendor/minimal-icon/mdi/svg/checkbox.svg');
 }
 .ui-item > .ui-check.item-checked {
-  background-image: url('/vendors/icon/mdi/svg/checked.svg');
+  background-image: url('/vendor/minimal-icon/mdi/svg/checked.svg');
 }
 .ui-item.is-checked > .ui-check {
-  background-image: url('/vendors/icon/mdi/svg/checked.svg');
+  background-image: url('/vendor/minimal-icon/mdi/svg/checked.svg');
 }
 .ui-item .item-text {
   -webkit-box-flex: 1;
@@ -1757,13 +1757,13 @@ form .fieldset .group .ui-field {
   opacity: .8;
   background-repeat: no-repeat;
   background-position: center;
-  background-image: url('/vendors/icon/mdi/svg/checkbox.svg');
+  background-image: url('/vendor/minimal-icon/mdi/svg/checkbox.svg');
 }
 .ui-item.type-check > .ui-check.item-checked {
-  background-image: url('/vendors/icon/mdi/svg/checked.svg');
+  background-image: url('/vendor/minimal-icon/mdi/svg/checked.svg');
 }
 .ui-item.type-check.is-checked > .ui-check {
-  background-image: url('/vendors/icon/mdi/svg/checked.svg');
+  background-image: url('/vendor/minimal-icon/mdi/svg/checked.svg');
 }
 .ui-item.type-check.item-selected {
   background-color: none;
