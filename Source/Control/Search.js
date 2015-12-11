@@ -8,11 +8,13 @@
 define([
 	'UI/Control/Field',
 	'UI/Control/Button',
-	'UI/Component/Method'
+	'UI/Component/Method',
+	'mnml/icon/font',
 ], function(
 	Field,
 	Button,
-	Method
+	Method,
+	fontIconConfig
 ) {
 
 	var exports = new Class({
@@ -87,7 +89,7 @@ define([
 		*/
 		_initReset: function() {
 			var self = this;
-			var icon = mnml.icon.font.clear || 'mdi-action-help';
+			var icon = fontIconConfig.clear || 'mdi-action-help';
 			this.reset = new Button({
 				name: 'clear',
 				icon: icon,

@@ -6,9 +6,11 @@
  */
 define([
 	'UI/Control/Button',
-	'UI/Control/Separator'
+	'UI/Control/Separator',
+	'mnml/icon/font',
 ], function(
-	Button
+	Button,
+	fontIconConfig
 ) {
 
 	var _log = __debug('ui:control-buttonMenu');
@@ -141,7 +143,7 @@ define([
 				clss = def.clss;
 			}
 
-			var icon = mnml.icon.font[def.icon || name] || 'mdi-action-help';
+			var icon = fontIconConfig[def.icon || name] || 'mdi-action-help';
 
 			_log.debug('_initItem', name, icon);
 
