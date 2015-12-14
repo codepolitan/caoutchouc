@@ -1,15 +1,16 @@
-
 /**
  * UI Component Location
  * @class UI.Component.Location
  * @author Jerome D. Vial
  */
 define([
-	"UI/Component/Component",
+	'mnml/ui/control/base',
+	'UI/Component/Component',
 	'UI/Control/Button'
 ], function(
+	uiControlBaseConfig,
 	Component
-) { 
+) {
 
 	var exports = UI.Toolbar = new Class({
 
@@ -34,7 +35,7 @@ define([
 		See also:
 			<UI.Component::_initElement>
 		*/
-		_initElement: function(){
+		_initElement: function() {
 			this.parent();
 
 			this._initComponent();
@@ -56,34 +57,38 @@ define([
 			<UI.Component::_initHead>
 		*/
 		_initComponent: function() {
-			var self = this,
-				opts = this.options,
-				element = this.element;
+			var self = this;
+			var opts = this.options;
+			var element = this.element;
 
 			this.control = {};
 
-			if (opts.comp.klss)
+			if (opts.comp.klss) {
 				element.addClass(opts.comp.klss);
+			}
 
 			element.addClass('toolbar-' + opts.comp.name);
 
 			opts.comp.list.each(function(n) {
-				_log.debug('---', n, mnml.control);
-				var comp = mnml.control[n];
+				_log.debug('---', n, uiControlBaseConfig);
+				var comp = uiControlBaseConfig[n];
 
 				if (comp) {
 					var clss = comp.clss || Button;
 					var opts = comp.opts || {};
 					self.control[n] = new clss(opts).inject(element).addEvents({
 						click: function() {
-							if (self.control[n].isEnable())
+							if (self.control[n].isEnable()) {
 								self.fireEvent('emit', n);
+							}
 						}
 					});
 				}
 			});
 		}
+
 	});
-	
+
 	return exports;
+
 });
