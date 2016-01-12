@@ -10,7 +10,10 @@ define([
 ], function(
 
 ) {
-
+	var _log = __debug('ui-menu-context');
+		_log.defineLevel('debug');
+		
+	//var Button = require('UI/Control/Button');
 	var exports = new Class({
 
 		Implements: [Events, Options],
@@ -79,15 +82,27 @@ define([
 			});
 
 
-			this.buildMenu(this.options.list);
+			//console.log('buildmenu', this.options.list);
+			this.buildMenu();
 		},
 
-		buildMenu: function(list){
+		buildMenu: function(){
+			var self = this;
+			var list = this.options.list;
+			//console.log('buildmenu', typeof list);
+			
 
-			list.each(function(menu){
+
+			for (var name in list) {
+				console.log('menu', menu);
+			// list.each(function(menu){
+				var menu = list[name];
+
+				//var item = new Button();
 
 				item = new Element('li', {
-					html: menu.text
+					class: 'ui-icon mdi-editor-mode-edit',
+					//html: menu.text
 				}).set(menu.options);
 
 				if (menu.klss)
@@ -98,21 +113,17 @@ define([
 
 				this.menus.push(menu);
 
-				if (menu.action) {
-					item.addEvents({
-						click: function(e) {
-							e.stop();
-							//_log.debug(menu.action);
-							menu.action();
+			
+				item.addEvents({
+					click: function(e) {
+						self.fireEvent('click', item.get('text'));
+					}
+				});
 
-							//(function() { menu.action() });
-						}
-					});
-				}
 
 				item.inject(this.element);
 
-			},this);
+			};
 		},
 
 		reach: function(el) {
