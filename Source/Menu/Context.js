@@ -9,7 +9,8 @@ define([
 	Menu
 ) {
 
-	var _log = __debug('ui-menu-context').defineLevel();
+	var _log = __debug('ui-menu-context');
+		_log.defineLevel('debug');
 
 	var exports = new Class({
 
@@ -170,6 +171,8 @@ define([
 			el.addEvent(self.options.trigger, function(e) {
 				e.stop();
 				e.preventDefault();
+
+				self.el = el;
 
 				self.target = e.target;
 
