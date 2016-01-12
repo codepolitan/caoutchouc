@@ -22,8 +22,6 @@ define(function(require, exports, module) {
 	//var Scrolling = require('./Scrolling');
 	var Zoom = require('./Zoom');
 
-	var _log = __debug('view').defineLevel();
-
 	var View = new Class({
 
 		Implements: [
@@ -44,7 +42,7 @@ define(function(require, exports, module) {
 		],
 
 		options: {
-			lib: 'minimal',
+			lib: 'ui',
 			base: 'view',
 			clss: 'view',
 
@@ -96,7 +94,6 @@ define(function(require, exports, module) {
 		 * @return {Object}
 		 */
 		initialize: function(options) {
-			_log.debug('initialize', options);
 
 			options = options || {};
 
@@ -126,6 +123,7 @@ define(function(require, exports, module) {
 			this.container = options.container;
 
 			this._init();
+			this._initBinding();
 
 			return this;
 		},
@@ -150,10 +148,6 @@ define(function(require, exports, module) {
 				this._initToolbar(opts.toolbar);
 			}
 
-			if (opts.menus) {
-				this._initMenus();
-			}
-
 			this._initEvents();
 
 			if (opts.scroller) {
@@ -174,7 +168,6 @@ define(function(require, exports, module) {
 		 * @private
 		 */
 		_initView: function() {
-			_log.debug('_initView');
 
 			this.isOpen = true;
 			this.visible = true;
@@ -272,7 +265,6 @@ define(function(require, exports, module) {
 		 * @return {void}
 		 */
 		focus: function() {
-			_log.debug('focus');
 
 			viewCtrl.focus(this);
 			this.fireEvent('focus');
@@ -285,7 +277,6 @@ define(function(require, exports, module) {
 		 * @private
 		 */
 		_initLayout: function(layout) {
-			_log.debug('_initLayout', layout);
 
 			//this.parent();
 			var opts = this.options;
@@ -310,7 +301,6 @@ define(function(require, exports, module) {
 		 * @private
 		 */
 		_initConnector: function() {
-			_log.debug('_initConnector');
 
 			var opts = this.opts;
 
@@ -330,7 +320,6 @@ define(function(require, exports, module) {
 		 * @private
 		 */
 		_connect: function(conn) {
-			_log.debug('_connect', conn);
 
 			var self = this;
 
@@ -370,7 +359,6 @@ define(function(require, exports, module) {
 		 * @private
 		 */
 		_initEvents: function() {
-			_log.debug('_initEvents');
 
 			//this.parent();
 
@@ -436,7 +424,6 @@ define(function(require, exports, module) {
 		 * @return {Object}
 		 */
 		setTitle: function(text) {
-			_log.debug('setTitle', text);
 
 			var self = this;
 
@@ -529,8 +516,6 @@ define(function(require, exports, module) {
 		 * @return {void}
 		 */
 		hide: function() {
-			_log.debug('hide');
-
 			this.container.hide();
 			this.visible = false;
 		},
@@ -540,8 +525,6 @@ define(function(require, exports, module) {
 		 * @return {void}
 		 */
 		show: function() {
-			_log.debug('show');
-
 			this.container.setStyle('display', null);
 			this.visible = true;
 		}
