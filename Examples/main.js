@@ -2,6 +2,7 @@
 require.config({
 	paths: {
 		UI : '../Source',
+		mnml : '../Source',
 		dist : '../dist',
 		utils : '../Source/utils'
 	},
@@ -22,20 +23,8 @@ require.config({
 });
 
 require(['dist/caoutchouc-min'], function() {
-	require(['UI/Layout/Layout'], function(Layout) {
-		var layout = new Layout({
-			container: $(document.body),
-			node: {
-				_name: 'standard',
-				_list: ['navi', 'main', 'side'],
-				main: {
-					flex: '1'
-				},
-				navi: {
-					theme: 'dark'
-				}
-			}
-		});
+	require(['./app'], function(App) {
+		new App();
 	});
 });
 
