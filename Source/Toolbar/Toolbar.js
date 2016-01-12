@@ -11,7 +11,7 @@ define(function(require, exports, module) {
 	var langControlsConfigEn = require('mnml/sys/lang/control/en');
 	var langControlsConfigFr = require('mnml/sys/lang/control/fr');
 
-	   var _log = __debug('core:module-toolbar').defineLevel();
+	var _log = __debug('core:module-toolbar');
 
     var Toolbar = new Class({
 
@@ -21,6 +21,7 @@ define(function(require, exports, module) {
 		 * @param {Object} obj
 		 */
 		_initToolbar: function(obj) {
+			var self = this;
 			_log.debug('_initToolbar', obj);
 
 			this.langControl = {
@@ -30,6 +31,8 @@ define(function(require, exports, module) {
 
 			this.toolbar = {};
 			this.control = {};
+
+			this._initToolbarReady(obj);
 
 			if (!obj.list) {
 				_log.warn('missing list field');
@@ -69,11 +72,31 @@ define(function(require, exports, module) {
 				this._initToolbarComp(bar, element);
 			}
 
-			//this._initMore();
-
 			this.container.fireEvent('resize');
-			this.fireEvent('toolbarReady');
+		},
 
+		/**
+		 * [_initToolbarReady description]
+		 * @return {[type]} [description]
+		 */
+		_initToolbarReady: function(obj) {
+			var self = this;
+			this.ready = 0;
+			this.isReady = 0;
+
+			var mappedObject = Object.map(obj, function(map) {
+				if (map.list) {
+					self.ready = self.ready + map.list.length;
+				}
+			});
+
+			this.addEvent('isReady', function(isReady) {
+				//console.log('isready', isReady);
+				if (isReady >= this.ready) {
+					//console.log('toolbarReady');
+					self.fireEvent('toolbarReady', isReady);
+				}
+			});
 		},
 
 		/**
@@ -207,13 +230,11 @@ define(function(require, exports, module) {
 
 			//var	Clss = api.strToClss(clss);
 
-			var lang;
+			var lang = 'en';
 
-			if (minimal.settings) {
-				lang = minimal.settings.getLang() || 'en';
-			} else {
-				lang = 'en';
-			}
+			// if (minimal && minimal.settings) {
+			// 	lang = minimal.settings.getLang() || 'en';
+			// }
 
 			if (!this.langControl[lang]) {
 				lang = 'en';
@@ -230,9 +251,7 @@ define(function(require, exports, module) {
 
 			var role = null;
 
-			if (!this.sandbox) {
-				_log.warn('no sandbox');
-			} else {
+			if (this.sandbox) {
 				var user = this.sandbox.getCurrentUser();
 				if (user && user.role) {
 					role = user.role;
@@ -351,8 +370,10 @@ define(function(require, exports, module) {
 							}
 						});
 					}
-
 				});
+
+				self.isReady++;
+				self.fireEvent('isReady', self.isReady);
 			}
 		},
 
@@ -371,6 +392,7 @@ define(function(require, exports, module) {
 				cb(Class);
 			}, function(err) {
 				_log.error(module, err);
+				console.log('error');
 				cb();
 			});
 		}
