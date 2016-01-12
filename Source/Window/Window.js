@@ -11,7 +11,7 @@ define([
 	'UI/Container/Container',
 	'UI/Control/Button'
 ], function(
-	controller,
+	Controller,
 	Container,
 	ButtonControl
 ) {
@@ -38,7 +38,7 @@ define([
 			width: 220,
 			height: 360,
 
-			location: 'cascade',
+			location: 'center',
 			position: 'fixed',
 
 			zIndex: 'auto', // to get zIndex from skin or an Int as zIndex
@@ -96,13 +96,15 @@ define([
 				this.element.setStyle('position', 'fixed');
 			}
 
-			ui.window.register(this);
+			this.controller.register(this);
 
-			if (this.options.focus)
-				ui.window.focus(this);
+			if (this.options.focus){
+				this.controller.focus(this);
+			}
 
+			var self = this;
 			window.onresize = function(event){
-				ui.window.resetMinimized();
+				self.controller.resetMinimized();
 			};
 
 			this.inject(this.options.container);
@@ -113,12 +115,9 @@ define([
 		 * @return {[type]} [description]
 		 */
 		_initController: function() {
-			if (!ui.window) {
-				this.controller = ui.window = controller;
 
-				ui.window.init();
-			}
-
+				this.controller = new Controller();
+				//console.log('_initController', this.controller);
 		},
 
 		/**
@@ -129,15 +128,15 @@ define([
 			this.parent();
 
 			//this._initContent();
-
 			//this._initShim();
 
-
-
-
-			this._initControl(this.options.controls);
+			//this._initControl(this.options.controls);
 		},
 
+		/**
+		 * [_initShim description]
+		 * @return {[type]} [description]
+		 */
 		_initShim: function() {
 			this.shim = new Element('iframe', {
 				src: 'javascript:false;document.write("");',
@@ -155,15 +154,11 @@ define([
 			}).inject(this.element, 'top').store('IframeShim', this);
 		},
 
-		/*
-		Function: _initHead
-			private function
-
-			Create a new head element, set class and styles and inject
-
-		Returns:
-			(void)
-		*/
+		/**
+		 * [_initHead description]
+		 * @param  {Object} options [description]
+		 * @return {void}         [description]
+		 */
 		_initHead: function(options){
 			this.parent(options);
 			this.dragHandlers.push(this.head);
@@ -184,7 +179,6 @@ define([
 			(void)
 		*/
 		_initControl: function(){
-			return;
 			var opts = this.options;
 
 			if (!this.head) return;
@@ -335,10 +329,12 @@ define([
 			this.resizeHandlers.each(function(handler) {
 				handler.addEvents({
 					'mousedown': function() {
-						//ui.window.showunderlay(self);
+						self.controller.showunderlay(self);
+						self.overlay.show();
 					},
 					'mouseup': function() {
-						//ui.window.underlay.hide();
+						self.underlay.hide();
+						self.overlay.hide();
 					}
 				});
 			});
@@ -390,12 +386,12 @@ define([
 		focus: function(){
 			if (this.minimized){
 				this.normalize();
-				ui.window.resetMinimized();
+				this.controller.resetMinimized();
 			} else
 				if (this.maximized && this.options.resizeOnDragIfMaximized)
 				this.normalize();
 			else
-				ui.window.focus(this);
+				this.controller.focus(this);
 
 			if (this.state != 'default')
 				this.setState('default');
@@ -436,13 +432,13 @@ define([
 
 			this.setState('minimized');
 
-			var coord = ui.window.getcoord('minimized');
+			var coord = this.controller.getcoord('minimized');
 
 			// _log.debug('--',coord);
 
 			this.element.setStyles(coord);
 
-			ui.window.focus();
+			this.controller.focus();
 		},
 
 		/*
@@ -525,7 +521,7 @@ define([
 		*/
 		close: function(){
 			//_log.debug('close');
-			ui.window.close(this);
+			this.controller.close(this);
 			this.fireEvent('closed');
 
 			return this;
