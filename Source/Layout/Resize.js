@@ -50,15 +50,15 @@ define([
 			this._initMaximize(component);
 
 
-			if (!container) return;
+			if (!container) { return; }
 
 			var direction = container.getStyle('flex-direction');
 			
-			if (!direction)	return;
+			if (!direction)	{ return; };
 
 			var modifier = this.options.resizer.modifier[direction];
 
-			if (!modifier) return;
+			if (!modifier) { return; };
 
 			//_log.debug('direction', direction, modifier);
 
@@ -72,6 +72,11 @@ define([
 				},
 				mousedown: function(e) {
 					e.stop();
+					self.mask.setStyle('display', 'block');
+				},
+				mouseup: function(e) {
+					//e.stop();
+					self.mask.setStyle('display', 'none');
 				}
 			}).inject(container);
 
@@ -109,12 +114,15 @@ define([
 			    onStart: function(el){
 					//_log.debug('onStart', el);
 					//self.fireEvent('resizeStart', el);
+					self.mask.setStyle('display', 'block');
 				},
 				onDrag: function(el, ev){
 					//_log.debug('onDrag', el);
+					self.mask.setStyle('display', 'block');
 					var coord = element.getCoordinates(container);
 					var coordc = container.getCoordinates();
 					var c = resizer.getCoordinates(container);
+
 					//element.setStyle('flex','none');
 					//element.setStyle(modifier.size, c[modifier.from] - coord[modifier.from]);
 					if (last){
@@ -128,6 +136,7 @@ define([
 					self.fireEvent('drag');
 				},
 				onComplete: function(el){
+					self.mask.setStyle('display', 'none');
 					//_log.debug('onComplete', component.main, modifier.size, size);
 					//_log.debug('onComplete', modifier.size, element.getCoordinates(container)[modifier.size]);
 					var coord = element.getCoordinates(container);
@@ -138,6 +147,7 @@ define([
 					//_log.debug('size', modifier, size);
 
 					component[modifier.size] = size;
+					
 				}
 			});
 

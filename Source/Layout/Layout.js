@@ -97,6 +97,10 @@ define([
 				'class': 'ui-layout layout-' + opts.node._name
 			}).inject(opts.container);
 
+			this.mask = new Element('div', {
+				'class': 'layout-mask',
+			}).inject(this.container);
+
 			//_log.debug('Layout container', this.container);
 
 			this.container.addClass('ui-layout');
