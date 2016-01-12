@@ -2846,6 +2846,7 @@ form .fieldset .group .ui-field {
   margin: 3px 0 3px 13px;
 }
 .ui-toolbar .ui-field {
+  height: 38px;
   display: inline-block;
   padding: 0 6px;
   margin: 1px;
@@ -2857,10 +2858,11 @@ form .fieldset .group .ui-field {
   text-transform: capitalize;
   color: #888888;
   display: inline-block;
-  padding: 0;
-  /*border-bottom: 1px solid rgba(136, 136, 136, .1);
-			border-top: 1px solid rgba(136, 136, 136, .1);*/
-  margin: 4px;
+  padding: 8px 6px;
+  margin: 1px;
+}
+.ui-toolbar .ui-field.field-date input {
+  padding: 4px 0;
 }
 .ui-toolbar .ui-field.field-date label {
   display: none;
