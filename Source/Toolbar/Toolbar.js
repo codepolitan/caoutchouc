@@ -209,6 +209,8 @@ define(function(require, exports, module) {
 				clss = def.clss;
 			}
 
+			//console.log(def.icon, name, mdiIconConfig, fontIconConfig);
+
 			if (def.opts) {
 				opts = def.opts;
 				opts.text = Locale.get('control.'+name, name) || name;
@@ -217,7 +219,7 @@ define(function(require, exports, module) {
 			} else {
 				opts = {
 					name: name,
-					icon: fontIconConfig[def.icon || name] || 'mdi-action-help',
+					icon: mdiIconConfig[def.icon || name] || fontIconConfig[def.icon || name] || 'mdi-action-help',
 					type: 'action',
 					klss: klss
 				};
