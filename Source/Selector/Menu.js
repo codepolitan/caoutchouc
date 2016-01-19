@@ -91,39 +91,45 @@ define([
 			var list = this.options.list;
 			//console.log('buildmenu', typeof list);
 			
-
+			var size = 0;
 
 			for (var name in list) {
-				console.log('menu', menu);
-			// list.each(function(menu){
+				//console.log('menu', name);
+				// list.each(function(menu){
 				var menu = list[name];
 
 				//var item = new Button();
 
 				item = new Element('li', {
-					class: 'ui-icon mdi-editor-mode-edit',
+					class: 'ui-icon menu-'+name,
+					name: name
 					//html: menu.text
 				}).set(menu.options);
 
-				if (menu.klss)
+				if (menu.klss) {
 					item.addClass(menu.klss);
+				}
 
-				if (menu.type)
+				if (menu.type) {
 					item.addClass('type-'+menu.type);
+				}
 
 				this.menus.push(menu);
-
 			
 				item.addEvents({
 					click: function(e) {
-						self.fireEvent('click', item.get('text'));
+						//console.log('clicked', this.get('name'));
+						self.fireEvent('click', this.get('name'));
 					}
 				});
 
 
 				item.inject(this.element);
 
+				size = size + item.getSize().x;
 			};
+
+			this.element.setStyle('width', size);
 		},
 
 		reach: function(el) {

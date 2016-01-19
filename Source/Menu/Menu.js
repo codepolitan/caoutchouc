@@ -149,7 +149,7 @@ define([
 			var trigger = opts.trigger;
 
 			if (!opts.head) {
-				_log.warn('missing opts.head', opts);
+				//_log.warn('missing opts.head', opts);
 				return;
 			}
 
