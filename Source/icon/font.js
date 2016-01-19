@@ -55,7 +55,7 @@
 		addOne: 'mdi-social-plus-one',
 		people: 'mdi-social-group',
 		print: 'mdi-action-print',
-		power: 'mdi-power',
+		//power: 'mdi-power-settings-new',
 		proforma: 'mdi-action-print',
 		user: 'mdi-action-account-circle',
 		apps: 'mdi-navigation-apps',
