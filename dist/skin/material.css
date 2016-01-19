@@ -4189,9 +4189,14 @@ form .fieldset .group .ui-field {
   -ms-flex: 3 1 0%;
   flex: 3 1 0%;
 }
+/*define default size for navi and list*/
+.layout-three .container-navi {
+  width: 200px;
+}
+.layout-three .container-list {
+  width: 320px;
+}
 /*
-// Layout tree
-
 .layout-three {
 
 	> .container-navi {
