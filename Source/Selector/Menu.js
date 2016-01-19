@@ -10,8 +10,8 @@ define([
 ], function(
 
 ) {
-	var _log = __debug('ui-menu-context');
-		_log.defineLevel('debug');
+	var _log = __debug('ui-selector-menu');
+		//_log.defineLevel('debug');
 		
 	//var Button = require('UI/Control/Button');
 	var exports = new Class({
@@ -94,7 +94,7 @@ define([
 
 
 			for (var name in list) {
-				console.log('menu', menu);
+				//console.log('menu', menu);
 			// list.each(function(menu){
 				var menu = list[name];
 
