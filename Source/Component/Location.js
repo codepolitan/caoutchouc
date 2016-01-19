@@ -121,14 +121,14 @@ define([
 
 			if (needed) {
 
-				this.minimize();
+				//this.minimize();
 
-				// if (this.options.fx && this.options.fx.adaptLocation) {
-				// 	if (!this.reposFx) {
-				// 		this.reposFx = new Fx.Morph(this.element, this.options.fx.adaptLocation);
-				// 	}
-				// 	this.reposFx.start(location);
-				// }
+				if (this.options.fx && this.options.fx.adaptLocation) {
+					if (!this.reposFx) {
+						this.reposFx = new Fx.Morph(this.element, this.options.fx.adaptLocation);
+					}
+					this.reposFx.start(location);
+				}
 			}
 		}
 	});
