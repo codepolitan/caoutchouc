@@ -10,6 +10,7 @@
 }
 
 .ui-toolbar {
+	white-space: nowrap;
 	//.flex(none);
 	//float:left;
 	padding:4px;
@@ -91,6 +92,11 @@
 	&.toolbar-cke {
 		padding: 0;
 		background-color: rgba(224, 224, 224, 0.75);
+	}
+	&.toolbar-info {
+		  white-space: nowrap;
+		  overflow: hidden;
+		  text-overflow: ellipsis;
 	}
 }
 

@@ -7,7 +7,7 @@
 }(this, function() {
 
 	return {
-		power: 'mdi-action-power',
+		power: 'mdi-action-power-settings-new',
 		side: 'mdi-action-chrome-reader-mode',
 		checked: 'mdi-check-box',
 		sprints: 'mdi-action-run',

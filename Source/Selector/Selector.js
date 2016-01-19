@@ -328,8 +328,8 @@ define(function(require, exports, module) {
 			options.positionning = this.options.positionning;
 
 			this.menu = new Menu(this.wrapper, options).addEvent('click', function(menu) {
-				console.log('menu click', menu);
-				self.fireEvent('menu', menu)
+				//console.log('menu click', menu);
+				self.fireEvent('menu', menu);
 			});
 
 
