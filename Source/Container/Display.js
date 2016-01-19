@@ -1,14 +1,15 @@
-
 /**
  * UI Component Drag
  * @class UI.Component.Drag
  * @author Jerome D. Vial
  */
 define([
-	
+
 ], function(
 
 ) {
+
+	var _log = __debug('ui-container-display').defineLevel();
 
 	var exports = new Class({
 
@@ -21,13 +22,13 @@ define([
 				fx: {
 					default: {
 						duration: 160,
-					    transition: 'sine:out',
-					    link: 'cancel'
+						transition: 'sine:out',
+						link: 'cancel'
 					},
 					minimize: {
 						duration: 160,
-					    transition: 'sine:out',
-					    link: 'cancel'
+						transition: 'sine:out',
+						link: 'cancel'
 					}
 				}
 			}
@@ -38,24 +39,26 @@ define([
 		 * @return {[type]} [description]
 		 */
 		_initDisplay: function() {
-	 		//_log.debug('_initDisplay', this.element);
+			//_log.debug('_initDisplay', this.element);
 
-	 		this._modifier = 'width';
+			this._modifier = 'width';
 
-	 		var direction = this.container.getStyle('flex-direction');
+			var direction = this.container.getStyle('flex-direction');
 
-			if (direction === 'column')
+			if (direction === 'column') {
 				this._modifier = 'height';
+			}
 
 			//_log.debug('direction', direction, this._modifier);
 
-			var self = this,
-				opts = this.options.display,
-				fx = opts.fx.default,
-				modifier = this._modifier;
+			var self = this;
+			var opts = this.options.display;
+			var fx = opts.fx.default;
+			var modifier = this._modifier;
 
-			if (!this[modifier])
+			if (!this[modifier]) {
 				this[modifier] = 220;
+			}
 
 			this.device = this.device || 'desktop';
 			//this.underlay.hide();
@@ -64,9 +67,9 @@ define([
 			fx.property = modifier;
 
 			this.display.fx = new Fx.Tween(this.element, fx)
-			.addEvent('complete', function() {
-				self.fireEvent('toggled');
-			});
+				.addEvent('complete', function() {
+					self.fireEvent('toggled');
+				});
 
 			return this.display;
 		},
@@ -96,9 +99,9 @@ define([
 		 * @return {[type]} [description]
 		 */
 		toggle: function() {
-			//_log.debug('__toggle click, display', this._display);
+			_log.debug('toggle click, display:', this._display);
 
-			if (this._display === 'normalized'){
+			if (this._display === 'normalized') {
 				this.minimize();
 			} else {
 				this.normalize();
@@ -113,7 +116,8 @@ define([
 		 */
 		minimize: function() {
 			//_log.debug('------start minimalization', this.device);
-			var self = this;	
+			//var self = this;
+
 			if (!this.display) {
 				this._initDisplay();
 			}
@@ -122,13 +126,13 @@ define([
 
 			this.display.fx.start(0);
 
-			(function(){ 
+			(function() {
 				//self.element.setStyle('display', 'none');
 			}).delay(160);
 
 			this._display = 'minimized';
 
-			if (this.underlay && this.device != 'desktop') {
+			if (this.underlay && this.device !== 'desktop') {
 				this.underlay.fade(0);
 			}
 
@@ -141,14 +145,14 @@ define([
 		 */
 		normalize: function() {
 			// _log.debug('normalize');
-			var self = this;
+
 			if (!this.display) {
 				this._initDisplay();
 			}
-			
+
 			this.fireEvent('normalize');
 
-			//self.element.setStyle('display', 'flex');
+			//this.element.setStyle('display', 'flex');
 
 			var size = this[this._modifier];
 
@@ -157,7 +161,7 @@ define([
 			} else {
 				this.element.setStyle(this._modifier, size);
 			}
-			if (this.underlay && this.device != 'desktop') {
+			if (this.underlay && this.device !== 'desktop') {
 				//_log.debug('---', this.device);
 				this.underlay.show();
 				this.underlay.fade(1);
