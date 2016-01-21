@@ -44,18 +44,20 @@ define([
 
 	 		var direction = this.container.getStyle('flex-direction');
 
-			if (direction === 'column')
+			if (direction === 'column') {
 				this._modifier = 'height';
+			}
 
 			//_log.debug('direction', direction, this._modifier);
 
-			var self = this,
-				opts = this.options.display,
-				fx = opts.fx.default,
-				modifier = this._modifier;
+			var self = this;
+			var	opts = this.options.display;
+			var	fx = opts.fx.default;
+			var	modifier = this._modifier;
 
-			if (!this[modifier])
-				this[modifier] = this.options.size || 460;
+			if (!this[modifier]) {
+				this[modifier] = this.options.size || 260;
+			}
 
 			this.device = this.device || 'desktop';
 			//this.underlay.hide();
@@ -96,6 +98,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		toggle: function() {
+			console.log('toggle', this._display);
 			//_log.debug('__toggle click, display', this._display);
 
 			if (this._display === 'normalized'){
@@ -115,7 +118,7 @@ define([
 		 * [minimize description]
 		 * @return {[type]} [description]
 		 */
-		minimize: function() {
+		minimize: function(quiet) {
 			//_log.debug('------start minimalization', this.device);
 			var self = this;	
 			if (!this.display) {
@@ -124,14 +127,14 @@ define([
 
 			this.fireEvent('minimize');
 
-
-			this.display.fx.start(0);
-
-			(function(){ 
-				//self.element.setStyle('display', 'none');
-			}).delay(160);
+			if (quiet) {
+				this.element.setStyle(this._modifier, 0);
+			} else {
+				this.display.fx.start(0);
+			}
 
 			this._display = 'minimized';
+			console.log('display', this._display);
 
 			if (this.underlay && this.device != 'desktop') {
 				this.underlay.fade(0);
@@ -145,25 +148,26 @@ define([
 		 * @return {[type]} [description]
 		 */
 		normalize: function() {
-			// _log.debug('normalize');
-			var self = this;
+			console.log('normalize');
 			if (!this.display) {
 				this._initDisplay();
 			}
 			
 			this.fireEvent('normalize');
-			this.setStyle('display', 'initial');
-			this.element.setStyle('display', 'initial');
+			// this.setStyle('display', 'initial');
+			// this.element.setStyle('display', 'initial');
 
 			var size = this[this._modifier] || this.options.size;
 
-			var w = window,
-			    d = document,
-			    e = d.documentElement,
-			    g = d.getElementsByTagName('body')[0],
-			    x = w.innerWidth || e.clientWidth || g.clientWidth;
+			var w = window;
+			var d = document;
+			var e = d.documentElement;
+			var g = d.getElementsByTagName('body')[0];
+			var x = w.innerWidth || e.clientWidth || g.clientWidth;
 
-		    if (x < 640) size = x;
+		    if (x < 640) {
+		    	size = x;
+		    }
 
 			//console.log('size', size);
 
