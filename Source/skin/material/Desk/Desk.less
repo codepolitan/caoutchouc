@@ -1,9 +1,6 @@
 
 //@desk-head-bg: #434C59;
-@desk-head-bg: rgba(48, 62, 76, 1);
-@desk-head-bg: rgb(67, 76, 89);
-@desk-head-bg: rgb(68, 68, 68);
-@desk-head-bg: transparent;
+
 @desk-icon-color: rgba(255, 255, 255, 1);
 @desk-text-color: rgba(255, 255, 255, 1);
 
@@ -16,7 +13,7 @@
    	width: 100%;
 	> .container-body {
 		overflow: auto;
-		background-color: transparent;
+		background-color: rgba(224, 224, 224, 0.5);
 	}
 	> .container-head {
 		.colored;
@@ -48,7 +45,7 @@
 			display: inline-block;
 			>.ui-button {
 				.ui-icon {
-					//color: @desk-icon-color;
+					color: @desk-icon-color;
 				}
 			}
 			&.toolbar-view {
@@ -64,7 +61,7 @@
 				padding: 8px 0 8px 0;
 				>.ui-text {
 					font-size: 1.4em;
-					//color: @desk-text-color;
+					color: @desk-text-color;
 					text-transform: capitalize;
 					line-height: 1.8em;
 					margin: 4px;
