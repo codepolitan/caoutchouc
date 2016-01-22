@@ -163,7 +163,7 @@ define([
 					comp.node.container = component;
 
 					if (component.options.clss === 'tab') {
-						var c = this._processComponents(comp.node, 'tab', level);
+						this._processComponents(comp.node, 'tab', level);
 					} else {
 						this._processComponents(comp.node, null, level);
 					}
