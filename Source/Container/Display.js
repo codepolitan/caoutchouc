@@ -98,7 +98,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		toggle: function() {
-			console.log('toggle', this._display);
+			//console.log('toggle', this._display);
 			//_log.debug('__toggle click, display', this._display);
 
 			if (this._display === 'normalized'){
@@ -134,7 +134,7 @@ define([
 			}
 
 			this._display = 'minimized';
-			console.log('display', this._display);
+			//console.log('display', this._display);
 
 			if (this.underlay && this.device != 'desktop') {
 				this.underlay.fade(0);
@@ -148,7 +148,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		normalize: function() {
-			console.log('normalize');
+			//console.log('normalize');
 			if (!this.display) {
 				this._initDisplay();
 			}

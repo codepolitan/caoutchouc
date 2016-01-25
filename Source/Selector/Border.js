@@ -23,7 +23,12 @@ define([
 			size: 1,
 			color: '#000',
 			opacity: '1',
-			location: 'outside'  // inside or outside
+			location: 'outside',  // inside or outside
+			effect: {
+				duration: 100,
+				transition: 'expo:out',
+				link: 'cancel'
+			}
 		},
 
 		initialize: function(container, options){
@@ -58,11 +63,7 @@ define([
 				self.fireEvent('click');
 			}).inject(this.container, 'top');
 
-			line.set('morph', {
-				duration: 250,
-				transition: 'expo:out',
-				link: 'cancel'
-			});
+			line.set('morph', this.options.effect);
 
 
 			this.lines.push(line);

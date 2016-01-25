@@ -26,7 +26,12 @@ define([
 			position: 'top left',
 			location: 'outside',
 			offset: [1,1],
-			positionning: 'absolute'
+			positionning: 'absolute',
+			effect: {
+				duration: 100,
+				transition: 'expo:out',
+				link: 'cancel'
+			}
 		},
 
 		initialize: function(container,options){
@@ -57,12 +62,7 @@ define([
 				'zIndex': this.options.zIndex
 			}).inject(container);
 
-			this.fx = new Fx.Morph(this.element, {
-				link: 'cancel',
-				duration: 250,
-				transition: 'expo:out',
-			});
-
+			this.fx = new Fx.Morph(this.element, this.options.effect);
 
 			this.element.addEvents({
 				mouseenter: function(e) {
