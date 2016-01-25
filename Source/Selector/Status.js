@@ -21,7 +21,12 @@ define([
 			clss: 'selector-status',
 			position: 'top left',
 			location: 'outside',
-			offset: [1,1]
+			offset: [1,1],
+			effect: {
+				duration: 100,
+				transition: 'expo:out',
+				link: 'cancel'
+			}
 		},
 
 		initialize: function(container,options){
@@ -48,15 +53,12 @@ define([
 				html: 'status'
 			}).inject(container);
 
-			this.fx = new Fx.Morph(this.element, {
-				link: 'cancel',
-				duration: 250,
-				transition: 'expo:out',
-			});
+			this.fx = new Fx.Morph(this.element, this.options.effect);
 		},
 
 		setStatus: function(status) {
-			this.element.set('html',status);
+			//console.log('setStatus', status );
+			this.element.set('html', status);
 		},
 
 		getStatus: function(el) {
@@ -88,7 +90,7 @@ define([
 
 			var opts = this.options;
 
-			this.setStatus(this.getStatus(el));
+			//this.setStatus(this.getStatus(el));
 			this.show();
 			var size = this.element.getCoordinates();
 			var coord = el.getCoordinates();

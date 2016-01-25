@@ -9,6 +9,7 @@ define(function(require, exports, module) {
 	var Resizer = require('UI/Selector/Resizer');
 	var Overlay = require('UI/Selector/Overlay');
 	var Mask = require('UI/Selector/Mask');
+	var Status = require('UI/Selector/Status');
 
 	module.exports = new Class({
 
@@ -65,7 +66,7 @@ define(function(require, exports, module) {
 				duration: 365,
 				path: '/'
 			},
-			usefx: false,
+			usefx: true,
 			enable: true,
 			timerOnHide: 0,
 			onCatch: {},
@@ -454,6 +455,7 @@ define(function(require, exports, module) {
 		},
 
 		reach: function(el) {
+			console.log('reach');
 			if (el) {
 				this.el = el;
 			} else if (this.el) {
