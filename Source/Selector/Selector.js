@@ -455,7 +455,7 @@ define(function(require, exports, module) {
 		},
 
 		reach: function(el) {
-			console.log('reach');
+			//console.log('reach');
 			if (el) {
 				this.el = el;
 			} else if (this.el) {
@@ -546,7 +546,7 @@ define(function(require, exports, module) {
 		},
 
 		enable: function(selector) {
-			console.log('enable', this.options.name);
+			//console.log('enable', this.options.name);
 
 			this.isEnable = true;
 			Cookie.write(this.name, '1', this.options.cookie);
@@ -554,7 +554,7 @@ define(function(require, exports, module) {
 		},
 
 		disable: function(selector) {
-			console.log('disable', this.options.name);
+			//console.log('disable', this.options.name);
 
 			this.isEnable = false;
 			Cookie.write(this.name, '0', this.options.cookie);
