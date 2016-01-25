@@ -79,9 +79,11 @@ define([
 		},
 
 		_initPicker: function() {
-			var opts = this.options;
 
+			var opts = this.options;
 			var options = opts.picker;
+
+			options.pickOnly = this.options.pickOnly || false;
 
 			//comment this because we already handle the select in the method down '_initEvents'
 
@@ -139,17 +141,22 @@ define([
 			//_log.debug('set', date);
 			var opts = this.options;
 			var text;
+			var d;
 
 			if (date) {
-				date = moment(date).format(opts.format);
+				d = moment(date).format(opts.format);
 				text = moment(date).toISOString();
 
-				//the window was trigger 'chnage' because self was not define
+				//the window was trigger 'change' because self was not define
 				//I just comment this (bsantos)
 				//self.fireEvent('change', text);
 			}
 
-			this.input.set('value', date);
+			if (this.picker.options.pickOnly === 'months') {
+				d = moment(date).format('MMMM');
+			}
+
+			this.input.set('value', d);
 			this.input.set('placeholder', opts.text);
 			this.text.set('value', text);
 		}
