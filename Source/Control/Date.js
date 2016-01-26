@@ -1,23 +1,17 @@
-
 /**
  * UI Control Date
  * @class UI.Control.Date
- * @extends {UI.Control}
- * @type {Class}
  */
-define([
-	'moment',
-	'UI/Control/Field',
-	'DatePicker/Locale.en-US.DatePicker',
-	'DatePicker/Picker.Date'
-], function(
-	moment,
-	Field
-) {
+define(function(require, exports, module) {
 
-	var _log = __debug('ui:control-date');
+	var moment = require('moment');
+	var Field = require('UI/Control/Field');
+	require('DatePicker/Locale.en-US.DatePicker');
+	require('DatePicker/Picker.Date');
 
-	var exports = new Class({
+	var _log = __debug('ui-control-date').defineLevel('debug');
+
+	var DateControl = new Class({
 
 		Extends: Field,
 
@@ -36,16 +30,23 @@ define([
 				//showOnInit: true,
 				draggable: false,
 				columns: 1,
-				positionOffset: { x: 0, y: 5 },
+				positionOffset: {
+					x: 0,
+					y: 5
+				},
 				pickerClass: 'datepicker_bootstrap',
-				format: "b"
+				format: 'b'
 			}
 		},
 
-		_initInput: function()  {
+		/**
+		 * _initInput
+		 * @return {void}
+		 */
+		_initInput: function() {
 			var opts = this.options;
 
-			//_log.debug('input option', opts.read, opts.name);
+			_log.debug('input option', opts.read, opts.name);
 
 			this.element.addClass('field-date');
 			this.element.addClass('icon-text');
@@ -57,15 +58,17 @@ define([
 				class: 'date-input'
 			}).inject(this.element);
 
-			if (opts.read)
+			if (opts.read) {
 				this.input.set('readonly', 'readonly');
+			}
 
 			/*this.icon = new Element('span', {
 				'class': 'fa fa-calendar'
 			}).inject(this.element);*/
 
-			if (!opts.read)
+			if (!opts.read) {
 				this._initPicker();
+			}
 
 			//this.picker.detach(this.input);
 
@@ -75,9 +78,12 @@ define([
 			}).inject(this.element);
 
 			this.set(opts.value);
-
 		},
 
+		/**
+		 * _initPicker
+		 * @return {void}
+		 */
 		_initPicker: function() {
 
 			var opts = this.options;
@@ -85,17 +91,16 @@ define([
 
 			options.pickOnly = this.options.pickOnly || false;
 
-			//comment this because we already handle the select in the method down '_initEvents'
-
-			/*options.onSelect = function(d){
-				_log.debug('onSelect', d);
-				self.fireEvent('change', [d, opts.name]);
-			};*/
-
+			/**
+			 * @ignore
+			 */
 			options.onShow = function() {
 				_log.debug('picker date show');
 			};
 
+			/**
+			 * @ignore
+			 */
 			options.onHide = function() {
 				_log.debug('picker date hide');
 			};
@@ -105,28 +110,22 @@ define([
 			//_log.debug('pickcer', this.picker);
 		},
 
-		/*
-		Function: _initEvents
-			private function
-
-			Set control relative behavior (blur and focus)
-
-		Return:
-			(void)
-
-		See also:
-			<UI.Control::_initEvents>
-			<UI.Component::_initEvents>
-		*/
-
+		/**
+		 * Set control relative behavior (blur and focus)
+		 * @return {void}
+		 */
 		_initEvents: function() {
+			if (this.options.read) {
+				return;
+			}
+
 			var self = this;
 
-			if (this.options.read) return;
-
 			this.picker.addEvents({
-				select: function(date){
-					//_log.debug('select', date);
+				/**
+				 * @ignore
+				 */
+				select: function(date) {
 					self.set(date);
 					self.fireEvent('change', date);
 				}
@@ -134,11 +133,12 @@ define([
 		},
 
 		/**
-		 * [set description]
-		 * @param {[type]} d [description]
+		 * set
+		 * @param {string} date
 		 */
 		set: function(date) {
-			//_log.debug('set', date);
+			_log.debug('set', date);
+
 			var opts = this.options;
 			var text;
 			var d;
@@ -146,10 +146,6 @@ define([
 			if (date) {
 				d = moment(date).format(opts.format);
 				text = moment(date).toISOString();
-
-				//the window was trigger 'change' because self was not define
-				//I just comment this (bsantos)
-				//self.fireEvent('change', text);
 			}
 
 			if (this.picker.options.pickOnly === 'months') {
@@ -163,5 +159,6 @@ define([
 
 	});
 
-	return exports;
+	module.exports = DateControl;
+
 });
