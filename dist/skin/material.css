@@ -1504,9 +1504,6 @@ form .fieldset .group .ui-field {
 .field-hour .hour-controls .icon-less:hover {
   background-color: #ffffff;
 }
-.field-date .date-text {
-  display: none;
-}
 .ui-hours {
   display: inline-block;
   width: 75%;
@@ -1521,6 +1518,9 @@ form .fieldset .group .ui-field {
 .ui-hours .field-hour {
   width: 25%;
   float: left;
+}
+.field-date .date-text {
+  display: none;
 }
 .ui-search {
   -webkit-box-flex: none;
