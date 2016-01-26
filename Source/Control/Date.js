@@ -9,7 +9,7 @@ define(function(require, exports, module) {
 	require('DatePicker/Locale.en-US.DatePicker');
 	require('DatePicker/Picker.Date');
 
-	var _log = __debug('ui-control-date').defineLevel('debug');
+	var _log = __debug('ui-control-date').defineLevel();
 
 	var DateControl = new Class({
 
@@ -86,6 +86,7 @@ define(function(require, exports, module) {
 		 */
 		_initPicker: function() {
 
+			var self = this;
 			var opts = this.options;
 			var options = opts.picker;
 
@@ -96,6 +97,18 @@ define(function(require, exports, module) {
 			 */
 			options.onShow = function() {
 				_log.debug('picker date show');
+
+				/*when the picker open,
+				set the last selected date
+				to open the picker in the right date*/
+				var val = self.text.get('value');
+				self.input.setStyle('visibility', 'hidden');
+				self.input.set('value', val);
+				setTimeout(function() {
+					self.set(val);
+					self.input.setStyle('visibility', 'initial');
+				}, 0);
+
 			};
 
 			/**
@@ -122,9 +135,6 @@ define(function(require, exports, module) {
 			var self = this;
 
 			this.picker.addEvents({
-				/**
-				 * @ignore
-				 */
 				select: function(date) {
 					self.set(date);
 					self.fireEvent('change', date);
@@ -134,27 +144,26 @@ define(function(require, exports, module) {
 
 		/**
 		 * set
-		 * @param {string} date
+		 * @param {string} d
 		 */
-		set: function(date) {
-			_log.debug('set', date);
+		set: function(d) {
+			_log.debug('set', d);
+
+			if (!d) {
+				return;
+			}
 
 			var opts = this.options;
-			var text;
-			var d;
-
-			if (date) {
-				d = moment(date).format(opts.format);
-				text = moment(date).toISOString();
-			}
+			var text = moment(d).format(opts.format);
+			var date = moment(d).toISOString();
 
 			if (this.picker.options.pickOnly === 'months') {
-				d = moment(date).format('MMMM');
+				text = moment(d).format('MMMM');
 			}
 
-			this.input.set('value', d);
+			this.input.set('value', text);
 			this.input.set('placeholder', opts.text);
-			this.text.set('value', text);
+			this.text.set('value', date);
 		}
 
 	});
