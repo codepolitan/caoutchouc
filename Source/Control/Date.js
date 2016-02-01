@@ -158,7 +158,7 @@ define(function(require, exports, module) {
 			var date = moment(d).toISOString();
 
 			if (this.picker.options.pickOnly === 'months') {
-				text = moment(d).format('MMMM');
+				text = moment(d).format('MMMM YYYY');
 			}
 
 			this.input.set('value', text);
