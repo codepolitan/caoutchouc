@@ -143,7 +143,7 @@ define([
 				clss = def.clss;
 			}
 
-			var icon = fontIconConfig[def.icon || name] || 'mdi-action-help';
+			var icon = fontIconConfig[def.icon || name];
 
 			_log.debug('_initItem', name, icon);
 
