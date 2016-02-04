@@ -2528,6 +2528,12 @@ form .fieldset .group .ui-field {
   margin: 0;
 }
 .ui-item.type-image > .ui-image {
+  -webkit-box-flex: none;
+  -moz-box-flex: none;
+  -webkit-flex: none 1 0%;
+  -moz-flex: none 1 0%;
+  -ms-flex: none 1 0%;
+  flex: none 1 0%;
   width: 48px;
   height: 48px;
   padding: 0;
