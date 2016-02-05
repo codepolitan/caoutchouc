@@ -1,22 +1,18 @@
-
 /**
  * UI Window Class
- * 
  * @class UI.Window
  * @extends {UI.Container}
  * @type {Class}
  */
-define([
-	'UI/Window/controller',
-	'UI/Container/Container',
-	'UI/Control/Button'
-], function(
-	controller,
-	Container,
-	ButtonControl
-) {
+define(function(require, exports, module) {
 
-	var exports = new Class({
+	var controller = require('UI/Window/controller');
+	var Container = require('UI/Container/Container');
+	var ButtonControl = require('UI/Control/Button');
+
+	var _log = __debug('ui-window');
+
+	var Win = new Class({
 
 		Extends: Container,
 
@@ -69,20 +65,20 @@ define([
 			useUnderlay: true,
 			useOverlay: true,
 
-			hideOnDrag : true,
+			hideOnDrag: true,
 
 			// Resize options
 			resizable: true,
 			resizeLimitX: [160, screen.width],
 			resizeLimitY: [260, screen.height],
 			resizeOnDragIfMaximized: false,
-			resizeBorders: ['top','right','bottom','left']
+			resizeBorders: ['top', 'right', 'bottom', 'left']
 		},
 
 		/**
-		 * [initialize description]
-		 * @param  {[type]} options [description]
-		 * @return {[type]}         [description]
+		 * initialize
+		 * @param  {Object} options
+		 * @return {void}
 		 */
 		initialize: function(options) {
 			this._initController();
@@ -92,16 +88,17 @@ define([
 			this._initLocation();
 			this.adaptLocation();
 
-			if (this.options.position == 'fixed'){
+			if (this.options.position == 'fixed') {
 				this.element.setStyle('position', 'fixed');
 			}
 
 			ui.window.register(this);
 
-			if (this.options.focus)
+			if (this.options.focus) {
 				ui.window.focus(this);
+			}
 
-			window.onresize = function(event){
+			window.onresize = function(event) {
 				ui.window.resetMinimized();
 			};
 
@@ -109,8 +106,8 @@ define([
 		},
 
 		/**
-		 * [_initController description]
-		 * @return {[type]} [description]
+		 * init controller
+		 * @return {void}
 		 */
 		_initController: function() {
 			if (!ui.window) {
@@ -122,8 +119,8 @@ define([
 		},
 
 		/**
-		 * [_initElement description]
-		 * @return {[type]} [description]
+		 * init element
+		 * @return {void}
 		 */
 		_initElement: function() {
 			this.parent();
@@ -132,20 +129,21 @@ define([
 
 			//this._initShim();
 
-
-
-
 			this._initControl(this.options.controls);
 		},
 
+		/**
+		 * init Shim
+		 * @return {void}
+		 */
 		_initShim: function() {
 			this.shim = new Element('iframe', {
 				src: 'javascript:false;document.write("");',
 				scrolling: 'no',
 				frameborder: 0,
 				styles: {
-					top:0,
-					left:0,
+					top: 0,
+					left: 0,
 					zIndex: '1',
 					position: 'absolute',
 					border: 'none',
@@ -155,16 +153,12 @@ define([
 			}).inject(this.element, 'top').store('IframeShim', this);
 		},
 
-		/*
-		Function: _initHead
-			private function
-
-			Create a new head element, set class and styles and inject
-
-		Returns:
-			(void)
-		*/
-		_initHead: function(options){
+		/**
+		 * Create a new head element, set class and styles and inject
+		 * @param  {Object} options
+		 * @return {void}
+		 */
+		_initHead: function(options) {
 			this.parent(options);
 			this.dragHandlers.push(this.head);
 
@@ -174,44 +168,52 @@ define([
 			// }).inject(this.head);
 		},
 
-		/*
-		Function: buildControls
-			private function
-
-			Create window controls that allow window close, maximize and minimize
-
-		Returns:
-			(void)
-		*/
-		_initControl: function(){
+		/**
+		 * Create window controls that allow window close, maximize and minimize
+		 * @return {void}
+		 */
+		_initControl: function() {
 			return;
+
 			var opts = this.options;
 
-			if (!this.head) return;
+			if (!this.head) {
+				return;
+			}
 
 			//_log.debug('buildControls');
-			if (!this.options.controls) { return; }
+
+			if (!this.options.controls) {
+				return;
+			}
+
 			var self = this;
 
 			this.controls = new Element('div', {
-				'class': opts.name+'-control'
-			}).addEvent('click',function(e) { e.stop(); })
-			.inject(this.head);
+					'class': opts.name + '-control'
+				}).addEvent('click', function(e) {
+					e.stop();
+				})
+				.inject(this.head);
 
-			opts.controls.each(function(action){
+			opts.controls.each(function(action) {
 				new ButtonControl({
 					icon: action,
 					text: action,
-					klss: 'button-'+action
+					klss: 'button-' + action
 				}).addEvent('press', function(ev) {
-					//_log.debug('press', ev);
+					_log.debug('press', ev);
 					self.control(action);
 				}).inject(self.controls);
 			});
 
 			this.addEvents({
-				'minimize': function() { this.controls.hide(); },
-				'normalize': function() { this.controls.show(); }
+				'minimize': function() {
+					this.controls.hide();
+				},
+				'normalize': function() {
+					this.controls.show();
+				}
 			});
 
 			this.dragHandlers.push(this.controls);
@@ -219,6 +221,11 @@ define([
 			//this.fireEvent('resize');
 		},
 
+		/**
+		 * initBody
+		 * @param  {Object} options
+		 * @return {void}
+		 */
 		_initBody: function(options) {
 			this.fireEvent('resize');
 
@@ -227,73 +234,61 @@ define([
 				.inject(this.element);
 
 			this.addEvents({
-				'minimize': function() { this.body.hide(); },
-				'normalize': function() { this.body.show(); }
+				'minimize': function() {
+					this.body.hide();
+				},
+				'normalize': function() {
+					this.body.show();
+				}
 			});
 		},
 
-
-		/*
-		Function: _initElement Foot
-			private function
-
-			Create a new head element, set class and styles and inject
-
-		Returns:
-			(void)
-		*/
-		_initFoot: function(options){
+		/**
+		 * initFoot
+		 * @param  {Object} options
+		 * @return {void}
+		 */
+		_initFoot: function(options) {
 			this.parent(options);
 			this.dragHandlers.push(this.foot);
 
 			this.addEvents({
-				minimize: function() { this.body.hide(); },
-				normalize: function() { this.body.show(); }
+				minimize: function() {
+					this.body.hide();
+				},
+				normalize: function() {
+					this.body.show();
+				}
 			});
 		},
 
-
-		/*
-		Function: setTitle
-			set title html
-
-		Arguments:
-			html - (string) html formatted title
-
-		Returns:
-			this
-		*/
-		setTitle: function(title){
+		/**
+		 * set title html
+		 * @param {string} title html formatted title
+		 */
+		setTitle: function(title) {
 			return;
-			if (this.title && this.head)
+
+			if (this.title && this.head) {
 				return this.title.set('text', title);
+			}
 		},
 
-		/*
-		Method: _initClass
-			private function
-
-			_initClass container related class
-
-		Returns:
-			(void)
-		*/
-		_initClass: function(){
+		/**
+		 * _initClass container related class
+		 * @return {void}
+		 */
+		_initClass: function() {
 			this.parent();
 
 			this.element.addClass('ui-window');
 		},
 
-		/*
-		Function: _initEvents
-
-		Arguments:
-			html - (string) html formatted title
-
-		Returns:
-			this
-		*/
-		_initEvents: function(){
+		/**
+		 * [_initEvents description]
+		 * @return {void}
+		 */
+		_initEvents: function() {
 			this.parent();
 
 			var self = this;
@@ -311,14 +306,14 @@ define([
 				onResizeComplete: function() {
 					this.coord = this.element.getCoordinates();
 				},
-				onDragStart: function(){
+				onDragStart: function() {
 					//_log.debug('darg start', this);
 				},
 				'onDragComplete': function() {
 					//_log.debug('darg com', ui.window.underlay);
 					this.coord = this.element.getCoordinates();
 				},
-				resizeComplete: function(){
+				resizeComplete: function() {
 					self.maximized = false;
 					this.coord = this.element.getCoordinates();
 				}
@@ -331,24 +326,30 @@ define([
 				}
 			});
 
-			if (this.resizeHandlers)
-			this.resizeHandlers.each(function(handler) {
-				handler.addEvents({
-					'mousedown': function() {
-						//ui.window.showunderlay(self);
-					},
-					'mouseup': function() {
-						//ui.window.underlay.hide();
-					}
+			if (this.resizeHandlers) {
+				this.resizeHandlers.each(function(handler) {
+					handler.addEvents({
+						'mousedown': function() {
+							//ui.window.showunderlay(self);
+						},
+						'mouseup': function() {
+							//ui.window.underlay.hide();
+						}
+					});
 				});
-			});
+			}
 		},
 
+		/**
+		 * init Underlay
+		 * @return {void}
+		 */
 		_initUnderlay: function() {
 			//_log.debug('_initUnderlay', this.options.container);
+
 			var self = this;
 
-			var container = this.options.container || $(document.body)
+			var container = this.options.container || $(document.body);
 
 			//_log.debug(container);
 
@@ -373,58 +374,48 @@ define([
 
 			});
 
-
 			this.underlay.show();
 
-	 		this.addEvent('close', function(){
+			this.addEvent('close', function() {
 				self.underlay.destroy();
 			});
-	   	},
-		/*
-		Function: focus
-			If minimize normalize and fireEvent OnFocus
+		},
 
-		Returns:
-			(void)
-		*/
-		focus: function(){
-			if (this.minimized){
+		/**
+		 * focus
+		 * @return {void}
+		 */
+		focus: function() {
+			if (this.minimized) {
 				this.normalize();
 				ui.window.resetMinimized();
 			} else
-				if (this.maximized && this.options.resizeOnDragIfMaximized)
+			if (this.maximized && this.options.resizeOnDragIfMaximized) {
 				this.normalize();
-			else
+			} else {
 				ui.window.focus(this);
+			}
 
-			if (this.state != 'default')
+			if (this.state != 'default') {
 				this.setState('default');
+			}
 		},
 
-
-		/*
-		Function: control
-			handle window controls' actions
-
-		Arguments:
-			actions - (string) minimize,maximize,close
-
-		Returns:
-			this
-		*/
-		control: function(action){
+		/**
+		 * handle window controls' actions
+		 * @param  {string} action minimize,maximize,close
+		 * @return {Object}
+		 */
+		control: function(action) {
 			this[action]();
 			return this;
 		},
 
-		/*
-		Function: minimize
-			This action method displays the minimized window
-
-		Returns:
-			(void)
-		*/
-		minimize : function() {
+		/**
+		 * This action method displays the minimized window
+		 * @return {void}
+		 */
+		minimize: function() {
 
 			this.fireEvent('minimize');
 			this.disableDrag();
@@ -445,18 +436,14 @@ define([
 			ui.window.focus();
 		},
 
-		/*
-		Function: maximize
-			private function
-
-			This action method set the size to fit the window container
-
-		Returns:
-			(void)
-		*/
-		maximize: function(){
-			if (this.maximized) this.normalize();
-			else {
+		/**
+		 * This action method set the size to fit the window container
+		 * @return {Object}
+		 */
+		maximize: function() {
+			if (this.maximized) {
+				this.normalize();
+			} else {
 
 				this.coord = this.element.getCoordinates();
 				this.max = this.container.getCoordinates();
@@ -486,15 +473,11 @@ define([
 			return this;
 		},
 
-
-		/*
-		Function: normalize
-			Normalize window
-
-		Returns:
-			(void)
-		*/
-		normalize: function(){
+		/**
+		 * Normalize window
+		 * @return {void}
+		 */
+		normalize: function() {
 			var self = this;
 
 			this.fireEvent('normalize');
@@ -507,30 +490,35 @@ define([
 			// c'est moche
 			// this.fireEvent('onResizeDrag');
 
-			(function(){ self.enableDrag(); }).delay(1000);
+			(function() {
+				self.enableDrag();
+			}).delay(1000);
 
 			return this;
 		},
 
+		/**
+		 * [storeCoordinates description]
+		 * @return {void}
+		 */
 		storeCoordinates: function() {
 			this.coord = this.element.getCoordinates();
 		},
 
-		/*
-		Function: close
-			Close window
-
-		Returns:
-			(void)
-		*/
-		close: function(){
+		/**
+		 * Close window
+		 * @return {void}
+		 */
+		close: function() {
 			//_log.debug('close');
 			ui.window.close(this);
 			this.fireEvent('closed');
 
 			return this;
 		}
+
 	});
 
-	return exports;
+	module.exports = Win;
+
 });

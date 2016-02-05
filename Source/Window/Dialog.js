@@ -1,11 +1,9 @@
-
 /**
  * UI Window Dialog Class
  * @class UI.Window.Dialog
  * @extends {UI.Container}
  * @type {Class}
  */
-
 define([
 	'UI/Control/Button',
 	'UI/Window/Window'
@@ -27,7 +25,7 @@ define([
 		options: {
 			center: true,
 			title: 'Dialog',
-			type:'dialog',
+			type: 'dialog',
 
 			alert: false,
 
@@ -48,26 +46,26 @@ define([
 				_list: ['cancel', 'ok::is-primary']
 			},
 			useOverlay: false
-			// Components Options
-			/*head: true,
-			controls: ['close'],
-			container: {},
-			foot: true,
-			overflow: 'scrollbar',
+				// Components Options
+				/*head: true,
+				controls: ['close'],
+				container: {},
+				foot: true,
+				overflow: 'scrollbar',
 
-			resizable: false,
+				resizable: false,
 
-			action: {
-				list: ['cancel'],
-				cancel: {
-					text: 'Cancel',
-					fire: 'close'
-				},
-				confirm: {
-					clss: 'confirm',
-					text: 'Apply'
-				}
-			}*/
+				action: {
+					list: ['cancel'],
+					cancel: {
+						text: 'Cancel',
+						fire: 'close'
+					},
+					confirm: {
+						clss: 'confirm',
+						text: 'Apply'
+					}
+				}*/
 		},
 
 		initialize: function(options) {
@@ -78,7 +76,7 @@ define([
 		 * [_initElement description]
 		 * @return {[type]} [description]
 		 */
-		_initElement:function(){
+		_initElement: function() {
 			this.parent();
 
 			this._initBody();
@@ -99,8 +97,10 @@ define([
 			var message = this.options.message;
 
 			this.message = new Element('div', {
-				class: 'container-body', 
-				styles : { padding:'16px' },
+				class: 'container-body',
+				styles: {
+					padding: '16px'
+				},
 				html: message
 			}).inject(this.foot, 'before');
 		},
@@ -113,7 +113,7 @@ define([
 		 */
 		_initMessage: function(message) {
 
-			
+
 		},
 
 		/**
@@ -135,7 +135,7 @@ define([
 				var list = this.options.control._list;
 				var idx = list.indexOf('cancel');
 				if (idx > -1) {
-				    list.splice(idx, 1);
+					list.splice(idx, 1);
 				}
 			}
 
@@ -148,7 +148,7 @@ define([
 				var opts = control[name];
 
 				self._initAction(name, opts, toolbar);
-			};
+			}
 		},
 
 		/**
@@ -171,7 +171,7 @@ define([
 				name: name,
 				text: name,
 				klss: klss
-			}).addEvent('press', function(e){ 
+			}).addEvent('press', function(e) {
 				//_log.debug('press', name);
 				self.fireEvent(name);
 				self.close();
@@ -181,6 +181,6 @@ define([
 		}
 
 	});
-	
+
 	return exports;
 });

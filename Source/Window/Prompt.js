@@ -1,4 +1,3 @@
-
 /**
  * UI Window Prompt Class
  * @class UI.Window.Prompt
@@ -49,28 +48,33 @@ define([
 				_list: ['cancel', 'ok::is-primary']
 			},
 			useOverlay: false
-			// Components Options
-			/*head: true,
-			controls: ['close'],
-			container: {},
-			foot: true,
-			overflow: 'scrollbar',
+				// Components Options
+				/*head: true,
+				controls: ['close'],
+				container: {},
+				foot: true,
+				overflow: 'scrollbar',
 
-			resizable: false,
+				resizable: false,
 
-			action: {
-				list: ['cancel'],
-				cancel: {
-					text: 'Cancel',
-					fire: 'close'
-				},
-				confirm: {
-					clss: 'confirm',
-					text: 'Apply'
-				}
-			}*/
+				action: {
+					list: ['cancel'],
+					cancel: {
+						text: 'Cancel',
+						fire: 'close'
+					},
+					confirm: {
+						clss: 'confirm',
+						text: 'Apply'
+					}
+				}*/
 		},
 
+		/**
+		 * [initialize description]
+		 * @param  {[type]} options [description]
+		 * @return {[type]}         [description]
+		 */
 		initialize: function(options) {
 			this.parent(options);
 
@@ -88,7 +92,12 @@ define([
 			this._initActions();
 		},
 
-		_initHead: function(options){
+		/**
+		 * [_initHead description]
+		 * @param  {[type]} options [description]
+		 * @return {[type]}         [description]
+		 */
+		_initHead: function(options) {
 			//_log.debug('_initHead', options);
 			this.parent(options);
 

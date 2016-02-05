@@ -1,4 +1,3 @@
-
 /*
 	Object: ui.controller.window
 		Window controller. It handles windows cascading position, minimize position, focusing, ...
@@ -24,14 +23,12 @@
 		Stacks should be better implemented
 
 */
-
-//var ui = ui || {};
-
 define([
 
 ], function(
 
 ) {
+
 	var exports = {
 		options: {
 			version: '0.1',
@@ -47,7 +44,7 @@ define([
 					x: 20,
 					y: 20
 				},
-				offset : [170,50]
+				offset: [170, 50]
 			},
 			stack: {
 				offset: {
@@ -98,8 +95,7 @@ define([
 		Returns:
 			(void)
 		*/
-
-		init: function(container){
+		init: function(container) {
 			//_log.debug('init');
 			this.container = container;
 			this.list = [];
@@ -108,7 +104,9 @@ define([
 
 			//this.buildunderlay();
 
-			window.addEvent('resize', function(){ this.resizeMaximizedWindow(); }.bind(this));
+			window.addEvent('resize', function() {
+				this.resizeMaximizedWindow();
+			}.bind(this));
 		},
 
 		/*
@@ -121,7 +119,6 @@ define([
 		Returns:
 			(void)
 		*/
-
 		register: function(win, group) {
 			//_log.debug('register', win);
 			this.list.push(win);
@@ -136,8 +133,7 @@ define([
 			if (win.options.zIndex === 'auto') {
 				win.element.setStyle('zIndex', this.zIndex);
 				win.altitude = this.zIndex;
-			}
-			else {
+			} else {
 				win.element.setStyle('zIndex', win.options.zIndex);
 			}
 			this.zIndex += this.options.zStep;
@@ -153,7 +149,6 @@ define([
 		Returns:
 			(void)
 		*/
-
 		close: function(win) {
 			win = win || this.active;
 			win.hide();
@@ -210,7 +205,7 @@ define([
 
 				//_log.debug('focus', win, win.grid, win.coord);
 				if (win.grid) {
-					this.list.each(function(w){
+					this.list.each(function(w) {
 						win.setStyles(coord);
 					});
 				}
@@ -238,6 +233,11 @@ define([
 			}
 		},
 
+		/**
+		 * [minimize description]
+		 * @param  {[type]} win [description]
+		 * @return {[type]}     [description]
+		 */
 		minimize: function(win) {
 			var w = win || this.active;
 			w.minimize();
@@ -266,9 +266,9 @@ define([
 				}
 			});
 
-		//	coord.offset = null;
+			//	coord.offset = null;
 
-		//	coord.left = x;
+			//	coord.left = x;
 
 			return {
 				width: coord.width,
@@ -286,10 +286,10 @@ define([
 		Returns:
 			(void)
 		*/
-		resetMinimized : function(){
-			var etat = 'minimized',
-				opts = ui.window.options,
-				coord = opts[etat].coord;
+		resetMinimized: function() {
+			var etat = 'minimized';
+			var opts = ui.window.options;
+			var coord = opts[etat].coord;
 
 			var x = 0;
 			var y = coord.bottom;
@@ -309,13 +309,13 @@ define([
 		Returns:
 			(void)
 		*/
-		resizeMaximizedWindow: function(){
+		resizeMaximizedWindow: function() {
 			//_log.debug('resizeMaximizedWindow');
 
 			this.list.each(function(win) {
 				if (win.state === 'maximized') {
 					win.setSize({
-						height: window.getHeight()-32,
+						height: window.getHeight() - 32,
 						width: window.getWidth()
 					});
 				}
@@ -332,10 +332,10 @@ define([
 		Returns:
 			location - (object) location coordinates { left : 100, top : 100 }
 		*/
-		getCascadeLocation: function(win){
+		getCascadeLocation: function(win) {
 			var location = {
-				left : 71,
-				top : 121
+				left: 71,
+				top: 121
 			};
 
 			this.list.each(function(w, i) {
@@ -343,7 +343,7 @@ define([
 					location.left += this.options.cascade.step.x;
 					location.top += this.options.cascade.step.y;
 				}
-			},this);
+			}, this);
 			return location;
 		},
 
@@ -354,9 +354,9 @@ define([
 		Returns:
 			(void)
 		*/
-		cascade: function(group){
-			var start = [51,101];
-			var offset = [20,20];
+		cascade: function(group) {
+			var start = [51, 101];
+			var offset = [20, 20];
 			var zIndex = this.zIndex;
 			var last;
 			var list = [];
@@ -365,9 +365,10 @@ define([
 				list = this.group;
 			else list = this.list;
 
-			list.each(function(win){
-				if (win.state === 'minimized')
+			list.each(function(win) {
+				if (win.state === 'minimized') {
 					return;
+				}
 
 				win.element.style.zIndex = zIndex++;
 
@@ -393,9 +394,9 @@ define([
 		Returns:
 			(void)
 		*/
-		circle: function(group){
+		circle: function(group) {
 			//should be define in the skin sheet
-			var center = [200,300];
+			var center = [200, 300];
 			var offset = [];
 			var radius = 200;
 			var zIndex = this.zIndex;
@@ -403,16 +404,16 @@ define([
 			var i = 1;
 			var length = (this.list.length);
 
-			this.list.each(function(win){
+			this.list.each(function(win) {
 				//if (win.state = 'minimized') return;
 
 				win.element.style.zIndex = zIndex++;
 				win.element.style.zoom = '1';
 
-				var ratio = i/length*2;
+				var ratio = i / length * 2;
 
-				offset[0] = Math.cos(ratio*Math.PI);
-				offset[1] = Math.sin(ratio*Math.PI);
+				offset[0] = Math.cos(ratio * Math.PI);
+				offset[1] = Math.sin(ratio * Math.PI);
 
 				var left = center[0] + offset[0] * radius;
 				var top = center[1] + offset[1] * radius;
@@ -432,19 +433,19 @@ define([
 		},
 
 
-		grid: function(group){
+		grid: function(group) {
 			//should be define in the skin sheet
-			var size = [160,240],
-				start = [100,100],
-				offset = [20,20],
-				zIndex = this.zIndex,
-				row = 0,
-				column = 0,
-				coord= {};
+			var size = [160, 240];
+			var start = [100, 100];
+			var offset = [20, 20];
+			var zIndex = this.zIndex;
+			var row = 0;
+			var column = 0;
+			var coord = {};
 
 			var length = (this.list.length);
 
-			this.list.each(function(win, i){
+			this.list.each(function(win, i) {
 				//if (win.state = 'minimized') return;
 
 				win.element.style.zIndex = zIndex++;
@@ -474,10 +475,10 @@ define([
 			this.zIndex = zIndex;
 		},
 
-		closeall: function(){
-			this.list.each(function(win){
+		closeall: function() {
+			this.list.each(function(win) {
 				this.close(win);
-			},this);
+			}, this);
 		},
 
 		/*
@@ -525,4 +526,3 @@ define([
 	return exports;
 
 });
-
