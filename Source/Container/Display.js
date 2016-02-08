@@ -56,7 +56,7 @@ define([
 			var	modifier = this._modifier;
 
 			if (!this[modifier]) {
-				this[modifier] = this.options.size || 260;
+				this[modifier] = this.options.size || 320;
 			}
 
 			this.device = this.device || 'desktop';
