@@ -10,7 +10,7 @@ define(function() {
     var exports = new Class({
 
 	_initLoader: function() {
-		//_log.debug('_initLoader');
+		//console.log('_initLoader');
 		var self = this;
 
 		this.addEvents({
@@ -39,7 +39,7 @@ define(function() {
 	showLoader: function() {
 		var self  = this;
 
-		this.content.empty();
+		//this.content.empty();
 		this.element.scrollTop = 0;
 		this.length = 0;
 		this.list = [];

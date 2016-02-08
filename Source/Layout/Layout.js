@@ -204,6 +204,10 @@ define([
 			this.device = device;
 
 			this.fireEvent('device', device);
+		},
+
+		destroy: function() {
+			this.container.destroy();
 		}
 	});
 

@@ -455,7 +455,7 @@ define(function(require, exports, module) {
 		 * @param {string} text
 		 */
 		setStatus: function(text) {
-			_log.debug('setStatus', text);
+			//_log.debug('setStatus', text);
 
 			if (this.control && this.control.status) {
 				this.control.status.element.set('html', text);

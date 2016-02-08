@@ -81,8 +81,10 @@ define(function(require, exports, module) {
 		 * @return {void}
 		 */
 		initialize: function(options) {
-			//_log.debug('UI.Selector.initilize()');
+			//console.log('setOptions', options);
 			this.setOptions(options);
+
+			//console.log('options.delegation', this.options.delegation);
 
 			this.selectors = [];
 
@@ -116,46 +118,20 @@ define(function(require, exports, module) {
 		},
 
 		_initEvents: function(scope, target) {
-			//_log.debug('UI.Selector._initEvents(scope,target)',typeOf(scope),target);
+			//console.log('_initEvents(scope,target)', typeOf(scope), target);
 			//var delay = 20;
 			var self = this;
 
-			//_log.debug('UI.Selector._initEvents(scope,target)',typeOf(scope),target);
+			//console.log('UI.Selector._initEvents(scope,target)',typeOf(scope),target);
 
 			var delegation = self.options.trigger + ':relay(' + target + ')';
 
 			//console.log(delegation, scope);
 
-			scope.addEvent(delegation, function(ev, el) {
+			scope.addEvent(delegation, function(ev, target) {
 				//console.log('reach', el);
-				self.reach(el);
+				self.reach(target);
 			});
-
-			/*var list = scope.querySelectorAll( target );
-
-			//_log.debug(list);
-
-			new Array()
-
-			Array.each(list, function(el) {
-				//_log.debug('UI.Selector.target',el,self.options.trigger);
-				el.store('selector', self);
-				el.addEvent(self.options.trigger, function(){
-					self.reach(el);
-				});
-
-				el.addEvents({
-					mouseenter: function(e) {
-						//e.stop();
-						clearTimeout(self.timer);
-					},
-					mouseover: function(e) {
-						//self.reach(el);
-						//e.stop();
-						clearTimeout(self.timer);
-					}
-				});
-			});*/
 
 			/*pages.addEvent('resize', function() {
 				self.reach(self.el);
@@ -454,8 +430,11 @@ define(function(require, exports, module) {
 			});
 		},
 
+		set: function() {
+
+		},
+
 		reach: function(el) {
-			//console.log('reach');
 			if (el) {
 				this.el = el;
 			} else if (this.el) {
