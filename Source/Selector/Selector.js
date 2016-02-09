@@ -2,21 +2,16 @@
  * UI Selector Class
  * @class UI.Selector
  */
-define([
-	'UI/Selector/Border',
-	'UI/Selector/Menu',
-	'UI/Selector/Resizer',
-	'UI/Selector/Overlay',
-	'UI/Selector/Mask'
-], function(
-	Border,
-	Menu,
-	Resizer,
-	Overlay,
-	Mask
-) {
+define(function(require, exports, module) {
 
-	var exports = new Class({
+	var Border = require('UI/Selector/Border');
+	var Menu = require('UI/Selector/Menu');
+	var Resizer = require('UI/Selector/Resizer');
+	var Overlay = require('UI/Selector/Overlay');
+	var Mask = require('UI/Selector/Mask');
+	var Status = require('UI/Selector/Status');
+
+	module.exports = new Class({
 
 		Implements: [Events, Options],
 
@@ -28,12 +23,36 @@ define([
 
 			clss: 'ui-selector',
 			prefix: 'pages',
-			zIndex: 1100,
+			zIndex: 100,
 			wrapper: {
 				tagName: 'div',
 				clss: 'ui-selector'
 			},
-
+			common: {
+				color: 'orange'
+			},
+			border: {
+				size: 2,
+				opacity: '.8',
+				location: 'inside',
+				color: 'orange',
+				//color: '#71aad3'
+				//type: 'dotted'
+			},
+			menu: {
+				location: 'inside',
+				position: 'top right',
+				list: {
+					edit: {
+						text: 'edit'
+					}
+				}
+			},
+			mask: {
+				opacity: '1',
+				color: 'rgba(0,0,0,.6)'
+					//usefx: true
+			},
 			components: [],
 			toolbar: false,
 			menu: false,
@@ -47,7 +66,7 @@ define([
 				duration: 365,
 				path: '/'
 			},
-			usefx: false,
+			usefx: true,
 			enable: true,
 			timerOnHide: 0,
 			onCatch: {},
@@ -62,8 +81,10 @@ define([
 		 * @return {void}
 		 */
 		initialize: function(options) {
-			//_log.debug('UI.Selector.initilize()');
+			//console.log('setOptions', options);
 			this.setOptions(options);
+
+			//console.log('options.delegation', this.options.delegation);
 
 			this.selectors = [];
 
@@ -83,7 +104,8 @@ define([
 			this._initEvents(scope, target);
 
 			//_log.debug('shoud hide this');
-
+			if (this.options.enable)
+				this.enable();
 			this.hideNow();
 		},
 
@@ -96,43 +118,20 @@ define([
 		},
 
 		_initEvents: function(scope, target) {
-			//_log.debug('UI.Selector._initEvents(scope,target)',typeOf(scope),target);
+			//console.log('_initEvents(scope,target)', typeOf(scope), target);
 			//var delay = 20;
 			var self = this;
 
-			//_log.debug('UI.Selector._initEvents(scope,target)',typeOf(scope),target);
+			//console.log('UI.Selector._initEvents(scope,target)',typeOf(scope),target);
 
 			var delegation = self.options.trigger + ':relay(' + target + ')';
 
-			scope.addEvent(delegation, function(ev, el) {
-				self.reach(el);
+			//console.log(delegation, scope);
+
+			scope.addEvent(delegation, function(ev, target) {
+				//console.log('reach', el);
+				self.reach(target);
 			});
-
-			/*var list = scope.querySelectorAll( target );
-
-			//_log.debug(list);
-
-			new Array()
-
-			Array.each(list, function(el) {
-				//_log.debug('UI.Selector.target',el,self.options.trigger);
-				el.store('selector', self);
-				el.addEvent(self.options.trigger, function(){
-					self.reach(el);
-				});
-
-				el.addEvents({
-					mouseenter: function(e) {
-						//e.stop();
-						clearTimeout(self.timer);
-					},
-					mouseover: function(e) {
-						//self.reach(el);
-						//e.stop();
-						clearTimeout(self.timer);
-					}
-				});
-			});*/
 
 			/*pages.addEvent('resize', function() {
 				self.reach(self.el);
@@ -222,6 +221,7 @@ define([
 					self.border.reach(el);
 				},
 				repos: function(el) {
+					//console.log('reepos', el);
 					self.border.reach(el);
 				},
 				highlight: function(color) {
@@ -292,7 +292,9 @@ define([
 		},
 
 		buildMenu: function(options) {
+			//console.log('buildMenu', options);
 			//_log.debug('buildMenu', this.options.name, options);
+			var self = this;
 
 			var self = this;
 			//var left = null;
@@ -302,7 +304,12 @@ define([
 
 			options.positionning = this.options.positionning;
 
-			this.menu = new Menu(this.wrapper, options);
+			this.menu = new Menu(this.wrapper, options).addEvent('click', function(menu) {
+				//console.log('menu click', menu);
+				self.fireEvent('menu', menu);
+			});
+
+
 
 			if (this.options.timerOnHide) {
 				this.menu.element.addEvents({
@@ -423,6 +430,10 @@ define([
 			});
 		},
 
+		set: function() {
+
+		},
+
 		reach: function(el) {
 			if (el) {
 				this.el = el;
@@ -441,6 +452,7 @@ define([
 		},
 
 		repos: function(el) {
+			//console.log('repos', el);
 			if (el) {
 				this.el = el;
 			} else if (this.el) {
@@ -449,7 +461,10 @@ define([
 				return;
 			}
 
+			
+
 			if (this.isEnable) {
+				//console.log('repos', el);
 				this.show();
 				this.fireEvent('repos', el);
 			}
@@ -542,7 +557,4 @@ define([
 		}
 
 	});
-
-	return exports;
-
 });

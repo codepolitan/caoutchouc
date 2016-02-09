@@ -72,6 +72,7 @@ define([
 				text: text,
 				name: opts.name,
 				onPress: function(e){
+					//console.log('onPress', tab ,container);
 					self.activate(container);
 				}
 			}).inject(this.bar);
@@ -122,6 +123,8 @@ define([
 
 			this.active = container;
 			container.fireEvent('resize');
+
+			this.fireEvent('activate', container);
 
 			return this;
 		},

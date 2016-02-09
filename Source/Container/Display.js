@@ -57,7 +57,7 @@ define([
 			var modifier = this._modifier;
 
 			if (!this[modifier]) {
-				this[modifier] = 220;
+				this[modifier] = this.options.size || 320;
 			}
 
 			this.device = this.device || 'desktop';
@@ -110,11 +110,15 @@ define([
 			return this._display;
 		},
 
+		close: function() {
+			this.minimize();
+		},
+
 		/**
 		 * [minimize description]
 		 * @return {[type]} [description]
 		 */
-		minimize: function() {
+		minimize: function(quiet) {
 			//_log.debug('------start minimalization', this.device);
 			//var self = this;
 
@@ -124,13 +128,14 @@ define([
 
 			this.fireEvent('minimize');
 
-			this.display.fx.start(0);
-
-			(function() {
-				//self.element.setStyle('display', 'none');
-			}).delay(160);
+			if (quiet) {
+				this.element.setStyle(this._modifier, 0);
+			} else {
+				this.display.fx.start(0);
+			}
 
 			this._display = 'minimized';
+			//console.log('display', this._display);
 
 			if (this.underlay && this.device !== 'desktop') {
 				this.underlay.fade(0);
@@ -151,10 +156,22 @@ define([
 			}
 
 			this.fireEvent('normalize');
+			// this.setStyle('display', 'initial');
+			// this.element.setStyle('display', 'initial');
 
-			//this.element.setStyle('display', 'flex');
+			var size = this[this._modifier] || this.options.size;
 
-			var size = this[this._modifier];
+			var w = window;
+			var d = document;
+			var e = d.documentElement;
+			var g = d.getElementsByTagName('body')[0];
+			var x = w.innerWidth || e.clientWidth || g.clientWidth;
+
+			if (x < 640) {
+				size = x;
+			}
+
+			//console.log('size', size);
 
 			if (this.display.fx) {
 				this.display.fx.start(size);

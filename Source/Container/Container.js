@@ -5,6 +5,7 @@
  * @extends {UI.Component}
  * @author Jerome Vial
  */
+
 define([
 	'UI/Component/Component',
 	'UI/Container/Display'
@@ -216,53 +217,6 @@ define([
 			}
 		},
 
-		/*setMenu: function(opts) {
-			_log.debug('setMenu', opts);
-			var self = this,
-				comp = opts.comp || 'head';
-
-			if (!this[comp])
-				this['_init'+comp.capitalize()]();
-
-			var container = this[comp].getElement('.'+comp+'-menu');
-
-			if (!container) {
-				container = new Element('div', {
-					'class': comp+'-menu'
-				}).inject(this[comp]);
-			}
-
-			//_log.debug('_init'+comp.capitalize());
-			var menu = new Menu(opts);
-
-			this.menu[opts.name] = menu;
-
-			// _log.debug('setMenu', opts.name, menu);
-
-			menu.addEvents({
-				'toggle': function() {
-					self.fireEvent('resize');
-				},
-				'change': function(value) {
-					self.fireEvent('menuChange', value);
-				}
-			}).inject(container);
-
-			this.addEvents({
-				onMinimize: function() {
-					menu.hide();
-				},
-				onNormalize: function() {
-					menu.show();
-				}
-			});
-
-			//  need to find an event driven solution
-			this.element.setStyle('padding-top', this[comp].getSize().y+'px');
-
-			return menu;
-		},*/
-
 		/**
 		 * [_initFoot description]
 		 * @param  {Object} options
@@ -330,7 +284,16 @@ define([
 				},
 				onResizeStart: function() {
 					self.overlay.show();
-				}
+				},
+				resizeStart: function() {
+					//_log.debug('darg start', this);
+					self.overlay.show();
+				},
+				resizeStop: function() {
+					//_log.debug('darg start', this);
+					self.overlay.hide();
+				},
+
 			});
 		},
 

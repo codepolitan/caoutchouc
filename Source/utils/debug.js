@@ -1,8 +1,8 @@
 /**
- * wrapper for debug
- * @type {Object}
+ * wrapper for js logger
+ * @type {Class}
  * @author [Jerome Vial]
- * @since [0.1.0]
+ * @since [1.0.0]
  */
 define([
 	'https://rawgit.com/jonnyreeves/js-logger/master/src/logger.min.js'

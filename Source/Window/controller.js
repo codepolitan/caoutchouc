@@ -29,7 +29,10 @@ define([
 
 ) {
 
-	var exports = {
+	var exports = new Class.Singleton({
+
+		Implements: [Options, Events],
+
 		options: {
 			version: '0.1',
 			zBase: 1000,
@@ -83,6 +86,13 @@ define([
 					left: ''
 				}
 			}
+		},
+
+		initialize: function(options) {
+			this.setOptions(options);
+			//console.log('controller window');
+
+			this.init(this.options.container);
 		},
 
 		/*
@@ -287,9 +297,9 @@ define([
 			(void)
 		*/
 		resetMinimized: function() {
-			var etat = 'minimized';
-			var opts = ui.window.options;
-			var coord = opts[etat].coord;
+			var etat = 'minimized',
+				opts = this.options,
+				coord = opts[etat].coord;
 
 			var x = 0;
 			var y = coord.bottom;
@@ -517,7 +527,8 @@ define([
 				'zIndex': win.altitude
 			});
 		}
-	};
+
+	});
 
 	// window.addEvent('domready', function() {
 	//     ui.window.init(document.body);

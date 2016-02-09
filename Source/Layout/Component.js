@@ -108,10 +108,6 @@ define([
 				component.element.addClass('flex-' + component.options.flex);
 			}
 
-			if (component.options.hide) {
-				component.element.setStyle('display', 'none');
-			}
-
 			if (component.options.theme) {
 				component.element.addClass('theme' + '-' + component.options.theme);
 			}
@@ -123,13 +119,18 @@ define([
 		 * @return {void}
 		 */
 		_setComponentDisplay: function(component) {
-			_log.debug('comp opts', component.options);
+			//console.log('comp opts', component.options);
+			var display = 'normalized';
+
+			if (component.options.hide || component.options.state === 'minimized') {
+				component.minimize(1);
+				display = 'minimized';
+			}
 
 			var name = component.getName();
 			var element = component.element;
-			var settings = this.settings[name];
 
-			var display = 'normalized';
+			var settings = this.settings[name];
 			if (settings && settings.display) {
 				display = settings.display;
 			}

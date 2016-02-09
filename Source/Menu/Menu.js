@@ -13,7 +13,8 @@ define([
 	ButtonControl
 ) {
 
-	var _log = __debug('ui-menu').defineLevel();
+	var _log = __debug('ui-menu');
+	//	_log.defineLevel();
 
 	var exports = new Class({
 
@@ -51,7 +52,7 @@ define([
 		 * @return {Object}
 		 */
 		initialize: function(options) {
-			_log.debug('menu init', options);
+			//_log.debug('menu init', options);
 
 			this.setOptions(options);
 
@@ -148,7 +149,7 @@ define([
 			var trigger = opts.trigger;
 
 			if (!opts.head) {
-				_log.warn('missing opts.head', opts);
+				//_log.warn('missing opts.head', opts);
 				return;
 			}
 

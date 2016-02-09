@@ -5,7 +5,7 @@ module.exports = function(grunt) {
 		concat: {
 			ui: {
 				src: ['dist/**/*.js'],
-				dest: 'dist/caoutchouc-min.js',
+				dest: 'dist/caoutchouc-min.js'
 			},
 		},
 	});

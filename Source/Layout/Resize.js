@@ -37,6 +37,8 @@ define(function(require, exports, module) {
 		_initResizer: function(component) {
 			_log.debug('_initResizer', component);
 
+			var self = this;
+
 			var name = component.options.name;
 			var container = component.container;
 			var last = component.options.last;
@@ -68,6 +70,11 @@ define(function(require, exports, module) {
 				},
 				mousedown: function(e) {
 					e.stop();
+					self.mask.setStyle('display', 'block');
+				},
+				mouseup: function(e) {
+					//e.stop();
+					self.mask.setStyle('display', 'none');
 				}
 			}).inject(container);
 
@@ -105,12 +112,15 @@ define(function(require, exports, module) {
 				onStart: function(el) {
 					//_log.debug('onStart', el);
 					//self.fireEvent('resizeStart', el);
+					self.mask.setStyle('display', 'block');
 				},
 				onDrag: function(el, ev) {
 					//_log.debug('onDrag', el);
+					self.mask.setStyle('display', 'block');
 					var coord = element.getCoordinates(container);
 					var coordc = container.getCoordinates();
 					var c = resizer.getCoordinates(container);
+
 					//element.setStyle('flex','none');
 					//element.setStyle(modifier.size, c[modifier.from] - coord[modifier.from]);
 					if (last) {
@@ -123,6 +133,7 @@ define(function(require, exports, module) {
 					self.fireEvent('drag');
 				},
 				onComplete: function(el) {
+					self.mask.setStyle('display', 'none');
 					//_log.debug('onComplete', component.main, modifier.size, size);
 					//_log.debug('onComplete', modifier.size, element.getCoordinates(container)[modifier.size]);
 					var coord = element.getCoordinates(container);

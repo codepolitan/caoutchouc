@@ -86,7 +86,7 @@ define([
 			} else if (this.options.location == 'center') {
 				return this.getCenterLocation();
 			} else {
-				var c = ui.window.getCascadeLocation(this);
+				var c = this.controller.getCascadeLocation(this);
 				return {
 					top: c.top,
 					left: c.left
@@ -120,6 +120,9 @@ define([
 			}
 
 			if (needed) {
+
+				//this.minimize();
+
 				if (this.options.fx && this.options.fx.adaptLocation) {
 					if (!this.reposFx) {
 						this.reposFx = new Fx.Morph(this.element, this.options.fx.adaptLocation);

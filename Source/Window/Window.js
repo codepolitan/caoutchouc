@@ -6,7 +6,8 @@
  */
 define(function(require, exports, module) {
 
-	var controller = require('UI/Window/controller');
+	var Controller = require('UI/Window/controller');
+
 	var Container = require('UI/Container/Container');
 	var ButtonControl = require('UI/Control/Button');
 
@@ -34,7 +35,7 @@ define(function(require, exports, module) {
 			width: 220,
 			height: 360,
 
-			location: 'cascade',
+			location: 'center',
 			position: 'fixed',
 
 			zIndex: 'auto', // to get zIndex from skin or an Int as zIndex
@@ -92,14 +93,15 @@ define(function(require, exports, module) {
 				this.element.setStyle('position', 'fixed');
 			}
 
-			ui.window.register(this);
+			this.controller.register(this);
 
 			if (this.options.focus) {
-				ui.window.focus(this);
+				this.controller.focus(this);
 			}
 
+			var self = this;
 			window.onresize = function(event) {
-				ui.window.resetMinimized();
+				self.controller.resetMinimized();
 			};
 
 			this.inject(this.options.container);
@@ -110,12 +112,9 @@ define(function(require, exports, module) {
 		 * @return {void}
 		 */
 		_initController: function() {
-			if (!ui.window) {
-				this.controller = ui.window = controller;
 
-				ui.window.init();
-			}
-
+			this.controller = new Controller();
+			//console.log('_initController', this.controller);
 		},
 
 		/**
@@ -126,15 +125,14 @@ define(function(require, exports, module) {
 			this.parent();
 
 			//this._initContent();
-
 			//this._initShim();
 
-			this._initControl(this.options.controls);
+			//this._initControl(this.options.controls);
 		},
 
 		/**
-		 * init Shim
-		 * @return {void}
+		 * [_initShim description]
+		 * @return {[type]} [description]
 		 */
 		_initShim: function() {
 			this.shim = new Element('iframe', {
@@ -173,8 +171,6 @@ define(function(require, exports, module) {
 		 * @return {void}
 		 */
 		_initControl: function() {
-			return;
-
 			var opts = this.options;
 
 			if (!this.head) {
@@ -330,10 +326,12 @@ define(function(require, exports, module) {
 				this.resizeHandlers.each(function(handler) {
 					handler.addEvents({
 						'mousedown': function() {
-							//ui.window.showunderlay(self);
+							self.controller.showunderlay(self);
+							self.overlay.show();
 						},
 						'mouseup': function() {
-							//ui.window.underlay.hide();
+							self.underlay.hide();
+							self.overlay.hide();
 						}
 					});
 				});
@@ -388,12 +386,12 @@ define(function(require, exports, module) {
 		focus: function() {
 			if (this.minimized) {
 				this.normalize();
-				ui.window.resetMinimized();
+				this.controller.resetMinimized();
 			} else
 			if (this.maximized && this.options.resizeOnDragIfMaximized) {
 				this.normalize();
 			} else {
-				ui.window.focus(this);
+				this.controller.focus(this);
 			}
 
 			if (this.state != 'default') {
@@ -427,13 +425,13 @@ define(function(require, exports, module) {
 
 			this.setState('minimized');
 
-			var coord = ui.window.getcoord('minimized');
+			var coord = this.controller.getcoord('minimized');
 
 			// _log.debug('--',coord);
 
 			this.element.setStyles(coord);
 
-			ui.window.focus();
+			this.controller.focus();
 		},
 
 		/**
@@ -511,7 +509,7 @@ define(function(require, exports, module) {
 		 */
 		close: function() {
 			//_log.debug('close');
-			ui.window.close(this);
+			this.controller.close(this);
 			this.fireEvent('closed');
 
 			return this;
