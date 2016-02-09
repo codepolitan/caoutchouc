@@ -525,7 +525,7 @@ define(function(require, exports, module) {
 		},
 
 		enable: function(selector) {
-			//_log.debug('enable', this.options.name);
+			//console.log('enable', this.options.name);
 
 			this.isEnable = true;
 			Cookie.write(this.name, '1', this.options.cookie);
@@ -533,7 +533,7 @@ define(function(require, exports, module) {
 		},
 
 		disable: function(selector) {
-			//_log.debug('disable', this.options.name);
+			//console.log('disable', this.options.name);
 
 			this.isEnable = false;
 			Cookie.write(this.name, '0', this.options.cookie);

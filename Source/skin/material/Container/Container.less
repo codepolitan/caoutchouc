@@ -1,4 +1,6 @@
 
+
+@container-bg: transparent;
 /**
  *  UI.View
  */
@@ -16,6 +18,9 @@
 	>.container-body {
 		.flex(1);
 		overflow: auto;
+		iframe {
+			.absolute();
+		}
 	}
 	>.container-foot {
 		.flex(none);
@@ -74,7 +79,7 @@
 .ui-container {
 	position: relative;
 	//overflow: hidden;
-	background-color: rgba(255,255,255,1);
+	background-color: @container-bg;
 	min-width: 100px;
 	min-height: 100px;
 	>.container-head {

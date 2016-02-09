@@ -144,6 +144,7 @@ define(function(require, exports, module) {
 					//_log.debug('size', modifier, size);
 
 					component[modifier.size] = size;
+					
 				}
 			});
 

@@ -99,7 +99,8 @@ define([
 		 * @return {[type]} [description]
 		 */
 		toggle: function() {
-			_log.debug('toggle click, display:', this._display);
+			//console.log('toggle', this._display);
+			//_log.debug('__toggle click, display', this._display);
 
 			if (this._display === 'normalized') {
 				this.minimize();
@@ -149,8 +150,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		normalize: function() {
-			// _log.debug('normalize');
-
+			//console.log('normalize');
 			if (!this.display) {
 				this._initDisplay();
 			}

@@ -2,13 +2,23 @@
 	Minimal.less
 		Main Less Files of Skin Minimal
 */
+.colored {
+	color:  rgba(0, 0, 0, .87);
+	background-color: rgba(66, 133, 244, 1);
+}
+
+.accent {
+	color: rgba(255, 255, 255, 87);
+	background-color: rgba(66, 133, 244, 1);
+}
+
 
 
 // Default
 // Default values
 
 @font-size: 15px;
-@color: rgba(255,255,255,0.5);
+@color: rgba(255, 255, 255, 0.5);
 @background: rgba(135,135,135,.1);
 @font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
 
@@ -56,6 +66,9 @@ body {
 	margin:0;
 	padding:0;
 	/*color: rgba(0, 0, 0, 0.87);*/
+	&.ui{
+		font-family: @font-family;
+	}
 }
 
 iframe {
@@ -63,8 +76,6 @@ iframe {
 	padding: 0;
 	border: 0;
 	overflow: auto;
-	height: 100%;
-	width: 100%;
 	background-color: #fff;
 }
 

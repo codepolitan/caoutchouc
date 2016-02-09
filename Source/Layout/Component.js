@@ -105,7 +105,7 @@ define([
 
 			if (component.options.flex) {
 				//component.element.setStyle('flex', component.options.flex);
-				component.element.addClass('flex-' + component.options.flex);
+				component.element.addClass('flex-'+component.options.flex);
 			}
 
 			if (component.options.theme) {
