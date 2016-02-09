@@ -42,6 +42,7 @@ Thumbs.db
 *.sublime-project
 *.sublime-workspace
 sftp-config.json
+Source/skin/floor/*
 node_modules
 *.codekit
 docs/*
