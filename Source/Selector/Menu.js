@@ -94,6 +94,8 @@ define([
 			var size = 0;
 
 			for (var name in list) {
+				//console.log('menu', name);
+				// list.each(function(menu){
 				var menu = list[name];
 
 				//var item = new Button();

@@ -26,43 +26,6 @@
 			border-left: none;
 		}
 	}
-	.layout-mask {
-		z-index: 20;
-		display:none;
-		position: absolute;
-		top:0;
-		right: 0;
-		bottom:0;
-		left: 0;
-		//background-color: rgba(255,0,0,.1);
-	}
-}
-
-.layout-standard {
-	.container-navi {
-		//z-index: 10;
-		//box-shadow: 2px 0 4px rgba(0, 0, 0, 0.14);
-		border-right: none;
-		//border-right: 1px solid rgba(0, 0, 0, 0.1);
-		// position: absolute;
-		// left: 0;
-	}
-	.container-main {
-		//z-index: 10;
-		box-shadow: -2px 0 2px rgba(0, 0, 0, 0.14);
-		border-right: none;
-		border-right: 1px solid rgba(0, 0, 0, 0.1);
-		// position: absolute;
-		// left: 0;
-	}
-	.container-side {
-		// box-shadow: -2px 0 4px rgba(0, 0, 0, 0.14);
-		// border-right: none;
-		// border-left: 1px solid @border;
-		// position: absolute;
-		// top: 256px;
-		// right: 0;
-	}
 }
 
 .flex-horizontal {
@@ -94,9 +57,20 @@
 		.flex(3);
 	}
 }
-/*
+
 // Layout tree
 
+/*define default size for navi and list*/
+.layout-three {
+	.container-navi {
+		width: 200px;
+	}
+	.container-list {
+		width: 320px;
+	}
+}
+
+/*
 .layout-three {
 
 	> .container-navi {
@@ -402,7 +376,10 @@
 	}
 }
 
+
+
 // Layout account
+
 
 .layout-account {
 	> .container-navi {
@@ -603,7 +580,7 @@
 @media (max-width: 768px) {
 	.ui-layout {
 		> .ui-container {
-			//display: none;
+			display: none;
 		}
 		> .ui-container.state-focus {
 			//.flex(none);

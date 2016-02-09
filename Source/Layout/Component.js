@@ -1,4 +1,3 @@
-
 /**
  * UI Component Drag
  * @class UI.Component.Drag
@@ -9,6 +8,8 @@ define([
 ], function(
 	api
 ) {
+
+	var _log = __debug('ui:layout').defineLevel();
 
 	var exports = new Class({
 		options: {
@@ -34,11 +35,11 @@ define([
 
 		/**
 		 * Instanciate the given object comp
-		 * @param  {object]} comp list component
-		 * @return {[type]}      [description]
+		 * @param  {Object} comp list component
+		 * @return {void}
 		 */
 		_initComponent: function(comp) {
-			//_log.debug('_initComponent', comp.opts.name, comp);
+			_log.debug('_initComponent', comp.opts.name, comp);
 
 			// shortcuts
 			comp.opts.flex = comp.opts.flex || comp.flex;
@@ -52,7 +53,7 @@ define([
 
 			//comp.opts.container = comp.container;
 			var component = this.component[name] = this[name] = new clss(comp.opts);
-			
+
 			//_log.debug(component.container);
 
 			// register component
@@ -66,8 +67,6 @@ define([
 			this._setComponentDisplay(component);
 			this._attachComponentEvents(component);
 
-			// 
-			
 			return component;
 		},
 
@@ -86,26 +85,23 @@ define([
 
 		/**
 		 * [_initComponentSettings description]
-		 * @param  {object} name   [description]
-		 * @param  {[type]} object [description]
-		 * @return {[type]}        [description]
+		 * @param  {Object} component
+		 * @return {void}
 		 */
 		_initComponentSettings: function(component) {
-			//_log.debug('_initcompSettings', component);
+			_log.debug('_initcompSettings', component);
 
-			var name = component.getName();
-			var element = component.element;
-		
+			//var name = component.getName();
+			//var element = component.element;
 		},
 
 		/**
-		 * [_initComponentSettings description]
-		 * @param  {object} name   [description]
-		 * @param  {[type]} object [description]
-		 * @return {[type]}        [description]
+		 * initComponentSettings
+		 * @param  {Object} component
+		 * @return {void}
 		 */
 		_setComponentStyles: function(component) {
-			//_log.debug('_setComponentStyles', component);
+			_log.debug('_setComponentStyles', component);
 
 			if (component.options.flex) {
 				//component.element.setStyle('flex', component.options.flex);
@@ -114,15 +110,13 @@ define([
 
 			if (component.options.theme) {
 				component.element.addClass('theme' + '-' + component.options.theme);
-
 			}
 		},
 
 		/**
-		 * [_initSize description]
-		 * @param  {[type]} name   [description]
-		 * @param  {[type]} object [description]
-		 * @return {[type]}        [description]
+		 * initSize
+		 * @param  {Object} component
+		 * @return {void}
 		 */
 		_setComponentDisplay: function(component) {
 			//console.log('comp opts', component.options);
@@ -136,39 +130,34 @@ define([
 			var name = component.getName();
 			var element = component.element;
 
-			if (this.settings[name] && this.settings[name].display) {
-				display = this.settings[name].display;
+			var settings = this.settings[name];
+			if (settings && settings.display) {
+				display = settings.display;
 			}
 
 			component.setDisplay(display, 'width');
 
-			if (component.options.flex) {
-				//_log.debug('---flex', name, component.options);
-			} else {
-				
-				if (this.settings[name] && this.settings[name].width) {
-					//_log.debug('settings', name, display);
+			if (!component.options.flex) {
+				if (settings && component.options.axis === 'x') {
 					//element.setStyle('flex', 'none');
 					element.addClass('flex-none');
+
 					if (display === 'minimized') {
-					
 						element.setStyle('width', 0);
 					} else {
-						
-						if (this.settings[name].width < 32)
-							this.settings[name].width = 32;
+						if (settings.width < 32) {
+							settings.width = 32;
+						}
 
-						
-						//_log.debug('----', name, element);
-						element.setStyle('width', this.settings[name].width || 160);
+						element.setStyle('width', settings.width || null);
 					}
 
-					component.width = this.settings[name].width || 200;
+					component.width = settings.width || 260;
 					component._modifier = 'width';
-				} else if (this.settings[name] && this.settings[name].height) {
+				} else if (settings && component.options.axis === 'y') {
 					element.setStyle('flex', 'none');
-					element.setStyle('height', this.settings[name].height);
-					component.height = this.settings[name].height || 160;
+					element.setStyle('height', settings.height || null);
+					component.height = settings.height || 260;
 					component._modifier = 'height';
 				}
 
@@ -177,20 +166,20 @@ define([
 		},
 
 		/**
-		 * [_attachComponentEvents description]
-		 * @param  {[type]} object [description]
-		 * @return {[type]}        [description]
+		 * _attachComponentEvents
+		 * @param {Object} component
+		 * @return {void}
 		 */
 		_attachComponentEvents: function(component) {
 			var self = this;
 			var name = component.getName();
 
 			component.addEvents({
-				toggled:  function() {
+				toggled: function() {
 					//_log.debug('toggled');
 					self.fireEvent('resize');
 				},
-				resizing:  function() {
+				resizing: function() {
 					//_log.debug('toggled');
 					self.fireEvent('resize');
 				},
@@ -217,12 +206,14 @@ define([
 					component.fireEvent('resize');
 				},
 				device: function(device) {
-					//_log.debug('device', device);
 					component.fireEvent('device', device);
 				}
 			});
+
 		}
+
 	});
 
 	return exports;
+
 });

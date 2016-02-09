@@ -231,7 +231,8 @@ define([
 		},
 
 		/**
-		 * Overwrite the setPosition method of UI.Menu to use mouse coordinates to set menu location
+		 * Overwrite the setPosition method of UI.Menu
+		 * to use mouse coordinates to set menu location
 		 * @param {integer} x X mouse's coordinates
 		 * @param {integer} y Y mouse's coordinates
 		 */
@@ -247,7 +248,7 @@ define([
 
 			var coor = this.element.getCoordinates();
 			var top = y - ctop;
-			var left = x + container.getScrollLeft();
+			var left = x - container.getPosition().x;
 
 			if ((x + coor.width) > container.getWidth()) {
 				left = left - coor.width;
