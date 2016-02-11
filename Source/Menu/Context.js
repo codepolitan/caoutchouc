@@ -279,7 +279,7 @@ define([
 
 
 		/**
-		 * hideNow
+		 * hideNow function
 		 * @return {void}
 		 */
 		hideNow: function() {
