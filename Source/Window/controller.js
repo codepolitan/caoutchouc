@@ -130,7 +130,7 @@ define([
 			(void)
 		*/
 		register: function(win, group) {
-			//_log.debug('register', win);
+			_log.debug('register', win);
 			this.list.push(win);
 
 			if (group) {
@@ -142,9 +142,17 @@ define([
 
 			if (win.options.zIndex === 'auto') {
 				win.element.setStyle('zIndex', this.zIndex);
+				if (win.underlay)
+					win.underlay.setStyle('zIndex', this.zIndex-1);
+
 				win.altitude = this.zIndex;
 			} else {
+				console.log('zINdex', win.element, win.options.zIndex);
 				win.element.setStyle('zIndex', win.options.zIndex);
+				if (win.underlay) {
+					console.log('---', win.options.zIndex-1);
+					win.underlay.setStyle('zIndex', win.options.zIndex-1);
+				}
 			}
 			this.zIndex += this.options.zStep;
 		},
@@ -184,8 +192,8 @@ define([
 			(void)
 		*/
 		focus: function(win) {
-			//_log.debug('focus', win);
-			if (win === null) {
+			console.log('focus', win);
+			if (!win) {
 				//make next highest window focus
 				var zIndex = 0;
 				for (var i = this.list.length - 1; i >= 0; i--) {
@@ -195,6 +203,8 @@ define([
 						zIndex = windowZIndex;
 					}
 				}
+
+				console.log('focus', win);
 
 				if (win) {
 					win.focus();
@@ -208,6 +218,10 @@ define([
 
 				this.zIndex += this.options.zStep;
 				win.element.style.zIndex = this.zIndex;
+
+				if (win.underlay)
+					win.underlay.style.zIndex = this.zIndex-1;
+
 				win.element.style.zoom = '1';
 
 				this.active = win;

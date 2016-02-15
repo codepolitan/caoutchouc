@@ -351,11 +351,10 @@ define(function(require, exports, module) {
 
 			//_log.debug(container);
 
+			console.log('zindex', this.element.getStyle('zIndex'));
+
 			this.underlay = new Element('div', {
-				'class': 'dialog-underlay',
-				styles: {
-					zIndex: 900
-				}
+				'class': 'dialog-underlay'
 			}).inject(container);
 
 			this.underlay.addEvents({
@@ -387,14 +386,14 @@ define(function(require, exports, module) {
 			if (this.minimized) {
 				this.normalize();
 				this.controller.resetMinimized();
-			} else
-			if (this.maximized && this.options.resizeOnDragIfMaximized) {
+			} else if (this.maximized && this.options.resizeOnDragIfMaximized) {
 				this.normalize();
 			} else {
 				this.controller.focus(this);
 			}
-
+			this.overlay.hide();
 			if (this.state != 'default') {
+
 				this.setState('default');
 			}
 		},
