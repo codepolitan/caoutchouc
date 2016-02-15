@@ -1,7 +1,3 @@
-
-/*var UI = UI || {};
-var Class = Class || function() {};*/
-
 /**
  * UI Control Hour Class
  * @class UI.Control.Hour
@@ -10,7 +6,7 @@ var Class = Class || function() {};*/
  */
 define([
 	'moment',
-	"UI/Control/Field"
+	'UI/Control/Field'
 ], function(
 	moment,
 	Field
@@ -30,7 +26,7 @@ define([
 		 * [_initElement description]
 		 * @return {[type]} [description]
 		 */
-		_initElement: function(){
+		_initElement: function() {
 
 			//create a new div as input element
 			this.parent();
@@ -39,12 +35,12 @@ define([
 
 			if (!this.options.read) {
 				this.input.addClass('mask');
-				this.input.set('alt', "{ type: 'fixed', mask: '99h99' }");
+				this.input.set('alt', '{ "type": "fixed", "mask": "99h99" }');
 			}
 
 			this.element.addClass('field-hour');
 
-			this.date = this.options.value  || this.options.date;
+			this.date = this.options.value || this.options.date;
 
 			var time;
 			if (this.date) {
@@ -59,7 +55,7 @@ define([
 
 			var self = this;
 
-			this.addEvent('injected', function(){
+			this.addEvent('injected', function() {
 				self._addControls();
 			});
 
@@ -112,8 +108,12 @@ define([
 			var h = date.getHours().toString();
 			var m = date.getMinutes().toString();
 
-			if (h.length === 1) h = '0' + h;
-			if (m.length === 1) m = '0' + m;
+			if (h.length === 1) {
+				h = '0' + h;
+			}
+			if (m.length === 1) {
+				m = '0' + m;
+			}
 
 			return h + 'h' + m;
 		},
@@ -133,7 +133,7 @@ define([
 			<UI.Component::setState>
 		*/
 
-		setState: function(state){
+		setState: function(state) {
 			this.parent(state);
 		},
 
@@ -154,7 +154,9 @@ define([
 		_initEvents: function() {
 			var self = this;
 
-			if (this.options.read) return;
+			if (this.options.read) {
+				return;
+			}
 
 			this.input.addEvents({
 				keyup: function() {
@@ -217,4 +219,5 @@ define([
 	});
 
 	return exports;
+
 });

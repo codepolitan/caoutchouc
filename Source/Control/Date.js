@@ -157,7 +157,7 @@ define(function(require, exports, module) {
 			var text = moment(d).format(opts.format);
 			var date = moment(d).toISOString();
 
-			if (this.picker.options.pickOnly === 'months') {
+			if (this.picker && this.picker.options.pickOnly === 'months') {
 				text = moment(d).format('MMMM YYYY');
 			}
 
