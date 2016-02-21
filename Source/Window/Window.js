@@ -351,7 +351,7 @@ define(function(require, exports, module) {
 
 			//_log.debug(container);
 
-			console.log('zindex', this.element.getStyle('zIndex'));
+			//console.log('zindex', this.element.getStyle('zIndex'));
 
 			this.underlay = new Element('div', {
 				'class': 'dialog-underlay'
