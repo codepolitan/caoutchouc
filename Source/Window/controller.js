@@ -130,7 +130,7 @@ define([
 			(void)
 		*/
 		register: function(win, group) {
-			_log.debug('register', win);
+			//_log.debug('register', win);
 			this.list.push(win);
 
 			if (group) {
@@ -192,7 +192,7 @@ define([
 			(void)
 		*/
 		focus: function(win) {
-			console.log('focus', win);
+			//console.log('focus', win);
 			if (!win) {
 				//make next highest window focus
 				var zIndex = 0;
@@ -204,7 +204,7 @@ define([
 					}
 				}
 
-				console.log('focus', win);
+				//console.log('focus', win);
 
 				if (win) {
 					win.focus();
