@@ -55,8 +55,6 @@ define([
 			//create a new div as input element
 			this.parent();
 
-			var opts = this.options;
-
 			this.element.addClass('ui-search');
 
 			this._initReset();
@@ -138,4 +136,5 @@ define([
 	});
 
 	return exports;
+
 });
