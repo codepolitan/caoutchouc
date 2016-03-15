@@ -27,7 +27,7 @@ define([
 			name: 'search',
 			error: false,
 			label: false,
-			timer: 100
+			timer: 150
 		},
 
 		initialize: function(options){
