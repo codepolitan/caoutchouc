@@ -1,4 +1,3 @@
-
 /**
  * UI Control Search Class
  * @class UI.Control.Search
@@ -30,7 +29,12 @@ define([
 			timer: 150
 		},
 
-		initialize: function(options){
+		/**
+		 * initialize
+		 * @param  {Object} options
+		 * @return {Object}
+		 */
+		initialize: function(options) {
 			this.setOptions(options);
 			var opts = this.options;
 
@@ -42,24 +46,15 @@ define([
 
 			return this;
 		},
-		/*
-		Function: _initElement
-			private function
 
-			Create a div and a hidden input to receive the selected value
-
-		Return:
-			(void)
-
-		See also:
-			<UI.Field::_initElement>
-			<UI.Control::_initElement>
-			<UI.Component::_initElement>
-		*/
-
-		_initElement: function(){
+		/**
+		 * init element
+		 * @return {void}
+		 */
+		_initElement: function() {
 			//create a new div as input element
 			this.parent();
+
 			var opts = this.options;
 
 			this.element.addClass('ui-search');
@@ -68,28 +63,24 @@ define([
 		},
 
 		/**
-		 * [_initInput description]
-		 * @return {[type]} [description]
+		 * initInput
+		 * @return {void}
 		 */
-		_initInput: function()  {
+		_initInput: function() {
 			//_log.debug('_initInput', this.options);
 			this.parent();
 
 			this.input.set('autocomplete', 'off');
 		},
 
-		/*
-		Function: _initReset
-			private function
-
-			Reset the value
-
-
-
-		*/
+		/**
+		 * init reset
+		 * @return {void}
+		 */
 		_initReset: function() {
 			var self = this;
 			var icon = fontIconConfig.clear || 'mdi-action-help';
+
 			this.reset = new Button({
 				name: 'clear',
 				icon: icon,
@@ -98,12 +89,16 @@ define([
 			});
 		},
 
+		/**
+		 * init events
+		 * @return {void}
+		 */
 		_initEvents: function() {
 			this.parent();
 
-			var self = this,
-				opts = this.options,
-				timer;
+			var self = this;
+			var opts = this.options;
+			var timer;
 
 			this.input.addEvents({
 				keyup: function() {
@@ -118,17 +113,10 @@ define([
 			});
 		},
 
-
-		/*
-		Function: focus
-
-			Focus
-
-		Return:
-			this
-
-		*/
-
+		/**
+		 * focus
+		 * @return {Object}
+		 */
 		focus: function() {
 			this.input.focus();
 			this.fireEvent('focus');
@@ -136,22 +124,17 @@ define([
 			return this;
 		},
 
-		/*
-		Function: empty
-
-			Create a div and a hidden input to receive the selected value
-
-		Return:
-			this
-
-		*/
-
+		/**
+		 * empty
+		 * @return {Object}
+		 */
 		empty: function() {
 			this.input.set('value', '');
 			this.fireEvent('reset');
 
 			return this;
 		}
+
 	});
 
 	return exports;
