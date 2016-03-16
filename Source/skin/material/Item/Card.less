@@ -20,7 +20,7 @@
   > .item-card {
     background-color: white;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.26);
-    margin: 6px 12px;
+    margin: 12px 12px;
     //max-width: 240px;
     .card-head {
       // background-color: #434c59;
@@ -51,10 +51,10 @@
         margin: 0;
         border-bottom: 1px solid rgba(0, 0, 0, .05);
         >.text-trunc {
+          .flex(1);
           text-overflow: ellipsis;
           display: inline-block;
-          width: 100%;
-          white-space: nowrap;
+          white-space: inherit;
           overflow: hidden;
           vertical-align: top;
           padding: 2px 0 0;
