@@ -1,5 +1,5 @@
 /**
- * Minimalistic Implement for Minimal.View Class
+ * Loader Module
  * @author Jerome Vial, Bruno Santos
  */
 define(function(require, exports, module) {
@@ -10,7 +10,10 @@ define(function(require, exports, module) {
 
 		options: {
 			loader: {
-				text: 'Loading...',
+				text: {
+					default: 'Loading...',
+					statusBar: 'Loading ',
+				},
 				delay: 200
 			}
 		},
@@ -21,6 +24,8 @@ define(function(require, exports, module) {
 		 */
 		_initLoader: function() {
 			_log.debug('_initLoader');
+
+			this.statusBarText = this.options.loader.text.statusBar;
 
 			this.addEvents({
 				getData: this.showLoader.bind(this),
@@ -40,8 +45,11 @@ define(function(require, exports, module) {
 			var self = this;
 			var opts = this.options.loader;
 
-			this.setStatus(opts.text);
-			this._createLoader();
+			this.setStatus(this.statusBarText);
+
+			if (!this.loader) {
+				this._createLoader();
+			}
 
 			/*display loader after 200ms*/
 			clearTimeout(this.loaderTimeout);
@@ -87,12 +95,10 @@ define(function(require, exports, module) {
 				}
 			}).inject(this.element);
 
-			if (opts.text) {
-				this.loaderText = new Element('span', {
-					html: opts.text,
-					class: 'loader-text'
-				}).inject(loader, 'top');
-			}
+			this.loaderText = new Element('span', {
+				html: opts.text.default,
+				class: 'loader-text'
+			}).inject(loader, 'top');
 
 			new Element('div', {
 				class: 'loader-bar'
@@ -104,11 +110,13 @@ define(function(require, exports, module) {
 		 * @return {void}
 		 */
 		setLoaderText: function(text) {
-			if (!this.loaderText) {
-				return;
-			}
+			//_log.debug('setLoaderText', this.loaderText, text);
 
-			this.loaderText.set('html', text);
+			if (this.loaderText) {
+				this.loaderText.set('html', text);
+			} else if (text) {
+				this.setStatus(this.statusBarText + text);
+			}
 		}
 
 	});
