@@ -58,6 +58,8 @@ define(function(require, exports, module) {
 				class: 'date-input'
 			}).inject(this.element);
 
+			this.input.set('placeholder', opts.text);
+
 			if (opts.read) {
 				this.input.set('readonly', 'readonly');
 			}
@@ -150,6 +152,7 @@ define(function(require, exports, module) {
 			_log.debug('set', d);
 
 			if (!d) {
+				_log.warn('missing string or wrong type');
 				return;
 			}
 
@@ -161,9 +164,23 @@ define(function(require, exports, module) {
 				text = moment(d).format('MMMM YYYY');
 			}
 
+			_log.debug('text:', text, 'date:', date);
+
 			this.input.set('value', text);
 			this.input.set('placeholder', opts.text);
 			this.text.set('value', date);
+		},
+
+		/**
+		 * empty
+		 * @return {Object}
+		 */
+		empty: function() {
+			this.input.set('value', '');
+			this.input.set('placeholder', this.options.text);
+			this.text.set('value', '');
+
+			return this;
 		}
 
 	});
