@@ -57,7 +57,7 @@ define([
 		},
 
 		setStatus: function(status) {
-			//console.log('setStatus', status );
+			//_log.debug('setStatus', status );
 			this.element.set('html', status);
 		},
 

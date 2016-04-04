@@ -33,7 +33,7 @@ define([
 
 			var type = typeOf(opts.container);
 
-			//console.log('_initContainer');
+			//_log.debug('_initContainer');
 
 			if (type === 'object') {
 				this.container.addEvent('resize', function() {
@@ -45,7 +45,7 @@ define([
 					container: opts.container
 				});
 			} else {
-				//console.log('window', opts.window);
+				//_log.debug('window', opts.window);
 
 				if (opts.window) {
 					var win = new Window(opts.window);

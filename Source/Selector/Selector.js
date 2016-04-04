@@ -81,10 +81,10 @@ define(function(require, exports, module) {
 		 * @return {void}
 		 */
 		initialize: function(options) {
-			//console.log('setOptions', options);
+			//_log.debug('setOptions', options);
 			this.setOptions(options);
 
-			//console.log('options.delegation', this.options.delegation);
+			//_log.debug('options.delegation', this.options.delegation);
 
 			this.selectors = [];
 
@@ -118,18 +118,18 @@ define(function(require, exports, module) {
 		},
 
 		_initEvents: function(scope, target) {
-			//console.log('_initEvents(scope,target)', typeOf(scope), target);
+			//_log.debug('_initEvents(scope,target)', typeOf(scope), target);
 			//var delay = 20;
 			var self = this;
 
-			//console.log('UI.Selector._initEvents(scope,target)',typeOf(scope),target);
+			//_log.debug('UI.Selector._initEvents(scope,target)',typeOf(scope),target);
 
 			var delegation = self.options.trigger + ':relay(' + target + ')';
 
-			//console.log(delegation, scope);
+			//_log.debug(delegation, scope);
 
 			scope.addEvent(delegation, function(ev, target) {
-				//console.log('reach', el);
+				//_log.debug('reach', el);
 				self.reach(target);
 			});
 
@@ -221,7 +221,7 @@ define(function(require, exports, module) {
 					self.border.reach(el);
 				},
 				repos: function(el) {
-					//console.log('reepos', el);
+					//_log.debug('reepos', el);
 					self.border.reach(el);
 				},
 				highlight: function(color) {
@@ -292,7 +292,7 @@ define(function(require, exports, module) {
 		},
 
 		buildMenu: function(options) {
-			//console.log('buildMenu', options);
+			//_log.debug('buildMenu', options);
 			//_log.debug('buildMenu', this.options.name, options);
 			var self = this;
 
@@ -305,7 +305,7 @@ define(function(require, exports, module) {
 			options.positionning = this.options.positionning;
 
 			this.menu = new Menu(this.wrapper, options).addEvent('click', function(menu) {
-				//console.log('menu click', menu);
+				//_log.debug('menu click', menu);
 				self.fireEvent('menu', menu);
 			});
 
@@ -452,7 +452,7 @@ define(function(require, exports, module) {
 		},
 
 		repos: function(el) {
-			//console.log('repos', el);
+			//_log.debug('repos', el);
 			if (el) {
 				this.el = el;
 			} else if (this.el) {
@@ -464,7 +464,7 @@ define(function(require, exports, module) {
 			
 
 			if (this.isEnable) {
-				//console.log('repos', el);
+				//_log.debug('repos', el);
 				this.show();
 				this.fireEvent('repos', el);
 			}
@@ -525,7 +525,7 @@ define(function(require, exports, module) {
 		},
 
 		enable: function(selector) {
-			//console.log('enable', this.options.name);
+			//_log.debug('enable', this.options.name);
 
 			this.isEnable = true;
 			Cookie.write(this.name, '1', this.options.cookie);
@@ -533,7 +533,7 @@ define(function(require, exports, module) {
 		},
 
 		disable: function(selector) {
-			//console.log('disable', this.options.name);
+			//_log.debug('disable', this.options.name);
 
 			this.isEnable = false;
 			Cookie.write(this.name, '0', this.options.cookie);

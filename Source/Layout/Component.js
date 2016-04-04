@@ -119,7 +119,7 @@ define([
 		 * @return {void}
 		 */
 		_setComponentDisplay: function(component) {
-			//console.log('comp opts', component.options);
+			//_log.debug('comp opts', component.options);
 			var display = 'normalized';
 
 			if (component.options.hide || component.options.state === 'minimized') {
