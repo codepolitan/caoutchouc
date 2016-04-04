@@ -1,27 +1,21 @@
 /**
  * UI Window Dialog Class
- * @class UI.Window.Dialog
  * @extends {UI.Container}
  * @type {Class}
  */
-define([
-	'UI/Control/Button',
-	'UI/Window/Window'
-], function(
-	ButtonControl,
-	Window
-) {
+define(function(require, exports, module) {
 
-	var exports = new Class({
+	var ButtonControl = require('UI/Control/Button');
+	var Window = require('UI/Window/Window');
+
+	var _log = __debug('ui-dialog').defineLevel();
+
+	var Dialog = new Class({
 
 		Extends: Window,
 
 		name: 'dialog',
 
-		/**
-		 * options
-		 * @type {Object}
-		 */
 		options: {
 			center: true,
 			title: 'Dialog',
@@ -68,13 +62,9 @@ define([
 				}*/
 		},
 
-		initialize: function(options) {
-			this.parent(options);
-		},
-
 		/**
-		 * [_initElement description]
-		 * @return {[type]} [description]
+		 * init element
+		 * @return {void}
 		 */
 		_initElement: function() {
 			this.parent();
@@ -82,17 +72,15 @@ define([
 			this._initBody();
 			this._initActions();
 
-			/*
-			this.buildButtons(this.options.action);
-			*/
+			//this.buildButtons(this.options.action);
 		},
 
 		/**
-		 * [_initBody description]
-		 * @return {[type]} [description]
+		 * init body
+		 * @return {void}
 		 */
 		_initBody: function() {
-			//_log.debug('_initBody', this.content);
+			_log.debug('_initBody', this.content);
 
 			var message = this.options.message;
 
@@ -107,22 +95,22 @@ define([
 
 
 		/**
-		 * [_initMessage description]
-		 * @param  {[type]} message [description]
-		 * @return {[type]}         [description]
+		 * init message
+		 * @param  {string} message
+		 * @return {void}
 		 */
 		_initMessage: function(message) {
-
+			_log.debug('_initMessage', message);
 
 		},
 
 		/**
-		 * [_initControls description]
-		 * @param  {[type]} controls [description]
-		 * @return {[type]}          [description]
+		 * init controls
+		 * @return {void}
 		 */
 		_initActions: function() {
-			//_log.debug('_initActions', this.foot);
+			_log.debug('_initActions', this.foot);
+
 			var self = this;
 
 			this.actions = this.actions || [];
@@ -152,18 +140,20 @@ define([
 		},
 
 		/**
-		 * [_intiControl description]
-		 * @param  {[type]} name      [description]
-		 * @param  {[type]} opts      [description]
-		 * @param  {[type]} container [description]
-		 * @return {[type]}           [description]
+		 * _init action
+		 * @param  {string} name
+		 * @param  {Object} opts
+		 * @param  {Object} toolbar
+		 * @return {void}
 		 */
 		_initAction: function(name, opts, toolbar) {
-			//_log.debug('_intiAction', name, opts, toolbar);
+			_log.debug('_intiAction', name, opts, toolbar);
+
 			var self = this;
 
 			var n = name.split('::');
-			var name = n[0];
+
+			name = n[0];
 
 			var klss = n[1];
 
@@ -171,7 +161,7 @@ define([
 				name: name,
 				text: name,
 				klss: klss
-			}).addEvent('press', function(e) {
+			}).addEvent('press', function() {
 				//_log.debug('press', name);
 				self.fireEvent(name);
 				self.close();
@@ -182,5 +172,6 @@ define([
 
 	});
 
-	return exports;
+	module.exports = Dialog;
+
 });
