@@ -1,0 +1,897 @@
+/**
+ * View.List
+ * @class View.List
+ * @extends View
+ * @author Bruno Santos, Jerome Vial
+ *
+ * # Info Structure:
+ *
+ *      {
+ *          _id: unique info id
+ *          name: name
+ *      }
+ *
+ *
+ * # The options accept:
+ *
+ *      selectFirst: select the first node if there is no other node to select
+ *
+ */
+define(function(require, exports, module) {
+
+	var Mustache = require('Mustache');
+	var DOM = require('utils/DOM');
+	var View = require('ViewCore/View');
+
+	var Compat = require('UI/View/List/compat');
+	var Expand = require('UI/View/List/expand');
+	var Filter = require('UI/View/List/filter');
+	var Insert = require('UI/View/List/insert');
+	var Position = require('UI/View/List/position');
+	var Search = require('UI/View/List/search');
+	var Select = require('UI/View/List/select');
+	//var Separator = require('UI/View/List/separator');
+	var Settings = require('UI/View/List/settings');
+	//var Sort = require('UI/View/List/sort');
+	var Virtual = require('UI/View/List/virtual');
+
+	var _log = __debug('view-core-ListV2').defineLevel();
+
+	var ListView = new Class({
+
+		Extends: View,
+
+		Implements: [
+			Compat,
+			Expand,
+			Filter,
+			Insert,
+			Position,
+			Search,
+			Select,
+			//Separator,
+			Settings,
+			//Sort,
+			Virtual
+		],
+
+		options: {
+			clss: 'listtwo',
+
+			rangeSize: 50,
+
+			/*this option should be removed
+			from here and set in the list data type*/
+			data: {
+				fetchAll: false
+			},
+
+			save: {
+				scrollTop: true
+			},
+
+			/*options to use mnml template module*/
+			useTemplateModule: true,
+
+			/*options to use multiple selection*/
+			multipleSelect: false,
+
+			template: {
+				_type: 'simple',
+				simple: '<div class="trunc">' +
+					'<span class="small right">{{type}}</span><span class="name">{{name}}</span>' +
+					'</div>',
+			},
+
+			/*when a info change verify if belongs to this view*/
+			verifyBeforeInsert: true,
+
+			/*integrated should be replaced client
+			and event by server*/
+			search: {
+				type: 'integrated', //integrated || event
+				enable: true
+			},
+
+			status: {
+				enable: true
+			},
+
+			filter: {
+				type: 'integrated', //integrated || event
+				enable: true
+			},
+
+			expand: {
+				enable: false,
+				height: '630px'
+			},
+
+			sort: {
+				key: 'name'
+			},
+
+			separator: {
+				enable: false,
+				type: 'alpha',
+				key: 'name',
+
+				/*controller: {
+					//_list: ['view', 'collection', 'search', 'filter', 'sort', 'position'],
+					view: {
+
+					}
+				}*/
+			},
+			controller: {
+				_list: ['view', 'search', 'expand', 'position' /*, 'filter', 'sort', 'position'*/ ],
+				view: {
+					'element.scroll': '_scroll',
+					'element.click': '_elementDidClick',
+					'add': '_newInfo',
+					'listtype': '_toggleList',
+					//'content.click:relay(div.list-item)': '_onClickElement'
+				},
+				search: {
+					'search': 'toggleSearch',
+					//'search.search': 'find',
+					//'found': '_viewFoundSearchResult',
+				},
+				expand: {
+					'elSelect': '_toggleExpand',
+					'expand': '_renderViewport',
+					'collapse': '_renderViewport'
+				},
+				filter: {
+					'filter': 'toggleFilter',
+				},
+				sort: {
+					'sort': '_setSort',
+				},
+				position: {
+					'position': 'togglePosition',
+					'moveup': 'moveUp',
+					'movedown': 'moveDown',
+				},
+				/*settings: {
+					'select': 'settings.select',
+				}*/
+			}
+		},
+
+		/**
+		 * Initialize view
+		 * @return {void}
+		 */
+		_initView: function() {
+			this.parent();
+
+			_log.debug('_initView', this.options);
+
+			this.content = new Element('div', {
+				'class': 'list-content list-virtual'
+			}).inject(this.element);
+
+			if (this.options.template) {
+				this.element.addClass('type-' + this.options.template._type);
+			}
+
+			//define control obj to be used by the
+			//plugins without trigger errors
+			this.control = this.control || {};
+
+			var self = this;
+
+			/*timer used because the controls
+			are not ready when we pass here*/
+			setTimeout(function() {
+				self._initCompat();
+				//self._initStatus();
+				self._initSearch();
+				self._initExpand();
+				self._initPosition();
+				self._initFilter();
+				//self._initSort();
+				//self._initSeparator();
+			}, 200);
+
+			this.initConnector();
+
+			this.fireEvent('initialize');
+		},
+
+		/**
+		 * init events
+		 * @return {void}
+		 */
+		_initEvents: function() {
+			//_log.debug('_initEvents');
+
+			this.parent();
+
+			var self = this;
+
+			this.content.addEvents({
+				'click:relay(div.item-list)': this._onSelect.bind(this),
+				'dblclick:relay(div.item-list)': function(ev, element) {
+					self._onSelect(ev, element);
+					self.fireEvent('choose', self.get('info'));
+				}
+			});
+		},
+
+		/**
+		 * initialize connector
+		 * @return {void}
+		 */
+		initConnector: function() {
+			var connector = this.connector;
+
+			_log.debug('initConnector', connector);
+
+			if (connector) {
+				this.data = this.options.data;
+
+				var count = this.data.count;
+				var range = 1;
+
+				/*this need a better solution, but is list view related*/
+				if (count) {
+					this.set('virtualList', [], range, count);
+				}
+			}
+		},
+
+		/**
+		 * when the list select
+		 * @param  {Object} ev
+		 * @return {void}
+		 */
+		_onSelect: function(ev, element) {
+			/*var item = ev.target;
+			var element = DOM.getAttrFirst(item, 'data-id');*/
+			this._selectByElement(element);
+		},
+
+		/**
+		 * element did click
+		 * @param  {Object} ev
+		 * @return {void}
+		 */
+		_elementDidClick: function(ev) {
+			//_log.debug('_elementDidClick');
+
+			if (ev.target === this.element) {
+				this.remove('new');
+				this.removeSelected();
+			}
+		},
+
+		/**
+		 * Setter
+		 * @param {string} prop
+		 * @param {string} value
+		 */
+		set: function(prop, value, opts, opts1) {
+			//_log.debug('set', prop, value);
+
+			switch (prop) {
+				case 'list':
+					return this._setList(value);
+				case 'virtualList':
+					return this.setVirtualList(value, opts, opts1);
+				case 'range':
+					return this.setVirtualList(opts, value);
+				case 'info':
+					return this._setInfo(value);
+				case 'settings':
+					return this._defineSettings(value);
+				case 'status':
+					return this.setStatus(value);
+				case 'searchValue':
+					return this._setSearchValue(value);
+				case 'selected':
+					return this.select(value);
+				default:
+					return this._setInfo(prop);
+			}
+
+			this.fireEvent('set', [prop, value]);
+
+			return this;
+		},
+
+		/**
+		 * Getter
+		 * @param {string} prop
+		 * @param {string} value
+		 */
+		get: function(prop, value) {
+			switch (prop) {
+				case 'listIds':
+				case 'idList':
+					return this._getIdList();
+				case 'listIdsSelected':
+					return this._getIdsSelected();
+				case 'info':
+				case 'selectedInfo':
+					return this.selectedInfo;
+				case 'lastInfoRange':
+					return this._getlastInfoRange(value);
+				case 'id':
+					return this.selectedId;
+				case 'infoById':
+					return this._getInfoById(value);
+				case 'list':
+					return this._getInfoList();
+				case 'options':
+					return this.options[value] || this.options;
+				case 'control':
+					return this.control[value];
+				case 'caller':
+					return this._caller;
+				case 'type':
+					return 'list';
+			}
+
+			return this;
+		},
+
+		/**
+		 * set caller
+		 * @param {Object} params
+		 * @param {Object} caller Caller instance
+		 * @description will get the connector
+		 * from the caller as well the params
+		 * from the info to fetch the list
+		 */
+		setCaller: function(params, caller) {
+			_log.debug('setCaller', params, caller);
+
+			this._caller = caller;
+			this.connector = caller.get('connector');
+
+			this.data = Object.merge(params, this.options.data);
+
+			var range = 1;
+
+			/*this need a better solution, but is list view related*/
+			this.set('virtualList', [], range, params._count);
+
+			this._fetchRange(range);
+		},
+
+		/**
+		 * [renderInfo description]
+		 * @param  {Object} info
+		 * @param  {number} range
+		 * @return {void|item}
+		 */
+		renderInfo: function(info, range, where) {
+			//_log.debug('renderInfo', info, range);
+
+			if (!info) {
+				_log.warn('missing info', info);
+				return;
+			}
+
+			var rangeEl = this.rangeEl[range];
+
+			if (!rangeEl) {
+				_log.warn('missing range el', rangeEl);
+				return;
+			}
+
+			var item = this._createEl(info);
+
+			if (!item) {
+				_log.warn('missing item el', item);
+				return;
+			}
+
+			where = where || 'bottom';
+
+			item.inject(rangeEl, where);
+
+			/*this.ccc = this.ccc ||0;
+			if(this.ccc % 2 == 0 && range % 2 == 0)
+				item.destroy('height', '100px');
+				//item.setStyle('height', '100px');
+			this.ccc++;*/
+
+			return item;
+		},
+
+		/**
+		 * create info element
+		 * @param  {Object} info
+		 * @return {DOMElement}
+		 */
+		_createEl: function(info) {
+			_log.debug('_createEl', info);
+
+			var item;
+
+			/*clone obj because of mnml _process render*/
+			if (info) {
+				info = Object.clone(info);
+			}
+
+			var tmpl;
+			var tmplType = this.options.template._type;
+			var opts = this.options;
+			if (opts.useTemplateModule === true) {
+				/*get template from templateFunction*/
+				var result = this.templateFunction(info);
+
+				tmpl = result.tmpl.key || result.tmpl.type || result.tmpl.default;
+				tmplType = this.nextTmpl || tmpl._type || tmplType;
+
+				/*process info*/
+				info = result.process;
+
+				//handle template v2
+				if (tmpl[tmplType] && typeof tmpl[tmplType] === 'object') {
+					var defaultTmpl = result.tmpl.default[tmplType].tmpl;
+					var rendered = Mustache.render(defaultTmpl, tmpl[tmplType]);
+					tmpl[tmplType] = rendered;
+				}
+
+				tmpl = tmpl[tmplType] || tmpl[Object.keys(tmpl)[0]];
+			} else {
+				tmpl = opts.template[tmplType] || opts.template.simple;
+			}
+
+			if (!tmpl) {
+				_log.warn('missing tmpl', tmpl);
+				return;
+			}
+
+			//console.log('tmplType', tmplType, this);
+
+			var content = Mustache.render(tmpl, info);
+
+			var klss = 'item-' + info.type + ' type-' + tmplType;
+
+			item = new Element('div', {
+				html: content,
+				'data-id': info._id,
+				'class': 'ui-item item-list ' + klss
+			});
+
+			return item;
+		},
+
+		_toggleList: function() {
+			var info = this.virtualList[0];
+
+			var result = this.templateFunction(info);
+
+			var obj = result.tmpl.key || result.tmpl.type || result.tmpl.default;
+
+			this.tmplUsed = this.tmplUsed || [];
+			this.nextTmpl = undefined;
+
+			for (var name in obj) {
+				if (name === '_type' || this.tmplUsed.indexOf(name) !== -1) {
+					continue;
+				} else {
+					this.tmplUsed.push(name);
+					this.nextTmpl = name;
+					break;
+				}
+			}
+
+			if (!this.nextTmpl) {
+				this.tmplUsed = [];
+			}
+
+			//console.log('_toggleList', this.nextTmpl, this.tmplUsed);
+
+			this.set('list', this.virtualList);
+		},
+
+		/**
+		 * when scroll
+		 * @return {void}
+		 */
+		_scroll: function() {
+			//_log.debug('_scroll');
+
+			if (this.totalLoaded >= this.virtualSize) {
+				this.__scroll();
+			} else {
+				clearTimeout(this.scrollTimeout);
+				this.scrollTimeout = setTimeout(this.__scroll.bind(this), 50);
+			}
+		},
+
+		/**
+		 * __scroll
+		 * @return {void}
+		 */
+		__scroll: function() {
+			this._renderViewport();
+			this.updateStatusIndex();
+
+			var self = this;
+
+			setTimeout(function() {
+				self._saveSettings();
+			}, 500);
+		},
+		/**
+		 * update status with current index
+		 * @return {void}
+		 */
+		updateStatusIndex: function() {
+
+			var itemSize = this.itemSize;
+
+			//_log.debug('updateStatusIndex', itemSize);
+
+			if (itemSize === 0) {
+				this.setStatus(' / ' + this.virtualList.length);
+				return;
+			}
+
+			var contentSize = this.element.getSize().y;
+			var scrollTop = this.content.parentNode.scrollTop;
+			var docsLen = this.virtualList.length;
+
+			var displayCount = parseInt(contentSize / itemSize, 10);
+			var idx = Math.ceil((scrollTop / itemSize) + displayCount);
+
+			idx = idx.limit(0, docsLen);
+
+			this.setStatus(idx + ' / ' + this.virtualList.length);
+		},
+
+		/**
+		 * fetch range from connector
+		 * @param  {number} range
+		 * @return {void}
+		 */
+		_fetchRange: function(range) {
+
+			if (!this.useFetch) {
+				return;
+			}
+
+			_log.debug('_fetchRange', range);
+
+			if (this.rangesRequested.indexOf(range) !== -1) {
+				_log.debug('range', range, 'already requested');
+				return;
+			}
+
+			var self = this;
+
+			this.rangesRequested.push(range);
+
+			var connector = this.connector;
+			var data = this.data;
+
+			if (!connector || !data) {
+				_log.warn('can not fetch list, missing connector or options', connector, data);
+				return;
+			}
+
+			data.range = range;
+
+			this.connector.fetch('listRange', data, function(resp) {
+				self.set('range', range, resp);
+
+				self.rangesReceived.push(range);
+
+				var fetchAll = self.options.data.fetchAll;
+
+				if (fetchAll !== true) {
+					return;
+				}
+
+				var settings = self.options.save[data._id] || {};
+				var ready = true;
+
+				settings.ranges = settings.ranges || [];
+
+				var r = settings.ranges;
+				for (var i = 0, len = r.length; i < len; i++) {
+					if (self.rangesReceived.indexOf(r[i]) === -1) {
+						ready = false;
+					}
+				}
+
+				if (ready) {
+					self._fetchAll();
+				}
+			});
+
+			this.fireEvent('getData');
+		},
+
+		/**
+		 * fetch complete list
+		 * @return {void}
+		 */
+		_fetchAll: function() {
+			if (this.fetchAllReady) {
+				return;
+			}
+
+			this.fetchAllReady = true;
+
+			var self = this;
+			var requests = Math.ceil(this.ranges / 20);
+
+			_log.debug('fetch', requests, 'request');
+
+			var range = 1;
+
+			for (var request = 1; request <= requests; request++) {
+				var ranges = [];
+
+				for (; range <= request * 20; range++) {
+					if (range <= this.ranges && this.rangesRequested.indexOf(range) === -1) {
+						ranges.push(range);
+						this.rangesRequested.push(range);
+					}
+				}
+
+				if (!ranges.length) {
+					continue;
+				}
+
+				var data = this.data;
+				data.range = ranges;
+
+				this.connector.fetch('listRange', data, function(resp) {
+					for (var r in resp) {
+						if (!resp.hasOwnProperty(r)) {
+							continue;
+						}
+						self.set('range', r, resp[r]);
+
+						self.fireEvent('progress', self.totalLoaded);
+						if (self.totalLoaded >= self.virtualSize) {
+							self._scroll();
+						}
+					}
+				});
+			}
+		},
+
+		/**
+		 * empty list view
+		 * @return {void}
+		 */
+		empty: function() {
+
+			this.content.empty();
+			this.content.setStyle('height', '0px');
+			this.content.setStyle('padding-top', '0px');
+			this.element.scrollTop = 0;
+			this.setStatus('');
+			this._start();
+
+		},
+
+		/**
+		 * reveal item
+		 * @param {string} id
+		 * @return {Object} this
+		 */
+		reveal: function(id) {
+			_log.debug('reveal', id);
+
+			//find index
+			/*var index = this.list.indexOf(id);
+
+			if (index < 0) {
+				_log.warn('missing index to reveal');
+				return;
+			}
+
+			this.scrollData(index);
+
+			this.fx.start(0, index * this.itemSize);
+			this.fx.set(0, index * this.itemSize);
+
+			return this;*/
+		},
+
+		/**
+		 * remove
+		 * @param  {string|Object} id
+		 * @return {void}
+		 */
+		remove: function(id) {
+			_log.debug('remove', id);
+
+			if (typeof id === 'object') {
+				id = id._id;
+			}
+
+			if (!id || this.virtualSize === undefined) {
+				_log.warn('missing id when remove', id);
+				return;
+			}
+
+			/*delete element from DOM*/
+			for (var range in this.rangeEl) {
+				if (!this.rangeEl.hasOwnProperty(range)) {
+					continue;
+				}
+
+				var rangeEl = this.rangeEl[range];
+
+				var el = rangeEl.getElement('[data-id="' + id + '"]');
+
+				if (el) {
+					el.destroy();
+					break;
+				}
+			}
+
+			/*delete from virtualList*/
+			for (var i = 0; i < this.virtualList.length; i++) {
+				var info = this.virtualList[i] || {};
+
+				if (info && info._id === id) {
+					this.virtualList[i] = undefined;
+				}
+			}
+		},
+
+
+		isElementInViewport: function(el) {
+
+			var rect = el.getBoundingClientRect();
+
+			return (
+				rect.top >= 0 &&
+				rect.left >= 0 &&
+				rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /*or $(window).height() */
+				rect.right <= (window.innerWidth || document.documentElement.clientWidth) /*or $(window).width() */
+			);
+		},
+
+
+
+
+		/*METHODS TO REVIEW*/
+
+		/**
+		 * draw background lines
+		 * @return {void}
+		 */
+		_drawBackground: function() {
+			_log.debug('_drawBackground', this.itemSize);
+
+			return;
+
+			var size = this.itemSize;
+
+			//rgb(243, 243, 243)
+			this.content.style.backgroundImage = 'url("data:image/svg+xml;utf8,' +
+				"<svg xmlns='http://www.w3.org/2000/svg' width='100' height='" + size + "'>" + //jshint ignore:line
+				"<line x1='0' y1='" + size + "' x2='100' y2='" + size + "' style='stroke:rgb(243, 243, 243);stroke-width:1' />" + //jshint ignore:line
+				'</svg>")';
+		},
+
+		/**
+		 * init canvas
+		 */
+		_initCanvas: function(el, height) {
+			var itemHeight = 56;
+			height = 56 * 50;
+
+			//console.log('_initCanvas', height, el);
+			this.canvasReady = true;
+
+			var canvas = new Element('canvas', {
+				id: 'listcanvas_w',
+				styles: {
+					zIndex: 0,
+					position: 'absolute',
+					left: '0',
+					top: '0',
+					height: height,
+					width: 341,
+					background: '#ffffff'
+				},
+				height: height,
+				width: '341'
+			}).inject(el);
+
+
+			var ctx = canvas.getContext('2d');
+			ctx.lineWidth = 0.5;
+			ctx.strokeStyle = '#dedbdb';
+
+			var total = height / itemHeight;
+			//console.log('total', total);
+			for (var j = 0; j <= total; j++) {
+				var y = j * itemHeight + 0.5;
+				//console.log('y', y);
+				ctx.beginPath();
+				ctx.moveTo(16, y);
+				ctx.lineTo(340, y);
+				ctx.stroke();
+			}
+		},
+
+		_getElById: function(id) {
+			_log.debug('_getElById', id);
+
+			var el;
+			for (var range in this.rangeEl) {
+				if (!this.rangeEl.hasOwnProperty(range)) {
+					continue;
+				}
+
+				var rangeEl = this.rangeEl[range];
+
+				var exist = rangeEl.getElement('[data-id="' + id + '"]');
+				if (exist) {
+					el = exist;
+					break;
+				}
+			}
+
+			return el;
+		},
+
+		//temparory fix to get selected info
+		_getInfoById: function(id) {
+			_log.debug('_getInfoById', id);
+
+			var info;
+			for (var i = 0; i < this.virtualList.length; i++) {
+				info = this.virtualList[i];
+				if (info && info._id === id) {
+					break;
+				}
+				info = undefined;
+			}
+
+			return info;
+		},
+
+		_getIdList: function() {
+			_log.debug('_getIdList');
+
+			var list = [];
+
+			for (var i = 0; i < this.virtualList.length; i++) {
+				var id = this.virtualList[i] || {};
+				id = id._id;
+				if (id && list.indexOf(id) === -1) {
+					list.push(id);
+				}
+			}
+
+			return list;
+		},
+
+		_getInfoList: function() {
+			_log.debug('_getInfoList');
+
+			var list = [];
+
+			for (var i = 0; i < this.virtualList.length; i++) {
+				var info = this.virtualList[i];
+
+				if (info) {
+					list.push(info);
+				}
+			}
+
+			return list;
+		},
+
+	});
+
+	module.exports = ListView;
+
+});
