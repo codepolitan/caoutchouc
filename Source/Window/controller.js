@@ -29,6 +29,8 @@ define([
 
 ) {
 
+	var _log = __debug('ui-controller').defineLevel();
+
 	var exports = new Class.Singleton({
 
 		Implements: [Options, Events],
