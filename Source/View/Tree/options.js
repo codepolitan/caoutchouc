@@ -33,8 +33,6 @@ define([
 				'addnode': '_addNode',
 				'organize': '_toggleOrganize',
 				'trash': '_moveToTrash',
-				'infoedit': '_editInfo',
-				//'infoview': '_infoView',
 				'dragDisabled': '_syncCollection',
 				'element.scroll': '_elementDidScroll',
 				'listSet': 'render',

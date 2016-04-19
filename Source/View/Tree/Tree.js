@@ -1222,16 +1222,6 @@ define([
 		},
 
 		/**
-		 * Show selected document
-		 * @return {void}
-		 * @private
-		 */
-		_editInfo: function() {
-			//_log.debug('_editInfo', this.getSelectedDoc());
-			this.fireEvent('editInfo', this.getSelectedDoc());
-		},
-
-		/**
 		 * Util to fill the a new sortkey
 		 * @param  {integer} num
 		 * @return {integer} num

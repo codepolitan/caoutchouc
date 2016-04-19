@@ -122,8 +122,6 @@ define(function(require, exports, module) {
 					'set': ['_focusPrimaryKey', '_hideToolbarDialog'],
 					'mode': '_setClassMode',
 					'trash': '_viewDidTrash',
-					'infoview': '_viewDidInfoView',
-					'infoedit': '_viewDidInfoEdit',
 					//'dataReady': '_set',
 					'apply': 'apply',
 					'cancel': 'cancel',
@@ -1412,39 +1410,6 @@ define(function(require, exports, module) {
 		_viewDidTrash: function() {
 			//_log.debug('_viewDidTrash');
 			this.fireEvent('deleteItem', this.doc._id);
-		},
-
-		/**
-		 * When the infoedit control is pressed
-		 *
-		 * @return {void}
-		 */
-		_viewDidInfoEdit: function() {
-			//_log.debug('_viewDidInfoEdit', this.getInfo());
-			var info = this.getInfo();
-
-			_log.debug('info', info);
-
-			if (info._id) {
-				this.fireEvent('editInfo', info);
-			} else {
-				_log.warn('can\'t display info when new');
-			}
-		},
-
-
-		/**
-		 * When the infoedit control is pressed
-		 *
-		 * @return {void}
-		 */
-		_viewDidInfoView: function() {
-			_log.debug('_viewDidInfoView', this.getInfo());
-			var info = this.getInfo();
-
-			if (info) {
-				this.fireEvent('viewInfo', info);
-			}
 		},
 
 		/**
