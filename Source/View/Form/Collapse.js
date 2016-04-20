@@ -5,6 +5,7 @@
  */
 define(function(require, exports, module) {
 
+	var settings = require('Core/Module/Settings/Settings');
 	var _log = __debug('view-collapse').defineLevel();
 
 	var Collapse = new Class({
@@ -21,8 +22,8 @@ define(function(require, exports, module) {
 			var opts = this.options;
 			var collapsed;
 
-			if (minimal && minimal.settings && minimal.settings.getLang) {
-				collapsed = minimal.settings.get('view.' + opts.name + '.isCollapsed');
+			if (settings && settings.getLang) {
+				collapsed = settings.get('view.' + opts.name + '.isCollapsed');
 			}
 
 			if (!collapsed) {

@@ -8,11 +8,13 @@
 define([
 	'UI/Control/Date',
 	'UI/Control/Hour',
-	'moment'
+	'moment',
+	'Core/Module/Settings/Settings'
 ], function(
 	DateControl,
 	HourControl,
-	moment
+	moment,
+	settings
 ) {
 
 	var _log = __debug('view:form-hours');
@@ -30,7 +32,7 @@ define([
 			_log.debug('_initHours', field);
 			var self = this;
 
-			var lang = minimal.settings.get('space').lang || 'en';
+			var lang = settings.get('space').lang || 'en';
 			moment.lang(lang);
 			//_log.debug(doc[field.name]);
 

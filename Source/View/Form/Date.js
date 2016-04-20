@@ -9,12 +9,14 @@ define([
 	'moment',
 	'UI/Control/Date',
 	'UI/Control/Field',
-	'UI/Control/Button'
+	'UI/Control/Button',
+	'Core/Module/Settings/Settings'
 ], function(
 	moment,
 	DateControl,
 	FieldControl,
-	ButtonControl
+	ButtonControl,
+	settings
 ) {
 
 	var _log = __debug('view-form-date').defineLevel();
@@ -38,9 +40,8 @@ define([
 
 			//we should handle this differently the form should receive the lang
 			var lang = 'en';
-			var minimal = minimal || {};
-			if (minimal.settings) {
-				lang = minimal.settings.get('space').lang || 'en';
+			if (settings) {
+				lang = settings.get('space').lang || 'en';
 			}
 
 			moment.lang(lang);
@@ -162,9 +163,8 @@ define([
 
 			//we should handle this differently the form should receive the lang
 			var lang = 'en';
-			var minimal = minimal || {};
-			if (minimal.settings) {
-				lang = minimal.settings.get('space').lang || 'en';
+			if (settings) {
+				lang = settings.get('space').lang || 'en';
 			}
 
 			moment.lang(lang);

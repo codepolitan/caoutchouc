@@ -8,6 +8,7 @@ define(function(require, exports, module) {
 
 	var moment = require('moment');
 	var View = require('ViewCore/View');
+	var settings = require('Core/Module/Settings/Settings');
 	var Attachments = require('UI/View/Form/Attachments');
 	var Charges = require('UI/View/Form/Charges');
 	var Collapse = require('UI/View/Form/Collapse');
@@ -306,7 +307,7 @@ define(function(require, exports, module) {
 
 
 			if (opts.collapsable) {
-				var state = minimal.settings.get('view.' + opts.name + '.fieldset.' + name);
+				var state = settings.get('view.' + opts.name + '.fieldset.' + name);
 
 				if (state === 'closed') {
 					fieldset.addClass('closed');
