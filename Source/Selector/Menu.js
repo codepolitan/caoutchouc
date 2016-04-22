@@ -82,19 +82,19 @@ define([
 			});
 
 
-			//console.log('buildmenu', this.options.list);
+			//_log.debug('buildmenu', this.options.list);
 			this.buildMenu();
 		},
 
 		buildMenu: function(){
 			var self = this;
 			var list = this.options.list;
-			//console.log('buildmenu', typeof list);
+			//_log.debug('buildmenu', typeof list);
 			
 			var size = 0;
 
 			for (var name in list) {
-				//console.log('menu', name);
+				//_log.debug('menu', name);
 				// list.each(function(menu){
 				var menu = list[name];
 
@@ -118,7 +118,7 @@ define([
 			
 				item.addEvents({
 					click: function(e) {
-						//console.log('clicked', this.get('name'));
+						//_log.debug('clicked', this.get('name'));
 						self.fireEvent('click', this.get('name'));
 					}
 				});

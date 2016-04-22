@@ -91,9 +91,9 @@ define(function(require, exports, module) {
 			});
 
 			this.addEvent('isReady', function(isReady) {
-				//console.log('isready', isReady);
+				//_log.debug('isready', isReady);
 				if (isReady >= this.ready) {
-					//console.log('toolbarReady');
+					//_log.debug('toolbarReady');
 					self.fireEvent('toolbarReady', isReady);
 				}
 			});
@@ -209,7 +209,7 @@ define(function(require, exports, module) {
 				clss = def.clss;
 			}
 
-			//console.log(def.icon, name, mdiIconConfig, fontIconConfig);
+			//_log.debug(def.icon, name, mdiIconConfig, fontIconConfig);
 
 			if (def.opts) {
 				opts = def.opts;
@@ -394,7 +394,7 @@ define(function(require, exports, module) {
 				cb(Class);
 			}, function(err) {
 				_log.error(module, err);
-				console.log('error');
+				_log.debug('error');
 				cb();
 			});
 		}

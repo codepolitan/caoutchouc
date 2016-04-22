@@ -114,7 +114,7 @@ define(function(require, exports, module) {
 		_initController: function() {
 
 			this.controller = new Controller();
-			//console.log('_initController', this.controller);
+			//_log.debug('_initController', this.controller);
 		},
 
 		/**
@@ -351,7 +351,7 @@ define(function(require, exports, module) {
 
 			//_log.debug(container);
 
-			//console.log('zindex', this.element.getStyle('zIndex'));
+			//_log.debug('zindex', this.element.getStyle('zIndex'));
 
 			this.underlay = new Element('div', {
 				'class': 'dialog-underlay'

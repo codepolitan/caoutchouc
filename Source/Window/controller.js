@@ -29,6 +29,8 @@ define([
 
 ) {
 
+	var _log = __debug('ui-controller').defineLevel();
+
 	var exports = new Class.Singleton({
 
 		Implements: [Options, Events],
@@ -90,7 +92,7 @@ define([
 
 		initialize: function(options) {
 			this.setOptions(options);
-			//console.log('controller window');
+			//_log.debug('controller window');
 
 			this.init(this.options.container);
 		},
@@ -147,10 +149,10 @@ define([
 
 				win.altitude = this.zIndex;
 			} else {
-				console.log('zINdex', win.element, win.options.zIndex);
+				_log.debug('zINdex', win.element, win.options.zIndex);
 				win.element.setStyle('zIndex', win.options.zIndex);
 				if (win.underlay) {
-					console.log('---', win.options.zIndex-1);
+					_log.debug('---', win.options.zIndex-1);
 					win.underlay.setStyle('zIndex', win.options.zIndex-1);
 				}
 			}
@@ -192,7 +194,7 @@ define([
 			(void)
 		*/
 		focus: function(win) {
-			//console.log('focus', win);
+			//_log.debug('focus', win);
 			if (!win) {
 				//make next highest window focus
 				var zIndex = 0;
@@ -204,7 +206,7 @@ define([
 					}
 				}
 
-				//console.log('focus', win);
+				//_log.debug('focus', win);
 
 				if (win) {
 					win.focus();

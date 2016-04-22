@@ -1,0 +1,24 @@
+/**
+ * item list three
+ */
+
+.ui-item.item-list.type-three {
+  padding-left: 16px;
+  .flex-direction(column);
+  .text-trunc,
+  .trunc {
+    padding-right: 8px;
+    &:last-child {
+      border-bottom: 1px solid rgba(0, 0, 0, .05);
+    }
+  }
+  &.is-selected,
+  &.item-selected,
+  &.selected-prev {
+    .ui-text {
+      &:last-child {
+        border-bottom: 1px solid transparent;
+      }
+    }
+  }
+}

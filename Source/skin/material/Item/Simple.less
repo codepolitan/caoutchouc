@@ -1,0 +1,30 @@
+/**
+ * Item list simple
+ */
+
+.ui-item.item-list.type-simple {
+  cursor: default;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  //padding-left: 16px;
+  border-right: none;
+  padding-left: 16px;
+  .flex-direction(column);
+  .text-trunc,
+  .trunc {
+    padding-right: 8px;
+    &:last-child {
+      border-bottom: 1px solid rgba(0, 0, 0, .05);
+    }
+  }
+  &.is-selected,
+  &.item-selected,
+  &.selected-prev {
+    .ui-text {
+      &:last-child {
+        border-bottom: 1px solid transparent;
+      }
+    }
+  }
+}

@@ -87,11 +87,6 @@
    "globals"       :  {
      "define": true,
      "_log": true,
-     "couch": false,
-     "minimal": false,
-     "mnml": true,
-     "ui": false,
-     "UI": false,
      "__debug": true
     }
 }
