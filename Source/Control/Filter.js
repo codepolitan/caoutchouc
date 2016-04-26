@@ -192,80 +192,20 @@ define(function(require, exports, module) {
 		},
 
 		/**
-		 * disable filter
-		 * @param  {Object} filter
-		 * @return {Object}
-		 */
-		/*disableFilter: function(filter) {
-			_log.debug('disableFilter', filter);
-
-			var filters = this.filters;
-			var opts = this.options;
-			filter.setState(null);
-
-			if (this.filterBar) {
-				this.filterBar.setStyle('display', 'none');
-			}
-
-			for (var i = 0; i < filters.length; i++) {
-				if (opts.filter.enableDisable !== true) {
-					delete this.filters[filters[i]];
-				}
-				this.filterControl[filters[i]].toggle_selected();
-			}
-			if (opts.filter.enableDisable !== true) {
-				this.filters.length = 0;
-			}
-
-			this.filterEnable = false;
-
-			return this;
-		},*/
-
-		/**
-		 * enable filter
-		 * @return {Object}
-		 */
-		/*enableFilter: function(filter) {
-			_log.debug('enableFilter', filter);
-
-			var filters = this.filters;
-			var opts = this.options;
-
-			filter.setState('active');
-
-			if (this.filterBar) {
-				this.filterBar.setStyle('display', 'block');
-			}
-
-			for (var j = 0; j < filters.length; j++) {
-				var f = filters[j];
-				this.filterControl[f].toggle_selected();
-			}
-
-			if (opts.filter.enableDisable === true) {
-				this.filterEnable = true;
-			}
-
-			return this;
-		},*/
-
-		/**
 		 * select filter
 		 * @param  {string} key
 		 * @param  {string} value
 		 * @return {Object}
 		 */
-		/*selectFilter: function(key, value) {
-			_log.debug('selectFilter', key, value, this.filterControl);
+		select: function(key, value) {
+			_log.debug('selectFilter', key, value, this.controls);
 
-			if (this.filterControl && this.filterControl[key]) {
-				this.filterControl[key].select(value);
-				//this.filterControl[key].setState('active');
+			if (this.controls && this.controls[key]) {
+				this.controls[key].select(value);
 			}
 
 			return this;
-		},*/
+		},
 
 		/**
 		 * set filter
