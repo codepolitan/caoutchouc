@@ -50,6 +50,7 @@ define(function(require, exports, module) {
 			var exist = this._getInfoById(info._id);
 			if (exist) {
 				this.updateInfo(info);
+				//this.processInfos();
 				this.select(this.selectedId);
 				return;
 			}
@@ -75,7 +76,7 @@ define(function(require, exports, module) {
 
 			this.remove('new');
 
-			this.virtualSize ++;
+			this.virtualSize++;
 
 			this.virtualList.unshift(info);
 
@@ -93,18 +94,30 @@ define(function(require, exports, module) {
 		updateInfo: function(info) {
 			_log.debug('updateInfo', info);
 
-			/*update element*/
+			//update element
 			var oldEl = this._getElById(info._id);
 			var newEl = this._createEl(info);
 			newEl.replaces(oldEl);
 
-			/*update virtualList*/
+			//update virtualList
 			for (var i = 0; i < this.virtualList.length; i++) {
 				var oldInfo = this.virtualList[i];
 
 				if (oldInfo && oldInfo._id === info._id) {
 					this.virtualList[i] = info;
 					break;
+				}
+			}
+
+			//update _tempCache
+			if (this._tempCache.length) {
+				for (var j = 0; j < this._tempCache.length; j++) {
+					var oldInfo = this._tempCache[j];
+
+					if (oldInfo && oldInfo._id === info._id) {
+						this._tempCache[j] = info;
+						break;
+					}
 				}
 			}
 		},
