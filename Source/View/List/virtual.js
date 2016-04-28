@@ -39,6 +39,15 @@ define(function(require, exports, module) {
 		setVirtualList: function(list, range, count) {
 			_log.debug('setVirtualList', list.length, range, count);
 
+			//temporary fix for incomplete lists
+			var self = this;
+			setTimeout(function() {
+				self.fireEvent('noData');
+			}, 40000);
+
+			this._tempCache = [];
+			this._tempCount = undefined;
+
 			if (!isNaN(count)) {
 				this._makeVirtual(list, range, count);
 			} else {
@@ -137,6 +146,12 @@ define(function(require, exports, module) {
 
 			/*current rendered ranges*/
 			this.renderedRanges = [];
+
+			this.lastSearch = undefined;
+
+			//cache list temporarily
+			this._tempCache = this._tempCache || [];
+			this._tempCount = this._tempCount || undefined;
 		},
 
 		/**
@@ -156,6 +171,12 @@ define(function(require, exports, module) {
 
 			if (list.length && this.settingsReady === false) {
 				this.onSettings(this);
+			}
+
+			if (this.totalLoaded >= this.virtualSize) {
+				this.fireEvent('setList');
+			} else if (!this.options.data.fetchAll) {
+				this.fireEvent('setList');
 			}
 		},
 

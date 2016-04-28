@@ -108,17 +108,11 @@ define(function(require, exports, module) {
 			separator: {
 				enable: false,
 				type: 'alpha',
-				key: 'name',
-
-				/*controller: {
-					//_list: ['view', 'collection', 'search', 'filter', 'sort', 'position'],
-					view: {
-
-					}
-				}*/
+				key: 'name'
 			},
+
 			controller: {
-				_list: ['view', 'search', 'expand', 'position' /*, 'filter', 'sort', 'position'*/ ],
+				_list: ['view', 'search', 'expand', 'position', 'filter', /*'sort', 'position'*/ ],
 				view: {
 					'element.scroll': '_scroll',
 					'element.click': '_elementDidClick',
@@ -128,7 +122,7 @@ define(function(require, exports, module) {
 				},
 				search: {
 					'search': 'toggleSearch',
-					//'search.search': 'find',
+					'search.search': 'find',
 					//'found': '_viewFoundSearchResult',
 				},
 				expand: {
@@ -575,6 +569,67 @@ define(function(require, exports, module) {
 			}
 		},
 
+		/**
+		 * process infos
+		 * @return {void}
+		 */
+		processInfos: function() {
+			var self = this;
+			var infos;
+
+			_log.debug('processInfos');
+
+			if (!this._tempCache.length) {
+				this._tempCache = this.get('list').slice(0);
+				this._tempCount = this.data._count || this._tempCache.length;
+				infos = this.get('list');
+			} else {
+				infos = this._tempCache.slice(0);
+			}
+
+			if (this.control.filter) {
+				this.applyFilters(infos, function(respFltr) {
+					if (self.control.search) {
+						self.applySearch(respFltr, function(respSrc) {
+							self._processInfos(respSrc);
+						});
+					} else {
+						self._processInfos(respFltr);
+					}
+				});
+			} else if (this.control.search) {
+				this.applySearch(infos, function(respSrc) {
+					self._processInfos(respSrc);
+				});
+			} else {
+				this._processInfos(infos);
+			}
+		},
+
+		/**
+		 * process infos
+		 * @param {Array} infos
+		 * @return {void}
+		 */
+		_processInfos: function(infos) {
+			//_log.debug('_processInfos', infos);
+
+			//there is no result from filter/search
+			var tmp = this._tempCache;
+			if (
+				tmp.length === infos.length &&
+				tmp[0] === infos[0] &&
+				tmp[tmp.length - 1] === infos[infos.length - 1]
+			) {
+				this._makeVirtual(infos, 1, this._tempCount || infos.length);
+				tmp = [];
+				this._tempCount = undefined;
+				//set filter/search result
+			} else {
+				this._makeVirtual(infos, 1, infos.length);
+				this.element.scrollTop = 0;
+			}
+		},
 
 		isElementInViewport: function(el) {
 
