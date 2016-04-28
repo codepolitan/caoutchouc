@@ -7,7 +7,7 @@
 define(function(require, exports, module) {
 
 	var moment = require('moment');
-	var View = require('ViewCore/View');
+	var View = require('UI/View/View');
 	var settings = require('Core/Module/Settings/Settings');
 	var Attachments = require('UI/View/Form/Attachments');
 	var Charges = require('UI/View/Form/Charges');

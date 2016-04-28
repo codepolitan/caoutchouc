@@ -1,6 +1,5 @@
 /**
  * View
- *
  * @class View
  * @since 0.0.1
  * @author Jerome Vial, Bruno Santos
@@ -21,6 +20,8 @@ define(function(require, exports, module) {
 	var LayoutView = require('./Layout');
 	//var Scrolling = require('./Scrolling');
 	var Zoom = require('./Zoom');
+
+	var _log = __debug('view').defineLevel();
 
 	var View = new Class({
 
@@ -94,8 +95,29 @@ define(function(require, exports, module) {
 		 * @return {Object}
 		 */
 		initialize: function(options) {
+			_log.debug('initialize', options);
 
 			options = options || {};
+
+			if (options.setCaller) {
+				this.setCaller = options.setCaller.bind(null, this);
+				options.setCaller = true;
+			}
+
+			if (options.getRange) {
+				this.getRange = options.getRange.bind(null, this);
+				options.getRange = true;
+			}
+
+			if (options.fetchFunction) {
+				this.fetchFunction = options.fetchFunction;
+				options.fetchFunction = true;
+			}
+
+			if (options.templateFunction) {
+				this.templateFunction = options.templateFunction;
+				options.templateFunction = true;
+			}
 
 			if (options.sandbox) {
 				this.sandbox = options.sandbox;
@@ -148,6 +170,10 @@ define(function(require, exports, module) {
 				this._initToolbar(opts.toolbar);
 			}
 
+			if (opts.menus) {
+				this._initMenus();
+			}
+
 			this._initEvents();
 
 			if (opts.scroller) {
@@ -168,6 +194,7 @@ define(function(require, exports, module) {
 		 * @private
 		 */
 		_initView: function() {
+			_log.debug('_initView');
 
 			this.isOpen = true;
 			this.visible = true;
@@ -265,6 +292,7 @@ define(function(require, exports, module) {
 		 * @return {void}
 		 */
 		focus: function() {
+			_log.debug('focus');
 
 			viewCtrl.focus(this);
 			this.fireEvent('focus');
@@ -277,8 +305,8 @@ define(function(require, exports, module) {
 		 * @private
 		 */
 		_initLayout: function(layout) {
+			_log.debug('_initLayout', layout);
 
-			//this.parent();
 			var opts = this.options;
 
 			this.container = new UIContainer({
@@ -301,8 +329,13 @@ define(function(require, exports, module) {
 		 * @private
 		 */
 		_initConnector: function() {
+			_log.debug('_initConnector');
 
 			var opts = this.opts;
+
+			if (!opts.conn) {
+				return;
+			}
 
 			this.conn = opts.conn;
 			//this.data.get();
@@ -320,6 +353,7 @@ define(function(require, exports, module) {
 		 * @private
 		 */
 		_connect: function(conn) {
+			_log.debug('_connect', conn);
 
 			var self = this;
 
@@ -359,8 +393,7 @@ define(function(require, exports, module) {
 		 * @private
 		 */
 		_initEvents: function() {
-
-			//this.parent();
+			_log.debug('_initEvents');
 
 			var opts = this.options;
 
@@ -424,6 +457,7 @@ define(function(require, exports, module) {
 		 * @return {Object}
 		 */
 		setTitle: function(text) {
+			_log.debug('setTitle', text);
 
 			var self = this;
 
@@ -455,7 +489,7 @@ define(function(require, exports, module) {
 		 * @param {string} text
 		 */
 		setStatus: function(text) {
-			//_log.debug('setStatus', text);
+			_log.debug('setStatus', text);
 
 			if (this.control && this.control.status) {
 				this.control.status.element.set('html', text);
@@ -516,6 +550,8 @@ define(function(require, exports, module) {
 		 * @return {void}
 		 */
 		hide: function() {
+			_log.debug('hide');
+
 			this.container.hide();
 			this.visible = false;
 		},
@@ -525,6 +561,8 @@ define(function(require, exports, module) {
 		 * @return {void}
 		 */
 		show: function() {
+			_log.debug('show');
+
 			this.container.setStyle('display', null);
 			this.visible = true;
 		}

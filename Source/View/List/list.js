@@ -21,7 +21,7 @@ define(function(require, exports, module) {
 
 	var Mustache = require('Mustache');
 	var DOM = require('utils/DOM');
-	var View = require('ViewCore/View');
+	var View = require('UI/View/View');
 
 	var Compat = require('UI/View/List/compat');
 	var Expand = require('UI/View/List/expand');

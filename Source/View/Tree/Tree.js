@@ -29,7 +29,7 @@
 define([
 	'UI/View/Tree/options',
 	'utils/array',
-	'ViewCore/View',
+	'UI/View/View',
 	'UI/View/Tree/utils/Collapse',
 	'UI/View/Tree/utils/Tree',
 	'UI/View/Tree/Collapse',
