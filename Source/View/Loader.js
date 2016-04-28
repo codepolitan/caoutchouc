@@ -93,7 +93,7 @@ define(function(require, exports, module) {
 				styles: {
 					display: 'none'
 				}
-			}).inject(this.element);
+			}).inject(this.element, 'before');
 
 			this.loaderText = new Element('span', {
 				html: opts.text.default,
@@ -113,7 +113,7 @@ define(function(require, exports, module) {
 			//_log.debug('setLoaderText', this.loaderText, text);
 
 			if (this.loaderText) {
-				this.loaderText.set('html', text);
+				this.loaderText.set('html', this.statusBarText + text);
 			} else if (text) {
 				this.setStatus(this.statusBarText + text);
 			}
