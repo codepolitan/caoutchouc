@@ -31,7 +31,7 @@ define(function(require, exports, module) {
 			if (settings.ranges) {
 				for (var i = 0; i < settings.ranges.length; i++) {
 					var range = settings.ranges[i];
-					this._fetchRange(range);
+					this.getRange(range);
 				}
 			}
 

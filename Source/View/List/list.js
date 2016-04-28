@@ -60,12 +60,6 @@ define(function(require, exports, module) {
 
 			rangeSize: 50,
 
-			/*this option should be removed
-			from here and set in the list data type*/
-			data: {
-				fetchAll: false
-			},
-
 			save: {
 				scrollTop: true
 			},
@@ -195,8 +189,6 @@ define(function(require, exports, module) {
 				//self._initSeparator();
 			}, 200);
 
-			this.initConnector();
-
 			this.fireEvent('initialize');
 		},
 
@@ -218,28 +210,6 @@ define(function(require, exports, module) {
 					self.fireEvent('choose', self.get('info'));
 				}
 			});
-		},
-
-		/**
-		 * initialize connector
-		 * @return {void}
-		 */
-		initConnector: function() {
-			var connector = this.connector;
-
-			_log.debug('initConnector', connector);
-
-			if (connector) {
-				this.data = this.options.data;
-
-				var count = this.data.count;
-				var range = 1;
-
-				/*this need a better solution, but is list view related*/
-				if (count) {
-					this.set('virtualList', [], range, count);
-				}
-			}
 		},
 
 		/**
@@ -335,30 +305,6 @@ define(function(require, exports, module) {
 			}
 
 			return this;
-		},
-
-		/**
-		 * set caller
-		 * @param {Object} params
-		 * @param {Object} caller Caller instance
-		 * @description will get the connector
-		 * from the caller as well the params
-		 * from the info to fetch the list
-		 */
-		setCaller: function(params, caller) {
-			_log.debug('setCaller', params, caller);
-
-			this._caller = caller;
-			this.connector = caller.get('connector');
-
-			this.data = Object.merge(params, this.options.data);
-
-			var range = 1;
-
-			/*this need a better solution, but is list view related*/
-			this.set('virtualList', [], range, params._count);
-
-			this._fetchRange(range);
 		},
 
 		/**
@@ -545,120 +491,6 @@ define(function(require, exports, module) {
 			idx = idx.limit(0, docsLen);
 
 			this.setStatus(idx + ' / ' + this.virtualList.length);
-		},
-
-		/**
-		 * fetch range from connector
-		 * @param  {number} range
-		 * @return {void}
-		 */
-		_fetchRange: function(range) {
-
-			if (!this.useFetch) {
-				return;
-			}
-
-			_log.debug('_fetchRange', range);
-
-			if (this.rangesRequested.indexOf(range) !== -1) {
-				_log.debug('range', range, 'already requested');
-				return;
-			}
-
-			var self = this;
-
-			this.rangesRequested.push(range);
-
-			var connector = this.connector;
-			var data = this.data;
-
-			if (!connector || !data) {
-				_log.warn('can not fetch list, missing connector or options', connector, data);
-				return;
-			}
-
-			data.range = range;
-
-			this.connector.fetch('listRange', data, function(resp) {
-				self.set('range', range, resp);
-
-				self.rangesReceived.push(range);
-
-				var fetchAll = self.options.data.fetchAll;
-
-				if (fetchAll !== true) {
-					return;
-				}
-
-				var settings = self.options.save[data._id] || {};
-				var ready = true;
-
-				settings.ranges = settings.ranges || [];
-
-				var r = settings.ranges;
-				for (var i = 0, len = r.length; i < len; i++) {
-					if (self.rangesReceived.indexOf(r[i]) === -1) {
-						ready = false;
-					}
-				}
-
-				if (ready) {
-					self._fetchAll();
-				}
-			});
-
-			this.fireEvent('getData');
-		},
-
-		/**
-		 * fetch complete list
-		 * @return {void}
-		 */
-		_fetchAll: function() {
-			if (this.fetchAllReady) {
-				return;
-			}
-
-			this.fetchAllReady = true;
-
-			var self = this;
-			var requests = Math.ceil(this.ranges / 20);
-
-			_log.debug('fetch', requests, 'request');
-
-			var range = 1;
-
-			for (var request = 1; request <= requests; request++) {
-				var ranges = [];
-
-				for (; range <= request * 20; range++) {
-					if (range <= this.ranges && this.rangesRequested.indexOf(range) === -1) {
-						ranges.push(range);
-						this.rangesRequested.push(range);
-					}
-				}
-
-				if (!ranges.length) {
-					continue;
-				}
-
-				var data = this.data;
-				data.range = ranges;
-
-				this.connector.fetch('listRange', data, function(resp) {
-					for (var r in resp) {
-						if (!resp.hasOwnProperty(r)) {
-							continue;
-						}
-						self.set('range', r, resp[r]);
-
-						self.fireEvent('progress', self.totalLoaded);
-						if (self.totalLoaded >= self.virtualSize) {
-							self._scroll();
-						}
-					}
-				});
-			}
 		},
 
 		/**

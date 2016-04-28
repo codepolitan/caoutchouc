@@ -73,9 +73,8 @@ define(function(require, exports, module) {
 				arr.push(undefined);
 			}
 
-			/*disbale fetch if receive the complete list*/
 			if (list.length === count) {
-				this.useFetch = false;
+				this.isFullyLoaded = true;
 			}
 
 			this._setRange(list, range);
@@ -93,9 +92,6 @@ define(function(require, exports, module) {
 		 */
 		_start: function() {
 			_log.debug('_start');
-
-			/*remove connector*/
-			//this.connector = undefined;
 
 			/*total number of loaded infos*/
 			this.totalLoaded = 0;
@@ -136,20 +132,11 @@ define(function(require, exports, module) {
 			/*count for virtual list*/
 			this.virtualSize = undefined;
 
-			/*if fetch data or not*/
-			this.useFetch = true;
-
-			/*ranges requested*/
-			this.rangesRequested = [];
-
-			/*ranges received*/
-			this.rangesReceived = [];
+			/*if the list is fully loaded*/
+			this.isFullyLoaded = false;
 
 			/*current rendered ranges*/
 			this.renderedRanges = [];
-
-			//will be removed
-			this.fetchAllReady = false;
 		},
 
 		/**
@@ -461,7 +448,7 @@ define(function(require, exports, module) {
 
 			if (this.renderedRanges.indexOf(range) === -1) {
 				this.renderedRanges.push(range);
-				this._fetchRange(range);
+				this.getRange(range);
 			}
 		},
 
@@ -502,7 +489,7 @@ define(function(require, exports, module) {
 			_log.debug('_getListByRange', range, docs.length);
 
 			if (!docs.length || docs[0] === undefined) {
-				this._fetchRange(range);
+				this.getRange(range);
 			}
 
 			return docs;
