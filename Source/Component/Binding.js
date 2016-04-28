@@ -50,7 +50,7 @@
 		 * @return {Object}
 		 */
 		_initBinding: function(binding) {
-			binding = binding || this.options.controller;
+			binding = binding || this.options.controller || this.options.binding;
 
 			this.binding = this.binding || {};
 
