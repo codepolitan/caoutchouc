@@ -1,8 +1,8 @@
 /**
-* Toolbar Core Module
-* @class Core.Module.Toolbar
-* @author Jerome Vial, Bruno Santos
-*/
+ * Toolbar Core Module
+ * @class Core.Module.Toolbar
+ * @author Jerome Vial, Bruno Santos
+ */
 define(function(require, exports, module) {
 
 	var appIconConfig = require('mnml/icon/app');
@@ -10,18 +10,17 @@ define(function(require, exports, module) {
 	var mdiIconConfig = require('mnml/icon/mdi');
 	var langControlsConfigEn = require('mnml/sys/lang/control/en');
 	var langControlsConfigFr = require('mnml/sys/lang/control/fr');
+	var settings = require('Core/Module/Settings/Settings');
 
-	var _log = __debug('core:module-toolbar');
+	var _log = __debug('core-module-toolbar').defineLevel();
 
-    var Toolbar = new Class({
+	var Toolbar = new Class({
 
 		/**
 		 * Initialize Toolbar
-		 *
 		 * @param {Object} obj
 		 */
 		_initToolbar: function(obj) {
-			var self = this;
 			_log.debug('_initToolbar', obj);
 
 			this.langControl = {
@@ -54,7 +53,7 @@ define(function(require, exports, module) {
 						continue;
 					}
 
-					this.container['_init'+bar.container.capitalize()]();
+					this.container['_init' + bar.container.capitalize()]();
 				}
 
 				var element = this.toolbar[name] = new Element('div', {
@@ -76,15 +75,15 @@ define(function(require, exports, module) {
 		},
 
 		/**
-		 * [_initToolbarReady description]
-		 * @return {[type]} [description]
+		 * init toolbar eeady
+		 * @return {void}
 		 */
 		_initToolbarReady: function(obj) {
 			var self = this;
 			this.ready = 0;
 			this.isReady = 0;
 
-			var mappedObject = Object.map(obj, function(map) {
+			Object.map(obj, function(map) {
 				if (map.list) {
 					self.ready = self.ready + map.list.length;
 				}
@@ -169,7 +168,7 @@ define(function(require, exports, module) {
 
 			bar.list = bar.list || [];
 
-			for (var i= 0; i < bar.list.length; i++) {
+			for (var i = 0; i < bar.list.length; i++) {
 				var name = bar.list[i];
 				var def = bar[name];
 				this._instanciateComp(name, def, element);
@@ -183,8 +182,8 @@ define(function(require, exports, module) {
 		 * @param  {HTMLElement} element [description]
 		 * @return {void}
 		 */
-		_instanciateComp: function(name, def, element){
-			_log.debug('_instanciateComp',name, def, element);
+		_instanciateComp: function(name, def, element) {
+			_log.debug('_instanciateComp', name, def, element);
 
 			var self = this;
 			var clss = 'UI/Control/Button';
@@ -196,7 +195,7 @@ define(function(require, exports, module) {
 			var l = name.split(/\:\:/);
 
 			name = l[0];
-			l.splice(0,1);
+			l.splice(0, 1);
 
 			var klss = l.join(' ');
 
@@ -209,17 +208,15 @@ define(function(require, exports, module) {
 				clss = def.clss;
 			}
 
-			//_log.debug(def.icon, name, mdiIconConfig, fontIconConfig);
-
 			if (def.opts) {
 				opts = def.opts;
-				opts.text = Locale.get('control.'+name, name) || name;
+				opts.text = Locale.get('control.' + name, name) || name;
 
 				opts.icon = mdiIconConfig[def.icon || name] || fontIconConfig[def.icon || name] || 'mdi-action-help';
 			} else {
 				opts = {
 					name: name,
-					icon: mdiIconConfig[def.icon || name] || fontIconConfig[def.icon || name] || 'mdi-action-help',
+					icon: fontIconConfig[def.icon || name] || 'mdi-action-help',
 					type: 'action',
 					klss: klss
 				};
@@ -232,11 +229,13 @@ define(function(require, exports, module) {
 
 			//var	Clss = api.strToClss(clss);
 
-			var lang = 'en';
+			var lang;
 
-			// if (minimal && minimal.settings) {
-			// 	lang = minimal.settings.getLang() || 'en';
-			// }
+			if (settings && settings.getLang) {
+				lang = settings.getLang() || 'en';
+			} else {
+				lang = 'en';
+			}
 
 			if (!this.langControl[lang]) {
 				lang = 'en';
@@ -248,12 +247,14 @@ define(function(require, exports, module) {
 			}
 
 			if (clss === 'UI/Control/Button' || clss === 'UI/Control/ButtonMenu') {
-				opts.text = this.langControl[lang][name] || Locale.get('control.'+name, name) || text || name;
+				opts.text = this.langControl[lang][name] || Locale.get('control.' + name, name) || text || name;
 			}
 
 			var role = null;
 
-			if (this.sandbox) {
+			if (!this.sandbox) {
+				_log.warn('no sandbox');
+			} else {
 				var user = this.sandbox.getCurrentUser();
 				if (user && user.role) {
 					role = user.role;
@@ -316,7 +317,7 @@ define(function(require, exports, module) {
 								//var name =  this.options.name;
 								//_log.debug('press', name, this.isEnable());
 								if (this.isEnable()) {
-									self.fireEvent('control::'+name, this);
+									self.fireEvent('control::' + name, this);
 									self.fireEvent(name, [self]);
 								}
 							}
@@ -349,7 +350,7 @@ define(function(require, exports, module) {
 								//var name =  this.options.name;
 								//_log.debug('press', name, this.isEnable());
 								if (this.isEnable()) {
-									self.fireEvent('control::'+name, this);
+									self.fireEvent('control::' + name, this);
 									self.fireEvent(name, [self]);
 								}
 							}
@@ -366,7 +367,7 @@ define(function(require, exports, module) {
 								//var name =  this.options.name;
 								_log.debug('ButtonMenu press', name, this.isEnable());
 								if (this.isEnable()) {
-									self.fireEvent('control::'+name, this);
+									self.fireEvent('control::' + name, this);
 									self.fireEvent(name, [self]);
 								}
 							}
@@ -394,7 +395,6 @@ define(function(require, exports, module) {
 				cb(Class);
 			}, function(err) {
 				_log.error(module, err);
-				_log.debug('error');
 				cb();
 			});
 		}
