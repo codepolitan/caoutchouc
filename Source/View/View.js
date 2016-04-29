@@ -121,7 +121,7 @@ define(function(require, exports, module) {
 
 			if (options.sandbox) {
 				this.sandbox = options.sandbox;
-				delete options.sandbox;
+				options.sandbox = true;
 			}
 
 			if (options.connector) {

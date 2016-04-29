@@ -8,7 +8,7 @@ define([
 
 ) {
 
-	var _log = __debug('view:core-tree-collection');
+	var _log = __debug('view:core-tree-collection').defineLevel();
 
 	var exports = new Class({
 
