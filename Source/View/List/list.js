@@ -122,8 +122,6 @@ define(function(require, exports, module) {
 				},
 				search: {
 					'search': 'toggleSearch',
-					'search.search': 'find',
-					//'found': '_viewFoundSearchResult',
 				},
 				expand: {
 					'elSelect': '_toggleExpand',

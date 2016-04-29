@@ -33,7 +33,7 @@ define([
 				_list: ['input'],
 				input: {
 					'input.keyup': '_onKeyUp',
-					'input.keydown': '_onKeyDown',
+					//'input.keydown': '_onKeyDown',
 					'input.mousedown': '_onMouseDown',
 					'input.focus': '_onFocus',
 					'input.blur': '_onBlur'
