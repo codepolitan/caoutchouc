@@ -16,16 +16,16 @@ define(function(require, exports, module) {
 		 */
 		_newInfo: function() {
 
-			_log.debug('_newInfo', this.data);
+			_log.debug('_newInfo', this.options.data);
 
 			var newInfo = {
 				_id: 'new',
-				type: this.data.type,
+				type: this.options.data.type,
 				nodes: []
 			};
 
-			if (this.data && this.data._id) {
-				newInfo.nodes.push(this.data._id);
+			if (this.options.data && this.options.data._id) {
+				newInfo.nodes.push(this.options.data._id);
 			}
 
 			this.remove('new');
@@ -56,7 +56,7 @@ define(function(require, exports, module) {
 			}
 
 			if (this.options.verifyBeforeInsert === true) {
-				var data = this.data || {};
+				var data = this.options.data || {};
 
 				/*check type*/
 				if (data.type !== info.type) {

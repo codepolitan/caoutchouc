@@ -579,7 +579,7 @@ define(function(require, exports, module) {
 
 			if (!this._tempCache.length) {
 				this._tempCache = this.get('list').slice(0);
-				this._tempCount = this.data._count || this._tempCache.length;
+				this._tempCount = this.options.data._count || this._tempCache.length;
 				infos = this.get('list');
 			} else {
 				infos = this._tempCache.slice(0);
