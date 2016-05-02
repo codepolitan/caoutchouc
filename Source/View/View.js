@@ -145,7 +145,7 @@ define(function(require, exports, module) {
 			this.container = options.container;
 
 			this._init();
-			this._initBinding();
+			//this._initBinding();
 
 			return this;
 		},
