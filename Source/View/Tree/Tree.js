@@ -1096,6 +1096,7 @@ define([
 						self.collection.removeModel(model);
 					} else if (text !== value || value === 'New node') {
 						model.set('name', value);
+						model.set('id', null);
 						model.save();
 					}
 				},
@@ -1149,6 +1150,7 @@ define([
 		 */
 		_toggleOrganize: function() {
 			//_log.debug('toggleOrderMode');
+
 			if (this.orderMode) {
 				this._disableOrganize();
 			} else {
