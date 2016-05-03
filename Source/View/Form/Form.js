@@ -165,16 +165,6 @@ define(function(require, exports, module) {
 
 			this._initForm();
 
-			/*define info from settings*/
-			var self = this;
-			if (opts.infoId && this.connector && this.connector.fetch) {
-				this.connector.fetch('infoById', opts.infoId, function(resp) {
-					if (resp._id) {
-						self.set('info', resp);
-					}
-				});
-			}
-
 			if (opts.doc) {
 				this.set('info', opts.doc);
 			}
