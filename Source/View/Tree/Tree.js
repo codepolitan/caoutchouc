@@ -474,7 +474,7 @@ define([
 
 			// this is horrible and need to disapear!
 			var ul = this.content.getElement('ul').addClass('tree').addClass('collapse');
-			this.collapse = new TreeCollapse.Persistent(ul);
+			this.collapse = new TreeCollapse(ul);
 
 			//repeated code
 			if (this.orderMode) {
