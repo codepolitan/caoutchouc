@@ -163,8 +163,6 @@ define(function(require, exports, module) {
 		_setRange: function(list, range) {
 			_log.debug('set range', range, 'with', list.length, 'infos');
 
-			this.fireEvent('setList');
-
 			this._updateVirtualList(list, range);
 			//this._updateRangeEl(range);
 			this._renderViewport(range);
