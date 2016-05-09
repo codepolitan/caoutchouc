@@ -12,7 +12,7 @@ define([
 	Window
 ) {
 
-	var _log = __debug('core-view-container');
+	var _log = __debug('core-view-container').defineLevel();
 
 	var exports = new Class({
 
@@ -33,8 +33,6 @@ define([
 
 			var type = typeOf(opts.container);
 
-			//_log.debug('_initContainer');
-
 			if (type === 'object') {
 				this.container.addEvent('resize', function() {
 					self.fireEvent('resize');
@@ -45,8 +43,6 @@ define([
 					container: opts.container
 				});
 			} else {
-				//_log.debug('window', opts.window);
-
 				if (opts.window) {
 					var win = new Window(opts.window);
 

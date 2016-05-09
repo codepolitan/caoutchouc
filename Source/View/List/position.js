@@ -76,8 +76,7 @@ define(function(require, exports, module) {
 
 			this.positionEnable = false;
 
-			/*this save the list using the connector (NEED A BETTER SOLUTION)*/
-			this.connector.save('list', this.virtualList);
+			this.fireEvent('update', this.virtualList);
 		},
 
 		/**

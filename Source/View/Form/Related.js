@@ -1,7 +1,5 @@
 /**
  * Related information
- *
- * @extends {Minimal.Form}
  * @author Jerome Vial, Bruno Santos
  * @description
  *  Info Structure:
@@ -118,10 +116,10 @@ define(function(require, exports, module) {
 		},
 
 		/**
-		 * [_initRelatedItem description]
-		 * @param  {[type]} prop
-		 * @param  {[type]} related
-		 * @param  {[type]} list
+		 * init related item
+		 * @param  {Object} prop
+		 * @param  {Object} related
+		 * @param  {DOMElement} list
 		 * @return {void}
 		 */
 		_initRelatedItem: function(prop, related, list) {
@@ -191,10 +189,10 @@ define(function(require, exports, module) {
 
 		/**
 		 * [_initRelatedCustomList description]
-		 * @param  {[type]} item    [description]
-		 * @param  {[type]} related [description]
-		 * @param  {[type]} prop    [description]
-		 * @return {[type]}         [description]
+		 * @param  {DOMElement} item
+		 * @param  {Object} related
+		 * @param  {Object} prop
+		 * @return {void}
 		 */
 		_initRelatedCustomList: function(item, related, prop) {
 			_log.debug('_initRelatedCustomList', item, related, prop);
@@ -423,8 +421,8 @@ define(function(require, exports, module) {
 				var sourceKeys = opts.keys.info;
 
 				for (var i = 0; i < sourceKeys.length; i++) {
-					var source = sourceKeys[i],
-						value = info[source];
+					var source = sourceKeys[i];
+					var value = info[source];
 
 					related.info[source] = value;
 				}

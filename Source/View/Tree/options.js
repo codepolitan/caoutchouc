@@ -61,13 +61,13 @@ define([
 			collection: {
 				clss: 'Minimal.Collection.Tree',
 				opts: {
-					urlRoot: '/data/couch/tree/list'
+					urlRoot: '/data/couch/node'
 				}
 			},
 			model: {
 				clss: 'Minimal.Model.Tree',
 				opts: {
-					urlRoot: '/data/couch',
+					urlRoot: '/data/couch/node',
 					useJSON: true
 				}
 			}

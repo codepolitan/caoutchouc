@@ -1,19 +1,7 @@
-/*
----
-
-name: Tree
-
-description: Provides a way to sort and reorder a tree via drag&drop.
-
-authors: Christoph Pojer (@cpojer)
-
-requires: [Core/Events, Core/Element.Event, Core/Element.Style, Core/Element.Dimensions, Core/Fx.Tween, Core/Element.Delegation, More/Drag.Move, Class-Extras/Class.Binds, Class-Extras/Class.Singleton]
-
-provides: Tree
-
-...
-*/
-
+/**
+ * Tree View Core
+ * @see https://github.com/cpojer/mootools-tree
+ */
 define(function(require, exports, module) {
 
   var Tree = new Class({
@@ -21,10 +9,8 @@ define(function(require, exports, module) {
     Implements: [Options, Events, Class.Binds, Class.Single],
 
     options: {
-      /*
-      onChange: function(){},
-      onSelect: function(element){}
-    */
+      //onChange: function() {},
+      //onSelect: function(element) {},
       indicatorOffset: 0,
       cloneOffset: {
         x: 16,
@@ -94,14 +80,23 @@ define(function(require, exports, module) {
     mousedown: function(element, event) {
       event.preventDefault();
 
-      if (this.clone) this.clone.destroy();
+      if (this.clone) {
+        this.clone.destroy();
+      }
       this.padding = (this.element.getElement('li ul li') || this.element.getElement('li')).getLeft() - this.element.getLeft() + this.options.indicatorOffset;
-      if (this.collapse === undefined && typeof Collapse != 'undefined')
+      if (this.collapse === undefined && typeof Collapse != 'undefined') {
         this.collapse = this.element.getInstanceOf(Collapse);
+      }
 
-      if (!this.options.checkDrag.call(this, element)) return;
-      if (this.collapse && Slick.match(event.target, this.collapse.options.selector)) return;
-      if (this.current) this.current.removeClass('selected');
+      if (!this.options.checkDrag.call(this, element)) {
+        return;
+      }
+      if (this.collapse && Slick.match(event.target, this.collapse.options.selector)) {
+        return;
+      }
+      if (this.current) {
+        this.current.removeClass('selected');
+      }
 
       this.current = element.addClass('selected');
       this.clone = element.clone().setStyles({
@@ -111,6 +106,7 @@ define(function(require, exports, module) {
       }).addClass('drag').inject(document.body);
 
       this.clone.makeDraggable({
+        unDraggableTags: ['button', 'input', 'textarea', 'select', 'option'],
         droppables: this.element.getElements('li span'),
         onLeave: this.bound('hideIndicator'),
         onDrag: this.bound('onDrag'),
@@ -119,15 +115,20 @@ define(function(require, exports, module) {
     },
 
     mouseup: function() {
-      if (this.clone) this.clone.destroy();
+      if (this.clone) {
+        this.clone.destroy();
+      }
     },
 
     click: function(element, ev) {
-      //_log.debug('tree clock', element, ev.target);
-      if (this.clone) this.clone.destroy();
+      if (this.clone) {
+        this.clone.destroy();
+      }
 
       if (ev.target.hasClass('label')) {
-        if (this.current) this.current.removeClass('selected');
+        if (this.current) {
+          this.current.removeClass('selected');
+        }
         this.current = element.addClass('selected');
         this.fireEvent('select', [element]);
       }
@@ -142,43 +143,60 @@ define(function(require, exports, module) {
     },
 
     dblclick: function(element, ev) {
-      if (this.clone) this.clone.destroy();
-      if (this.current) this.current.removeClass('selected');
+      if (this.clone) {
+        this.clone.destroy();
+      }
+      if (this.current) {
+        this.current.removeClass('selected');
+      }
 
       this.current = element;
 
-      if (ev.target.hasClass('label'))
+      if (ev.target.hasClass('label')) {
         this.fireEvent('dblclick', [element]);
+      }
     },
 
     blur: function(element, ev) {
-      if (element != ev.target) return;
+      if (element != ev.target) {
+        return;
+      }
 
-      if (this.current) this.current.removeClass('selected');
+      if (this.current) {
+        this.current.removeClass('selected');
+      }
 
       this.fireEvent('blur');
     },
 
     onDrag: function(el, event) {
       clearTimeout(this.timer);
-      if (this.previous) this.previous.fade(1);
+      if (this.previous) {
+        this.previous.fade(1);
+      }
       this.previous = null;
 
-      if (!event || !event.target) return;
+      if (!event || !event.target) {
+        return;
+      }
 
       var droppable = (event.target.get('tag') == 'li') ? event.target : event.target.getParent('li');
-      if (!droppable || this.element == droppable || !this.element.contains(droppable)) return;
+      if (!droppable || this.element == droppable || !this.element.contains(droppable)) {
+        return;
+      }
 
-      if (this.collapse) this.expandCollapsed(droppable);
+      if (this.collapse) {
+        this.expandCollapsed(droppable);
+      }
 
-      var coords = droppable.getCoordinates(),
-        marginTop = droppable.getStyle('marginTop').toInt(),
-        center = coords.top + marginTop + (coords.height / 2),
-        isSubnode = (event.page.x > coords.left + this.padding),
-        position = {
-          x: coords.left + (isSubnode ? this.padding : 0),
-          y: coords.top
-        };
+      var coords = droppable.getCoordinates();
+      var marginTop = droppable.getStyle('marginTop').toInt();
+      var center = coords.top + marginTop + (coords.height / 2);
+      var isSubnode = (event.page.x > coords.left + this.padding);
+      var position = {
+        x: coords.left + (isSubnode ? this.padding : 0),
+        y: coords.top
+      };
 
       var drop;
       if ([droppable, droppable.getParent('li')].contains(this.current)) {
@@ -190,7 +208,9 @@ define(function(require, exports, module) {
           where: 'after',
           isSubnode: isSubnode
         };
-        if (!this.options.checkDrop.call(this, droppable, drop)) return;
+        if (!this.options.checkDrop.call(this, droppable, drop)) {
+          return;
+        }
         this.setDropTarget(drop);
       } else if (event.page.y < center) {
         position.x = coords.left;
@@ -198,28 +218,40 @@ define(function(require, exports, module) {
           target: droppable,
           where: 'before'
         };
-        if (!this.options.checkDrop.call(this, droppable, drop)) return;
+        if (!this.options.checkDrop.call(this, droppable, drop)) {
+          return;
+        }
         this.setDropTarget(drop);
       }
 
-      if (this.drop.target) this.showIndicator(position);
-      else this.hideIndicator();
+      if (this.drop.target) {
+        this.showIndicator(position);
+      } else {
+        this.hideIndicator();
+      }
     },
 
     onDrop: function(el) {
       el.destroy();
       this.hideIndicator();
 
-      var drop = this.drop,
-        current = this.current;
-      if (!drop || !drop.target) return;
+      var drop = this.drop;
+      var current = this.current;
+      if (!drop || !drop.target) {
+        return;
+      }
 
       var previous = current.getParent('li');
-      if (drop.isSubnode) current.inject(drop.target.getElement('ul') || new Element('ul').inject(drop.target), 'bottom');
-      else current.inject(drop.target, drop.where || 'after');
+      if (drop.isSubnode) {
+        current.inject(drop.target.getElement('ul') || new Element('ul').inject(drop.target), 'bottom');
+      } else {
+        current.inject(drop.target, drop.where || 'after');
+      }
 
       if (this.collapse) {
-        if (previous) this.collapse.updateElement(previous);
+        if (previous) {
+          this.collapse.updateElement(previous);
+        }
         this.collapse.updateElement(drop.target);
       }
 
@@ -244,7 +276,9 @@ define(function(require, exports, module) {
 
     expandCollapsed: function(element) {
       var child = element.getElement('ul');
-      if (!child || !this.collapse.isCollapsed(child)) return;
+      if (!child || !this.collapse.isCollapsed(child)) {
+        return;
+      }
 
       element.set('tween', {
         duration: 150
@@ -257,10 +291,14 @@ define(function(require, exports, module) {
     },
 
     serialize: function(fn, base) {
-      if (!base) base = base || this.element.getElement('ul');
-      if (!fn) fn = function(el) {
-        return el.get('data-id');
-      };
+      if (!base) {
+        base = base || this.element.getElement('ul');
+      }
+      if (!fn) {
+        fn = function(el) {
+          return el.get('data-id');
+        };
+      }
 
       var result = {};
       base.getChildren('li').each(function(el) {

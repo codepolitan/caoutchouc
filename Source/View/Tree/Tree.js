@@ -29,7 +29,7 @@
 define([
 	'UI/View/Tree/options',
 	'utils/array',
-	'ViewCore/View',
+	'UI/View/View',
 	'UI/View/Tree/utils/Collapse',
 	'UI/View/Tree/utils/Tree',
 	'UI/View/Tree/Collapse',
@@ -474,7 +474,7 @@ define([
 
 			// this is horrible and need to disapear!
 			var ul = this.content.getElement('ul').addClass('tree').addClass('collapse');
-			this.collapse = new TreeCollapse.Persistent(ul);
+			this.collapse = new TreeCollapse(ul);
 
 			//repeated code
 			if (this.orderMode) {
@@ -1096,6 +1096,7 @@ define([
 						self.collection.removeModel(model);
 					} else if (text !== value || value === 'New node') {
 						model.set('name', value);
+						model.set('id', null);
 						model.save();
 					}
 				},
@@ -1149,6 +1150,7 @@ define([
 		 */
 		_toggleOrganize: function() {
 			//_log.debug('toggleOrderMode');
+
 			if (this.orderMode) {
 				this._disableOrganize();
 			} else {

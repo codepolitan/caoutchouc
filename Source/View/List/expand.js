@@ -35,7 +35,7 @@ define(function(require, exports, module) {
 			_log.debug('_toggleExpand', el);
 
 			if (!this.options.expand.enable) {
-				_log.warn('expand is not enabled');
+				_log.debug('expand is not enabled');
 				return;
 			}
 

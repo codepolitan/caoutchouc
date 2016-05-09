@@ -16,16 +16,16 @@ define(function(require, exports, module) {
 		 */
 		_newInfo: function() {
 
-			_log.debug('_newInfo', this.data);
+			_log.debug('_newInfo', this.options.data);
 
 			var newInfo = {
 				_id: 'new',
-				type: this.data.type,
+				type: this.options.data.type,
 				nodes: []
 			};
 
-			if (this.data && this.data._id) {
-				newInfo.nodes.push(this.data._id);
+			if (this.options.data && this.options.data._id) {
+				newInfo.nodes.push(this.options.data._id);
 			}
 
 			this.remove('new');
@@ -50,12 +50,13 @@ define(function(require, exports, module) {
 			var exist = this._getInfoById(info._id);
 			if (exist) {
 				this.updateInfo(info);
+				//this.processInfos();
 				this.select(this.selectedId);
 				return;
 			}
 
 			if (this.options.verifyBeforeInsert === true) {
-				var data = this.data || {};
+				var data = this.options.data || {};
 
 				/*check type*/
 				if (data.type !== info.type) {
@@ -75,7 +76,7 @@ define(function(require, exports, module) {
 
 			this.remove('new');
 
-			this.virtualSize ++;
+			this.virtualSize++;
 
 			this.virtualList.unshift(info);
 
@@ -93,18 +94,30 @@ define(function(require, exports, module) {
 		updateInfo: function(info) {
 			_log.debug('updateInfo', info);
 
-			/*update element*/
+			//update element
 			var oldEl = this._getElById(info._id);
 			var newEl = this._createEl(info);
 			newEl.replaces(oldEl);
 
-			/*update virtualList*/
+			//update virtualList
 			for (var i = 0; i < this.virtualList.length; i++) {
 				var oldInfo = this.virtualList[i];
 
 				if (oldInfo && oldInfo._id === info._id) {
 					this.virtualList[i] = info;
 					break;
+				}
+			}
+
+			//update _tempCache
+			if (this._tempCache.length) {
+				for (var j = 0; j < this._tempCache.length; j++) {
+					var oldInfo = this._tempCache[j];
+
+					if (oldInfo && oldInfo._id === info._id) {
+						this._tempCache[j] = info;
+						break;
+					}
 				}
 			}
 		},

@@ -53,7 +53,7 @@ define([
 					'input.keyup': '_updateInk'
 				},
 				button: {
-					'button.press': '_onButtonPress'
+					//'button.press': '_onButtonPress'
 				}
 			}
 		},

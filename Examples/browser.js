@@ -57,14 +57,6 @@ define(function(require, exports, module) {
 					self.fireEvent('loaded');
 					self.container.fireEvent('resize');
 					self.fireEvent('resize');
-
-					/*couch.db.getList('content').addEvent('ok', function(list) {
-						_log.debug('content loaded', list);
-						//_log.debug('-----', self.pageView );
-						self.setElement(list);
-					});*/
-
-
 				},
 				loadfail: function() {
 					alert('Can\'t load '+ url);

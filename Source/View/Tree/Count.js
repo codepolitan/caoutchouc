@@ -8,7 +8,7 @@ define([
 
 ) {
 
-	var _log = __debug('view:core-tree-count');
+	var _log = __debug('view:core-tree-count').defineLevel();
 
 	var exports = new Class({
 

@@ -4,11 +4,11 @@
     "disallowMultipleSpaces": true,
     "disallowSpaceBeforeComma": true,
 
-	"jsDoc": {
-		"checkParamNames": true,
-		"requireParamTypes": true,
-		"checkAnnotations": "closurecompiler",
-		"checkTypes": "strictNativeCase",
-		"enforceExistence": "exceptExports"
-	}
+  "jsDoc": {
+    "checkParamNames": true,
+    "requireParamTypes": true,
+    "checkAnnotations": "jsdoc3",
+    "checkTypes": "strictNativeCase",
+    "enforceExistence": "exceptExports"
+  }
 }
