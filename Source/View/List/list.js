@@ -152,6 +152,8 @@ define(function(require, exports, module) {
 		_initView: function() {
 			this.parent();
 
+			this.getRange = this.getRange || function(){};
+
 			_log.debug('_initView', this.options);
 
 			this.content = new Element('div', {
