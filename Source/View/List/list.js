@@ -77,9 +77,6 @@ define(function(require, exports, module) {
 					'</div>',
 			},
 
-			/*when a info change verify if belongs to this view*/
-			verifyBeforeInsert: true,
-
 			/*integrated should be replaced client
 			and event by server*/
 			search: {

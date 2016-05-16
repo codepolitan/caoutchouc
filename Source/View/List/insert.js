@@ -55,25 +55,6 @@ define(function(require, exports, module) {
 				return;
 			}
 
-			if (this.options.verifyBeforeInsert === true) {
-				var data = this.options.data || {};
-
-				/*check type*/
-				if (data.type !== info.type) {
-					return;
-				}
-
-				/*check if the info is a node*/
-				if (!info.nodes) {
-					return;
-				}
-
-				/*check if the info is inside the node*/
-				if (data._id && info.nodes.indexOf(data._id) === -1) {
-					return;
-				}
-			}
-
 			this.remove('new');
 
 			this.virtualSize++;
