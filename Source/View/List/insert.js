@@ -41,6 +41,10 @@ define(function(require, exports, module) {
 		_setInfo: function(info) {
 			_log.debug('_setInfo', info);
 
+			if (this.virtualSize === undefined) {
+				this._setList([]);
+			}
+
 			if (typeof info !== 'object' || this.virtualSize === undefined) {
 				_log.warn('invalid info type', info);
 				return;
