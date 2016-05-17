@@ -1246,6 +1246,8 @@ define(function(require, exports, module) {
 		render: function() {
 			//_log.debug('render', this.doc);
 
+			_log.fatal('render method using deprecated couch. form:1249');
+
 			if (!this.original || !this.original._id) {
 				return;
 			}
