@@ -70,6 +70,8 @@ define(function(require, exports, module) {
 			/*options to use multiple selection*/
 			multipleSelect: false,
 
+			selectable: true,
+
 			template: {
 				_type: 'simple',
 				simple: '<div class="trunc">' +
@@ -209,6 +211,9 @@ define(function(require, exports, module) {
 		 * @return {void}
 		 */
 		_onSelect: function(ev, element) {
+			if (this.options.selectable === false) {
+				return;
+			}
 			/*var item = ev.target;
 			var element = DOM.getAttrFirst(item, 'data-id');*/
 			this._selectByElement(element);
