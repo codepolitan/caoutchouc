@@ -362,7 +362,7 @@ define(function(require, exports, module) {
 			var tmpl;
 			var tmplType = this.options.template._type;
 			var opts = this.options;
-			if (opts.useTemplateModule === true) {
+			if (this.templateFunction && opts.useTemplateModule === true) {
 				/*get template from templateFunction*/
 				var result = this.templateFunction(info);
 
