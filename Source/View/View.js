@@ -119,6 +119,16 @@ define(function(require, exports, module) {
 				options.templateFunction = true;
 			}
 
+			if (options.toolbarFunction) {
+				this.toolbarFunction = options.toolbarFunction;
+				options.toolbarFunction = true;
+			}
+
+			if (options.processFunction) {
+				this.processFunction = options.processFunction;
+				options.processFunction = true;
+			}
+
 			if (options.sandbox) {
 				this.sandbox = options.sandbox;
 				options.sandbox = true;

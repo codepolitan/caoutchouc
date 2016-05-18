@@ -352,10 +352,11 @@ define(function(require, exports, module) {
 				return;
 			}
 
-			var result = this.templateFunction(doc);
+			var tmpl = this.templateFunction(doc);
+			var toolbar = this.toolbarFunction(doc);
 
-			this._processToolbar(result.toolbar);
-			this._processComponents(result.tmpl.components, result.tmpl, result.tmpl);
+			this._processToolbar(toolbar);
+			this._processComponents(tmpl.components, tmpl, tmpl);
 
 			/*var opts = this.options;
 			var comps = {};

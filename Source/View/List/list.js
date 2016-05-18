@@ -366,15 +366,15 @@ define(function(require, exports, module) {
 				/*get template from templateFunction*/
 				var result = this.templateFunction(info);
 
-				tmpl = result.tmpl.key || result.tmpl.type || result.tmpl.default;
+				tmpl = result.key || result.type || result.default;
 				tmplType = this.nextTmpl || tmpl._type || tmplType;
 
 				/*process info*/
-				info = result.process;
+				info = this.processFunction(info);
 
 				//handle template v2
 				if (tmpl[tmplType] && typeof tmpl[tmplType] === 'object') {
-					var defaultTmpl = result.tmpl.default[tmplType].tmpl;
+					var defaultTmpl = result.default[tmplType].tmpl;
 					var rendered = Mustache.render(defaultTmpl, tmpl[tmplType]);
 					tmpl[tmplType] = rendered;
 				}
