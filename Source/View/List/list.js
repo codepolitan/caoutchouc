@@ -113,7 +113,7 @@ define(function(require, exports, module) {
 				view: {
 					'element.scroll': '_scroll',
 					'element.click': '_elementDidClick',
-					'add': '_newInfo',
+					'add': 'new',
 					'listtype': '_toggleList',
 					//'content.click:relay(div.list-item)': '_onClickElement'
 				},
