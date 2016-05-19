@@ -70,15 +70,14 @@ define(function(require, exports, module) {
 			/*options to use multiple selection*/
 			multipleSelect: false,
 
+			selectable: true,
+
 			template: {
 				_type: 'simple',
 				simple: '<div class="trunc">' +
 					'<span class="small right">{{type}}</span><span class="name">{{name}}</span>' +
 					'</div>',
 			},
-
-			/*when a info change verify if belongs to this view*/
-			verifyBeforeInsert: true,
 
 			/*integrated should be replaced client
 			and event by server*/
@@ -116,7 +115,7 @@ define(function(require, exports, module) {
 				view: {
 					'element.scroll': '_scroll',
 					'element.click': '_elementDidClick',
-					'add': '_newInfo',
+					'add': 'new',
 					'listtype': '_toggleList',
 					//'content.click:relay(div.list-item)': '_onClickElement'
 				},
@@ -212,6 +211,9 @@ define(function(require, exports, module) {
 		 * @return {void}
 		 */
 		_onSelect: function(ev, element) {
+			if (this.options.selectable === false) {
+				return;
+			}
 			/*var item = ev.target;
 			var element = DOM.getAttrFirst(item, 'data-id');*/
 			this._selectByElement(element);
@@ -360,19 +362,19 @@ define(function(require, exports, module) {
 			var tmpl;
 			var tmplType = this.options.template._type;
 			var opts = this.options;
-			if (opts.useTemplateModule === true) {
+			if (this.templateFunction && opts.useTemplateModule === true) {
 				/*get template from templateFunction*/
 				var result = this.templateFunction(info);
 
-				tmpl = result.tmpl.key || result.tmpl.type || result.tmpl.default;
+				tmpl = result.key || result.type || result.default;
 				tmplType = this.nextTmpl || tmpl._type || tmplType;
 
 				/*process info*/
-				info = result.process;
+				info = this.processFunction(info);
 
 				//handle template v2
 				if (tmpl[tmplType] && typeof tmpl[tmplType] === 'object') {
-					var defaultTmpl = result.tmpl.default[tmplType].tmpl;
+					var defaultTmpl = result.default[tmplType].tmpl;
 					var rendered = Mustache.render(defaultTmpl, tmpl[tmplType]);
 					tmpl[tmplType] = rendered;
 				}

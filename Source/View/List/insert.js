@@ -14,9 +14,15 @@ define(function(require, exports, module) {
 		 * new info
 		 * @return {void}
 		 */
-		_newInfo: function() {
+		new: function(info) {
+			_log.debug('new', info);
 
-			_log.debug('_newInfo', this.options.data);
+			//handle view in arg
+			if (info === this) {
+				info = {};
+			}
+
+			info = info || {};
 
 			var newInfo = {
 				_id: 'new',
@@ -24,14 +30,28 @@ define(function(require, exports, module) {
 				nodes: []
 			};
 
-			if (this.options.data && this.options.data._id) {
-				newInfo.nodes.push(this.options.data._id);
+			info = Object.merge(newInfo, info);
+
+			if (
+				this.options.data &&
+				this.options.data._id &&
+				info.nodes.indexOf(this.options.data._id) === -1
+			) {
+				info.nodes.push(this.options.data._id);
 			}
 
 			this.remove('new');
-			this._setInfo(newInfo);
+			this._setInfo(info);
 
 			this.select('new');
+		},
+
+		/**
+		 * remove new info if exist
+		 * @return {void}
+		 */
+		removeNew: function() {
+			this.remove('new');
 		},
 
 		/**
@@ -40,6 +60,10 @@ define(function(require, exports, module) {
 		 */
 		_setInfo: function(info) {
 			_log.debug('_setInfo', info);
+
+			if (this.virtualSize === undefined) {
+				this._setList([]);
+			}
 
 			if (typeof info !== 'object' || this.virtualSize === undefined) {
 				_log.warn('invalid info type', info);
@@ -53,25 +77,6 @@ define(function(require, exports, module) {
 				//this.processInfos();
 				this.select(this.selectedId);
 				return;
-			}
-
-			if (this.options.verifyBeforeInsert === true) {
-				var data = this.options.data || {};
-
-				/*check type*/
-				if (data.type !== info.type) {
-					return;
-				}
-
-				/*check if the info is a node*/
-				if (!info.nodes) {
-					return;
-				}
-
-				/*check if the info is inside the node*/
-				if (data._id && info.nodes.indexOf(data._id) === -1) {
-					return;
-				}
 			}
 
 			this.remove('new');

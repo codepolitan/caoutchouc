@@ -27,9 +27,12 @@ define([
 			if (count && this._validateCount(count)) {
 				this._updateCount(count);
 			} else {
-				this.collection.updateCount(countType, function(count) {
-					self._updateCount(count);
-				});
+				clearTimeout(this.timerCount);
+				this.timerCount = setTimeout(function() {
+					self.collection.updateCount(countType, function(count) {
+						self._updateCount(count);
+					});
+				}, 1000);
 			}
 		},
 
