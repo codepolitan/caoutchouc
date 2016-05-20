@@ -995,7 +995,7 @@ define(function(require, exports, module) {
 
 			this.sandbox.getDataType(type, 'form', function() {
 
-				var process = require('mnml/data/type/' + type + '/_process');
+				var process = require('config/data/type/' + type + '/_process');
 				if (process && process.new) {
 					info = process.new(info);
 				}
@@ -1180,7 +1180,7 @@ define(function(require, exports, module) {
 				return doc;
 			}
 
-			var process = require('mnml/data/type/' + doc.type + '/_process');
+			var process = require('config/data/type/' + doc.type + '/_process');
 			if (process[doc.kind] && process[doc.kind].patch) {
 				doc = process[doc.kind].patch(doc);
 			} else if (process.patch) {

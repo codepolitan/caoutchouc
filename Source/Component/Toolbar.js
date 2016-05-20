@@ -4,7 +4,7 @@
  * @author Jerome D. Vial
  */
 define([
-	'mnml/ui/control/base',
+	'config/ui/control/base',
 	'UI/Component/Component',
 	'UI/Control/Button'
 ], function(

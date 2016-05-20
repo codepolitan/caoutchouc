@@ -8,7 +8,7 @@ define([
 	'UI/Control/Field',
 	'UI/Control/Button',
 	'UI/Component/Method',
-	'mnml/icon/font',
+	'config/icon/font',
 ], function(
 	Field,
 	Button,

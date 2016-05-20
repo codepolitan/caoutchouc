@@ -7,7 +7,7 @@
 define([
 	'UI/Control/Button',
 	'UI/Control/Separator',
-	'mnml/icon/font',
+	'config/icon/font',
 ], function(
 	Button,
 	fontIconConfig

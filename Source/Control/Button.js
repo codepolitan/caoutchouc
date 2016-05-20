@@ -5,8 +5,8 @@
  */
 define([
 	'UI/Control/Control',
-	'mnml/icon/font',
-	'mnml/icon/mdi'
+	'config/icon/font',
+	'config/icon/mdi'
 ], function(
 	Control,
 	fontIconConfig,

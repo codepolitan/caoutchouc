@@ -5,11 +5,11 @@
  */
 define(function(require, exports, module) {
 
-	var appIconConfig = require('mnml/icon/app');
-	var fontIconConfig = require('mnml/icon/font');
-	var mdiIconConfig = require('mnml/icon/mdi');
-	var langControlsConfigEn = require('mnml/sys/lang/control/en');
-	var langControlsConfigFr = require('mnml/sys/lang/control/fr');
+	var appIconConfig = require('config/icon/app');
+	var fontIconConfig = require('config/icon/font');
+	var mdiIconConfig = require('config/icon/mdi');
+	var langControlsConfigEn = require('config/sys/lang/control/en');
+	var langControlsConfigFr = require('config/sys/lang/control/fr');
 	var settings = require('Core/Module/Settings/Settings');
 
 	var _log = __debug('core-module-toolbar').defineLevel();
