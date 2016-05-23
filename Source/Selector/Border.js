@@ -73,7 +73,9 @@ define([
 			if (!el) {
 				if (this.el) {
 					el = this.el;
-				} else return;
+				} else {
+					return;
+				}
 			} else {
 				this.el = el;
 			}
@@ -82,6 +84,14 @@ define([
 			var o = [];
 			//_log.debug('boder reach', el);
 			var bs = this.options.size;
+
+			try {
+					el.getCoordinates();
+			}
+			catch(err) {
+				return;
+			}
+
 			var c = el.getCoordinates();
 
 			if (this.options.positionning == 'relative') {
