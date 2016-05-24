@@ -429,6 +429,9 @@ define(function(require, exports, module) {
 			} else if (opts.keys.info === '*') {
 				related = info;
 			}
+			if (opts.keys.relation === false) {
+				related = related.info;
+			}
 
 			relatedField.push(related);
 
