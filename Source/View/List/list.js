@@ -381,6 +381,10 @@ define(function(require, exports, module) {
 
 				tmpl = tmpl[tmplType] || tmpl[Object.keys(tmpl)[0]];
 			} else {
+				//process info
+				if (typeof this.processFunction === 'function') {
+					info = this.processFunction(info);
+				}
 				tmpl = opts.template[tmplType] || opts.template.simple;
 			}
 
