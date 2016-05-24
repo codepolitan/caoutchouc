@@ -428,7 +428,7 @@ define(function(require, exports, module) {
 			var rangeEl = this.rangeEl[range];
 
 			if (!rangeEl) {
-				_log.warn('missing range el', rangeEl);
+				//_log.warn('missing range el', rangeEl);
 				return;
 			}
 
