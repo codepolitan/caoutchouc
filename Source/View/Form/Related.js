@@ -131,7 +131,11 @@ define(function(require, exports, module) {
 
 			var field = prop.field;
 
-			var info = related.info || related;
+			var info = related;
+
+			if (related.info && typeof related.info !== 'string') {
+				info = related.info;
+			}
 
 			var item = new Element('div', {
 				'data-id': info._id,
