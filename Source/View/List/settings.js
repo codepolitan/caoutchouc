@@ -5,7 +5,7 @@
  */
 define(function(require, exports, module) {
 
-	var _log = __debug('view-core-listV2-settings').defineLevel();
+	var _log = __debug('view-core-list-settings').defineLevel();
 
 	var Settings = new Class({
 
@@ -48,19 +48,6 @@ define(function(require, exports, module) {
 				}, 100);
 			}
 
-			//handle search
-			/*setTimeout(function() {
-				if (settings.search) {
-					if (settings.search.open) {
-						self.showSearch();
-					}
-
-					if (settings.search.value) {
-						self.search.set(settings.search.value);
-					}
-				}
-			}, 100);*/
-
 			this.settingsReady = true;
 		},
 
@@ -74,36 +61,8 @@ define(function(require, exports, module) {
 			var save = {
 				scrollTop: this.content.parentNode.scrollTop,
 				ranges: this.renderedRanges,
-				selectedId: this.selectedId,
-				filter: {
-					open: false,
-					values: undefined
-				},
-				search: {
-					open: false,
-					value: undefined
-				}
+				selectedId: this.selectedId
 			};
-
-			//handle search
-			if (this.search && this.search.state === 'focus') {
-				save.search.open = true;
-
-				var value = this.search.getValue();
-				if (value) {
-					save.search.value = value;
-				}
-			}
-
-			//handle filter
-			if (this.control.filter && this.control.filter.isActive()) {
-				save.filter.open = true;
-
-				/*var value = this.filter.getValue();
-				if (value) {
-					save.filter.value = value;
-				}*/
-			}
 
 			this.fireEvent('settings', ['save', save]);
 		}

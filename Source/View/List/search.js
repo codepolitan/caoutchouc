@@ -8,7 +8,7 @@ define(function(require, exports, module) {
 	var SearchControl = require('UI/Control/Search');
 	var searchUtil = require('utils/search');
 
-	var _log = __debug('view-core-listV2-search').defineLevel();
+	var _log = __debug('view-core-list-search').defineLevel();
 
 	var Search = new Class({
 
@@ -28,6 +28,7 @@ define(function(require, exports, module) {
 			this.search.addClass('container-search');
 
 			this._initSearchEvents();
+			this._initSearchSettings();
 		},
 
 		/**
@@ -40,6 +41,20 @@ define(function(require, exports, module) {
 				hide: this.processInfos.bind(this),
 				//reset: this.fireEvent.bind(this, 'searchEmpty')
 			});
+		},
+
+		/**
+		 * init search settings
+		 * @return {void}
+		 */
+		_initSearchSettings: function() {
+			var opts = this.options.search;
+			if (opts.open === true) {
+				this.showSearch();
+			}
+			if (opts.value) {
+				this.search.setValue(opts.value);
+			}
 		},
 
 		/**
@@ -73,6 +88,8 @@ define(function(require, exports, module) {
 			} else {
 				cb(searchUtil.search(str, infos, this.options.search));
 			}
+
+			this.fireEvent('settings', ['search.value', str]);
 		},
 
 		/**
@@ -107,6 +124,8 @@ define(function(require, exports, module) {
 			search.setState(null);
 			this.search.empty();
 			this.search.hide();
+			this.fireEvent('settings', ['search.open', false]);
+			this.fireEvent('settings', ['search.value', '']);
 		},
 
 		/**
@@ -119,6 +138,7 @@ define(function(require, exports, module) {
 			search.setState('active');
 			this.search.show();
 			this.search.focus();
+			this.fireEvent('settings', ['search.open', true]);
 		},
 
 		/**

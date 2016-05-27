@@ -8,7 +8,7 @@ define(function(require, exports, module) {
 	var filterUtil = require('utils/filter');
 	var FilterControl = require('UI/Control/Filter');
 
-	var _log = __debug('view-core-listV2-filter').defineLevel();
+	var _log = __debug('view-core-list-filter').defineLevel();
 
 	var Filter = new Class({
 
@@ -28,6 +28,7 @@ define(function(require, exports, module) {
 			}).inject(this.container.head, 'after');
 
 			this._initFilterEvents();
+			this._initFilterSettings();
 		},
 
 		/**
@@ -39,6 +40,17 @@ define(function(require, exports, module) {
 				change: this.processInfos.bind(this),
 				hide: this.processInfos.bind(this),
 			});
+		},
+
+		/**
+		 * init filter settings
+		 * @return {void}
+		 */
+		_initFilterSettings: function() {
+			var opts = this.options.filter;
+			if (opts.open === true) {
+				this.showFilter();
+			}
 		},
 
 		/**
@@ -54,6 +66,13 @@ define(function(require, exports, module) {
 				this.fireEvent('filterObj', [this, filters, infos, cb.bind(this)]);
 			} else {
 				cb(filterUtil.filter(filters, infos));
+			}
+
+			this.fireEvent('settings', ['filter', Object.clone(filters)]);
+			if (this.control.filter.isActive()) { //update filter state
+				this.fireEvent('settings', ['filter.open', true]);
+			} else {
+				this.fireEvent('settings', ['filter.open', false]);
 			}
 		},
 
@@ -89,6 +108,7 @@ define(function(require, exports, module) {
 			filter.setState(null);
 			this.filter.empty();
 			this.filter.hide();
+			this.fireEvent('settings', ['filter.open', false]);
 		},
 
 		/**
@@ -100,6 +120,7 @@ define(function(require, exports, module) {
 
 			filter.setState('active');
 			this.filter.show();
+			this.fireEvent('settings', ['filter.open', true]);
 		},
 
 		/**

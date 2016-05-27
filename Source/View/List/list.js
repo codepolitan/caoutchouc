@@ -243,8 +243,10 @@ define(function(require, exports, module) {
 
 			switch (prop) {
 				case 'list':
+					this.processModules = false;
 					return this._setList(value);
 				case 'virtualList':
+					this.processModules = false;
 					return this.setVirtualList(value, opts, opts1);
 				case 'range':
 					return this.setVirtualList(opts, value);
@@ -434,7 +436,7 @@ define(function(require, exports, module) {
 
 			//console.log('_toggleList', this.nextTmpl, this.tmplUsed);
 
-			this.set('list', this.virtualList);
+			this._setList(this.virtualList);
 		},
 
 		/**

@@ -117,6 +117,9 @@ define(function(require, exports, module) {
 			/*settings status (if has been set)*/
 			this.settingsReady = false;
 
+			/*settings status (if has been set)*/
+			this.processModules = this.processModules || false;
+
 			/*empty top reference*/
 			this.top = 0;
 
@@ -173,6 +176,15 @@ define(function(require, exports, module) {
 
 			if (this.totalLoaded >= this.virtualSize) {
 				this.fireEvent('setList');
+
+				//process info modules for filter and search
+				var s = (this.search && this.search.getValue());
+				var f = this.filter;
+				var sf = (s || f);
+				if (this.processModules === false && sf) {
+					this.processModules = true;
+					this.processInfos();
+				}
 			} else if (!this.options.data.fetchAll) {
 				this.fireEvent('setList');
 			}
