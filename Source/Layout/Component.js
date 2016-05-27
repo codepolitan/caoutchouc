@@ -7,7 +7,7 @@ define(function(require, exports, module) {
 
   var api = require('utils/api');
 
-  var _log = __debug('ui:layout').defineLevel();
+  var _log = __debug('ui-layout-component').defineLevel();
 
   var Component = new Class({
     options: {
@@ -169,41 +169,49 @@ define(function(require, exports, module) {
      * @return {void}
      */
     _attachComponentEvents: function(component) {
+      _log.debug('_attachComponentEvents', component);
+
       var self = this;
       var name = component.getName();
 
       component.addEvents({
         toggled: function() {
-          //_log.debug('toggled');
+          _log.debug('toggled');
           self.fireEvent('resize');
         },
         resizing: function() {
-          //_log.debug('toggled');
+          _log.debug('toggled');
           self.fireEvent('resize');
         },
         display: function(state) {
-          //_log.debug('display', name, state);
+          _log.debug('display', name, state);
           self.fireEvent('display', [name, state]);
         }
       });
 
       this.addEvents({
         resize: function() {
+          _log.debug('resize');
           component.fireEvent('resize');
         },
         drag: function() {
+          _log.debug('drag');
           component.fireEvent('resize');
         },
         normalize: function() {
+          _log.debug('normalize');
           component.fireEvent('resize');
         },
         maximize: function() {
+          _log.debug('maximize');
           component.fireEvent('resize');
         },
         minimize: function() {
+          _log.debug('minimize');
           component.fireEvent('resize');
         },
         device: function(device) {
+          _log.debug('device', device);
           component.fireEvent('device', device);
         }
       });

@@ -100,9 +100,9 @@ define(function(require, exports, module) {
      * @return {[type]}          [description]
      */
     _initResizerDrag: function(resizer, modifier, component) {
-      var self = this;
-      //_log.debug('initResizerDrag', resizer, modifier);
+      _log.debug('initResizerDrag', resizer, modifier, component);
 
+      var self = this;
       var element = component.element;
       var container = component.container;
       var last = component.options.last;
@@ -114,8 +114,9 @@ define(function(require, exports, module) {
           //self.fireEvent('resizeStart', el);
           self.mask.setStyle('display', 'block');
         },
-        onDrag: function(el, ev) {
-          //_log.debug('onDrag', el);
+        onDrag: function(el) {
+          _log.debug('onDrag', el);
+
           self.mask.setStyle('display', 'block');
           var coord = element.getCoordinates(container);
           var coordc = container.getCoordinates();
@@ -133,18 +134,17 @@ define(function(require, exports, module) {
           self.fireEvent('drag');
         },
         onComplete: function(el) {
+          _log.debug('onComplete', el);
+
           self.mask.setStyle('display', 'none');
           //_log.debug('onComplete', component.main, modifier.size, size);
           //_log.debug('onComplete', modifier.size, element.getCoordinates(container)[modifier.size]);
-          var coord = element.getCoordinates(container);
+          //var coord = element.getCoordinates(container);
           var size = element.getCoordinates(container)[modifier.size];
           self.fireEvent('resizer', [component.main, modifier.size, size]);
           component.fireEvent('resizeComplete', [modifier.size, size]);
 
-          //_log.debug('size', modifier, size);
-
           component[modifier.size] = size;
-
         }
       });
 
@@ -160,11 +160,12 @@ define(function(require, exports, module) {
      */
     // will definitly use a controller for that
     _initResizerEvent: function(component, resizer, modifier) {
-      //_log.debug('_initResizerEvent', component.options.name, component.options.last);
+      _log.debug('_initResizerEvent', component, resizer, modifier);
+
       var self = this;
 
       this.addEvents({
-        drag: function(e) {
+        drag: function() {
           //_log.debug('drag', e);
           self._updateSize(component, resizer, modifier);
         },
@@ -191,7 +192,8 @@ define(function(require, exports, module) {
      * @return {[type]}           [description]
      */
     _updateSize: function(component, resizer, modifier) {
-      //_log.debug('_updazeSize');
+      _log.debug('_updazeSize', component, resizer, modifier);
+
       var container = component.container;
       var element = component.element;
 
@@ -214,7 +216,8 @@ define(function(require, exports, module) {
      * @return {[type]}           [description]
      */
     _initMaximize: function(component) {
-      //_log.debug('_initMaximize', component);
+      _log.debug('_initMaximize', component);
+
       var self = this;
       var element = component.element;
       var container = component.container;
@@ -261,7 +264,8 @@ define(function(require, exports, module) {
      * @return {[type]} [description]
      */
     _initResizers: function(components) {
-      //_log.debug('_initResizers');
+      _log.debug('_initResizers', components);
+
       var len = components.length;
 
       // add resize Border on the right or on the bottom

@@ -39,7 +39,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		_initDisplay: function() {
-			//_log.debug('_initDisplay', this.element);
+			_log.debug('_initDisplay', this.element);
 
 			this._modifier = 'width';
 
@@ -99,8 +99,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		toggle: function() {
-			//_log.debug('toggle', this._display);
-			//_log.debug('__toggle click, display', this._display);
+			_log.debug('toggle', this._display);
 
 			if (this._display === 'normalized') {
 				this.minimize();
@@ -112,6 +111,8 @@ define([
 		},
 
 		close: function() {
+			_log.debug('close');
+
 			this.minimize();
 		},
 
@@ -120,8 +121,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		minimize: function(quiet) {
-			//_log.debug('------start minimalization', this.device);
-			//var self = this;
+			_log.debug('start minimalization', this.device);
 
 			if (!this.display) {
 				this._initDisplay();
@@ -150,7 +150,8 @@ define([
 		 * @return {[type]} [description]
 		 */
 		normalize: function() {
-			//_log.debug('normalize');
+			_log.debug('normalize');
+
 			if (!this.display) {
 				this._initDisplay();
 			}
@@ -193,7 +194,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		maximize: function() {
-			//_log.debug('maximize', size);
+			_log.debug('maximize');
 
 			return;
 			this.toggleFx.start(size);

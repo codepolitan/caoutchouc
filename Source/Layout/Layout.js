@@ -8,7 +8,7 @@ define(function(require, exports, module) {
   var Component = require('UI/Layout/Component');
   var Resize = require('UI/Layout/Resize');
 
-  var _log = __debug('ui:layout');
+  var _log = __debug('ui-layout').defineLevel();
 
   var Layout = new Class({
 
@@ -61,12 +61,14 @@ define(function(require, exports, module) {
      * @param  {[type]} opts [description]
      * @return {[type]}      [description]
      */
-    _initEvents: function(opts) {
+    _initEvents: function() {
       var self = this;
 
       window.addEvent('resize', function() {
-        //_log.debug('layout resize', this.container.getCoordinates());
         var coord = self.container.getCoordinates();
+
+        _log.debug('layout resize', self.container, coord);
+
         if (coord.width < 720 && self.navi) {
           self.navi.minimize();
           //self.resizer.navi.hide();
