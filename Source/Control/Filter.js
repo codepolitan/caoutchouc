@@ -102,7 +102,7 @@ define(function(require, exports, module) {
 				var values = f.text;
 				values = values || f.values;
 
-				var choice = this._initChoice(name, values);
+				var choice = this._initChoice(name, values, f.value);
 
 				this.controls[f.key] = choice;
 			}
@@ -115,8 +115,8 @@ define(function(require, exports, module) {
 		 * @param  {string} value
 		 * @return {Object}
 		 */
-		_initChoice: function(name, values) {
-			_log.debug('_initChoice', name, values);
+		_initChoice: function(name, values, value) {
+			_log.debug('_initChoice', name, values, value);
 
 			/*handle text*/
 			var list = [];
@@ -132,10 +132,14 @@ define(function(require, exports, module) {
 				type: 'push',
 				error: false,
 				list: list,
-				//value: value
+				value: value
 			}).inject(this.element).addEvents({
 				change: this._choiceDidChange.bind(this, name)
 			});
+
+			if (value) {
+				this.changeFilter(name, value);
+			}
 
 			return choice;
 		},
@@ -172,11 +176,7 @@ define(function(require, exports, module) {
 
 			_log.debug('changeFilter', name, value, filter);
 
-			if (this.filters[name] === -1) {
-				this.filters[name] = filter;
-			} else {
-				this.filters[name] = filter;
-			}
+			this.filters[name] = filter;
 		},
 
 		/**
