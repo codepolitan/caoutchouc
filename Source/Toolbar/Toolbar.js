@@ -123,7 +123,7 @@ define(function(require, exports, module) {
 
       for (var i = 0; i < bar.list.length; i++) {
         var name = bar.list[i];
-        var def = bar[name];
+        var def = bar[name] || {};
         this._instanciateComp(name, def, element);
       }
     },
@@ -139,62 +139,48 @@ define(function(require, exports, module) {
       _log.debug('_instanciateComp', name, def, element);
 
       var self = this;
-      var clss = 'UI/Control/Button';
-      var opts;
+      var clss = def.clss || 'UI/Control/Button';
 
-      def = def || {};
-
-      // init class
-      var l = name.split(/\:\:/);
-
-      name = l[0];
-      l.splice(0, 1);
-
-      var klss = l.join(' ');
-
-
-      if (name === 'separator') {
-        clss = 'UI/Control/Separator';
-      }
-
-      if (def.clss) {
-        clss = def.clss;
-      }
-
-      if (def.opts) {
-        opts = def.opts;
-        opts.text = Locale.get('control.' + name, name) || name;
-
-        opts.icon = mdiIconConfig[def.icon || name] || fontIconConfig[def.icon || name] || 'mdi-action-help';
-      } else {
-        opts = {
-          name: name,
-          icon: fontIconConfig[def.icon || name] || 'mdi-action-help',
-          type: 'action',
-          klss: klss
-        };
-      }
+      //process name and klss for components with ::
+      var temp = name.split(/\:\:/);
+      name = temp[0];
+      temp.splice(0, 1);
+      var klss = temp.join(' ');
 
       if (!name) {
         _log.warn('missing name');
         return;
       }
 
-      //var	Clss = api.strToClss(clss);
+      //handle separator
+      if (name === 'separator') {
+        clss = 'UI/Control/Separator';
+      }
 
-      var lang;
+      var icon = def.icon || name;
+      var opts = {
+        name: name,
+        icon: fontIconConfig[icon] || 'mdi-action-help',
+        type: 'action',
+        klss: klss
+      };
 
+      if (def.opts) {
+        opts = def.opts;
+        opts.text = Locale.get('control.' + name, name) || name;
+        opts.icon = mdiIconConfig[icon] || fontIconConfig[icon] || 'mdi-action-help';
+      }
+
+      var lang = 'en';
       if (settings && settings.getLang) {
         lang = settings.getLang() || 'en';
-      } else {
-        lang = 'en';
       }
 
       if (!this.langControl[lang]) {
         lang = 'en';
       }
 
-      var text;
+      var text = '';
       if (def.text) {
         text = this.langControl[lang][name] || def.text;
       }
@@ -203,6 +189,25 @@ define(function(require, exports, module) {
         opts.text = this.langControl[lang][name] || Locale.get('control.' + name, name) || text || name;
       }
 
+      var isAllow = this._isAllow(name);
+
+      if (isAllow) {
+        _log.debug('require module', name, clss, opts);
+        this._requireModule(clss, function(Clss) {
+          self._initToolbarControl(Clss, name, clss, opts, element);
+        });
+
+        self.isReady++;
+        self.fireEvent('isReady', self.isReady);
+      }
+    },
+
+    /**
+     * check role for control
+     * @return {boolean}
+     */
+    _isAllow: function(name) {
+      var isAllow = true;
       var role = null;
 
       if (!this.sandbox) {
@@ -214,29 +219,17 @@ define(function(require, exports, module) {
         }
       }
 
-      var isAllow = true;
-
       this.options.control = this.options.control || {};
 
-      if (!this.options.control[role]) {
-        isAllow = true;
-      } else {
-        if (!this.options.control[role].disallowed) {
-          isAllow = true;
-        } else if (this.options.control[role].disallowed.indexOf(name) > -1) {
-          isAllow = false;
-        }
+      if (!this.options.control[role] || this.options.control[role].disallowed) {
+        return isAllow;
       }
 
-      if (isAllow) {
-        _log.debug('require module', name, clss, opts);
-        this._requireModule(clss, function(Clss) {
-        	self._initToolbarControl(Clss, name, clss, opts, element);
-        });
-
-        self.isReady++;
-        self.fireEvent('isReady', self.isReady);
+      if (this.options.control[role].disallowed.indexOf(name) !== -1) {
+        isAllow = false;
       }
+
+      return isAllow;
     },
 
     /**
