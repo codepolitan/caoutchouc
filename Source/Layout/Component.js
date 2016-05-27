@@ -3,217 +3,214 @@
  * @class UI.Component.Drag
  * @author Jerome D. Vial
  */
-define([
-	'utils/api',
-], function(
-	api
-) {
+define(function(require, exports, module) {
 
-	var _log = __debug('ui:layout').defineLevel();
+  var api = require('utils/api');
 
-	var exports = new Class({
-		options: {
-			resizer: {
-				modifier: {
-					row: {
-						size: 'width',
-						from: 'left',
-						mode: {
-							y: false
-						}
-					},
-					column: {
-						size: 'height',
-						from: 'top',
-						mode: {
-							x: false
-						}
-					}
-				}
-			}
-		},
+  var _log = __debug('ui:layout').defineLevel();
 
-		/**
-		 * Instanciate the given object comp
-		 * @param  {Object} comp list component
-		 * @return {void}
-		 */
-		_initComponent: function(comp) {
-			_log.debug('_initComponent', comp.opts.name, comp);
+  var Component = new Class({
+    options: {
+      resizer: {
+        modifier: {
+          row: {
+            size: 'width',
+            from: 'left',
+            mode: {
+              y: false
+            }
+          },
+          column: {
+            size: 'height',
+            from: 'top',
+            mode: {
+              x: false
+            }
+          }
+        }
+      }
+    },
 
-			// shortcuts
-			comp.opts.flex = comp.opts.flex || comp.flex;
-			comp.opts.hide = comp.opts.hide || comp.hide;
-			comp.opts.theme = comp.opts.theme || comp.theme;
+    /**
+     * Instanciate the given object comp
+     * @param  {Object} comp list component
+     * @return {void}
+     */
+    _initComponent: function(comp) {
+      _log.debug('_initComponent', comp.opts.name, comp);
 
-			//_log.debug('comp', comp.clss);
+      // shortcuts
+      comp.opts.flex = comp.opts.flex || comp.flex;
+      comp.opts.hide = comp.opts.hide || comp.hide;
+      comp.opts.theme = comp.opts.theme || comp.theme;
 
-			var name = comp.opts.name;
-			var clss = api.strToClss(comp.clss);
+      //_log.debug('comp', comp.clss);
 
-			//comp.opts.container = comp.container;
-			var component = this.component[name] = this[name] = new clss(comp.opts);
+      var name = comp.opts.name;
+      var clss = api.strToClss(comp.clss);
 
-			//_log.debug(component.container);
+      //comp.opts.container = comp.container;
+      var component = this.component[name] = this[name] = new clss(comp.opts);
 
-			// register component
-			this._componentRegister(name, component);
+      //_log.debug(component.container);
 
-			//settings
-			this._initComponentSettings(component);
+      // register component
+      this._componentRegister(name, component);
 
-			// styles and size
-			this._setComponentStyles(component);
-			this._setComponentDisplay(component);
-			this._attachComponentEvents(component);
+      //settings
+      this._initComponentSettings(component);
 
-			return component;
-		},
+      // styles and size
+      this._setComponentStyles(component);
+      this._setComponentDisplay(component);
+      this._attachComponentEvents(component);
 
-		/**
-		 * [_componentRegister description]
-		 * @param  {[type]} name      [description]
-		 * @param  {[type]} component [description]
-		 * @return {[type]}           [description]
-		 */
-		_componentRegister: function(name, component) {
-			//_log.debug('_componentRegister', name, component);
+      return component;
+    },
 
-			this.components = this.components || [];
-			this.components.push(component);
-		},
+    /**
+     * [_componentRegister description]
+     * @param  {[type]} name      [description]
+     * @param  {[type]} component [description]
+     * @return {[type]}           [description]
+     */
+    _componentRegister: function(name, component) {
+      //_log.debug('_componentRegister', name, component);
 
-		/**
-		 * [_initComponentSettings description]
-		 * @param  {Object} component
-		 * @return {void}
-		 */
-		_initComponentSettings: function(component) {
-			_log.debug('_initcompSettings', component);
+      this.components = this.components || [];
+      this.components.push(component);
+    },
 
-			//var name = component.getName();
-			//var element = component.element;
-		},
+    /**
+     * [_initComponentSettings description]
+     * @param  {Object} component
+     * @return {void}
+     */
+    _initComponentSettings: function(component) {
+      _log.debug('_initcompSettings', component);
 
-		/**
-		 * initComponentSettings
-		 * @param  {Object} component
-		 * @return {void}
-		 */
-		_setComponentStyles: function(component) {
-			_log.debug('_setComponentStyles', component);
+      //var name = component.getName();
+      //var element = component.element;
+    },
 
-			if (component.options.flex) {
-				//component.element.setStyle('flex', component.options.flex);
-				component.element.addClass('flex-'+component.options.flex);
-			}
+    /**
+     * initComponentSettings
+     * @param  {Object} component
+     * @return {void}
+     */
+    _setComponentStyles: function(component) {
+      _log.debug('_setComponentStyles', component);
 
-			if (component.options.theme) {
-				component.element.addClass('theme' + '-' + component.options.theme);
-			}
-		},
+      if (component.options.flex) {
+        //component.element.setStyle('flex', component.options.flex);
+        component.element.addClass('flex-' + component.options.flex);
+      }
 
-		/**
-		 * initSize
-		 * @param  {Object} component
-		 * @return {void}
-		 */
-		_setComponentDisplay: function(component) {
-			//_log.debug('comp opts', component.options);
-			var display = 'normalized';
+      if (component.options.theme) {
+        component.element.addClass('theme' + '-' + component.options.theme);
+      }
+    },
 
-			if (component.options.hide || component.options.state === 'minimized') {
-				component.minimize(1);
-				display = 'minimized';
-			}
+    /**
+     * initSize
+     * @param  {Object} component
+     * @return {void}
+     */
+    _setComponentDisplay: function(component) {
+      //_log.debug('comp opts', component.options);
+      var display = 'normalized';
 
-			var name = component.getName();
-			var element = component.element;
+      if (component.options.hide || component.options.state === 'minimized') {
+        component.minimize(1);
+        display = 'minimized';
+      }
 
-			var settings = this.settings[name];
-			if (settings && settings.display) {
-				display = settings.display;
-			}
+      var name = component.getName();
+      var element = component.element;
 
-			component.setDisplay(display, 'width');
+      var settings = this.settings[name];
+      if (settings && settings.display) {
+        display = settings.display;
+      }
 
-			if (!component.options.flex) {
-				if (settings && component.options.axis === 'x') {
-					//element.setStyle('flex', 'none');
-					element.addClass('flex-none');
+      component.setDisplay(display, 'width');
 
-					if (display === 'minimized') {
-						element.setStyle('width', 0);
-					} else {
-						if (settings.width < 32) {
-							settings.width = 32;
-						}
+      if (!component.options.flex) {
+        if (settings && component.options.axis === 'x') {
+          //element.setStyle('flex', 'none');
+          element.addClass('flex-none');
 
-						element.setStyle('width', settings.width || null);
-					}
+          if (display === 'minimized') {
+            element.setStyle('width', 0);
+          } else {
+            if (settings.width < 32) {
+              settings.width = 32;
+            }
 
-					component.width = settings.width || 260;
-					component._modifier = 'width';
-				} else if (settings && component.options.axis === 'y') {
-					element.setStyle('flex', 'none');
-					element.setStyle('height', settings.height || null);
-					component.height = settings.height || 260;
-					component._modifier = 'height';
-				}
+            element.setStyle('width', settings.width || null);
+          }
 
-				this._initResizer(component);
-			}
-		},
+          component.width = settings.width || 260;
+          component._modifier = 'width';
+        } else if (settings && component.options.axis === 'y') {
+          element.setStyle('flex', 'none');
+          element.setStyle('height', settings.height || null);
+          component.height = settings.height || 260;
+          component._modifier = 'height';
+        }
 
-		/**
-		 * _attachComponentEvents
-		 * @param {Object} component
-		 * @return {void}
-		 */
-		_attachComponentEvents: function(component) {
-			var self = this;
-			var name = component.getName();
+        this._initResizer(component);
+      }
+    },
 
-			component.addEvents({
-				toggled: function() {
-					//_log.debug('toggled');
-					self.fireEvent('resize');
-				},
-				resizing: function() {
-					//_log.debug('toggled');
-					self.fireEvent('resize');
-				},
-				display: function(state) {
-					//_log.debug('display', name, state);
-					self.fireEvent('display', [name, state]);
-				}
-			});
+    /**
+     * _attachComponentEvents
+     * @param {Object} component
+     * @return {void}
+     */
+    _attachComponentEvents: function(component) {
+      var self = this;
+      var name = component.getName();
 
-			this.addEvents({
-				resize: function() {
-					component.fireEvent('resize');
-				},
-				drag: function() {
-					component.fireEvent('resize');
-				},
-				normalize: function() {
-					component.fireEvent('resize');
-				},
-				maximize: function() {
-					component.fireEvent('resize');
-				},
-				minimize: function() {
-					component.fireEvent('resize');
-				},
-				device: function(device) {
-					component.fireEvent('device', device);
-				}
-			});
+      component.addEvents({
+        toggled: function() {
+          //_log.debug('toggled');
+          self.fireEvent('resize');
+        },
+        resizing: function() {
+          //_log.debug('toggled');
+          self.fireEvent('resize');
+        },
+        display: function(state) {
+          //_log.debug('display', name, state);
+          self.fireEvent('display', [name, state]);
+        }
+      });
 
-		}
+      this.addEvents({
+        resize: function() {
+          component.fireEvent('resize');
+        },
+        drag: function() {
+          component.fireEvent('resize');
+        },
+        normalize: function() {
+          component.fireEvent('resize');
+        },
+        maximize: function() {
+          component.fireEvent('resize');
+        },
+        minimize: function() {
+          component.fireEvent('resize');
+        },
+        device: function(device) {
+          component.fireEvent('device', device);
+        }
+      });
+    }
 
-	});
+  });
 
-	return exports;
+  module.exports = Component;
 
 });
