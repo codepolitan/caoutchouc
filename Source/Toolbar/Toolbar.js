@@ -16,12 +16,6 @@ define(function(require, exports, module) {
 
   var Toolbar = new Class({
 
-    options: {
-      toolbar: {
-        list: []
-      }
-    },
-
     /**
      * initialize toolbar
      * @param {Object} obj
@@ -36,6 +30,11 @@ define(function(require, exports, module) {
 
       this.toolbar = {};
       this.control = {};
+
+      if (!obj.list) {
+        _log.warn('missing list field');
+        return;
+      }
 
       this._initToolbarReady(obj);
 
