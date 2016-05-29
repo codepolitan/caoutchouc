@@ -365,13 +365,13 @@ define(function(require, exports, module) {
 			var tmplType = this.options.template._type;
 			var opts = this.options;
 			if (this.templateFunction && opts.useTemplateModule === true) {
-				/*get template from templateFunction*/
+				//get template from templateFunction
 				var result = this.templateFunction(info);
 
 				tmpl = result.key || result.type || result.default;
 				tmplType = this.nextTmpl || tmpl._type || tmplType;
 
-				/*process info*/
+				//process info
 				info = this.processFunction(info);
 
 				//handle template v2
