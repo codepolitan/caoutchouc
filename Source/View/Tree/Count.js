@@ -24,16 +24,18 @@ define([
 			var opts = this.options;
 			var countType = opts.data.count || opts.data.type;
 
-			if (count && this._validateCount(count)) {
-				this._updateCount(count);
-			} else {
-				clearTimeout(this.timerCount);
-				this.timerCount = setTimeout(function() {
+			clearTimeout(this.timerCount);
+			this.timerCount = setTimeout(function() {
+				if (count && self._validateCount(count)) {
+					self._updateCount(count);
+					self.fireEvent('countUpdated');
+				} else {
 					self.collection.updateCount(countType, function(count) {
 						self._updateCount(count);
+						self.fireEvent('countUpdated');
 					});
-				}, 1000);
-			}
+				}
+			}, 1000);
 		},
 
 		/**
