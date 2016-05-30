@@ -16,6 +16,12 @@ define(function(require, exports, module) {
 
   var Toolbar = new Class({
 
+    options: {
+      toolbar: {
+        role: 'admin'
+      }
+    },
+
     /**
      * initialize toolbar
      * @param {Object} obj
@@ -207,24 +213,17 @@ define(function(require, exports, module) {
      */
     _isAllow: function(name) {
       var isAllow = true;
-      var role = null;
-
-      if (!this.sandbox) {
-        _log.warn('no sandbox');
-      } else {
-        var user = this.sandbox.getCurrentUser();
-        if (user && user.role) {
-          role = user.role;
-        }
-      }
+      var role = this.options.toolbar.role;
 
       this.options.control = this.options.control || {};
 
-      if (!this.options.control[role] || this.options.control[role].disallowed) {
+      var ctrRole = this.options.control[role];
+
+      if (!ctrRole || !ctrRole.disallowed) {
         return isAllow;
       }
 
-      if (this.options.control[role].disallowed.indexOf(name) !== -1) {
+      if (ctrRole.disallowed.indexOf(name) !== -1) {
         isAllow = false;
       }
 
