@@ -69,10 +69,16 @@ define(function(require, exports, module) {
 
         _log.debug('layout resize', self.container, coord);
 
+        //chck if element is in the DOM
+        if (document.body.contains(self.container.element) === false) {
+          return;
+        }
+
         if (coord.width < 720 && self.navi) {
           self.navi.minimize();
           //self.resizer.navi.hide();
         }
+
         self.fireEvent('drag');
       });
 
