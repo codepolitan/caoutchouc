@@ -243,9 +243,13 @@ define(function(require, exports, module) {
 
 			switch (prop) {
 				case 'list':
+					this._tempCache = [];
+					this._tempCount = undefined;
 					this.processModules = false;
 					return this._setList(value);
 				case 'virtualList':
+					this._tempCache = [];
+					this._tempCount = undefined;
 					this.processModules = false;
 					return this.setVirtualList(value, opts, opts1);
 				case 'range':

@@ -45,9 +45,6 @@ define(function(require, exports, module) {
 				self.fireEvent('noData');
 			}, 40000);
 
-			this._tempCache = [];
-			this._tempCount = undefined;
-
 			if (!isNaN(count)) {
 				this._makeVirtual(list, range, count);
 			} else {
