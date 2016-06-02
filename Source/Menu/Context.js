@@ -9,8 +9,7 @@ define([
 	Menu
 ) {
 
-	var _log = __debug('ui-menu-context');
-		_log.defineLevel('debug');
+	var _log = __debug('ui-menu-context').defineLevel();
 
 	var exports = new Class({
 
