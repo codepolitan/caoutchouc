@@ -2,39 +2,32 @@
  * Implement connector
  * @class View.Tree.Connector
  */
-define([
+define(function(require, exports, module) {
 
-], function(
+  var _log = __debug('view:core-tree-connector');
 
-) {
+  module.exports = new Class({
 
-	var _log = __debug('view:core-tree-connector');
+    /**
+     * Initialize Connector
+     * @return {void}
+     * @private
+     */
+    _initConnector: function() {
+      _log.debug('_initConnector');
+      var opts = this.options;
 
-	var exports = new Class({
+      var params = {
+        type: opts.data.type,
+        kind: opts.data.kind,
+        count: opts.data.count
+      };
 
-		/**
-		 * Initialize Connector
-		 *
-		 * @return {void}
-		 * @private
-		 */
-		_initConnector: function() {
-			_log.debug('_initConnector');
-			var opts = this.options;
+      this.connector.get('nodes', params, function(data) {
+        self.fireEvent('dataReady', data);
+      });
+    }
 
-			var params = {
-				type: opts.data.type,
-				kind: opts.data.kind,
-				count: opts.data.count
-			};
-
-			this.connector.get('nodes', params, function(data) {
-				self.fireEvent('dataReady', data);
-			});
-		}
-
-	});
-
-	return exports;
+  });
 
 });

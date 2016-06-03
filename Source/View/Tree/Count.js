@@ -2,97 +2,91 @@
  * Implement count
  * @class View.Tree.Count
  */
-define([
+define(function(require, exports, module) {
 
-], function(
+  var _log = __debug('view:core-tree-count').defineLevel();
 
-) {
+  module.exports = new Class({
 
-	var _log = __debug('view:core-tree-count').defineLevel();
+    /**
+     * Refresh Count
+     *
+     * @param {Object} count
+     */
+    refreshCount: function(count) {
+      _log.debug('refreshCount', count);
 
-	var exports = new Class({
+      var self = this;
+      var opts = this.options;
+      var countType = opts.data.count || opts.data.type;
 
-		/**
-		 * Refresh Count
-		 *
-		 * @param {Object} count
-		 */
-		refreshCount: function(count) {
-			_log.debug('refreshCount', count);
+      clearTimeout(this.timerCount);
+      this.timerCount = setTimeout(function() {
+        if (count && self._validateCount(count)) {
+          self._updateCount(count);
+          self.fireEvent('countUpdated');
+        } else {
+          self.collection.updateCount(countType, function(count) {
+            self._updateCount(count);
+            self.fireEvent('countUpdated');
+          });
+        }
+      }, 1000);
+    },
 
-			var self = this;
-			var opts = this.options;
-			var countType = opts.data.count || opts.data.type;
+    /**
+     * Validate count object
+     *
+     * @return {void}
+     * @private
+     */
+    _validateCount: function(count) {
+      if (typeof count !== 'object') {
+        return false;
+      }
 
-			clearTimeout(this.timerCount);
-			this.timerCount = setTimeout(function() {
-				if (count && self._validateCount(count)) {
-					self._updateCount(count);
-					self.fireEvent('countUpdated');
-				} else {
-					self.collection.updateCount(countType, function(count) {
-						self._updateCount(count);
-						self.fireEvent('countUpdated');
-					});
-				}
-			}, 1000);
-		},
+      var id;
 
-		/**
-		 * Validate count object
-		 *
-		 * @return {void}
-		 * @private
-		 */
-		_validateCount: function(count) {
-			if (typeof count !== 'object') {
-				return false;
-			}
+      for (var key in count) {
+        if (count.hasOwnProperty(key)) {
+          id = key;
+          break;
+        }
+      }
 
-			var id;
+      if (id.length > 20) {
+        return true;
+      } else {
+        return false;
+      }
+    },
 
-			for (var key in count) {
-				if (count.hasOwnProperty(key)) {
-					id = key;
-					break;
-				}
-			}
+    /**
+     * Update Count elements
+     *
+     * @param {Object} count Count object
+     * @return {void}
+     * @private
+     */
+    _updateCount: function(count) {
+      _log.debug('_updateCount', count);
 
-			if (id.length > 20) {
-				return true;
-			} else {
-				return false;
-			}
-		},
+      var elements = this.content.getElements('.count');
 
-		/**
-		 * Update Count elements
-		 *
-		 * @param {Object} count Count object
-		 * @return {void}
-		 * @private
-		 */
-		_updateCount: function(count) {
-			_log.debug('_updateCount', count);
+      for (var i = 0, len = elements.length; i < len; i++) {
+        var element = elements[i];
+        var elId = element.getParent().getParent().get('data-id');
 
-			var elements = this.content.getElements('.count');
+        var c = count[elId];
+        var model = this.collection.getModelById(elId);
+        if (model) {
+          model.set('_count', c);
+        }
 
-			for (var i = 0, len = elements.length; i < len; i++) {
-				var element = elements[i];
-				var elId = element.getParent().getParent().get('data-id');
+        element.set('html', c);
+      }
+    }
 
-				var c = count[elId];
-				var model = this.collection.getModelById(elId);
-				if (model) {
-					model.set('_count', c);
-				}
-
-				element.set('html', c);
-			}
-		}
-
-	});
-
-	return exports;
+  });
 
 });
