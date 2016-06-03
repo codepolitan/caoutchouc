@@ -34,7 +34,6 @@ define(function(require, exports, module) {
   var TreeCollapse = require('UI/View/Tree/utils/Collapse');
   var Tree = require('UI/View/Tree/utils/Tree');
   var Collapse = require('UI/View/Tree/Collapse');
-  var Collection = require('UI/View/Tree/Collection');
   var Count = require('UI/View/Tree/Count');
 
   var _log = __debug('view:core-tree').defineLevel();
@@ -43,7 +42,7 @@ define(function(require, exports, module) {
 
     Extends: View,
 
-    Implements: [Collapse, Collection, Count],
+    Implements: [Collapse, Count],
 
     options: options,
 
@@ -93,10 +92,6 @@ define(function(require, exports, module) {
 
       if (opts.autoScroll) {
         this._initAutoScroll();
-      }
-
-      if (opts.collection) {
-        this._initCollection();
       }
 
       //For the settings
@@ -166,8 +161,6 @@ define(function(require, exports, module) {
     set: function(prop, value) {
       if (prop === 'list') {
         this._setList(value);
-      } else if (prop === 'collection') {
-        this._setCollection(value);
       } else if (prop === 'settings') {
         this._setSettings(value);
       } else if (prop === 'selectCode') {
@@ -193,16 +186,10 @@ define(function(require, exports, module) {
           return this.getSelectedId();
         case 'info':
           return this.getSelectedDoc();
-        case 'model':
-          return this.getSelectedModel();
         case 'count':
           return this.getNodeCount(value);
         case 'list':
-          return this.collection.toJSON();
-        case 'collection':
-          return this.collection;
-        case 'connector':
-          return this.connector;
+          return this.list;
         case 'options':
           return this.options;
         case 'type':
@@ -256,7 +243,7 @@ define(function(require, exports, module) {
     },
 
     /**
-     * Get model by code and select it
+     * init selected by code
      * @return {void}
      * @private
      */
@@ -281,12 +268,12 @@ define(function(require, exports, module) {
         return;
       }
 
-      var model = this.collection.getModelById(this.nodeId);
+      var info = array.findObjByKey(this.list, '_id', this.nodeId);
 
-      if (!model) {
-        var collection = this.collection.toJSON();
-        if (collection && collection[0]) {
-          this.select(collection[0].id);
+      if (!info) {
+        var nodes = this.list;
+        if (nodes && nodes[0]) {
+          this.select(nodes[0]._id);
         }
       }
     },
@@ -298,13 +285,13 @@ define(function(require, exports, module) {
      * @private
      */
     _selectByCode: function(code) {
-      var model = this.collection.findOne('[code=' + code + ']');
+      var info = array.findObjByKey(this.list, 'code', code);
 
-      if (!model) {
+      if (!info) {
         return;
       }
 
-      var id = model.get('id');
+      var id = info._id;
 
       this.select(id);
     },
@@ -316,19 +303,19 @@ define(function(require, exports, module) {
      * @private
      */
     _selectByName: function(name) {
-      var model = this.collection.findOne('[name=' + name + ']');
+      var info = array.findObjByKey(this.list, 'name', name);
 
-      if (!model) {
+      if (!info) {
         return;
       }
 
-      var id = model.get('id');
+      var id = info._id;
 
       this.select(id);
     },
 
     /**
-     * Get model by index and select it
+     * Get info by index and select it
      * @return {void}
      * @private
      */
@@ -339,15 +326,15 @@ define(function(require, exports, module) {
         return;
       }
 
-      var collection = this.collection.toJSON();
+      var nodes = this.list;
 
-      var model = collection[opts.selectedIndex];
+      var info = nodes[opts.selectedIndex];
 
-      if (!model) {
+      if (!info) {
         return;
       }
 
-      var id = model.id;
+      var id = info._id;
 
       this.select(id);
     },
@@ -400,7 +387,7 @@ define(function(require, exports, module) {
       for (var i = 0; i < list.length; i++) {
         node = list[i];
         var n = {
-          id: node.id,
+          _id: node._id,
           name: node.name,
           count: node._count,
           sort: node.sort,
@@ -408,9 +395,9 @@ define(function(require, exports, module) {
           select: node._select,
         };
         if (!kind) {
-          mem[node.id] = n;
+          mem[node._id] = n;
         } else if (kind === node.kind) {
-          mem[node.id] = n;
+          mem[node._id] = n;
         }
       }
 
@@ -418,11 +405,11 @@ define(function(require, exports, module) {
 
       for (var j = 0; j < list.length; j++) {
         node = list[j];
-        if (!mem[node.id]) {
+        if (!mem[node._id]) {
           continue;
         }
 
-        var obj = mem[node.id];
+        var obj = mem[node._id];
 
         node.path = node.path || [];
 
@@ -503,7 +490,7 @@ define(function(require, exports, module) {
         var node = data[i];
 
         var li = new Element('li', {
-          'data-id': node.id
+          'data-id': node._id
         }).inject(ul);
 
         var line = new Element('div', {
@@ -527,10 +514,10 @@ define(function(require, exports, module) {
             },
           }).inject(line);
 
-          checkbox.addEvent('click', this._handleCheckboxClick.bind(this, node.id, checkbox));
+          checkbox.addEvent('click', this._handleCheckboxClick.bind(this, node._id, checkbox));
 
           if (node.select) {
-            this._handleCheckboxClick(node.id, checkbox);
+            this._handleCheckboxClick(node._id, checkbox);
           }
         }
 
@@ -663,7 +650,7 @@ define(function(require, exports, module) {
      * @param  {boolean} settings
      */
     select: function(id, quiet, settings) {
-      //_log.debug('select', id);
+      _log.debug('select', id, quiet);
 
       /*if the view is a checkbox do not
       use the default select method*/
@@ -692,7 +679,7 @@ define(function(require, exports, module) {
       this.nodeId = id;
 
       if (!quiet && id !== 'new') {
-        var info = this.collection.getModelById(id).toJSON();
+        var info = array.findObjByKey(this.list, '_id', id);
         /**
          * @event select
          * Fired when the view select a document
@@ -747,16 +734,13 @@ define(function(require, exports, module) {
     },
 
     /**
-     * Sync collection with server
+     * on disable drag
      * @return {void}
      * @private
      */
-    _syncCollection: function() {
-      var self = this;
-
-      this.collection.bulk(this.collection.toJSON(), function() {
-        self.refresh();
-      });
+    _onDisableDrag: function() {
+      //_log.debug('_onDisableDrag', this.list);
+      this.fireEvent('save', [this.list]);
     },
 
     /**
@@ -771,13 +755,14 @@ define(function(require, exports, module) {
 
       for (var key in object) {
         if (object.hasOwnProperty(key)) {
-          var node = this.collection.getModelById(key).toJSON();
+          var node = array.findObjByKey(this.list, '_id', key);
 
           if (!level) {
             node.sort = this._fillSortkey(count);
             node.path = [];
             count++;
-            this.collection.getModelById(node.id).set(node);
+            var tmp = array.findObjByKey(this.list, '_id', node._id);
+            tmp = node;
           }
 
           if (typeof object[key] !== 'object') {
@@ -793,51 +778,22 @@ define(function(require, exports, module) {
 
           for (var i = 0, len = list.length; i < len; i++) {
             var id = list[i];
-            var doc = this.collection.getModelById(id).toJSON();
+            var doc = array.findObjByKey(this.list, '_id', id);
 
             doc.sort = node.sort + this._fillSortkey(i + 1);
             doc.path = Array.clone(node.path);
 
-            if (node.id) {
-              doc.path.push(node.id);
+            if (node._id) {
+              doc.path.push(node._id);
             }
 
-            this.collection.getModelById(id).set(doc);
+            var tmp1 = array.findObjByKey(this.list, '_id', id);
+            tmp1 = doc;
           }
 
           this._updateData(object[key], true);
         }
       }
-    },
-
-    /**
-     * Delete
-     * @param {string} id
-     * @return {void}
-     * @private
-     */
-    _moveToTrash: function(id) {
-      _log.debug('delete', id);
-
-      id = id || this.nodeId;
-
-      if (!id || !window.confirm(this.options.text.trash)) {
-        return;
-      }
-
-      this.collection.delete(this.nodeId);
-    },
-
-    /**
-     * Get selected model instance
-     * @return {Object} Select model or null
-     */
-    getSelectedModel: function() {
-      if (!this.nodeId) {
-        return null;
-      }
-
-      return this.collection.getModelById(this.nodeId);
     },
 
     /**
@@ -849,10 +805,10 @@ define(function(require, exports, module) {
         return null;
       }
 
-      var model = this.collection.getModelById(this.nodeId);
+      var info = array.findObjByKey(this.list, '_id', this.nodeId);
 
-      if (model) {
-        return model.toJSON();
+      if (info) {
+        return info;
       }
 
       return null;
@@ -878,13 +834,13 @@ define(function(require, exports, module) {
         return null;
       }
 
-      var model = this.collection.getModelById(id);
+      var info = array.findObjByKey(this.list, '_id', id);
 
-      if (!model) {
+      if (!info) {
         return null;
       }
 
-      return model.get('_count');
+      return info._count;
     },
 
     /**
@@ -903,7 +859,7 @@ define(function(require, exports, module) {
     _getMainkeys: function() {
       var sortkey = 0;
       var path = [];
-      var list = this.collection.toJSON();
+      var list = this.list;
 
       for (var i = 0; i < list.length; i++) {
         var node = list[i];
@@ -932,7 +888,7 @@ define(function(require, exports, module) {
     _getParentKeys: function(parent) {
       var sortkey = 0;
       var path = [];
-      var list = this.collection.toJSON();
+      var list = this.list;
 
       for (var i = 0; i < list.length; i++) {
         var node = list[i];
@@ -948,7 +904,7 @@ define(function(require, exports, module) {
 
       parent.path = parent.path || [];
       path = Array.clone(parent.path);
-      path.push(parent.id);
+      path.push(parent._id);
 
       return {
         sort: sortkey,
@@ -970,7 +926,7 @@ define(function(require, exports, module) {
       _log.debug('_addNode', parentId);
 
       var opts = this.options;
-      var len = this.collection.toJSON().length;
+      var len = this.list.length;
 
       //if (!parentId && len > 0) return;
 
@@ -978,7 +934,7 @@ define(function(require, exports, module) {
 
       var node = {
         type: opts.data.type,
-        kind: opts.data.kind || null,
+        kind: opts.data.kind || undefined,
         node: true,
         sort: sortkey,
         name: 'New node',
@@ -991,7 +947,7 @@ define(function(require, exports, module) {
           delete opts.collapse[parentId];
         }
 
-        var parent = this.collection.getModelById(parentId).toJSON();
+        var parent = array.findObjByKey(this.list, '_id', parentId);
         var keys;
 
         if (parent) {
@@ -1004,10 +960,10 @@ define(function(require, exports, module) {
         node.sort = keys.sort;
       }
 
-      this.collection.addModel(node);
+      this.list.push(node);
 
-      var model = this.collection.getModel(len);
-      model.set('id', 'new');
+      var info = this.list[len];
+      info._id = 'new';
 
       this.refresh();
       this.setNameById('new');
@@ -1054,7 +1010,7 @@ define(function(require, exports, module) {
 
       var self = this;
       var id = el.get('data-id');
-      var model = this.collection.getModelById(id);
+      var model = array.findObjByKey(this.list, '_id', id);
       var name = el.getElement('.label');
       var text = name.get('html');
       var key = null;
@@ -1084,11 +1040,12 @@ define(function(require, exports, module) {
           var value = name.get('html');
 
           if (id === 'new' && key === 'esc') {
-            self.collection.removeModel(model);
+            array.deleteObjByKey(self.list, '_id', id);
+            self.refresh();
           } else if (text !== value || value === 'New node') {
-            model.set('name', value);
-            model.set('id', null);
-            model.save();
+            model.name = value;
+            model._id = undefined;
+            self.fireEvent('save', model);
           }
         },
         /** @function */
@@ -1132,7 +1089,7 @@ define(function(require, exports, module) {
      */
     refresh: function() {
       //_log.debug('refresh', this.collection.toJSON());
-      this._setList(this.collection.toJSON());
+      this._setList(this.list);
     },
 
     /**

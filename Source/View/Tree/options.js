@@ -23,13 +23,12 @@ define(function(require, exports, module) {
       trash: 'Êtes-vous sûr(e) de vouloir effacer cette catégorie?'
     },
     controller: {
-      _list: ['view', 'tree', 'collection', 'settings'],
+      _list: ['view', 'tree', 'settings'],
       view: {
         'bindingsReady': '_initList',
         'addnode': '_addNode',
         'organize': '_toggleOrganize',
-        'trash': '_moveToTrash',
-        'dragDisabled': '_syncCollection',
+        'dragDisabled': '_onDisableDrag',
         'element.scroll': '_elementDidScroll',
         'listSet': 'render',
         //'resize': '_onViewResize',
@@ -44,29 +43,14 @@ define(function(require, exports, module) {
         'tree.expand': '_treeDidExpand',
         'tree.collapse': '_treeDidCollapse'
       },
-      collection: {
+      /*collection: {
         'collection.fetch': ['_setList', '_initScrollTop', '_initSelectedCode', '_initSelectedIndex', '_initSelected'],
         'collection.destroy': 'collection.removeModel',
         'collection.remove': 'refresh',
         'collection.save': 'refresh',
         'collection.update': '_collectionDidUpdate',
         //'collection.change' : 'refresh'
-      }
-    },
-    data: {
-      collection: {
-        clss: 'Minimal.Collection.Tree',
-        opts: {
-          urlRoot: '/data/couch/node'
-        }
-      },
-      model: {
-        clss: 'Minimal.Model.Tree',
-        opts: {
-          urlRoot: '/data/couch/node',
-          useJSON: true
-        }
-      }
+      }*/
     },
     toolbar: {
       list: ['info', /*'action', 'more' */ 'alternate', 'status'],
