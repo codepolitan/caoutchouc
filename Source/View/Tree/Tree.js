@@ -160,6 +160,9 @@ define(function(require, exports, module) {
      */
     set: function(prop, value) {
       switch (prop) {
+        case 'count':
+          this.refreshCount(value);
+          break;
         case 'info':
           this._setInfo(value);
           break;
@@ -236,6 +239,10 @@ define(function(require, exports, module) {
 
       var info = array.findObjByKey(this.list, '_id', node._id);
 
+      if (!node._count) {
+        node._count = info._count;
+      }
+
       if (info) {
         info = node;
         array.updateObjByKey(this.list, '_id', node._id, node);
@@ -271,7 +278,8 @@ define(function(require, exports, module) {
      * @private
      */
     _setList: function(list) {
-      //_log.debug('_setList', list.length);
+      _log.debug('_setList', list.length);
+
       this.fireEvent('settingList');
 
       this.list = list;
@@ -486,7 +494,8 @@ define(function(require, exports, module) {
      */
     render: function(list) {
       list = this.list;
-      //_log.debug('render', list.length);
+
+      _log.debug('render', list.length);
 
       var tree = this._getTreeObject(list);
 
@@ -526,6 +535,7 @@ define(function(require, exports, module) {
      */
     _render: function(data, container) {
       //_log.debug('_render', data);
+
       if (!data) {
         return;
       }

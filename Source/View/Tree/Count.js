@@ -4,39 +4,27 @@
  */
 define(function(require, exports, module) {
 
-  var _log = __debug('view:core-tree-count').defineLevel();
+  var array = require('utils/array');
+
+  var _log = __debug('view:core-tree-count').defineLevel('debug');
 
   module.exports = new Class({
 
     /**
      * Refresh Count
-     *
      * @param {Object} count
      */
     refreshCount: function(count) {
       _log.debug('refreshCount', count);
 
-      var self = this;
-      var opts = this.options;
-      var countType = opts.data.count || opts.data.type;
-
-      clearTimeout(this.timerCount);
-      this.timerCount = setTimeout(function() {
-        if (count && self._validateCount(count)) {
-          self._updateCount(count);
-          self.fireEvent('countUpdated');
-        } else {
-          self.collection.updateCount(countType, function(count) {
-            self._updateCount(count);
-            self.fireEvent('countUpdated');
-          });
-        }
-      }, 1000);
+      if (count && this._validateCount(count)) {
+        this._updateCount(count);
+        this.fireEvent('countUpdated');
+      }
     },
 
     /**
      * Validate count object
-     *
      * @return {void}
      * @private
      */
@@ -63,7 +51,6 @@ define(function(require, exports, module) {
 
     /**
      * Update Count elements
-     *
      * @param {Object} count Count object
      * @return {void}
      * @private
@@ -78,9 +65,9 @@ define(function(require, exports, module) {
         var elId = element.getParent().getParent().get('data-id');
 
         var c = count[elId];
-        var model = this.collection.getModelById(elId);
-        if (model) {
-          model.set('_count', c);
+        var info = array.findObjByKey(this.list, '_id', elId);
+        if (info) {
+          info._count = c;
         }
 
         element.set('html', c);
