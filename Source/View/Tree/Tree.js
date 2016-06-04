@@ -159,14 +159,21 @@ define(function(require, exports, module) {
      * @return {void}
      */
     set: function(prop, value) {
-      if (prop === 'list') {
-        this._setList(value);
-      } else if (prop === 'settings') {
-        this._setSettings(value);
-      } else if (prop === 'selectCode') {
-        this._selectByCode(value);
-      } else if (prop === 'selectedByName') {
-        this._selectByName(value);
+      switch (prop) {
+        case 'info':
+          this._setInfo(value);
+          break;
+        case 'list':
+          this._setList(value);
+          break;
+        case 'settings':
+          this._setSettings(value);
+          break;
+        case 'selectCode':
+          this._selectByCode(value);
+          break;
+        case 'selectedByName':
+          this._selectByName(value);
       }
 
       this.fireEvent('set', [prop, value]);
@@ -216,6 +223,45 @@ define(function(require, exports, module) {
       if (props === 'select') {
         this.settings.select(this.getSelectedId());
       }
+    },
+
+    /**
+     * Set nodes
+     * @param {Object} node
+     * @return {void}
+     * @private
+     */
+    _setInfo: function(node) {
+      _log.debug('_setInfo', node);
+
+      var info = array.findObjByKey(this.list, '_id', node._id);
+
+      if (info) {
+        info = node;
+        array.updateObjByKey(this.list, '_id', node._id, node);
+      } else {
+        this.list.push(node);
+      }
+
+      this.refresh();
+    },
+
+    /**
+     * remove
+     * @param {Object} node
+     * @return {void}
+     * @private
+     */
+    remove: function(node) {
+      _log.debug('remove', node);
+
+      if (typeof node === 'string') {
+        array.deleteObjByKey(this.list, '_id', node);
+      } else {
+        array.deleteObjByKey(this.list, '_id', node._id);
+      }
+
+      this.refresh();
     },
 
     /**
@@ -1010,7 +1056,7 @@ define(function(require, exports, module) {
 
       var self = this;
       var id = el.get('data-id');
-      var model = array.findObjByKey(this.list, '_id', id);
+      var info = array.findObjByKey(this.list, '_id', id);
       var name = el.getElement('.label');
       var text = name.get('html');
       var key = null;
@@ -1043,9 +1089,12 @@ define(function(require, exports, module) {
             array.deleteObjByKey(self.list, '_id', id);
             self.refresh();
           } else if (text !== value || value === 'New node') {
-            model.name = value;
-            model._id = undefined;
-            self.fireEvent('save', model);
+            info.name = value;
+            if (info._id === 'new') {
+              info._id = undefined;
+              array.deleteObjByKey(self.list, '_id', info._id);
+            }
+            self.fireEvent('save', info);
           }
         },
         /** @function */
@@ -1088,7 +1137,7 @@ define(function(require, exports, module) {
      * Refresh Node View
      */
     refresh: function() {
-      //_log.debug('refresh', this.collection.toJSON());
+      //_log.debug('refresh', this.list);
       this._setList(this.list);
     },
 
