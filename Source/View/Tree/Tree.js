@@ -239,7 +239,7 @@ define(function(require, exports, module) {
 
       var info = array.findObjByKey(this.list, '_id', node._id);
 
-      if (!node._count) {
+      if (info && !node._count) {
         node._count = info._count;
       }
 
