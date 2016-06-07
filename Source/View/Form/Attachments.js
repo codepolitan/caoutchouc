@@ -66,7 +66,7 @@ define([
 							'clss': 'right',
 							type: 'icon',
 							name: 'deleteItem',
-							icon: 'icon-times-circle',
+							icon: 'mdi-action-highlight-remove',
 							emit: 'remove'
 						}).inject(item).addEvent('remove', function() {
 							self._removeAttachmentsItem(idx, field.name);
@@ -86,7 +86,7 @@ define([
 
 			if (!read) {
 				var addBtn = new Button({
-					icon: 'icon-plus-circle',
+					icon: 'mdi-content-add mdi-av-playlist-add',
 					name: 'add',
 					type: 'icon-text',
 					klss: 'button-inline',
