@@ -14,7 +14,7 @@
  */
 define(function(require, exports, module) {
 
-	var _log = __debug('view-core-listV2-virtual').defineLevel();
+	var _log = __debug('view-core-listV2-virtual').defineLevel('debug');
 
 	var Virtual = new Class({
 
