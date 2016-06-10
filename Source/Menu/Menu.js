@@ -2,6 +2,7 @@
  * UI Menu Class
  * @class UI.Menu
  * @extends {UI.Component}
+ * @author Bruno Santos, Jerome Vial
  */
 define([
 	'UI/Window/controller',

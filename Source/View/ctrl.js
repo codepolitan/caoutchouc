@@ -1,64 +1,60 @@
-define([
+define(function(require, exports, module) {
 
-], function(
+  var ctrl = {
 
-) {
+    list: [],
 
-	var exports = {
+    /**
+     * register
+     * @param  {Object} view
+     * @param  {Object} app
+     * @return {void}
+     */
+    register: function(view, app) {
+      //_log.debug('register', view, app);
+      this.list.push(view);
 
-		list: [],
+      return;
+    },
 
-		/**
-		 * register
-		 * @param  {Object} view
-		 * @param  {Object} app
-		 * @return {void}
-		 */
-		register: function(view, app) {
-			//_log.debug('register', view, app);
-			this.list.push(view);
+    /**
+     * focus
+     * @param  {Object} view
+     * @param  {Object} app
+     * @return {void}
+     */
+    focus: function(view, app) {
+      //_log.debug('focus', view, app);
+      if (view === null) {
+        return;
+      }
 
-			return;
-		},
+      if (this.active !== view) {
+        if (this.active) {
+          this.blur(this.active);
+        }
 
-		/**
-		 * focus
-		 * @param  {Object} view
-		 * @param  {Object} app
-		 * @return {void}
-		 */
-		focus: function(view, app) {
-			//_log.debug('focus', view, app);
-			if (view === null) {
-				return;
-			}
+        this.active = view;
+        view.fireEvent('focus');
+      }
 
-			if (this.active !== view) {
-				if (this.active) {
-					this.blur(this.active);
-				}
+      return;
+    },
 
-				this.active = view;
-				view.fireEvent('focus');
-			}
+    /**
+     * blur
+     * @param  {Object} view
+     * @return {void}
+     */
+    blur: function(view) {
+      //_log.debug('blur');
+      view.fireEvent('blur', view);
 
-			return;
-		},
+      return;
+    }
 
-		/**
-		 * blur
-		 * @param  {Object} view
-		 * @return {void}
-		 */
-		blur: function(view) {
-			//_log.debug('blur');
-			view.fireEvent('blur', view);
+  };
 
-			return;
-		}
-
-	};
-
-	return exports;
+  module.exports = ctrl;
 
 });

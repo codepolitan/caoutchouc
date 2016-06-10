@@ -2,6 +2,7 @@
  * UI Menu Context Class
  * @class UI.Menu.Context
  * @extends {UI.Menu}
+ * @author Bruno Santos, Jerome Vial
  */
 define([
 	'UI/Menu/Menu'

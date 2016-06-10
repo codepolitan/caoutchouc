@@ -1,83 +1,84 @@
-
 /**
-* Minimalistic Implement for Minimal.View Class
-*
-* @extends Minimal.View
-* @class View.Zoom
-* @author Jerome Vial, Bruno Santos
-*/
+ * Minimalistic Implement for Minimal.View Class
+ * @extends Minimal.View
+ * @class View.Zoom
+ * @author Jerome Vial, Bruno Santos
+ */
+define(function(require, exports, module) {
 
-define(function() {
+  var _log = __debug('view').defineLevel();
 
-    var exports = new Class({
+  var Zoom = new Class({
 
-	/**
-	 * Initialize Zoom
-	 *
-	 * @method _initZoom
-	 * @private
-	 */
-	_initZoom: function() {
+    /**
+     * Initialize Zoom
+     * @method _initZoom
+     * @private
+     */
+    _initZoom: function() {
 
-	},
+    },
 
-	/**
-	 * Zoom In
-	 *
-	 * @method zoomIn
-	 */
-	zoomIn: function() {
-		var self = this;
-		if (!this.zf)  // zoom factor
-			this.zf = 0.7;
+    /**
+     * Zoom In
+     * @method zoomIn
+     */
+    zoomIn: function() {
+      var self = this;
+      // zoom factor
+      if (!this.zf) {
+        this.zf = 0.7;
+      }
 
-		if (this.zf > 1.6)
-			return;
+      if (this.zf > 1.6) {
+        return;
+      }
 
-		//_log.debug(typeOf(this.zf));
+      //_log.debug(typeOf(this.zf));
 
-		this.zf = (self.zf).toFloat() + 0.1;
+      this.zf = (self.zf).toFloat() + 0.1;
 
-		var lh = this.zf + 0.1;
-		lhem = lh.toString()+'em';
-		var em = this.zf.toString()+'em';
+      var lh = this.zf + 0.1;
+      var lhem = lh.toString() + 'em';
+      var em = this.zf.toString() + 'em';
 
-		//_log.debug(em,lhem);
-		this.element.setStyle('font-size', em);
-		this.element.setStyle('line-height', lhem);
+      _log.debug(em, lhem);
+      this.element.setStyle('font-size', em);
+      this.element.setStyle('line-height', lhem);
 
-		this.fireEvent('resize');
-	},
+      this.fireEvent('resize');
+    },
 
-	/**
-	 * Zoom Out
-	 *
-	 * @method zoomOut
-	 */
-	zoomOut: function() {
-		var self = this;
+    /**
+     * Zoom Out
+     * @method zoomOut
+     */
+    zoomOut: function() {
+      var self = this;
 
-		if (!this.zf)
-			this.zf = 0.7;
+      if (!this.zf) {
+        this.zf = 0.7;
+      }
 
-		if (this.zf < 0.5)
-			return;
+      if (this.zf < 0.5) {
+        return;
+      }
 
-		this.zf = (self.zf).toFloat() - 0.1;
+      this.zf = (self.zf).toFloat() - 0.1;
 
-		var lh = this.zf + 0.1;
-		lhem = lh.toString()+'em';
-		em = this.zf.toString()+'em';
+      var lh = this.zf + 0.1;
+      var lhem = lh.toString() + 'em';
+      var em = this.zf.toString() + 'em';
 
-		//_log.debug(em,lhem);
-		this.element.setStyle('font-size', em);
-		this.element.setStyle('line-height', lhem);
+      _log.debug(em, lhem);
+      this.element.setStyle('font-size', em);
+      this.element.setStyle('line-height', lhem);
 
-		this.fireEvent('resize');
-	}
+      this.fireEvent('resize');
+    }
 
-    });
+  });
 
-    return exports;
+  module.exports = Zoom;
 
 });

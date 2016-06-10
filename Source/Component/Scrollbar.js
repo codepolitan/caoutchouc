@@ -2,11 +2,10 @@
 /**
  * Scroll Class
  * @class Scroll
- *
- * 
  * Credits:
  * based on Valerio's Mootools scrollbar plugin.
  * found in upload folder of mootools website
+ * @author Bruno Santos, Jerome Vial
  */
 define([
 	'UI/Component/Component'

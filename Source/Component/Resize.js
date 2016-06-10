@@ -2,7 +2,7 @@
 /**
  * Resize Component Class
  * @class UI.Component.Resize
- * @author Jerome D. Vial
+ * @author Bruno Santos, Jerome Vial
  */
 define([
 	

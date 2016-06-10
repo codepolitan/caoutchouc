@@ -2,7 +2,7 @@
 /**
  * UI Component Drag
  * @class UI.Component.Drag
- * @author Jerome D. Vial
+ * @author Bruno Santos, Jerome Vial
  */
 define([
 	

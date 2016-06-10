@@ -1,6 +1,7 @@
 /**
  * UI Layout Class
  * @class UI.Layout
+ * @author Bruno Santos, Jerome Vial
  */
 define(function(require, exports, module) {
 

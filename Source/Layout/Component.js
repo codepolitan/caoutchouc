@@ -1,7 +1,7 @@
 /**
  * UI Component Drag
  * @class UI.Component.Drag
- * @author Jerome D. Vial
+ * @author Bruno Santos, Jerome Vial
  */
 define(function(require, exports, module) {
 
@@ -44,7 +44,7 @@ define(function(require, exports, module) {
       comp.opts.hide = comp.opts.hide || comp.hide;
       comp.opts.theme = comp.opts.theme || comp.theme;
 
-      //_log.debug('comp', comp.clss);
+      _log.debug('comp', comp.clss);
 
       var name = comp.opts.name;
       var clss = api.strToClss(comp.clss);
@@ -52,7 +52,7 @@ define(function(require, exports, module) {
       //comp.opts.container = comp.container;
       var component = this.component[name] = this[name] = new clss(comp.opts);
 
-      //_log.debug(component.container);
+      _log.debug('component', comp);
 
       // register component
       this._componentRegister(name, component);

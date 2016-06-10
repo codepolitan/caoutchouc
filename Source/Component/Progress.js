@@ -2,7 +2,7 @@
 /**
  * UI Component Progress
  * @class UI.Component.Progress
- * @author Jerome D. Vial
+ * @author Bruno Santos, Jerome Vial
  */
 define([
 	"UI/Component/Component"

@@ -2,7 +2,7 @@
 /**
  * UI Component Location
  * @class UI.Component.Location
- * @author Jerome D. Vial
+ * @author Bruno Santos, Jerome Vial
  */
 define([
 	

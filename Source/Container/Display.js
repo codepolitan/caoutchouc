@@ -1,214 +1,212 @@
 /**
  * UI Component Drag
  * @class UI.Component.Drag
- * @author Jerome D. Vial
+ * @author Bruno Santos, Jerome Vial
  */
-define([
+define(function(require, exports, module) {
 
-], function(
+  var _log = __debug('ui-container-display').defineLevel();
 
-) {
+  var Display = new Class({
 
-	var _log = __debug('ui-container-display').defineLevel();
+    /**
+     * Display options for container
+     * @type {Object} options
+     */
+    options: {
+      display: {
+        fx: {
+          default: {
+            duration: 160,
+            transition: 'sine:out',
+            link: 'cancel'
+          },
+          minimize: {
+            duration: 160,
+            transition: 'sine:out',
+            link: 'cancel'
+          }
+        }
+      }
+    },
 
-	var exports = new Class({
+    /**
+     * [_initDisplay description]
+     * @return {[type]} [description]
+     */
+    _initDisplay: function() {
+      _log.debug('_initDisplay', this.element);
 
-		/**
-		 * Display options for container
-		 * @type {Object} options
-		 */
-		options: {
-			display: {
-				fx: {
-					default: {
-						duration: 160,
-						transition: 'sine:out',
-						link: 'cancel'
-					},
-					minimize: {
-						duration: 160,
-						transition: 'sine:out',
-						link: 'cancel'
-					}
-				}
-			}
-		},
+      this._modifier = 'width';
 
-		/**
-		 * [_initDisplay description]
-		 * @return {[type]} [description]
-		 */
-		_initDisplay: function() {
-			_log.debug('_initDisplay', this.element);
+      var direction = this.container.getStyle('flex-direction');
 
-			this._modifier = 'width';
+      if (direction === 'column') {
+        this._modifier = 'height';
+      }
 
-			var direction = this.container.getStyle('flex-direction');
+      //_log.debug('direction', direction, this._modifier);
 
-			if (direction === 'column') {
-				this._modifier = 'height';
-			}
+      var self = this;
+      var opts = this.options.display;
+      var fx = opts.fx.default;
+      var modifier = this._modifier;
 
-			//_log.debug('direction', direction, this._modifier);
+      if (!this[modifier]) {
+        this[modifier] = this.options.size || 320;
+      }
 
-			var self = this;
-			var opts = this.options.display;
-			var fx = opts.fx.default;
-			var modifier = this._modifier;
+      this.device = this.device || 'desktop';
+      //this.underlay.hide();
+      this.display = {};
 
-			if (!this[modifier]) {
-				this[modifier] = this.options.size || 320;
-			}
+      fx.property = modifier;
 
-			this.device = this.device || 'desktop';
-			//this.underlay.hide();
-			this.display = {};
+      this.display.fx = new Fx.Tween(this.element, fx)
+        .addEvent('complete', function() {
+          self.fireEvent('toggled');
+        });
 
-			fx.property = modifier;
+      return this.display;
+    },
 
-			this.display.fx = new Fx.Tween(this.element, fx)
-				.addEvent('complete', function() {
-					self.fireEvent('toggled');
-				});
+    /**
+     * [getDisplay description]
+     * @return {[type]} [description]
+     */
+    getDisplay: function() {
 
-			return this.display;
-		},
+      return this._display;
+    },
 
-		/**
-		 * [getDisplay description]
-		 * @return {[type]} [description]
-		 */
-		getDisplay: function() {
+    /**
+     * [getDisplay description]
+     * @return {[type]} [description]
+     */
+    setDisplay: function(display) {
 
-			return this._display;
-		},
+      this._display = display;
 
-		/**
-		 * [getDisplay description]
-		 * @return {[type]} [description]
-		 */
-		setDisplay: function(display) {
+      return this;
+    },
 
-			this._display = display;
+    /**
+     * [toggle description]
+     * @return {[type]} [description]
+     */
+    toggle: function() {
+      _log.debug('toggle', this._display);
 
-			return this;
-		},
+      if (this._display === 'normalized') {
+        this.minimize();
+      } else {
+        this.normalize();
+      }
 
-		/**
-		 * [toggle description]
-		 * @return {[type]} [description]
-		 */
-		toggle: function() {
-			_log.debug('toggle', this._display);
+      return this._display;
+    },
 
-			if (this._display === 'normalized') {
-				this.minimize();
-			} else {
-				this.normalize();
-			}
+    close: function() {
+      _log.debug('close');
 
-			return this._display;
-		},
+      this.minimize();
+    },
 
-		close: function() {
-			_log.debug('close');
+    /**
+     * [minimize description]
+     * @return {[type]} [description]
+     */
+    minimize: function(quiet) {
+      _log.debug('start minimalization', this.device);
 
-			this.minimize();
-		},
+      if (!this.display) {
+        this._initDisplay();
+      }
 
-		/**
-		 * [minimize description]
-		 * @return {[type]} [description]
-		 */
-		minimize: function(quiet) {
-			_log.debug('start minimalization', this.device);
+      this.fireEvent('minimize');
 
-			if (!this.display) {
-				this._initDisplay();
-			}
+      if (quiet) {
+        this.element.setStyle(this._modifier, 0);
+      } else {
+        this.display.fx.start(0);
+      }
 
-			this.fireEvent('minimize');
+      this._display = 'minimized';
+      //_log.debug('display', this._display);
 
-			if (quiet) {
-				this.element.setStyle(this._modifier, 0);
-			} else {
-				this.display.fx.start(0);
-			}
+      if (this.underlay && this.device !== 'desktop') {
+        this.underlay.fade(0);
+      }
 
-			this._display = 'minimized';
-			//_log.debug('display', this._display);
+      this.fireEvent('display', 'minimized');
+    },
 
-			if (this.underlay && this.device !== 'desktop') {
-				this.underlay.fade(0);
-			}
+    /**
+     * [normalize description]
+     * @return {[type]} [description]
+     */
+    normalize: function() {
+      _log.debug('normalize');
 
-			this.fireEvent('display', 'minimized');
-		},
+      if (!this.display) {
+        this._initDisplay();
+      }
 
-		/**
-		 * [normalize description]
-		 * @return {[type]} [description]
-		 */
-		normalize: function() {
-			_log.debug('normalize');
+      this.fireEvent('normalize');
+      // this.setStyle('display', 'initial');
+      // this.element.setStyle('display', 'initial');
 
-			if (!this.display) {
-				this._initDisplay();
-			}
+      var size = this[this._modifier] || this.options.size;
 
-			this.fireEvent('normalize');
-			// this.setStyle('display', 'initial');
-			// this.element.setStyle('display', 'initial');
+      var w = window;
+      var d = document;
+      var e = d.documentElement;
+      var g = d.getElementsByTagName('body')[0];
+      var x = w.innerWidth || e.clientWidth || g.clientWidth;
 
-			var size = this[this._modifier] || this.options.size;
+      if (x < 640) {
+        size = x;
+      }
 
-			var w = window;
-			var d = document;
-			var e = d.documentElement;
-			var g = d.getElementsByTagName('body')[0];
-			var x = w.innerWidth || e.clientWidth || g.clientWidth;
+      //_log.debug('size', size);
 
-			if (x < 640) {
-				size = x;
-			}
+      if (this.display.fx) {
+        this.display.fx.start(size);
+      } else {
+        this.element.setStyle(this._modifier, size);
+      }
+      if (this.underlay && this.device !== 'desktop') {
+        //_log.debug('---', this.device);
+        this.underlay.show();
+        this.underlay.fade(1);
+      }
+      this._display = 'normalized';
 
-			//_log.debug('size', size);
+      this.fireEvent('display', 'normalized');
+    },
 
-			if (this.display.fx) {
-				this.display.fx.start(size);
-			} else {
-				this.element.setStyle(this._modifier, size);
-			}
-			if (this.underlay && this.device !== 'desktop') {
-				//_log.debug('---', this.device);
-				this.underlay.show();
-				this.underlay.fade(1);
-			}
-			this._display = 'normalized';
+    /**
+     * [normalize description]
+     * @return {[type]} [description]
+     */
+    maximize: function() {
+      _log.debug('maximize');
 
-			this.fireEvent('display', 'normalized');
-		},
+      return;
+      this.toggleFx.start(size);
 
-		/**
-		 * [normalize description]
-		 * @return {[type]} [description]
-		 */
-		maximize: function() {
-			_log.debug('maximize');
+      this.element.setStyle('display', null);
+      this.element.addClass('state-focus');
 
-			return;
-			this.toggleFx.start(size);
+      this.isOpen = true;
 
-			this.element.setStyle('display', null);
-			this.element.addClass('state-focus');
-
-			this.isOpen = true;
-
-			this.fireEvent('maximized', this);
+      this.fireEvent('maximized', this);
 
 
-		}
-	});
+    }
 
-	return exports;
+  });
+
+  module.exports = Display;
+
 });

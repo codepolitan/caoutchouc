@@ -1,7 +1,7 @@
 /**
  * Resize Layout
  * @class UI.Layout.Resize
- * @author Jerome D. Vial
+ * @author Bruno Santos, Jerome Vial
  */
 define(function(require, exports, module) {
 

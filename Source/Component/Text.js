@@ -3,7 +3,7 @@
  * UI Component Text
  * @class UI.Text
  * @extends {UI.Component}
- * @author Jerome D. Vial
+ * @author Bruno Santos, Jerome Vial
  */
 define([
 	"UI/Component/Component",
