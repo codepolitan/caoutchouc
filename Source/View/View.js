@@ -17,7 +17,6 @@ define(function(require, exports, module) {
 	var Limit = require('./Limit');
 	var Loader = require('./Loader');
 	var Scroll = require('./Scroll');
-	var LayoutView = require('./Layout');
 	//var Scrolling = require('./Scrolling');
 	var Zoom = require('./Zoom');
 
@@ -37,7 +36,6 @@ define(function(require, exports, module) {
 			Limit,
 			Loader,
 			Scroll,
-			LayoutView,
 			//Scrolling,
 			Zoom
 		],
