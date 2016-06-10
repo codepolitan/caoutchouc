@@ -28,9 +28,9 @@ define(function(require, exports, module) {
     },
 
     /**
-     * [initialize description]
-     * @param  {[type]} options [description]
-     * @return {[type]}         [description]
+     * initialize
+     * @param  {Object} options
+     * @return {Object}
      */
     initialize: function(options) {
       this.setOptions(options);
@@ -41,8 +41,9 @@ define(function(require, exports, module) {
     },
 
     /**
-     * [_initLayout description]
-     * @return {[type]} [description]
+     * init layout
+     * @param {Object} opts
+     * @return {void}
      */
     _initLayout: function(opts) {
       _log.debug('initialize', opts);
@@ -58,9 +59,8 @@ define(function(require, exports, module) {
     },
 
     /**
-     * [_initEvents description]
-     * @param  {[type]} opts [description]
-     * @return {[type]}      [description]
+     * init events
+     * @return {void}
      */
     _initEvents: function() {
       var self = this;
@@ -83,15 +83,15 @@ define(function(require, exports, module) {
         self.fireEvent('drag');
       });
 
-
       (function() {
         self.fireEvent('drag');
       }).delay(1000);
     },
 
     /**
-     * [_initContainer description]
-     * @return {[type]} [description]
+     * init container
+     * @param {Object} opts
+     * @return {void}
      */
     _initContainer: function(opts) {
 
@@ -104,7 +104,7 @@ define(function(require, exports, module) {
         'class': 'layout-mask',
       }).inject(this.container);
 
-      //_log.debug('Layout container', this.container);
+      _log.debug('Layout container', this.container);
 
       this.container.addClass('ui-layout');
       this.container.addClass('layout-' + opts.node._name);
@@ -117,12 +117,15 @@ define(function(require, exports, module) {
     },
 
     /**
-     * [_process description]
-     * @param  {[type]} mnml [description]
-     * @return {[type]}      [description]
+     * process components
+     * @param  {Object} node
+     * @param  {string} type
+     * @param  {integer} level
+     * @return {void}
      */
     _processComponents: function(node, type, level) {
-      //_log.debug('_processComponents', node, type, level || 1);
+      _log.debug('_processComponents', node, type, level);
+
       var list = node._list || [];
 
       level = level++ || 1;
@@ -181,13 +184,13 @@ define(function(require, exports, module) {
     },
 
     /**
-     * [_initFlexDirection description]
-     * @param  {[type]} container [description]
-     * @param  {[type]} axis      [description]
-     * @return {[type]}           [description]
+     * init flex direction
+     * @param  {DOMElement} container
+     * @param  {string} axis
+     * @return {string}
      */
     _initFlexDirection: function(container, axis) {
-      //_log.debug('_initFlexDirection', container, axis);
+      _log.debug('_initFlexDirection', container, axis);
 
       if (!container) {
         return;
@@ -205,17 +208,21 @@ define(function(require, exports, module) {
     },
 
     /**
-     * [setDevice description]
-     * @param {[type]} device [description]
+     * set device
+     * @param {string} device
      */
     setDevice: function(device) {
-      //_log.debug('setDevice');
+      _log.debug('setDevice');
 
       this.device = device;
 
       this.fireEvent('device', device);
     },
 
+    /**
+     * destroy
+     * @return {void}
+     */
     destroy: function() {
       this.container.destroy();
     }
