@@ -78,6 +78,12 @@ define([
 		 * @param {string} state active/disable etc...
 		 */
 		setState: function(state) {
+			_log.debug('setState', state, this);
+
+			if (state === null) {
+				state = 'disabled';
+			}
+
 			this.element.removeClass('state-' + this.state);
 
 			if (state) {
@@ -139,7 +145,9 @@ define([
 		 * @return {void}
 		 */
 		_initState: function() {
-			this.setState(this.options.state);
+			if (this.options.state) {
+				this.setState(this.options.state);
+			}
 		},
 
 		/**
