@@ -26,7 +26,7 @@ define([
 		 * @return {boolean}
 		 */
 		isEnable: function() {
-			//_log.debug(this.state)
+			//_log.debug('isEnable', this);
 			if (this.state === 'disabled') {
 				return false;
 			} else {
