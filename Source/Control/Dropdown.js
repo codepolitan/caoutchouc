@@ -55,7 +55,9 @@ define(function(require, exports, module) {
 
       var opts = this.options;
 
-      if (!this.readonly) {
+      if (this.readonly) {
+        this.options.binding._list = [];
+      } else {
         this._initMenu(opts);
         this._initButton();
         this._initEvents();
