@@ -79,7 +79,9 @@ define(function(require, exports, module) {
 				type: 'text'
 			}).inject(this.element);
 
-			this.set(opts.value);
+			if (opts.value) {
+				this.set(opts.value);
+			}
 		},
 
 		/**
@@ -152,7 +154,7 @@ define(function(require, exports, module) {
 			_log.debug('set', d);
 
 			if (!d) {
-				_log.warn('missing string or wrong type');
+				_log.warn('missing date value', d);
 				return;
 			}
 
