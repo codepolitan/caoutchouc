@@ -6,22 +6,22 @@
  */
 define(function(require, exports, module) {
 
-	var _log = __debug('view-core-listV2-sort').defineLevel('debug');
+  var _log = __debug('view-core-listV2-sort').defineLevel('debug');
 
-	var Sort = new Class({
+  var Sort = new Class({
 
-		/**
-		 * initialize
-		 * @return {Object} this
-		 */
-		initialize: function() {
-			_log.debug('initialize');
+    /**
+     * initialize
+     * @return {Object} this
+     */
+    initialize: function() {
+      _log.debug('initialize');
 
-			return this;
-		}
+      return this;
+    }
 
-	});
+  });
 
-	module.exports = Sort;
+  module.exports = Sort;
 
 });
