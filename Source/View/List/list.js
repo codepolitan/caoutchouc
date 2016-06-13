@@ -655,7 +655,23 @@ define(function(require, exports, module) {
       );
     },
 
+    /**
+     * select next
+     * @return {void}
+     */
+    next: function() {
+      console.log('next');
 
+    },
+
+    /**
+     * select previous
+     * @return {void}
+     */
+    previous: function() {
+      console.log('previous');
+
+    },
 
 
     /*METHODS TO REVIEW*/
