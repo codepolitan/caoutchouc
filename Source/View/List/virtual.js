@@ -4,19 +4,81 @@
  * @class View.List.V2.Virtual
  * @author Bruno Santos, Jerome Vial
  * @description
- * 		1-receive a list of infos, a range and a count
- * 		2-reset all vars
- * 		3-calculate number of ranges
- * 		4-create ranges Els wrappers in memory
- * 		5-create a array with the size of the count and set undefined for missing infos
- * 		6-update range el with data
- * 		7-render current viewport
+ *    1-receive a list of infos, a range and a count
+ *    2-reset all vars
+ *    3-calculate number of ranges
+ *    4-create ranges Els wrappers in memory
+ *    5-create a array with the size of the count and set undefined for missing infos
+ *    6-update range el with data
+ *    7-render current viewport
  */
 define(function(require, exports, module) {
 
   var _log = __debug('view-core-listV2-virtual').defineLevel();
 
   var Virtual = new Class({
+
+    /**
+     * reset local variables
+     * @return {void}
+     */
+    _start: function() {
+      _log.debug('_start');
+
+      //total number of loaded infos
+      this.totalLoaded = 0;
+
+      //selected id
+      this.selectedId = undefined;
+
+      //save selected values in multi-select mode
+      this.multipleSelect = [];
+
+      //default item size
+      this.itemSize = 0;
+
+      //settings status (if has been set)
+      this.settingsReady = false;
+
+      //settings status (if has been set)
+      this.processModules = this.processModules || false;
+
+      //empty top reference
+      this.top = 0;
+
+      //list of infos ids
+      this.idsList = [];
+
+      //list of infos by order
+      this.virtualList = [];
+
+      //first range height
+      this.firstRangeHeight = 0;
+
+      //list of ranges height
+      this.rangesHeight = {};
+
+      //range els
+      this.rangeEl = {};
+
+      //number of ranges
+      this.ranges = [];
+
+      //count for virtual list
+      this.virtualSize = undefined;
+
+      //if the list is fully loaded
+      this.isFullyLoaded = false;
+
+      //current rendered ranges
+      this.renderedRanges = [];
+
+      this.lastSearch = undefined;
+
+      //cache list temporarily
+      this._tempCache = this._tempCache || [];
+      this._tempCount = this._tempCount || undefined;
+    },
 
     /**
      * used to set a complete list, can't set a range after
@@ -93,68 +155,6 @@ define(function(require, exports, module) {
     },
 
     /**
-     * reset local variables
-     * @return {void}
-     */
-    _start: function() {
-      _log.debug('_start');
-
-      //total number of loaded infos
-      this.totalLoaded = 0;
-
-      //selected id
-      this.selectedId = undefined;
-
-      //save selected values in multi-select mode
-      this.multipleSelect = [];
-
-      //default item size
-      this.itemSize = 0;
-
-      //settings status (if has been set)
-      this.settingsReady = false;
-
-      //settings status (if has been set)
-      this.processModules = this.processModules || false;
-
-      //empty top reference
-      this.top = 0;
-
-      //list of infos ids
-      this.idsList = [];
-
-      //list of infos by order
-      this.virtualList = [];
-
-      //first range height
-      this.firstRangeHeight = 0;
-
-      //list of ranges height
-      this.rangesHeight = {};
-
-      //range els
-      this.rangeEl = {};
-
-      //number of ranges
-      this.ranges = [];
-
-      //count for virtual list
-      this.virtualSize = undefined;
-
-      //if the list is fully loaded
-      this.isFullyLoaded = false;
-
-      //current rendered ranges
-      this.renderedRanges = [];
-
-      this.lastSearch = undefined;
-
-      //cache list temporarily
-      this._tempCache = this._tempCache || [];
-      this._tempCount = this._tempCount || undefined;
-    },
-
-    /**
      * set range
      * @param {Array} list
      * @param {number} range
@@ -206,7 +206,7 @@ define(function(require, exports, module) {
         this.rangesHeight[range] = undefined;
 
         /*if (!this.canvasReady) {
-        	this._initCanvas(el);
+          this._initCanvas(el);
         }*/
       }
 
@@ -215,9 +215,8 @@ define(function(require, exports, module) {
 
     /**
      * Process ranges
+     * create this.virtualList with undefined when there is no info,
      * @return {void}
-     * @description
-     * 	create this.virtualList with undefined when there is no info,
      */
     _updateVirtualList: function(list, range) {
       //_log.debug('update virtualList range:', range, 'length:', list.length);
@@ -241,7 +240,7 @@ define(function(require, exports, module) {
        * @ignore
        */
       /*function insertArrayAt(array, index, arrayToInsert) {
-      	Array.prototype.splice.apply(array, [index, 0].concat(arrayToInsert));
+        Array.prototype.splice.apply(array, [index, 0].concat(arrayToInsert));
       }*/
 
       //insertArrayAt(arr, idx, list);
