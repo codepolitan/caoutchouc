@@ -68,12 +68,12 @@ define(function(require, exports, module) {
 
       this.virtualSize = count;
 
-      /*num min of ranges is 1*/
+      //num min of ranges is 1
       this.ranges = Math.ceil(count / this.options.rangeSize) || 1;
 
       this._createRangesEls();
 
-      /*populate virtual list*/
+      //populate virtual list
       var arr = this.virtualList;
       while (arr.length < count) {
         arr.push(undefined);
@@ -99,52 +99,52 @@ define(function(require, exports, module) {
     _start: function() {
       _log.debug('_start');
 
-      /*total number of loaded infos*/
+      //total number of loaded infos
       this.totalLoaded = 0;
 
-      /*selected id*/
+      //selected id
       this.selectedId = undefined;
 
-      /*save selected values in multi-select mode*/
+      //save selected values in multi-select mode
       this.multipleSelect = [];
 
-      /*default item size*/
+      //default item size
       this.itemSize = 0;
 
-      /*settings status (if has been set)*/
+      //settings status (if has been set)
       this.settingsReady = false;
 
-      /*settings status (if has been set)*/
+      //settings status (if has been set)
       this.processModules = this.processModules || false;
 
-      /*empty top reference*/
+      //empty top reference
       this.top = 0;
 
-      /*list of infos ids*/
+      //list of infos ids
       this.idsList = [];
 
-      /*list of infos by order*/
+      //list of infos by order
       this.virtualList = [];
 
-      /*first range height*/
+      //first range height
       this.firstRangeHeight = 0;
 
-      /*list of ranges height*/
+      //list of ranges height
       this.rangesHeight = {};
 
-      /*range els*/
+      //range els
       this.rangeEl = {};
 
-      /*number of ranges*/
+      //number of ranges
       this.ranges = [];
 
-      /*count for virtual list*/
+      //count for virtual list
       this.virtualSize = undefined;
 
-      /*if the list is fully loaded*/
+      //if the list is fully loaded
       this.isFullyLoaded = false;
 
-      /*current rendered ranges*/
+      //current rendered ranges
       this.renderedRanges = [];
 
       this.lastSearch = undefined;
@@ -226,7 +226,7 @@ define(function(require, exports, module) {
 
       this.totalLoaded += list.length;
 
-      /*find index to start the insert*/
+      //find index to start the insert
       var rangeSize = this.options.rangeSize;
       var idx = (range * rangeSize) - rangeSize;
       if (arr[idx]) {
@@ -247,7 +247,7 @@ define(function(require, exports, module) {
       //insertArrayAt(arr, idx, list);
       Array.prototype.splice.apply(arr, [idx, list.length].concat(list));
 
-      /*update range el if not updated*/
+      //update range el if not updated
       for (var r = 1; r <= this.ranges; r++) {
         var index = (r * rangeSize) - rangeSize;
         if (!this.rangeEl[r].firstChild && this.virtualList[index]) {
@@ -306,13 +306,13 @@ define(function(require, exports, module) {
 
       var firstRangeEl = this.content.firstChild;
 
-      /*if list view is empty*/
+      //if list view is empty
       if (!firstRangeEl) {
         this._injectRange(range, 'first');
         return;
       }
 
-      /*take default size for item and set settings*/
+      //take default size for item and set settings
       if (this.itemSize === 0 && firstRangeEl && firstRangeEl.firstChild) {
         var item = firstRangeEl.firstChild;
         this.itemSize = item.getSize().y;
@@ -363,14 +363,14 @@ define(function(require, exports, module) {
       for (var key in rangesHeight) {
         total += rangesHeight[key];
 
-        /*range found if scrollTop is smaller than the total height*/
+        //range found if scrollTop is smaller than the total height
         if (scrollTop <= total) {
           range = parseInt(key, 10);
           ranges.push(range);
 
           //_log.debug('scrollTop', range, total, viewportHeight, scrollTop);
 
-          /*find transition from one range to another (display 2 ranges)*/
+          //find transition from one range to another (display 2 ranges)
           if (scrollTop + viewportHeight >= total) {
             ranges.push(range + 1);
           }
@@ -381,7 +381,7 @@ define(function(require, exports, module) {
         }
       }
 
-      /*temporary fix*/
+      //temporary fix
       if (!ranges.length) {
         ranges.push(1);
       }
