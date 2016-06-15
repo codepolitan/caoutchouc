@@ -73,6 +73,7 @@ define(function(require, exports, module) {
       selectable: true,
 
       template: {
+        _class: 'ui-item item-list',
         _type: 'simple',
         simple: '<div class="trunc">' +
           '<span class="small right">{{type}}</span><span class="name">{{name}}</span>' +
@@ -151,7 +152,7 @@ define(function(require, exports, module) {
     _initView: function() {
       this.parent();
 
-      this.getRange = this.getRange || function() {};
+      this.render = this.options.render || this.render;
 
       _log.debug('_initView', this.options);
 
@@ -330,7 +331,7 @@ define(function(require, exports, module) {
         return;
       }
 
-      var item = this._createEl(info);
+      var item = this.render(info, this);
 
       if (!item) {
         _log.warn('missing item el', item);
@@ -351,96 +352,22 @@ define(function(require, exports, module) {
     },
 
     /**
-     * create info element
+     * render info element
      * @param  {Object} info
      * @return {DOMElement}
      */
-    _createEl: function(info) {
-      _log.debug('_createEl', info);
-
-      var item;
-
-      /*clone obj because of mnml _process render*/
-      if (info) {
-        info = Object.clone(info);
-      }
-
-      var tmpl;
-      var tmplType = this.options.template._type;
+    render: function(info) {
       var opts = this.options;
-      if (this.templateFunction && opts.useTemplateModule === true) {
-        //get template from templateFunction
-        var result = this.templateFunction(info);
-
-        tmpl = result.key || result.type || result.default;
-        tmplType = this.nextTmpl || tmpl._type || tmplType;
-
-        //process info
-        info = this.processFunction(info);
-
-        //handle template v2
-        if (tmpl[tmplType] && typeof tmpl[tmplType] === 'object') {
-          var defaultTmpl = result.default[tmplType].tmpl;
-          var rendered = Mustache.render(defaultTmpl, tmpl[tmplType]);
-          tmpl[tmplType] = rendered;
-        }
-
-        tmpl = tmpl[tmplType] || tmpl[Object.keys(tmpl)[0]];
-      } else {
-        //process info
-        if (typeof this.processFunction === 'function') {
-          info = this.processFunction(info);
-        }
-        tmpl = opts.template[tmplType] || opts.template.simple;
-      }
-
-      if (!tmpl) {
-        _log.warn('missing tmpl', tmpl);
-        return;
-      }
-
-      //console.log('tmplType', tmplType, this);
+      var tmpl = opts.template[tmplType] || opts.template.simple;
 
       var content = Mustache.render(tmpl, info);
-
-      var klss = 'item-' + info.type + ' type-' + tmplType;
-
-      item = new Element('div', {
+      var _class = this.options.template._class;
+      var tmplType = this.options.template._type;
+      return new Element('div', {
         html: content,
         'data-id': info._id,
-        'class': 'ui-item item-list ' + klss
+        class: _class + ' type-' + tmplType + ' item-' + info.type
       });
-
-      return item;
-    },
-
-    _toggleList: function() {
-      var info = this.virtualList[0];
-
-      var result = this.templateFunction(info);
-
-      var obj = result.tmpl.key || result.tmpl.type || result.tmpl.default;
-
-      this.tmplUsed = this.tmplUsed || [];
-      this.nextTmpl = undefined;
-
-      for (var name in obj) {
-        if (name === '_type' || this.tmplUsed.indexOf(name) !== -1) {
-          continue;
-        } else {
-          this.tmplUsed.push(name);
-          this.nextTmpl = name;
-          break;
-        }
-      }
-
-      if (!this.nextTmpl) {
-        this.tmplUsed = [];
-      }
-
-      //console.log('_toggleList', this.nextTmpl, this.tmplUsed);
-
-      this._setList(this.virtualList);
     },
 
     /**

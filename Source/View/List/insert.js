@@ -101,7 +101,7 @@ define(function(require, exports, module) {
 
       //update element
       var oldEl = this._getElById(info._id);
-      var newEl = this._createEl(info);
+      var newEl = this.render(info, this);
       newEl.replaces(oldEl);
 
       //update virtualList
