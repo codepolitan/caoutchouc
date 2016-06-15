@@ -80,10 +80,6 @@ define([
 		setState: function(state) {
 			_log.debug('setState', state, this);
 
-			if (state === null) {
-				state = 'disabled';
-			}
-
 			this.element.removeClass('state-' + this.state);
 
 			if (state) {
