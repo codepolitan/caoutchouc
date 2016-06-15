@@ -140,7 +140,7 @@ define(function(require, exports, module) {
           'movedown': 'moveDown',
         },
         /*settings: {
-        	'select': 'settings.select',
+          'select': 'settings.select',
         }*/
       }
     },
@@ -344,8 +344,8 @@ define(function(require, exports, module) {
 
       /*this.ccc = this.ccc ||0;
       if(this.ccc % 2 == 0 && range % 2 == 0)
-      	item.destroy('height', '100px');
-      	//item.setStyle('height', '100px');
+        item.destroy('height', '100px');
+        //item.setStyle('height', '100px');
       this.ccc++;*/
 
       return item;
@@ -357,16 +357,23 @@ define(function(require, exports, module) {
      * @return {DOMElement}
      */
     render: function(info) {
+      //_log.debug('render', info);
       var opts = this.options;
+      var tmplType = opts.template._type;
       var tmpl = opts.template[tmplType] || opts.template.simple;
 
       var content = Mustache.render(tmpl, info);
       var _class = this.options.template._class;
-      var tmplType = this.options.template._type;
+      if (tmplType) {
+        _class += ' type-' + tmplType;
+      }
+      if (info.type) {
+        _class += ' item-' + info.type;
+      }
       return new Element('div', {
         html: content,
         'data-id': info._id,
-        class: _class + ' type-' + tmplType + ' item-' + info.type
+        class: _class
       });
     },
 
@@ -453,8 +460,8 @@ define(function(require, exports, module) {
       /*var index = this.list.indexOf(id);
 
       if (index < 0) {
-      	_log.warn('missing index to reveal');
-      	return;
+        _log.warn('missing index to reveal');
+        return;
       }
 
       this.scrollData(index);

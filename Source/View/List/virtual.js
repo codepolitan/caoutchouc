@@ -506,7 +506,14 @@ define(function(require, exports, module) {
       }
 
       return docs;
-    }
+    },
+
+    /**
+     * used by internal API
+     * new definition to prevent error
+     * @return {void}
+     */
+    getRange: function() {},
 
   });
 
