@@ -161,10 +161,9 @@ define(function(require, exports, module) {
      * @return {void}
      */
     _setRange: function(list, range) {
-      _log.debug('set range', range, 'with', list.length, 'infos');
+      //_log.debug('set range', range, 'with', list.length, 'infos');
 
       this._updateVirtualList(list, range);
-      //this._updateRangeEl(range);
       this._renderViewport(range);
 
       if (list.length && this.settingsReady === false) {
@@ -194,7 +193,7 @@ define(function(require, exports, module) {
     _createRangesEls: function() {
       var ranges = this.ranges;
 
-      _log.debug('_createRangesEls', ranges);
+      //_log.debug('_createRangesEls', ranges);
 
       for (var range = 1; range <= ranges; range++) {
         var el = new Element('div', {
@@ -209,8 +208,6 @@ define(function(require, exports, module) {
           this._initCanvas(el);
         }*/
       }
-
-      //_log.debug('rangeEl', this.rangeEl, this.rangesHeight);
     },
 
     /**
@@ -236,25 +233,8 @@ define(function(require, exports, module) {
         }
       }
 
-      /**
-       * @ignore
-       */
-      /*function insertArrayAt(array, index, arrayToInsert) {
-        Array.prototype.splice.apply(array, [index, 0].concat(arrayToInsert));
-      }*/
-
-      //insertArrayAt(arr, idx, list);
+      //insert array at a specific index
       Array.prototype.splice.apply(arr, [idx, list.length].concat(list));
-
-      //update range el if not updated
-      for (var r = 1; r <= this.ranges; r++) {
-        var index = (r * rangeSize) - rangeSize;
-        if (!this.rangeEl[r].firstChild && this.virtualList[index]) {
-          this._updateRangeEl(r);
-        }
-      }
-
-      //_log.debug('virtualList', list.length, range, this.virtualList.length);
     },
 
     /**
@@ -264,8 +244,6 @@ define(function(require, exports, module) {
      * @return {void}
      */
     _updateRangeEl: function(range, list) {
-      list = list || this._getListByRange(range);
-
       var rangeEl = this.rangeEl[range];
 
       if (!rangeEl) {
@@ -275,7 +253,7 @@ define(function(require, exports, module) {
 
       rangeEl.empty();
 
-      _log.debug('update range el', rangeEl, list.length);
+      //_log.debug('update range el', range, list.length);
 
       for (var i = 0, leng = list.length; i < leng; i++) {
         var info = list[i];
@@ -440,6 +418,14 @@ define(function(require, exports, module) {
         return;
       }
 
+      if (!rangeEl.firstChild) {
+        var list = this._getListByRange(range);
+        if (!list[0]) {
+          return;
+        }
+        this._updateRangeEl(range, list);
+      }
+
       rangeEl.inject(this.content);
 
       var rangeHeight = this.rangesHeight[range];
@@ -513,7 +499,7 @@ define(function(require, exports, module) {
       var from = (range * rangeSize) - rangeSize;
       var docs = this.virtualList.slice(from, from + rangeSize);
 
-      _log.debug('_getListByRange', range, docs.length);
+      //_log.debug('_getListByRange', range, docs.length);
 
       if (!docs.length || docs[0] === undefined) {
         this.getRange(range);
