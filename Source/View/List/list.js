@@ -380,16 +380,16 @@ define(function(require, exports, module) {
       var tmplType = opts.template._type;
       var tmpl = opts.template[tmplType] || opts.template.simple;
 
-      var content = Mustache.render(tmpl, info);
-      var _class = this.options.template._class;
+      var _class = opts.template._class;
       if (tmplType) {
         _class += ' type-' + tmplType;
       }
       if (info.type) {
         _class += ' item-' + info.type;
       }
+
       return new Element('div', {
-        html: content,
+        html: Mustache.render(tmpl, info),
         'data-id': info._id,
         class: _class
       });
