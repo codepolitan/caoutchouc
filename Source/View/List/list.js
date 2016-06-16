@@ -75,8 +75,10 @@ define(function(require, exports, module) {
       template: {
         _class: 'ui-item item-list',
         _type: 'simple',
-        simple: '<div class="trunc">' +
-          '<span class="small right">{{type}}</span><span class="name">{{name}}</span>' +
+        simple: '' +
+          '<div class="trunc">' +
+          '  <span class="small right">{{type}}</span>' +
+          '  <span class="name">{{name}}</span>' +
           '</div>',
       },
 
