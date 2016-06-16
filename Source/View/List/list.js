@@ -72,6 +72,14 @@ define(function(require, exports, module) {
 
       selectable: true,
 
+      /*background: '' +
+        'url("data:image/svg+xml;utf8,' +
+        '<svg xmlns=\'http://www.w3.org/2000/svg\'' +
+        'width=\'100\' height=\'SIZE\'>' +
+        '  <line x1=\'0\' y1=\'SIZE\' x2=\'100\' y2=\'SIZE\'' +
+        '  style=\'stroke:rgb(243, 243, 243);stroke-width:1\' />' +
+        '</svg>")',*/
+
       template: {
         _class: 'ui-item item-list',
         _type: 'simple',
@@ -114,7 +122,15 @@ define(function(require, exports, module) {
       },
 
       controller: {
-        _list: ['view', 'search', 'expand', 'position', 'filter', /*'sort', 'position'*/ ],
+        _list: [
+          'view',
+          'search',
+          'expand',
+          'position',
+          'filter',
+          /*'sort',
+          'position'*/
+        ],
         view: {
           'element.scroll': '_scroll',
           'element.click': '_elementDidClick',
@@ -579,18 +595,6 @@ define(function(require, exports, module) {
       }
     },
 
-    isElementInViewport: function(el) {
-
-      var rect = el.getBoundingClientRect();
-
-      return (
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /*or $(window).height() */
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth) /*or $(window).width() */
-      );
-    },
-
     /**
      * select next
      * @return {void}
@@ -621,13 +625,8 @@ define(function(require, exports, module) {
 
       return;
 
-      var size = this.itemSize;
-
-      //rgb(243, 243, 243)
-      this.content.style.backgroundImage = 'url("data:image/svg+xml;utf8,' +
-        "<svg xmlns='http://www.w3.org/2000/svg' width='100' height='" + size + "'>" + //jshint ignore:line
-        "<line x1='0' y1='" + size + "' x2='100' y2='" + size + "' style='stroke:rgb(243, 243, 243);stroke-width:1' />" + //jshint ignore:line
-        '</svg>")';
+      var background = this.options.background.replace('SIZE', this.itemSize);
+      this.content.style.backgroundImage = background;
     },
 
     /**
