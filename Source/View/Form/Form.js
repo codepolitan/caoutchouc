@@ -993,7 +993,10 @@ define(function(require, exports, module) {
 
 			//_log.debug('type', type);
 
-			this.sandbox.getDataType(type, 'form', function() {
+			var get = {};
+			get[type] = ['form'];
+
+			this.sandbox.getDatatype(get, function() {
 
 				var process = require('config/data/type/' + type + '/_process');
 				if (process && process.new) {
