@@ -280,7 +280,7 @@ define(function(require, exports, module) {
         case 'status':
           return this.setStatus(value);
         case 'searchValue':
-          return this._setSearchValue(value);
+          return this.setSearch(value);
         case 'selected':
           return this.select(value);
         default:
