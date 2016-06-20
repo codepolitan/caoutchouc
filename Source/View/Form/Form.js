@@ -1453,7 +1453,16 @@ define(function(require, exports, module) {
 			this.mode = mode;
 		},
 
-
+		/**
+		 * remove info
+		 * @param  {Object} info
+		 * @return {void}
+		 */
+		remove: function(info) {
+			if (this.doc && info._id === this.doc._id) {
+				this.form.empty();
+			}
+		},
 
 		/**
 		 * Actually hide the form of the view
