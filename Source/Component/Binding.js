@@ -237,9 +237,9 @@
 				//_log.debug('bind val', val);
 				listenerCtx.addEvent(ev, boundCtx.fireEvent.bind(boundCtx, emit));
 				// keep track of the binding
-				this.binding[ev] = event;
+				//this.binding[ev] = event;
 			} else if (listenerCtx && listenerCtx.on && boundCtx && boundCtx.fireEvent) {
-				this.binding[ev] = event;
+				//this.binding[ev] = event;
 				listenerCtx.on(ev, boundCtx.fireEvent.bind(boundCtx, emit));
 			} else {
 				_log.warn('missing context or method', listenerCtx, val, this);
