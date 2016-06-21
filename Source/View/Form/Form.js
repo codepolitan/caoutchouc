@@ -2,7 +2,7 @@
  * Form Management
  * @class View.Form
  * @extends {View}
- * @author Jerome Vial
+ * @author Bruno Santos, Jerome Vial
  */
 define(function(require, exports, module) {
 

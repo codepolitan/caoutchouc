@@ -1,89 +1,94 @@
 /**
- * Validator related method for Insp
+ * Manage errors
+ * @author Bruno Santos, Jerome Vial
  */
-define([
-	'UI/Window/Dialog'
-], function(
-	Dialog
-) {
+define(function(require, exports, module) {
 
-	var _log = __debug('view:form-validator');
+  var Dialog = require('UI/Window/Dialog');
 
-    var exports = new Class({
+  var _log = __debug('view:form-validator');
 
-		/**
-		 * [showErrors description]
-		 * @param  {[type]} error [description]
-		 * @return {[type]}       [description]
-		 */
-		showErrors: function (info, obj) {
-			'use strict';
-			_log.debug('showErrors', info, obj);
+  var Validator = new Class({
 
-			if (info._id !== this.doc._id) return;
+    /**
+     * show errors
+     * @param  {Object} info
+     * @param  {Object} obj
+     * @return {void}
+     */
+    showErrors: function(info, obj) {
+      'use strict';
+      _log.debug('showErrors', info, obj);
 
-			var self = this;
-			var error = obj.errors;
-			this.errorEls = this.errorEls || [];
+      if (info._id !== this.doc._id) {
+        return;
+      }
 
-			for (var i = 0; i < this.errorEls.length; i++) {
-				this.errorEls[i].removeClass('field-error');
-			}
+      var self = this;
+      var error = obj.errors;
+      this.errorEls = this.errorEls || [];
 
-			this.errorEls = [];
+      for (var i = 0; i < this.errorEls.length; i++) {
+        this.errorEls[i].removeClass('field-error');
+      }
 
-			var fields = [];
-			var text = '';
-			error.map(function(item) {
-				//_log.debug('error', item, field);
+      this.errorEls = [];
 
-				//fields.push(item.params.key || item.dataPath.substring(1));
-				var path = item.dataPath.substring(1);
-				path = path.replace('/', '.');
-				var key = item.params.key;
-				var field = key;
-				if (path && key) field = path + '.' + key;
-				else if (!key) field = path;
+      var fields = [];
+      var text = '';
+      error.map(function(item) {
+        //_log.debug('error', item, field);
 
-				fields.push(field);
+        //fields.push(item.params.key || item.dataPath.substring(1));
+        var path = item.dataPath.substring(1);
+        path = path.replace('/', '.');
+        var key = item.params.key;
+        var field = key;
+        if (path && key) {
+          field = path + '.' + key;
+        } else if (!key) {
+          field = path;
+        }
 
-				var fieldEl = self.field[field];
-				if (fieldEl) {
-					fieldEl.setError(item.message );
-				}
+        fields.push(field);
 
-				text += item.message + '<br>';
-			});
+        var fieldEl = self.field[field];
+        if (fieldEl) {
+          fieldEl.setError(item.message);
+        }
 
-			//_log.debug('fields', fields);
+        text += item.message + '<br>';
+      });
 
-			var errorsWithoutEl = [];
+      //_log.debug('fields', fields);
 
-			for (var j = 0; j < fields.length; j++) {
-				var el = this.element.getElement('[for=' + fields[j] + ']');
-				if (el) {
-					this.errorEls.push(el.parentNode);
-					el.parentNode.addClass('field-error');
-				} else {
-					errorsWithoutEl.push(fields[j]);
-				}
-			}
+      var errorsWithoutEl = [];
 
-			if (errorsWithoutEl.length) {
-				new Dialog({
-					message: 'There is a problem with the following fields: ' + errorsWithoutEl.join(' '),
-					alert: true
-				});
-			}
+      for (var j = 0; j < fields.length; j++) {
+        var el = this.element.getElement('[for=' + fields[j] + ']');
+        if (el) {
+          this.errorEls.push(el.parentNode);
+          el.parentNode.addClass('field-error');
+        } else {
+          errorsWithoutEl.push(fields[j]);
+        }
+      }
 
-			/*this.sandbox.message({
-				title: error.message,
-				message: text
-			});*/
-		}
+      if (errorsWithoutEl.length) {
+        new Dialog({
+          message: 'There is a problem with the following fields: ' + errorsWithoutEl.join(' '),
+          alert: true
+        });
+      }
 
-    });
+      /*this.sandbox.message({
+      	title: error.message,
+      	message: text
+      });*/
+    }
 
-    return exports;
+  });
+
+  module.exports = Validator;
 
 });
