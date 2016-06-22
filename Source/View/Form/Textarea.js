@@ -127,7 +127,7 @@ define(function(require, exports, module) {
       });
     },
 
-    _initHTMLField: function(field, textarea) {
+    /*_initHTMLField: function(field, textarea) {
       var self = this;
 
       _log.debug('_initHTMLField', field, textarea);
@@ -174,7 +174,7 @@ define(function(require, exports, module) {
 
       /*this.ckeInstances = this.ckeInstances ||  [];
 
-      this.ckeInstances.push(editor);*/
+      this.ckeInstances.push(editor);*
 
       editor.on('change', function() {
         self.updateDocKey(field.name, textarea.get('value'));
@@ -182,7 +182,7 @@ define(function(require, exports, module) {
         self.fireEvent('change', [textarea.get('name'), textarea.get('value')]);
         self._updateHTMLField(textarea);
       });
-    },
+    },*/
 
     /**
      * Initialize html field using CKEDITOR.inline
@@ -201,7 +201,7 @@ define(function(require, exports, module) {
         this.ckeToolbar = new Element('div', {
           id: 'ck-toolbar',
           class: 'ui-toolbar toolbar-cke'
-        }).inject(this.container.foot, 'before');
+        }).inject(this.container.head, 'after');
       }
 
       // Loads the sharedspace plugin from /vendor/sharedspace/
