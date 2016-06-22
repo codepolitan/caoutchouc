@@ -1,9 +1,8 @@
 /**
-* Minimalistic Implement for Minimal.Form Class
-*
-* @implement Minimal.Form
-* @author Jerome Vial, Bruno Santos
-*/
+ * Minimalistic Implement for Minimal.Form Class
+ * @implement Minimal.Form
+ * @author Jerome Vial, Bruno Santos
+ */
 
 define([
 
@@ -11,38 +10,37 @@ define([
 
 ) {
 
-	var _log = __debug('view:form-iframe');
+  var _log = __debug('view:form-iframe');
 
-    var exports = new Class({
+  var exports = new Class({
 
-		options: {
-			iframe: {
-			}
-		},
+    options: {
+      iframe: {}
+    },
 
-		_initIframe: function(field, doc, group) {
-			var self = this;
+    _initIframe: function(field, doc, group) {
+      var self = this;
 
-			var value = this.getValueFromKey(field.name, doc);
+      var value = this.getValueFromKey(field.name, doc);
 
-			var iframe = new IFrame({
-				'class': 'txt',
-				name: field.name,
-				styles: {
-					height: 1000
-				}
-			}).inject(group);
+      var iframe = new IFrame({
+        'class': 'txt',
+        name: field.name,
+        styles: {
+          height: 1000
+        }
+      }).inject(group);
 
-			var win = iframe.contentWindow,
-	   			document = win.document;
+      var win = iframe.contentWindow,
+        document = win.document;
 
-	   		document.open();
-			document.write(value);
+      document.open();
+      document.write(value);
 
-		}
+    }
 
-    });
+  });
 
-    return exports;
+  return exports;
 
 });
