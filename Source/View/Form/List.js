@@ -3,17 +3,14 @@
  * @implement Minimal.Form
  * @author Jerome Vial, Bruno Santos
  */
-define([
-  'UI/Control/Button',
-  'UI/Control/Field'
-], function(
-  Button,
-  Field
-) {
+define(function(require, exports, module) {
+
+  var Button = require('UI/Control/Button');
+  var Field = require('UI/Control/Field');
 
   var _log = __debug('view:form-list');
 
-  var exports = new Class({
+  var List = new Class({
 
     /**
      * To display a list of objects
@@ -71,7 +68,7 @@ define([
       var obj = info[field.name];
       var target;
 
-      if (field.opts.type == 'list') {
+      if (field.opts.type === 'list') {
         var fields = [];
 
         for (var i = 0; i < obj.length; i++) {
@@ -79,7 +76,7 @@ define([
         }
 
         target = fields;
-      } else if (field.opts.type == 'keys') {
+      } else if (field.opts.type === 'keys') {
         target = obj;
       }
 
@@ -88,7 +85,7 @@ define([
       var read = this.isReadOnly(field);
 
       if (!read) {
-        var addBtn = new Button({
+        new Button({
           icon: 'icon-plus-circle',
           name: 'add',
           klss: 'button-inline',
@@ -96,7 +93,7 @@ define([
           text: 'add...',
           emit: 'attachItem',
         }).inject(group).addEvent('attachItem', function() {
-          if (field.opts.type == 'list') {
+          if (field.opts.type === 'list') {
             var name = 'item' + self.doc[field.name].length;
 
 
@@ -104,7 +101,7 @@ define([
             self.doc[name] = {};
 
             self._setInfo(self.doc, self.originalMask);
-          } else if (field.opts.type == 'keys') {
+          } else if (field.opts.type === 'keys') {
 
             var display = field.opts.display;
             var o = {};
@@ -174,7 +171,7 @@ define([
           icon: 'icon-times-circle',
           emit: 'remove'
         }).inject(line, 'top').addEvent('press', function() {
-          self._moveRelatedItem(type, id, 'up');
+          //self._moveRelatedItem(type, id, 'up');
           self.fireEvent('relatedItemRUp', info._id);
         });
 
@@ -185,11 +182,11 @@ define([
           icon: 'icon-times-circle',
           emit: 'remove'
         }).inject(line, 'top').addEvent('press', function() {
-          self._moveRelatedItem(type, id, 'down');
+          //self._moveRelatedItem(type, id, 'down');
           self.fireEvent('relatedItemRUp', info._id);
         });
 
-        var remove = new Button({
+        new Button({
           'clss': 'right',
           type: 'icon',
           name: 'clear',
@@ -199,16 +196,6 @@ define([
           self._removeItems(item, field);
           self.fireEvent('relatedItemRemoved', info._id);
         });
-
-        /*			var remove = new Button({
-        				'clss': 'right',
-        				type: 'icon',
-        				name: 'deleteItem',
-        				icon: 'icon-times-circle',
-        				emit: 'remove'
-        			}).inject(line).addEvent('remove', function() {
-        				self._removeItems(item, field);
-        			});*/
       }
     },
 
@@ -233,14 +220,16 @@ define([
 
       var read = this.isReadOnly(field);
 
-      if (!read) opts.contenteditable = "true";
+      if (!read) {
+        opts.contenteditable = 'true';
+      }
 
       var el = new Field(opts).inject(line);
 
       //var el = new Element('div', opts).inject(line);
 
       el.input.addEvents({
-        keyup: function(ev) {
+        keyup: function() {
           _log.debug('keyup', item, d, this.get('value'));
           item[d] = this.get('value');
 
@@ -263,7 +252,7 @@ define([
     _removeItems: function(item, field) {
       var list = this.doc[field.name];
 
-      if (field.opts.type == 'list') {
+      if (field.opts.type === 'list') {
         for (var key in this.doc) {
           if (this.doc[key] === item) {
             var idx = this.doc[field.name].indexOf(key);
@@ -273,7 +262,9 @@ define([
         }
       } else {
         for (var i = 0; i < list.length; i++) {
-          if (list[i] === item) list.splice(i, 1);
+          if (list[i] === item) {
+            list.splice(i, 1);
+          }
         }
       }
 
@@ -283,6 +274,6 @@ define([
 
   });
 
-  return exports;
+  module.exports = List;
 
 });
