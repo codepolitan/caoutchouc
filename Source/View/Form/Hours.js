@@ -3,17 +3,14 @@
  * @implement Minimal.Form
  * @author Jerome Vial, Bruno Santos
  */
-
 define([
   'UI/Control/Date',
   'UI/Control/Hour',
-  'moment',
-  'Core/Module/Settings/Settings'
+  'moment'
 ], function(
   DateControl,
   HourControl,
-  moment,
-  settings
+  moment
 ) {
 
   var _log = __debug('view:form-hours');
@@ -31,7 +28,7 @@ define([
       _log.debug('_initHours', field);
       var self = this;
 
-      var lang = settings.get('space').lang || 'en';
+      var lang = this.options.lang;
       moment.lang(lang);
       //_log.debug(doc[field.name]);
 

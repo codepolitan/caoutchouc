@@ -7,14 +7,12 @@ define([
   'moment',
   'UI/Control/Date',
   'UI/Control/Field',
-  'UI/Control/Button',
-  'Core/Module/Settings/Settings'
+  'UI/Control/Button'
 ], function(
   moment,
   DateControl,
   FieldControl,
-  ButtonControl,
-  settings
+  ButtonControl
 ) {
 
   var _log = __debug('view-form-date').defineLevel();
@@ -36,11 +34,7 @@ define([
 
       var format = opts.format || this.options.dateTime.format;
 
-      //we should handle this differently the form should receive the lang
-      var lang = 'en';
-      if (settings) {
-        lang = settings.get('space').lang || 'en';
-      }
+      var lang = this.options.lang;
 
       moment.lang(lang);
       //_log.debug(doc[key.name]);
@@ -51,8 +45,8 @@ define([
       var value = this.getValueFromKey(key.name, doc);
 
       /*if (!value) {
-      	value = moment().toISOString();
-      	this.updateDocKey(key.name, value);
+        value = moment().toISOString();
+        this.updateDocKey(key.name, value);
       }*/
 
       //check if end date is not greater that start date
@@ -159,11 +153,7 @@ define([
 
       var format = opts.format || this.options.dateTime.format;
 
-      //we should handle this differently the form should receive the lang
-      var lang = 'en';
-      if (settings) {
-        lang = settings.get('space').lang || 'en';
-      }
+      var lang = this.options.lang;
 
       moment.lang(lang);
       //_log.debug(doc[field.name]);
@@ -228,12 +218,12 @@ define([
       }
 
       /*input.input.addEvents({
-				keyup: function() {
-					self.doc[this.get('name')] = this.get('value');
-					self.fireEvent('change', [this.get('name'), this.get('value')]);
-				}
-			});
-	*/
+        keyup: function() {
+          self.doc[this.get('name')] = this.get('value');
+          self.fireEvent('change', [this.get('name'), this.get('value')]);
+        }
+      });
+  */
       //_log.debug('-|x-', date);
 
       var options = {
@@ -384,12 +374,12 @@ define([
       }).addClass('button-remove');
 
       /*new Picker.Date(end.input, {
-				timePicker: true,
-				positionOffset: {x: 5, y: 0},
-				pickerClass: 'datepicker_dashboard',
-				useFadeInOut: !Browser.ie
-			});
-	*/
+        timePicker: true,
+        positionOffset: {x: 5, y: 0},
+        pickerClass: 'datepicker_dashboard',
+        useFadeInOut: !Browser.ie
+      });
+  */
     },
 
     /**

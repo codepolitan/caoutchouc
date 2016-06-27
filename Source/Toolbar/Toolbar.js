@@ -10,13 +10,13 @@ define(function(require, exports, module) {
   var mdiIconConfig = require('config/icon/mdi');
   var langControlsConfigEn = require('config/sys/lang/control/en');
   var langControlsConfigFr = require('config/sys/lang/control/fr');
-  var settings = require('Core/Module/Settings/Settings');
 
   var _log = __debug('core-module-toolbar').defineLevel();
 
   var Toolbar = new Class({
 
     options: {
+      lang: 'en',
       toolbar: {
         role: 'admin'
       }
@@ -176,10 +176,7 @@ define(function(require, exports, module) {
         opts.icon = mdiIconConfig[icon] || fontIconConfig[icon] || 'mdi-action-help';
       }
 
-      var lang = 'en';
-      if (settings && settings.getLang) {
-        lang = settings.getLang() || 'en';
-      }
+      var lang = this.options.lang;
 
       if (!this.langControl[lang]) {
         lang = 'en';

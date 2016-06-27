@@ -44,6 +44,7 @@ define(function(require, exports, module) {
 			lib: 'ui',
 			base: 'view',
 			clss: 'view',
+			lang: 'en',
 
 			content: true,
 
@@ -175,6 +176,7 @@ define(function(require, exports, module) {
 			this._initContainer();
 
 			if (opts.toolbar) {
+				opts.toolbar.lang = this.options.lang;
 				this._initToolbar(opts.toolbar);
 			}
 
