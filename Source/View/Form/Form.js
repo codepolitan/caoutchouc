@@ -1391,14 +1391,12 @@ define(function(require, exports, module) {
     },
 
     /**
-     * [apply description]
-     * @return {[type]} [description]
+     * API to save info
+     * remove mode and hide dialog toolbar
+     * @return {void}
      */
-    apply: function(value) {
-      //_log.debug('form apply', value);
-
-      /*if (this.cke)
-      	this._updateHTMLField(this.cke);*/
+    apply: function() {
+      _log.debug('apply');
 
       if (this.toolbar.dialog) {
         this.toolbar.dialog.hide();
