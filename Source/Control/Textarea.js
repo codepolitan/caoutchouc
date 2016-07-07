@@ -28,115 +28,115 @@
  * @type {Class}
  */
 define([
-	"UI/Control/Field"
+  "UI/Control/Field"
 ], function(
-	Field
+  Field
 ) {
 
-	var _log = __debug('ui:textarea');
+  var _log = __debug('ui:textarea');
 
-	var exports = new Class({
+  var exports = new Class({
 
-		Extends: Field,
+    Extends: Field,
 
-		options: {
-			name: 'textarea',
+    options: {
+      name: 'textarea',
 
-			// default options
-			name: 'ui-input',
-			value: '',
-			binding: {
-				_list: ['input', 'button'],
-				input: {
-					'input.mousedown': '_onMouseDown',
-					'input.keydown': '_updateInk',
-					'input.keyup': '_updateInk'
-				},
-				button: {
-					//'button.press': '_onButtonPress'
-				}
-			}
-		},
-
-
-		/**
-		 * [_initInput description]
-		 * @return {[type]} [description]
-		 */
-		_initInput: function()  {
-			_log.debug('_initInput');
-			var	opts = this.options;
-
-			var input = this.input = new Element('textarea', {
-				name: opts.name,
-				placeholder: opts.text,
-				type: opts.type,
-				value: opts.value
-			}).inject(this.element);
-
-			if (this.readonly) {
-				this.input.set('readonly', true);
-				this.input.set('tabeindex', '-1');
-			}
-
-			if (opts.klss)
-				this.input.addClass(opts.klss);
-
-			this._initAutogrow(input);
-		},
+      // default options
+      name: 'ui-input',
+      value: '',
+      binding: {
+        _list: ['input', 'button'],
+        input: {
+          'input.mousedown': '_onMouseDown',
+          'input.keydown': '_updateInk',
+          'input.keyup': '_updateInk'
+        },
+        button: {
+          //'button.press': '_onButtonPress'
+        }
+      }
+    },
 
 
-		/**
-		 * [_initAutogrow description]
-		 * @param  {[type]} input [description]
-		 * @return {[type]}       [description]
-		 */
-		_initAutogrow: function(input) {
-			var self = this;
+    /**
+     * [_initInput description]
+     * @return {[type]} [description]
+     */
+    _initInput: function() {
+      _log.debug('_initInput');
+      var opts = this.options;
 
-			clearTimeout(this.autogrowTimeout);
+      var input = this.input = new Element('textarea', {
+        name: opts.name,
+        placeholder: opts.text,
+        type: opts.type,
+        value: opts.value
+      }).inject(this.element);
 
-			this.autogrowTimeout = setTimeout(function() {
-				var autogrow = new Form.AutoGrow(input, {
-					minHeightFactor: 1
-				});
-				input.store('autogrow', autogrow);
+      if (this.readonly) {
+        this.input.set('readonly', true);
+        this.input.set('tabeindex', '-1');
+      }
 
-				input.addEvent('focus', function() {
-					autogrow.resize();
-				});
-			}, 200);
-		},
+      if (opts.klss)
+        this.input.addClass(opts.klss);
 
-		/**
-		 *           
-		 * @return {[type]} [description]
-		 */
-		_updateInk: function(e) {
-			//_log.debug('_updateInk');
+      this._initAutogrow(input);
+    },
 
-			if (this.readonly) {
-				e.stop();
-				return;
-			}
 
-			if (this._setInk)
-				this._setInk(1);
-		},
+    /**
+     * [_initAutogrow description]
+     * @param  {[type]} input [description]
+     * @return {[type]}       [description]
+     */
+    _initAutogrow: function(input) {
+      var self = this;
 
-		/**
-		 * [_initEvents description]
-		 * @return {[type]} [description]
-		 */
-		_initEvents: function(){
-			this.parent();
+      clearTimeout(this.autogrowTimeout);
 
-			this.addEvents({
-				blur: this.setState.bind(this, 'default'),
-				focus: this.setState.bind(this, 'focus')
-			});
-		}
-	});
+      this.autogrowTimeout = setTimeout(function() {
+        var autogrow = new Form.AutoGrow(input, {
+          minHeightFactor: 1
+        });
+        input.store('autogrow', autogrow);
 
-	return exports;
+        input.addEvent('focus', function() {
+          autogrow.resize();
+        });
+      }, 200);
+    },
+
+    /**
+     *           
+     * @return {[type]} [description]
+     */
+    _updateInk: function(e) {
+      //_log.debug('_updateInk');
+
+      if (this.readonly) {
+        e.stop();
+        return;
+      }
+
+      if (this._setInk)
+        this._setInk(1);
+    },
+
+    /**
+     * [_initEvents description]
+     * @return {[type]} [description]
+     */
+    _initEvents: function() {
+      this.parent();
+
+      this.addEvents({
+        blur: this.setState.bind(this, 'default'),
+        focus: this.setState.bind(this, 'focus')
+      });
+    }
+  });
+
+  return exports;
 });

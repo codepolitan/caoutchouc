@@ -4,91 +4,91 @@
  * @author Bruno Santos, Jerome Vial
  */
 define([
-	'config/ui/control/base',
-	'UI/Component/Component',
-	'UI/Control/Button'
+  'config/ui/control/base',
+  'UI/Component/Component',
+  'UI/Control/Button'
 ], function(
-	uiControlBaseConfig,
-	Component
+  uiControlBaseConfig,
+  Component
 ) {
 
-	var exports = UI.Toolbar = new Class({
+  var exports = UI.Toolbar = new Class({
 
-		Extends: Component,
+    Extends: Component,
 
-		name: 'toolbar',
+    name: 'toolbar',
 
-		options: {
-			base: 'component',
-			name: 'toolbar'
-		},
+    options: {
+      base: 'component',
+      name: 'toolbar'
+    },
 
-		/*
-		Function: _initElement
-			private function
+    /*
+    Function: _initElement
+    	private function
 
-			Call UI.Component _initElement, then create a menu wrapper
+    	Call UI.Component _initElement, then create a menu wrapper
 
-		Return:
-			(void)
+    Return:
+    	(void)
 
-		See also:
-			<UI.Component::_initElement>
-		*/
-		_initElement: function() {
-			this.parent();
+    See also:
+    	<UI.Component::_initElement>
+    */
+    _initElement: function() {
+      this.parent();
 
-			this._initComponent();
-		},
+      this._initComponent();
+    },
 
-		/*
-		Function: _initComponent
-			private function
+    /*
+    Function: _initComponent
+    	private function
 
-			Process the node object and inject the initialized component in the content of the container.
+    	Process the node object and inject the initialized component in the content of the container.
 
-		Return:
-			(void)
+    Return:
+    	(void)
 
-		Note:
-			Override UI.Component._initComponent
+    Note:
+    	Override UI.Component._initComponent
 
-		See also:
-			<UI.Component::_initHead>
-		*/
-		_initComponent: function() {
-			var self = this;
-			var opts = this.options;
-			var element = this.element;
+    See also:
+    	<UI.Component::_initHead>
+    */
+    _initComponent: function() {
+      var self = this;
+      var opts = this.options;
+      var element = this.element;
 
-			this.control = {};
+      this.control = {};
 
-			if (opts.comp.klss) {
-				element.addClass(opts.comp.klss);
-			}
+      if (opts.comp.klss) {
+        element.addClass(opts.comp.klss);
+      }
 
-			element.addClass('toolbar-' + opts.comp.name);
+      element.addClass('toolbar-' + opts.comp.name);
 
-			opts.comp.list.each(function(n) {
-				_log.debug('---', n, uiControlBaseConfig);
-				var comp = uiControlBaseConfig[n];
+      opts.comp.list.each(function(n) {
+        _log.debug('---', n, uiControlBaseConfig);
+        var comp = uiControlBaseConfig[n];
 
-				if (comp) {
-					var clss = comp.clss || Button;
-					var opts = comp.opts || {};
-					self.control[n] = new clss(opts).inject(element).addEvents({
-						click: function() {
-							if (self.control[n].isEnable()) {
-								self.fireEvent('emit', n);
-							}
-						}
-					});
-				}
-			});
-		}
+        if (comp) {
+          var clss = comp.clss || Button;
+          var opts = comp.opts || {};
+          self.control[n] = new clss(opts).inject(element).addEvents({
+            click: function() {
+              if (self.control[n].isEnable()) {
+                self.fireEvent('emit', n);
+              }
+            }
+          });
+        }
+      });
+    }
 
-	});
+  });
 
-	return exports;
+  return exports;
 
 });

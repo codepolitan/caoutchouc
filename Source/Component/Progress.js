@@ -1,70 +1,69 @@
-
 /**
  * UI Component Progress
  * @class UI.Component.Progress
  * @author Bruno Santos, Jerome Vial
  */
 define([
-	"UI/Component/Component"
+  "UI/Component/Component"
 ], function(
-	Component
+  Component
 ) {
 
-	var exports = new Class({
+  var exports = new Class({
 
-		Extends: Component,
+    Extends: Component,
 
-		options: {
-			name: 'progress',
-			klass: 'ui-progress',
+    options: {
+      name: 'progress',
+      klass: 'ui-progress',
 
-			tag: 'div',
-		},
+      tag: 'div',
+    },
 
-		/**
-		 * [set description]
-		 * @param {[type]} ratio [description]
-		 */
-		set: function(ratio) {
-			var width = 0;
+    /**
+     * [set description]
+     * @param {[type]} ratio [description]
+     */
+    set: function(ratio) {
+      var width = 0;
 
-			var percentage = (ratio[0] * 100) / ratio[1];
+      var percentage = (ratio[0] * 100) / ratio[1];
 
-			if (percentage > 0)
-				width = this.element.getSize().x * percentage / 100;
+      if (percentage > 0)
+        width = this.element.getSize().x * percentage / 100;
 
-			this.bar.setStyle('width', width.toInt());
-			this.status.set('html', ratio[0] + ' / '+ ratio[1]);
+      this.bar.setStyle('width', width.toInt());
+      this.status.set('html', ratio[0] + ' / ' + ratio[1]);
 
-			return this;
-		},
+      return this;
+    },
 
-		/**
-		 * [setStatus description]
-		 * @param {[type]} text [description]
-		 */
-		setStatus: function(text) {
-			this.status.set('html', text);
+    /**
+     * [setStatus description]
+     * @param {[type]} text [description]
+     */
+    setStatus: function(text) {
+      this.status.set('html', text);
 
-			return this;
-		},
+      return this;
+    },
 
-		/**
-		 * [_initElement description]
-		 * @return {[type]} [description]
-		 */
-		_initElement: function() {
-			this.parent();
+    /**
+     * [_initElement description]
+     * @return {[type]} [description]
+     */
+    _initElement: function() {
+      this.parent();
 
-			this.status = new Element('span', {
-				'class': 'progress-status'
-			}).inject(this.element);
+      this.status = new Element('span', {
+        'class': 'progress-status'
+      }).inject(this.element);
 
-			this.bar = new Element('div', {
-				'class': 'progress-bar'
-			}).inject(this.element);
-		}
-	});
+      this.bar = new Element('div', {
+        'class': 'progress-bar'
+      }).inject(this.element);
+    }
+  });
 
-	return exports;
+  return exports;
 });

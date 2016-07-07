@@ -5,219 +5,219 @@
  * @type {Class}
  */
 define([
-	'moment',
-	'UI/Control/Field'
+  'moment',
+  'UI/Control/Field'
 ], function(
-	moment,
-	Field
+  moment,
+  Field
 ) {
 
-	var exports = new Class({
+  var exports = new Class({
 
-		Extends: Field,
+    Extends: Field,
 
-		options: {
-			name: 'hour',
-			base: 'control'
+    options: {
+      name: 'hour',
+      base: 'control'
 
-		},
+    },
 
-		/**
-		 * [_initElement description]
-		 * @return {[type]} [description]
-		 */
-		_initElement: function() {
+    /**
+     * [_initElement description]
+     * @return {[type]} [description]
+     */
+    _initElement: function() {
 
-			//create a new div as input element
-			this.parent();
+      //create a new div as input element
+      this.parent();
 
-			//_log.debug(this.element, this.options.read);
+      //_log.debug(this.element, this.options.read);
 
-			if (!this.options.read) {
-				this.input.addClass('mask');
-				this.input.set('alt', '{ "type": "fixed", "mask": "99h99" }');
-			}
+      if (!this.options.read) {
+        this.input.addClass('mask');
+        this.input.set('alt', '{ "type": "fixed", "mask": "99h99" }');
+      }
 
-			this.element.addClass('field-hour');
+      this.element.addClass('field-hour');
 
-			this.date = this.options.value || this.options.date;
+      this.date = this.options.value || this.options.date;
 
-			var time;
-			if (this.date) {
-				var tmp = new Date(this.date);
-				time = this.convertDateTimeToHour(tmp);
-			}
+      var time;
+      if (this.date) {
+        var tmp = new Date(this.date);
+        time = this.convertDateTimeToHour(tmp);
+      }
 
-			this.input.set('value', time);
+      this.input.set('value', time);
 
-			this.input.set('type', 'text');
-			this.input.addClass('control-hour');
+      this.input.set('type', 'text');
+      this.input.addClass('control-hour');
 
-			var self = this;
+      var self = this;
 
-			this.addEvent('injected', function() {
-				self._addControls();
-			});
+      this.addEvent('injected', function() {
+        self._addControls();
+      });
 
-			//this._initMenu();
-			//this._initWheel();
-		},
+      //this._initMenu();
+      //this._initWheel();
+    },
 
-		/**
-		 * [_addControls description]
-		 */
-		_addControls: function() {
-			var self = this;
+    /**
+     * [_addControls description]
+     */
+    _addControls: function() {
+      var self = this;
 
-			var controls = new Element('span', {
-				'class': 'hour-controls'
-			}).inject(this.input, 'after');
+      var controls = new Element('span', {
+        'class': 'hour-controls'
+      }).inject(this.input, 'after');
 
-			this.plus = new Element('span', {
-				'class': 'icon-font mdi-navigation-expand-less icon-more'
-			}).inject(controls);
+      this.plus = new Element('span', {
+        'class': 'icon-font mdi-navigation-expand-less icon-more'
+      }).inject(controls);
 
-			this.plus.addEvent('click', function() {
-				var tmp = new Date(self.date).increment('minute', '15').toJSON();
-				self.date = new Date(self.date).increment('minute', '15');
-				var time = self.convertDateTimeToHour(tmp);
-				self.input.set('value', time);
-				self.fireEvent('change', self.date);
+      this.plus.addEvent('click', function() {
+        var tmp = new Date(self.date).increment('minute', '15').toJSON();
+        self.date = new Date(self.date).increment('minute', '15');
+        var time = self.convertDateTimeToHour(tmp);
+        self.input.set('value', time);
+        self.fireEvent('change', self.date);
 
-			});
-
-
-			this.minus = new Element('span', {
-				'class': 'icon-font mdi-navigation-expand-more icon-less'
-			}).inject(controls);
-
-			this.minus.addEvent('click', function() {
-				var tmp = new Date(self.date).decrement('minute', '15').toJSON();
-				self.date = new Date(self.date).decrement('minute', '15');
-				var time = self.convertDateTimeToHour(tmp);
-				self.input.set('value', time);
-				self.fireEvent('change', self.date);
-
-			});
-
-			//_log.debug('plus', self.element, self.minus);
-		},
-
-		convertDateTimeToHour: function(dateTime) {
-			var date = new Date(dateTime);
-			var h = date.getHours().toString();
-			var m = date.getMinutes().toString();
-
-			if (h.length === 1) {
-				h = '0' + h;
-			}
-			if (m.length === 1) {
-				m = '0' + m;
-			}
-
-			return h + 'h' + m;
-		},
+      });
 
 
-		/*
-		Function: setState
-			Set element state
+      this.minus = new Element('span', {
+        'class': 'icon-font mdi-navigation-expand-more icon-less'
+      }).inject(controls);
 
-		Arguments:
-			state - (string) State name
+      this.minus.addEvent('click', function() {
+        var tmp = new Date(self.date).decrement('minute', '15').toJSON();
+        self.date = new Date(self.date).decrement('minute', '15');
+        var time = self.convertDateTimeToHour(tmp);
+        self.input.set('value', time);
+        self.fireEvent('change', self.date);
 
-		Return:
-			(void)
+      });
 
-		See also:
-			<UI.Component::setState>
-		*/
+      //_log.debug('plus', self.element, self.minus);
+    },
 
-		setState: function(state) {
-			this.parent(state);
-		},
+    convertDateTimeToHour: function(dateTime) {
+      var date = new Date(dateTime);
+      var h = date.getHours().toString();
+      var m = date.getMinutes().toString();
 
-		/*
-		Function: _initEvents
-			private function
+      if (h.length === 1) {
+        h = '0' + h;
+      }
+      if (m.length === 1) {
+        m = '0' + m;
+      }
 
-			Set control relative behavior (blur and focus)
+      return h + 'h' + m;
+    },
 
-		Return:
-			(void)
 
-		See also:
-			<UI.Control::_initEvents>
-			<UI.Component::_initEvents>
-		*/
+    /*
+    Function: setState
+    	Set element state
 
-		_initEvents: function() {
-			var self = this;
+    Arguments:
+    	state - (string) State name
 
-			if (this.options.read) {
-				return;
-			}
+    Return:
+    	(void)
 
-			this.input.addEvents({
-				keyup: function() {
-					var hours = this.get('value').split('h');
+    See also:
+    	<UI.Component::setState>
+    */
 
-					self.date = new Date(self.date);
+    setState: function(state) {
+      this.parent(state);
+    },
 
-					self.date.setHours(hours[0]);
-					self.date.setMinutes(hours[1]);
-					self.date.setSeconds(0);
+    /*
+    Function: _initEvents
+    	private function
 
-					self.fireEvent('change', self.date);
+    	Set control relative behavior (blur and focus)
 
-				},
-				mousedown: function(e) {
-					//e.stopPropagation();
-					//this.focus();
-				},
-				focus: function(e) {
-					if (!this.get('readonly'))
-						self.setState('focus', e);
-				},
-				blur: function(e) {
-					self.setState(null, e);
-				}
-			});
+    Return:
+    	(void)
 
-			this.addEvents({
-				blur: this.setState.bind(this, 'default'),
-				focus: this.setState.bind(this, 'focus')
-			});
-		},
+    See also:
+    	<UI.Control::_initEvents>
+    	<UI.Component::_initEvents>
+    */
 
-		_onKeyUp: function(e) {
-			//this.fireEvent('change', this.get('value'));
-		},
+    _initEvents: function() {
+      var self = this;
 
-		/**
-		 * [set description]
-		 * @param {[type]} name  [description]
-		 * @param {[type]} value [description]
-		 */
-		setOld: function(name, value) {
-			this.element.set(name, value);
+      if (this.options.read) {
+        return;
+      }
 
-		},
+      this.input.addEvents({
+        keyup: function() {
+          var hours = this.get('value').split('h');
 
-		set: function(date) {
-			//_log.debug('set', date);
+          self.date = new Date(self.date);
 
-			this.date = moment(date).toISOString();
+          self.date.setHours(hours[0]);
+          self.date.setMinutes(hours[1]);
+          self.date.setSeconds(0);
 
-			var time = this.convertDateTimeToHour(this.date);
+          self.fireEvent('change', self.date);
 
-			this.input.set('value', time);
+        },
+        mousedown: function(e) {
+          //e.stopPropagation();
+          //this.focus();
+        },
+        focus: function(e) {
+          if (!this.get('readonly'))
+            self.setState('focus', e);
+        },
+        blur: function(e) {
+          self.setState(null, e);
+        }
+      });
 
-			this.fireEvent('change', this.date);
-		}
+      this.addEvents({
+        blur: this.setState.bind(this, 'default'),
+        focus: this.setState.bind(this, 'focus')
+      });
+    },
 
-	});
+    _onKeyUp: function(e) {
+      //this.fireEvent('change', this.get('value'));
+    },
 
-	return exports;
+    /**
+     * [set description]
+     * @param {[type]} name  [description]
+     * @param {[type]} value [description]
+     */
+    setOld: function(name, value) {
+      this.element.set(name, value);
+
+    },
+
+    set: function(date) {
+      //_log.debug('set', date);
+
+      this.date = moment(date).toISOString();
+
+      var time = this.convertDateTimeToHour(this.date);
+
+      this.input.set('value', time);
+
+      this.fireEvent('change', this.date);
+    }
+
+  });
+
+  return exports;
 
 });

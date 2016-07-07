@@ -1,4 +1,3 @@
-
 /**
  * UI Selector Menu Class
  * @class UI.Selector.Menu
@@ -10,210 +9,210 @@ define([
 ], function(
 
 ) {
-	var _log = __debug('ui-selector-menu');
-		//_log.defineLevel('debug');
-		
-	//var Button = require('UI/Control/Button');
-	var exports = new Class({
+  var _log = __debug('ui-selector-menu');
+  //_log.defineLevel('debug');
 
-		Implements: [Events, Options],
+  //var Button = require('UI/Control/Button');
+  var exports = new Class({
 
-		options: {
-			container: document.body,
-			//type: 'small',
-			zIndex: 200,
-			//clss: 'selector-menu',
-			position: 'top left',
-			location: 'outside',
-			offset: [1,1],
-			positionning: 'absolute',
-			effect: {
-				duration: 100,
-				transition: 'expo:out',
-				link: 'cancel'
-			}
-		},
+    Implements: [Events, Options],
 
-		initialize: function(container,options){
-			this.setOptions(options);
+    options: {
+      container: document.body,
+      //type: 'small',
+      zIndex: 200,
+      //clss: 'selector-menu',
+      position: 'top left',
+      location: 'outside',
+      offset: [1, 1],
+      positionning: 'absolute',
+      effect: {
+        duration: 100,
+        transition: 'expo:out',
+        link: 'cancel'
+      }
+    },
 
-			this.container = container;
+    initialize: function(container, options) {
+      this.setOptions(options);
 
-			var offset = this.options.offset;
+      this.container = container;
 
-			_log.debug('selector-view', this.options);
+      var offset = this.options.offset;
 
-			if (typeOf(offset) == 'number') {
-				this.offset = [offset,offset];
-			} else {
-				this.offset = offset;
-			}
+      _log.debug('selector-view', this.options);
 
-			this.menus = [];
+      if (typeOf(offset) == 'number') {
+        this.offset = [offset, offset];
+      } else {
+        this.offset = offset;
+      }
 
-			this._initElement(container);
-		},
+      this.menus = [];
 
-		_initElement: function(container){
-			//_log.debug('_initElement menu', this.options);
+      this._initElement(container);
+    },
 
-			this.element = new Element('ul', {
-				'class': 'ui-menu type-selector',
-				'zIndex': this.options.zIndex
-			}).inject(container);
+    _initElement: function(container) {
+      //_log.debug('_initElement menu', this.options);
 
-			this.fx = new Fx.Morph(this.element, this.options.effect);
+      this.element = new Element('ul', {
+        'class': 'ui-menu type-selector',
+        'zIndex': this.options.zIndex
+      }).inject(container);
 
-			this.element.addEvents({
-				mouseenter: function(e) {
-					e.stop();
-				},
-				mouseover: function(e) {
-					e.stop();
-				}
+      this.fx = new Fx.Morph(this.element, this.options.effect);
 
-			});
+      this.element.addEvents({
+        mouseenter: function(e) {
+          e.stop();
+        },
+        mouseover: function(e) {
+          e.stop();
+        }
 
-			if (this.options.klss)
-				this.element.addClass(this.options.klss);
+      });
 
-			this.element.addEvent('click', function(e){
-				e.stop();
-			});
+      if (this.options.klss)
+        this.element.addClass(this.options.klss);
 
-
-			//_log.debug('buildmenu', this.options.list);
-			this.buildMenu();
-		},
-
-		buildMenu: function(){
-			var self = this;
-			var list = this.options.list;
-			//_log.debug('buildmenu', typeof list);
-			
-			var size = 0;
-
-			for (var name in list) {
-				//_log.debug('menu', name);
-				// list.each(function(menu){
-				var menu = list[name];
-
-				//var item = new Button();
-
-				item = new Element('li', {
-					class: 'ui-icon menu-'+name,
-					name: name
-					//html: menu.text
-				}).set(menu.options);
-
-				if (menu.klss) {
-					item.addClass(menu.klss);
-				}
-
-				if (menu.type) {
-					item.addClass('type-'+menu.type);
-				}
-
-				this.menus.push(menu);
-			
-				item.addEvents({
-					click: function(e) {
-						//_log.debug('clicked', this.get('name'));
-						self.fireEvent('click', this.get('name'));
-					}
-				});
+      this.element.addEvent('click', function(e) {
+        e.stop();
+      });
 
 
-				item.inject(this.element);
+      //_log.debug('buildmenu', this.options.list);
+      this.buildMenu();
+    },
 
-				size = size + item.getSize().x;
-			};
+    buildMenu: function() {
+      var self = this;
+      var list = this.options.list;
+      //_log.debug('buildmenu', typeof list);
 
-			this.element.setStyle('width', size);
-		},
+      var size = 0;
 
-		reach: function(el) {
-			if (!el)
-				if (this.el) el = this.el;
-				else return;
-			else this.el = el;
+      for (var name in list) {
+        //_log.debug('menu', name);
+        // list.each(function(menu){
+        var menu = list[name];
 
-			//_log.debug(this.options.content, this.options.content.scrollWidth);
+        //var item = new Button();
 
-			var opts = this.options;
-			var size = this.element.getCoordinates();
-			var c = el.getCoordinates();
-			
+        item = new Element('li', {
+          class: 'ui-icon menu-' + name,
+          name: name
+            //html: menu.text
+        }).set(menu.options);
 
-			if (opts.positionning == 'relative') {
-				var pos = el.getPosition(this.options.content);
-				c.left = pos.x;
-				c.right = pos.x + c.width;
-				c.top = pos.y;
-				c.bottom = pos.y + c.height;
-			}
+        if (menu.klss) {
+          item.addClass(menu.klss);
+        }
 
-			//_log.debug('reach',pos.x, pos.y);
-			var top = 'auto',
-				left = 'auto',
-				bottom = 'auto',
-				right = 'auto';
+        if (menu.type) {
+          item.addClass('type-' + menu.type);
+        }
 
-			if (opts.position.indexOf('left') > -1) {
-				left = c.left + this.offset[0];
-			}
+        this.menus.push(menu);
 
-			if (opts.position.indexOf('right') > -1) {
-				//_log.debug('sdfasdfasdfasdfasdfa');
-				left = c.left + c.width - size.width + this.offset[0];
-			}
+        item.addEvents({
+          click: function(e) {
+            //_log.debug('clicked', this.get('name'));
+            self.fireEvent('click', this.get('name'));
+          }
+        });
 
-			if (opts.position.indexOf('top') > -1) {
-				top = c.top;
-				//top = pos.y;
-			}
 
-			if (opts.position.indexOf('bottom') > -1) {
-				top = c.top + c.height;
-			}
+        item.inject(this.element);
 
-			if (opts.location == 'outside') {
-				top = top - size.height - this.offset[1];
-			}
+        size = size + item.getSize().x;
+      };
 
-			if (opts.location == 'inside') {
-				top = top + this.offset[1];
-			}
+      this.element.setStyle('width', size);
+    },
 
-			if (this.options.usefx)
-				this.fx.start({
-					top: top,
-					bottom: bottom,
-					left: left,
-					right: right
-				});
-			else
-				this.element.setStyles({
-					position: 'absolute',
-					top: top,
-					bottom: bottom,
-					left: left,
-					right: right
-				});
-		},
+    reach: function(el) {
+      if (!el)
+        if (this.el) el = this.el;
+        else return;
+      else this.el = el;
 
-		getParent: function() {
-			return this.parent;
-		},
+      //_log.debug(this.options.content, this.options.content.scrollWidth);
 
-		hide: function(){
-			this.element.hide();
-		},
+      var opts = this.options;
+      var size = this.element.getCoordinates();
+      var c = el.getCoordinates();
 
-		show: function(){
-			this.element.show();
-		}
-	});
 
-	return exports;
+      if (opts.positionning == 'relative') {
+        var pos = el.getPosition(this.options.content);
+        c.left = pos.x;
+        c.right = pos.x + c.width;
+        c.top = pos.y;
+        c.bottom = pos.y + c.height;
+      }
+
+      //_log.debug('reach',pos.x, pos.y);
+      var top = 'auto',
+        left = 'auto',
+        bottom = 'auto',
+        right = 'auto';
+
+      if (opts.position.indexOf('left') > -1) {
+        left = c.left + this.offset[0];
+      }
+
+      if (opts.position.indexOf('right') > -1) {
+        //_log.debug('sdfasdfasdfasdfasdfa');
+        left = c.left + c.width - size.width + this.offset[0];
+      }
+
+      if (opts.position.indexOf('top') > -1) {
+        top = c.top;
+        //top = pos.y;
+      }
+
+      if (opts.position.indexOf('bottom') > -1) {
+        top = c.top + c.height;
+      }
+
+      if (opts.location == 'outside') {
+        top = top - size.height - this.offset[1];
+      }
+
+      if (opts.location == 'inside') {
+        top = top + this.offset[1];
+      }
+
+      if (this.options.usefx)
+        this.fx.start({
+          top: top,
+          bottom: bottom,
+          left: left,
+          right: right
+        });
+      else
+        this.element.setStyles({
+          position: 'absolute',
+          top: top,
+          bottom: bottom,
+          left: left,
+          right: right
+        });
+    },
+
+    getParent: function() {
+      return this.parent;
+    },
+
+    hide: function() {
+      this.element.hide();
+    },
+
+    show: function() {
+      this.element.show();
+    }
+  });
+
+  return exports;
 });

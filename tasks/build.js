@@ -1,58 +1,58 @@
 module.exports = function(grunt) {
-	'use strict';
+  'use strict';
 
-	grunt.config.merge({
-		concat: {
-			ui: {
-				src: ['dist/**/*.js'],
-				dest: 'dist/caoutchouc-min.js'
-			},
-		},
-	});
+  grunt.config.merge({
+    concat: {
+      ui: {
+        src: ['dist/**/*.js'],
+        dest: 'dist/caoutchouc-min.js'
+      },
+    },
+  });
 
-	grunt.config.merge({
-		clean: {
-			js: {
-				src: ['dist/**/*', '!dist/skin', '!dist/caoutchouc-min.js']
-			}
-		}
-	});
+  grunt.config.merge({
+    clean: {
+      js: {
+        src: ['dist/**/*', '!dist/skin', '!dist/caoutchouc-min.js']
+      }
+    }
+  });
 
-	grunt.config.merge({
-		requirejs: {
-			ui: {
-				options: {
-					//optimize: 'none',
-					preserveLicenseComments: false,
-					baseUrl: 'Source',
-					//appDir: 'Source',
-					dir: 'dist',
-					paths: {
-						UI: './'
-					},
-					/**
-					 * @ignore
-					 */
-					onBuildWrite: function(name, path, contents) {
-						//console.log('Writing: ' + name);
+  grunt.config.merge({
+    requirejs: {
+      ui: {
+        options: {
+          //optimize: 'none',
+          preserveLicenseComments: false,
+          baseUrl: 'Source',
+          //appDir: 'Source',
+          dir: 'dist',
+          paths: {
+            UI: './'
+          },
+          /**
+           * @ignore
+           */
+          onBuildWrite: function(name, path, contents) {
+            //console.log('Writing: ' + name);
 
-						/*if (name === 'UI') {
-							contents = contents.replace('define(', "define('" + name + "', ");
-						} else {
-							contents = contents.replace('define(', "define('UI/" + name + "', ");
-						}*/
-						contents = contents.replace('define(', "define('UI/" + name + "', ");
+            /*if (name === 'UI') {
+            	contents = contents.replace('define(', "define('" + name + "', ");
+            } else {
+            	contents = contents.replace('define(', "define('UI/" + name + "', ");
+            }*/
+            contents = contents.replace('define(', "define('UI/" + name + "', ");
 
-						return contents;
-					},
-				}
-			}
-		}
-	});
+            return contents;
+          },
+        }
+      }
+    }
+  });
 
-	grunt.registerTask('build', ['requirejs:ui', 'concat:ui', 'clean:js', 'less']);
+  grunt.registerTask('build', ['requirejs:ui', 'concat:ui', 'clean:js', 'less']);
 
-	grunt.loadNpmTasks('grunt-contrib-requirejs');
-	grunt.loadNpmTasks('grunt-contrib-concat');
-	grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-requirejs');
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-clean');
 };

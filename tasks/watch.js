@@ -1,16 +1,16 @@
 module.exports = function(grunt) {
-	'use strict';
+  'use strict';
 
-	grunt.config.merge({
-		watch: {
-			caoutchouc: {
-				files: ['Source/skin/**/**/*.less'],
-				tasks: ['less:caoutchouc']
-			}
-		}
-	});
+  grunt.config.merge({
+    watch: {
+      caoutchouc: {
+        files: ['Source/skin/**/**/*.less'],
+        tasks: ['less:caoutchouc']
+      }
+    }
+  });
 
-	grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
-	grunt.registerTask('default', ['watch']);
+  grunt.registerTask('default', ['watch']);
 };

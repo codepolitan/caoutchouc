@@ -1,4 +1,3 @@
-
 /**
  * UI Control Input Class
  * @class UI.Control.Input
@@ -6,91 +5,91 @@
  * @type {Class}
  */
 define([
-	"UI/Control/Control"
+  "UI/Control/Control"
 ], function(
-	Control
+  Control
 ) {
 
-	var exports = new Class({
+  var exports = new Class({
 
-		Extends: Control,
+    Extends: Control,
 
-		options: {
+    options: {
 
-			// default options
-			name: 'ui-input',
-			value: ''
-		},
+      // default options
+      name: 'ui-input',
+      value: ''
+    },
 
-	/*
-		Function: _initElement
-			private function
+    /*
+    	Function: _initElement
+    		private function
 
-			Create a div and a hidden input to receive the selected value
+    		Create a div and a hidden input to receive the selected value
 
-		Return:
-			(void)
+    	Return:
+    		(void)
 
-		See also:
-			<UI.Control::_initElement>
-			<UI.Component::_initElement>
-		*/
+    	See also:
+    		<UI.Control::_initElement>
+    		<UI.Component::_initElement>
+    	*/
 
-		_initElement: function(){
-			//create a new div as input element
-			this.parent();
-
-
-			_log.debug('_initElement', this);
-			//create input
-			this.setInput('text');
-			this.input.setStyle('width', this.props.width - this.input.getStyle('paddingLeft').toInt() - this.input.getStyle('paddingRight').toInt());
+    _initElement: function() {
+      //create a new div as input element
+      this.parent();
 
 
-		},
+      _log.debug('_initElement', this);
+      //create input
+      this.setInput('text');
+      this.input.setStyle('width', this.props.width - this.input.getStyle('paddingLeft').toInt() - this.input.getStyle('paddingRight').toInt());
 
-		/*
-		Function: setState
-			Set element state
 
-		Arguments:
-			state - (string) State name
+    },
 
-		Return:
-			(void)
+    /*
+    Function: setState
+    	Set element state
 
-		See also:
-			<UI.Component::setState>
-		*/
+    Arguments:
+    	state - (string) State name
 
-		setState: function(state){
-			this.parent(state);
-			if (this.skin[state]) this.input.set(this.skin[state].components.input.styles);
-		},
+    Return:
+    	(void)
 
-		/*
-		Function: _initEvents
-			private function
+    See also:
+    	<UI.Component::setState>
+    */
 
-			Set control relative behavior (blur and focus)
+    setState: function(state) {
+      this.parent(state);
+      if (this.skin[state]) this.input.set(this.skin[state].components.input.styles);
+    },
 
-		Return:
-			(void)
+    /*
+    Function: _initEvents
+    	private function
 
-		See also:
-			<UI.Control::_initEvents>
-			<UI.Component::_initEvents>
-		*/
+    	Set control relative behavior (blur and focus)
 
-		_initEvents: function() {
-			this.parent();
-			this.addEvents({
-				blur: this.setState.bind(this, 'default'),
-				focus: this.setState.bind(this, 'focus')
-			});
-		}
+    Return:
+    	(void)
 
-	});
-	
-	return exports;
+    See also:
+    	<UI.Control::_initEvents>
+    	<UI.Component::_initEvents>
+    */
+
+    _initEvents: function() {
+      this.parent();
+      this.addEvents({
+        blur: this.setState.bind(this, 'default'),
+        focus: this.setState.bind(this, 'focus')
+      });
+    }
+
+  });
+
+  return exports;
 });

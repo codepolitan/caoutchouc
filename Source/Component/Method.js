@@ -1,217 +1,216 @@
-
 /**
  * UI Component Location
  * @class UI.Component.Location
  * @author Bruno Santos, Jerome Vial
  */
 define([
-	
+
 ], function(
 
 ) {
 
-	var exports = new Class({
+  var exports = new Class({
 
-		/**
-		 * [toElement description]
-		 * @return {[type]} [description]
-		 */
-		toElement: function() {
-			return this.element;
-		},
+    /**
+     * [toElement description]
+     * @return {[type]} [description]
+     */
+    toElement: function() {
+      return this.element;
+    },
 
-		/**
-		 * [show description]
-		 * @return {[type]} [description]
-		 */
-		show: function(){
-			this.fireEvent('show');
-			this.element.show();
+    /**
+     * [show description]
+     * @return {[type]} [description]
+     */
+    show: function() {
+      this.fireEvent('show');
+      this.element.show();
 
-			return this;
-		},
-
-
-		/**
-		 * [hide description]
-		 * @return {[type]} [description]
-		 */
-		hide: function(){
-			this.fireEvent('hide');
-			this.element.hide();
-
-			return this;
-		},
-
-		/**
-		 * [show description]
-		 * @return {[type]} [description]
-		 */
-		fade: function(value){
-			this.fireEvent('fade');
-			this.element.fade(value);
-
-			return this;
-		},
+      return this;
+    },
 
 
-		/**
-		 * [getStyle description]
-		 * @param  {[type]} style [description]
-		 * @return {[type]}       [description]
-		 */
-		getStyle: function(style){
-			return this.element.getStyle(style);
-		},
+    /**
+     * [hide description]
+     * @return {[type]} [description]
+     */
+    hide: function() {
+      this.fireEvent('hide');
+      this.element.hide();
 
-		/**
-		 * [getSize description]
-		 * @return {[type]} [description]
-		 */
-		getSize: function() {
-			//_log.debug('------',typeOf(this.element));
-			if (typeOf(this.element) == 'object')
-				//_log.debug(this.options.name);
+      return this;
+    },
 
-			return this.element.getSize();
-		},
+    /**
+     * [show description]
+     * @return {[type]} [description]
+     */
+    fade: function(value) {
+      this.fireEvent('fade');
+      this.element.fade(value);
 
-		/**
-		 * [getComputedSize description]
-		 * @return {[type]} [description]
-		 */
-		getComputedSize: function() {
-			return this.element.getComputedSized();
-		},
+      return this;
+    },
 
-		/**
-		 * [getCoordinates description]
-		 * @return {[type]} [description]
-		 */
-		getCoordinates: function(context) {
-			return this.element.getCoordinates(context);
-		},
 
-		/**
-		 * [addClass description]
-		 * @param {[type]} klass [description]
-		 */
-		addClass: function(klass){
-			this.element.addClass(klass);
-			return this;
-		},
+    /**
+     * [getStyle description]
+     * @param  {[type]} style [description]
+     * @return {[type]}       [description]
+     */
+    getStyle: function(style) {
+      return this.element.getStyle(style);
+    },
 
-		/**
-		 * [removeClass description]
-		 * @param  {[type]} klass [description]
-		 * @return {[type]}       [description]
-		 */
-		removeClass: function(klass){
-			return this.element.removeClass(klass);
-		},
+    /**
+     * [getSize description]
+     * @return {[type]} [description]
+     */
+    getSize: function() {
+      //_log.debug('------',typeOf(this.element));
+      if (typeOf(this.element) == 'object')
+      //_log.debug(this.options.name);
 
-		/**
-		 * [get description]
-		 * @param  {[type]} property [description]
-		 * @return {[type]}          [description]
-		 */
-		get: function(property){
-			return this.element.get(property);
-		},
+        return this.element.getSize();
+    },
 
-		/**
-		 * [morph description]
-		 * @param  {[type]} props [description]
-		 * @return {[type]}       [description]
-		 */
-		morph: function(props){
-			return this.element.morph(props);
-		},
+    /**
+     * [getComputedSize description]
+     * @return {[type]} [description]
+     */
+    getComputedSize: function() {
+      return this.element.getComputedSized();
+    },
 
-		/**
-		 * [setSize description]
-		 * @param {[type]} width  [description]
-		 * @param {[type]} height [description]
-		 */
-		setSize: function(width, height){
-			this.element.x = width || this.options.width;
-			this.element.y = height || this.options.height;
+    /**
+     * [getCoordinates description]
+     * @return {[type]} [description]
+     */
+    getCoordinates: function(context) {
+      return this.element.getCoordinates(context);
+    },
 
-			if (this.element.x)
-				this.element.setStyle('width', this.element.x);
+    /**
+     * [addClass description]
+     * @param {[type]} klass [description]
+     */
+    addClass: function(klass) {
+      this.element.addClass(klass);
+      return this;
+    },
 
-			if (this.element.y)
-				this.element.setStyle('height', this.element.y);
+    /**
+     * [removeClass description]
+     * @param  {[type]} klass [description]
+     * @return {[type]}       [description]
+     */
+    removeClass: function(klass) {
+      return this.element.removeClass(klass);
+    },
 
-			this.fireEvent('resize');
-			return this;
-		},
+    /**
+     * [get description]
+     * @param  {[type]} property [description]
+     * @return {[type]}          [description]
+     */
+    get: function(property) {
+      return this.element.get(property);
+    },
 
-		/**
-		 * [setStyle description]
-		 * @param {[type]} style [description]
-		 * @param {[type]} value [description]
-		 */
-		setStyle: function(style, value){
-			this.element.setStyle(style, value);
+    /**
+     * [morph description]
+     * @param  {[type]} props [description]
+     * @return {[type]}       [description]
+     */
+    morph: function(props) {
+      return this.element.morph(props);
+    },
 
-			return this;
-		},
+    /**
+     * [setSize description]
+     * @param {[type]} width  [description]
+     * @param {[type]} height [description]
+     */
+    setSize: function(width, height) {
+      this.element.x = width || this.options.width;
+      this.element.y = height || this.options.height;
 
-		/**
-		 * [setStyles description]
-		 * @param {[type]} styles [description]
-		 */
-		setStyles: function(styles){
-			this.element.setStyles(styles);
+      if (this.element.x)
+        this.element.setStyle('width', this.element.x);
 
-			return this;
-		},
+      if (this.element.y)
+        this.element.setStyle('height', this.element.y);
 
-		/**
-		 * [getElement description]
-		 * @param  {[type]} string [description]
-		 * @return {[type]}        [description]
-		 */
-		getElement: function(string){
-			return this.element.getElement(string);
-		},
+      this.fireEvent('resize');
+      return this;
+    },
 
-		/**
-		 * [getElements description]
-		 * @param  {[type]} string [description]
-		 * @return {[type]}        [description]
-		 */
-		getElements: function(string){
-			return this.element.getElements(string);
-		},
+    /**
+     * [setStyle description]
+     * @param {[type]} style [description]
+     * @param {[type]} value [description]
+     */
+    setStyle: function(style, value) {
+      this.element.setStyle(style, value);
 
-		/**
-		 * [submit description]
-		 * @param  {[type]} string [description]
-		 * @return {[type]}        [description]
-		 */
-		submit:  function(string){
-			return this.element.submit(string);
-		},
+      return this;
+    },
 
-		/**
-		 * [dispose description]
-		 * @return {[type]} [description]
-		 */
-		dispose: function(){
-			return this.element.dispose();
-		},
+    /**
+     * [setStyles description]
+     * @param {[type]} styles [description]
+     */
+    setStyles: function(styles) {
+      this.element.setStyles(styles);
 
-		/**
-		 * [destroy description]
-		 * @return {[type]} [description]
-		 */
-		destroy: function(){
-			this.element.destroy();
-			return;
-		}
-	});
+      return this;
+    },
 
-	return exports;
+    /**
+     * [getElement description]
+     * @param  {[type]} string [description]
+     * @return {[type]}        [description]
+     */
+    getElement: function(string) {
+      return this.element.getElement(string);
+    },
+
+    /**
+     * [getElements description]
+     * @param  {[type]} string [description]
+     * @return {[type]}        [description]
+     */
+    getElements: function(string) {
+      return this.element.getElements(string);
+    },
+
+    /**
+     * [submit description]
+     * @param  {[type]} string [description]
+     * @return {[type]}        [description]
+     */
+    submit: function(string) {
+      return this.element.submit(string);
+    },
+
+    /**
+     * [dispose description]
+     * @return {[type]} [description]
+     */
+    dispose: function() {
+      return this.element.dispose();
+    },
+
+    /**
+     * [destroy description]
+     * @return {[type]} [description]
+     */
+    destroy: function() {
+      this.element.destroy();
+      return;
+    }
+  });
+
+  return exports;
 });

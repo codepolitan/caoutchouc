@@ -5,89 +5,89 @@
  * @author Jerome Vial
  */
 define([
-	'UI/Component/Component'
+  'UI/Component/Component'
 ], function(
-	Component
+  Component
 ) {
 
-	var _log = __debug('ui:control');
+  var _log = __debug('ui:control');
 
-	var exports = new Class({
+  var exports = new Class({
 
-		Extends: Component,
+    Extends: Component,
 
-		options: {
-			//disabled: false
-			error: false
-		},
+    options: {
+      //disabled: false
+      error: false
+    },
 
-		/**
-		 * [isEnable description]
-		 * @return {boolean}
-		 */
-		isEnable: function() {
-			//_log.debug('isEnable', this);
-			if (this.state === 'disabled') {
-				return false;
-			} else {
-				return true;
-			}
-		},
+    /**
+     * [isEnable description]
+     * @return {boolean}
+     */
+    isEnable: function() {
+      //_log.debug('isEnable', this);
+      if (this.state === 'disabled') {
+        return false;
+      } else {
+        return true;
+      }
+    },
 
-		/**
-		 * [isActive description]
-		 * @return {boolean} [description]
-		 */
-		isActive: function() {
-			if (this.state === 'active') {
-				return true;
-			} else {
-				return false;
-			}
-		},
+    /**
+     * [isActive description]
+     * @return {boolean} [description]
+     */
+    isActive: function() {
+      if (this.state === 'active') {
+        return true;
+      } else {
+        return false;
+      }
+    },
 
 
-		/**
-		 * [_initOptions description]
-		 * @return {void} [description]
-		 */
-		_initOptions: function() {
-			this.parent();
+    /**
+     * [_initOptions description]
+     * @return {void} [description]
+     */
+    _initOptions: function() {
+      this.parent();
 
-			var opts = this.options;
+      var opts = this.options;
 
-			this.value = opts.value;
-			this.readonly = opts.read;
-		},
+      this.value = opts.value;
+      this.readonly = opts.read;
+    },
 
-		/**
-		 * [_initEvents description]
-		 * @return {void} [description]
-		 */
-		_initEvents: function() {
-			var self = this;
+    /**
+     * [_initEvents description]
+     * @return {void} [description]
+     */
+    _initEvents: function() {
+      var self = this;
 
-			//this.element.set('tabindex', 0);
+      //this.element.set('tabindex', 0);
 
-			this.element.addEvents({
-				/**
-				 * @ignore
-				 */
-				click: function(e) {
-					_log.debug('click', e);
-					//e.stopPropagation();
-					self.fireEvent('click');
-				},
-				/**
-				 * @ignore
-				 */
-				mouseup: function() {
-					self.fireEvent('mouseup');
-				}
-			});
-		}
+      this.element.addEvents({
+        /**
+         * @ignore
+         */
+        click: function(e) {
+          _log.debug('click', e);
+          //e.stopPropagation();
+          self.fireEvent('click');
+        },
+        /**
+         * @ignore
+         */
+        mouseup: function() {
+          self.fireEvent('mouseup');
+        }
+      });
+    }
 
-	});
+  });
 
-	return exports;
+  return exports;
 });

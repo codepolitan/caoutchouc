@@ -5,88 +5,88 @@
  * @type {Class}
  */
 define([
-	'UI/Control/Button'
+  'UI/Control/Button'
 ], function(
-	Button
+  Button
 ) {
 
-	var _log = __debug('ui:control-upload');
+  var _log = __debug('ui:control-upload');
 
-	var exports = new Class({
+  var exports = new Class({
 
-		Extends: Button,
+    Extends: Button,
 
-		name: 'button',
+    name: 'button',
 
-		options: {
-			name: 'upload',
-			type: null, // push, file
-			ink: false,
-			element: {
-				tag: 'button',
-				class: 'type-action'
-			}
-		},
+    options: {
+      name: 'upload',
+      type: null, // push, file
+      ink: false,
+      element: {
+        tag: 'button',
+        class: 'type-action'
+      }
+    },
 
-		/**
-		 * init element
-		 * @return {void}
-		 */
-		_initElement: function() {
-			_log.debug('upload');
+    /**
+     * init element
+     * @return {void}
+     */
+    _initElement: function() {
+      _log.debug('upload');
 
-			this.parent();
+      this.parent();
 
-			var opts = this.options;
+      var opts = this.options;
 
-			this._initFile(opts.type);
-		},
+      this._initFile(opts.type);
+    },
 
-		/**
-		 * init file
-		 * @return {void}
-		 */
-		_initFile: function() {
-			var self = this;
+    /**
+     * init file
+     * @return {void}
+     */
+    _initFile: function() {
+      var self = this;
 
-			var file = new Element('input', {
-				type: 'file',
-				name: 'upload',
-				id: 'upload',
-				multiple: 'multiple'
-			}).inject(this.element);
+      var file = new Element('input', {
+        type: 'file',
+        name: 'upload',
+        id: 'upload',
+        multiple: 'multiple'
+      }).inject(this.element);
 
-			file.addEvent('change', function(info) {
-				_log.debug('change mootools', info);
-			});
+      file.addEvent('change', function(info) {
+        _log.debug('change mootools', info);
+      });
 
-			/**
-			 * @ignore
-			 */
-			file.onchange = function(info) {
-				_log.debug('onchage native', info, this.files);
+      /**
+       * @ignore
+       */
+      file.onchange = function(info) {
+        _log.debug('onchage native', info, this.files);
 
-				var files = this.files;
+        var files = this.files;
 
-				if (files) {
-					_log.debug('fireevent uploadFile', files);
-					self.fireEvent('uploadFile', [files]);
-				}
-			};
+        if (files) {
+          _log.debug('fireevent uploadFile', files);
+          self.fireEvent('uploadFile', [files]);
+        }
+      };
 
 
-			this.addEvent('injected', function() {
-				/*var coord = self.icon.getCoordinates();
+      this.addEvent('injected', function() {
+        /*var coord = self.icon.getCoordinates();
 
-				coord.top = '0';
-				coord.left = '0';
+        coord.top = '0';
+        coord.left = '0';
 
-				file.setStyles(coord);*/
-			});
-		}
+        file.setStyles(coord);*/
+      });
+    }
 
-	});
+  });
 
-	return exports;
+  return exports;
 
 });

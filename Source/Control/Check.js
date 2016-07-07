@@ -1,131 +1,130 @@
-
 /**
  * @class UI.Control.Button
  * @extends {UI.Control}
  * @type {Class}
  */
 define([
-	"UI/Control/Field"
+  "UI/Control/Field"
 ], function(
-	Field
+  Field
 ) {
 
-	var exports = new Class({
+  var exports = new Class({
 
-		Extends: Field,
+    Extends: Field,
 
-		name: 'check',
+    name: 'check',
 
-		options: {
-			text: null,
-			checked: false,
-			error: false,
-			opts: {
-				type: 'ckeck',
-				
-			}
-		},
+    options: {
+      text: null,
+      checked: false,
+      error: false,
+      opts: {
+        type: 'ckeck',
 
-		/**
-		 * [_initElement description]
-		 * @return {[type]} [description]
-		 */
-		_initElement: function() {
-			this.parent();
+      }
+    },
 
-			var self = this,
-				opts = this.options;
+    /**
+     * [_initElement description]
+     * @return {[type]} [description]
+     */
+    _initElement: function() {
+      this.parent();
 
-			this.checked = opts.value;
+      var self = this,
+        opts = this.options;
 
-			this.input.set('type', 'hidden');
+      this.checked = opts.value;
 
-			var options = opts.opts;
+      this.input.set('type', 'hidden');
 
-			this.wrapper = new Element('div', {
-				'class': 'check-wrapper'
-			}).inject(this.element);
+      var options = opts.opts;
 
-			this._initText(opts);
-			this._initCheck(opts);
+      this.wrapper = new Element('div', {
+        'class': 'check-wrapper'
+      }).inject(this.element);
 
-			this._initError();
+      this._initText(opts);
+      this._initCheck(opts);
 
-			if (this.checked) this.check.addClass('checked');
-		},
+      this._initError();
 
-		/**
-		 * [_initCheck description]
-		 * @return {[type]} [description]
-		 */
-		_initCheck: function() {
-			var self = this;
+      if (this.checked) this.check.addClass('checked');
+    },
 
-			var check = this.check = new Element('span', {
-				'class': 'control-check',
-			}).inject(this.wrapper);
+    /**
+     * [_initCheck description]
+     * @return {[type]} [description]
+     */
+    _initCheck: function() {
+      var self = this;
 
-			if (!this.readonly) {
-				check.addEvents({
-					click: function() {
-						//_log.debug(self.checked);
-						if (self.checked) {
-							self.checked = false;
-							this.removeClass('checked');
-						} else {
-							self.checked = true;
-							this.addClass('checked');
-						}
+      var check = this.check = new Element('span', {
+        'class': 'control-check',
+      }).inject(this.wrapper);
 
-						self.fireEvent('change', self.checked);
-					}
-				});
-			}
+      if (!this.readonly) {
+        check.addEvents({
+          click: function() {
+            //_log.debug(self.checked);
+            if (self.checked) {
+              self.checked = false;
+              this.removeClass('checked');
+            } else {
+              self.checked = true;
+              this.addClass('checked');
+            }
 
-			this.on = new Element('span', {
-				'class': 'check-text check-on',
-				'html': 'oui'
-			}).inject(check);
+            self.fireEvent('change', self.checked);
+          }
+        });
+      }
 
-			this.knob = new Element('span', {
-				'class': 'ckeck-knob',
-				html: '&nbsp;'
-			}).inject(check);
+      this.on = new Element('span', {
+        'class': 'check-text check-on',
+        'html': 'oui'
+      }).inject(check);
 
-			this.off = new Element('span', {
-				'class': 'check-text check-off',
-				'html': 'non'
-			}).inject(check);
-		},
+      this.knob = new Element('span', {
+        'class': 'ckeck-knob',
+        html: '&nbsp;'
+      }).inject(check);
 
-		/**
-		 * [_initText description]
-		 * @param  {[type]} opts [description]
-		 * @return {[type]}      [description]
-		 */
-		_initText: function(opts) {
-			var self = this;
+      this.off = new Element('span', {
+        'class': 'check-text check-off',
+        'html': 'non'
+      }).inject(check);
+    },
 
-			this.text = new Element('span', {
-				'class': 'control-text',
-				html: opts.text
-			}).addEvents({
-				click: function() {
-					//_log.debug(self.checked);
-					if (self.checked) {
-						self.checked = false;
-						this.removeClass('checked');
-					} else {
-						self.checked = true;
-						this.addClass('checked');
-					}
-					self.fireEvent('change', self.checked);
+    /**
+     * [_initText description]
+     * @param  {[type]} opts [description]
+     * @return {[type]}      [description]
+     */
+    _initText: function(opts) {
+      var self = this;
 
-				}
-			}).inject(this.wrapper);
-		}
+      this.text = new Element('span', {
+        'class': 'control-text',
+        html: opts.text
+      }).addEvents({
+        click: function() {
+          //_log.debug(self.checked);
+          if (self.checked) {
+            self.checked = false;
+            this.removeClass('checked');
+          } else {
+            self.checked = true;
+            this.addClass('checked');
+          }
+          self.fireEvent('change', self.checked);
 
-	});
+        }
+      }).inject(this.wrapper);
+    }
 
-	return exports;
+  });
+
+  return exports;
 });
