@@ -164,13 +164,12 @@ define(function(require, exports, module) {
      * @return {[type]}      [description]
      */
     chooseUnique: function(name, opts) {
-      //_log.debug('chooseUnique', name, opts);
+      _log.debug('chooseUnique', name, opts);
       var self = this;
-
 
       opts = Object.clone(opts);
 
-      this.sandbox.openFinder(opts).addEvent('choose', function(info) {
+      this.attachInfo(opts, function(info) {
         //if receive the view instead of the info take the info from the view
         if (!info._id) {
           info = info.get('info');

@@ -387,7 +387,7 @@ define(function(require, exports, module) {
 
       opts = Object.clone(opts);
 
-      this.sandbox.openFinder(opts).addEvent('choose', function(info) {
+      this.attachInfo(opts, function(info) {
 
         //if receive the view instead of the info take the info from the view
         if (!info._id) {
