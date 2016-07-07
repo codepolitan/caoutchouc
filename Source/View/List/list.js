@@ -135,7 +135,6 @@ define(function(require, exports, module) {
           'element.scroll': '_scroll',
           'element.click': '_elementDidClick',
           'add': 'new',
-          'listtype': '_toggleList',
           //'content.click:relay(div.list-item)': '_onClickElement'
         },
         search: {
