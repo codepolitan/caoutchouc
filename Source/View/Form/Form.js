@@ -148,6 +148,11 @@ define(function(require, exports, module) {
         delete this.options.template;
       }
 
+      if (this.options.attachInfo) {
+        this.attachInfo = this.options.attachInfo;
+        delete this.options.attachInfo;
+      }
+
       // for backward compatibility
       this.doc = this.info = {};
 
