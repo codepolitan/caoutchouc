@@ -388,12 +388,6 @@ define(function(require, exports, module) {
       opts = Object.clone(opts);
 
       this.attachInfo(opts, function(info) {
-
-        //if receive the view instead of the info take the info from the view
-        if (!info._id) {
-          info = info.get('info');
-        }
-
         return self._onRelatedSelected(name, opts, info);
       });
     },
