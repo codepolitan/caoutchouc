@@ -122,9 +122,6 @@ define(function(require, exports, module) {
 
           'set': ['_focusPrimaryKey', '_hideToolbarDialog'],
           'mode': '_setClassMode',
-          'trash': '_viewDidTrash',
-          //'dataReady': '_set',
-          'apply': 'apply',
           'cancel': 'cancel',
           'change': '_viewDidChange',
           'collapse': 'collapse',
@@ -1278,16 +1275,6 @@ define(function(require, exports, module) {
     },
 
     /**
-     * When the trash control is pressed
-     *
-     * @return {void}
-     */
-    _viewDidTrash: function() {
-      //_log.debug('_viewDidTrash');
-      this.fireEvent('deleteItem', this.doc._id);
-    },
-
-    /**
      * [_viewDidChange description]
      * @param  {[type]} key [description]
      * @param  {[type]} val [description]
@@ -1407,7 +1394,7 @@ define(function(require, exports, module) {
         this.toolbar.dialog.hide();
       }
 
-      this.fireEvent('save', this.doc);
+      this.fireEvent('apply', this.doc);
       this.setMode(null);
     },
 
