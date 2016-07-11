@@ -1390,7 +1390,7 @@ define(function(require, exports, module) {
     apply: function() {
       _log.debug('apply');
       this._viewDidApply();
-      this.fireEvent('apply', this.doc);
+      this.fireEvent('apply', this);
     },
 
     /**
