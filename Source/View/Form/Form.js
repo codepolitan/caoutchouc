@@ -120,15 +120,16 @@ define(function(require, exports, module) {
           call the method "new" of the list view*/
           //'add': 'new',
 
-          'set': ['_focusPrimaryKey', '_hideToolbarDialog'],
-          'mode': '_setClassMode',
-          'cancel': 'cancel',
-          'change': '_viewDidChange',
-          'collapse': 'collapse',
-          'uncollapse': 'uncollapse',
+          set: ['_focusPrimaryKey', '_hideToolbarDialog'],
+          apply: '_viewDidApply',
+          mode: '_setClassMode',
+          cancel: 'cancel',
+          change: '_viewDidChange',
+          collapse: 'collapse',
+          uncollapse: 'uncollapse',
         },
         form: {
-          'submit': ['_onSubmit']
+          submit: ['_onSubmit']
         }
       },
     },
@@ -1383,18 +1384,27 @@ define(function(require, exports, module) {
     },
 
     /**
-     * API to save info
-     * remove mode and hide dialog toolbar
+     * apply
      * @return {void}
      */
     apply: function() {
       _log.debug('apply');
+      this._viewDidApply();
+      this.fireEvent('apply', this.doc);
+    },
+
+    /**
+     * when view apply
+     * remove mode and hide dialog toolbar
+     * @return {void}
+     */
+    _viewDidApply: function() {
+      _log.debug('_viewDidApply');
 
       if (this.toolbar.dialog) {
         this.toolbar.dialog.hide();
       }
 
-      this.fireEvent('apply', this.doc);
       this.setMode(null);
     },
 
@@ -1413,7 +1423,7 @@ define(function(require, exports, module) {
       }
 
       if (opts.confirmCancel) {
-        var dialog = new DialogWindow({
+        new DialogWindow({
           title: 'Confirm',
           message: 'You will lose all changes done in this document.'
         }).addEvents({
