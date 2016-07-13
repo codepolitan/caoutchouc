@@ -80,11 +80,6 @@ define(function(require, exports, module) {
           alert: true
         });
       }
-
-      /*this.sandbox.message({
-      	title: error.message,
-      	message: text
-      });*/
     }
 
   });

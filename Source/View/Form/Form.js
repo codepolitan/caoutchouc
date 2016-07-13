@@ -839,56 +839,7 @@ define(function(require, exports, module) {
     },
 
     /**
-     * Use to create a new document
-     *
-     * @param {string} type Info type
-     * @param {string} kind Info kind
-     * @return {void}
-     */
-    new: function(type, kind) {
-      //_log.debug('new', type, kind);
-      var self = this;
-      var opts = this.options;
-      var info = {};
-
-      if (typeof type === 'object' && type.type) {
-        info = type;
-      }
-
-      if (!type || typeof type !== 'string') {
-        type = opts.type;
-        kind = opts.kind;
-      }
-
-      info.type = type;
-
-      if (kind) {
-        info.kind = kind;
-      }
-
-
-      //_log.debug('type', type);
-
-      var get = {};
-      get[type] = ['form'];
-
-      this.sandbox.getDatatype(get, function() {
-
-        var process = require('config/data/type/' + type + '/_process');
-        if (process && process.new) {
-          info = process.new(info);
-        }
-
-        self.readonly = undefined;
-
-        self.setInfo(info);
-      });
-
-    },
-
-    /**
      * Setter
-     *
      * @param {string} prop
      * @param {string} value
      * @return {Object|void}
