@@ -154,7 +154,7 @@ define([
     addComment: function(field, doc, group) {
       _log.debug('add date', field, doc);
 
-      var user = this.sandbox.getCurrentUser();
+      var user = this.options.user;
 
       var comment,
         value = this.doc.comments || [],
