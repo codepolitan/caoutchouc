@@ -4,9 +4,9 @@
  * @author Jerome Vial, Bruno Santos
  * @description
  *  Info Structure:
- *  	id: Unique info id
- * 	The options accept:
- * 		unique: If set to true will be possible just attach a document in this key
+ *    id: Unique info id
+ *  The options accept:
+ *    unique: If set to true will be possible just attach a document in this key
  */
 define(function(require, exports, module) {
 
@@ -29,8 +29,7 @@ define(function(require, exports, module) {
       var self = this;
       //var name = field.text || field.name;
       var type = field.opts.type;
-      var source = field.opts.keys.source;
-      //var custom = field.opts.keys.custom;
+      var display = field.opts.keys.display || ['name'];
       var key = doc[field.name];
       //_log.debug('key', key);
 
@@ -51,24 +50,20 @@ define(function(require, exports, module) {
           'class': 'unique-item'
         }).inject(unique);
 
-        if (source) {
-          for (var i = 0; i < source.length; i++) {
-            var sourceKey = source[i];
 
-            if (sourceKey === '_id') {
-              continue;
-            }
+        for (var i = 0; i < display.length; i++) {
+          var sourceKey = display[i];
 
-            new Element('span', {
-              'class': 'ui-key key-' + sourceKey,
-              html: key[sourceKey]
-            }).inject(item);
-          }
+          new Element('span', {
+            'class': 'ui-key key-' + sourceKey,
+            html: key[sourceKey]
+          }).inject(item);
         }
 
+
         // new ButtonControl({
-        // 	name: field.opts.type,
-        // 	icon: mnml.icon.font[field.opts.type],
+        //  name: field.opts.type,
+        //  icon: mnml.icon.font[field.opts.type],
         // }).inject(item, 'top');
 
         this._initRelatedUniqueControls(item, field, unique);
