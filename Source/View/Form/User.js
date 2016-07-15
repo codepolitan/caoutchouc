@@ -1,7 +1,5 @@
 /**
  * Related information
- *
- * @extends {Minimal.Form}
  * @author Jerome Vial, Bruno Santos
  * @description
  *  Info Structure:
@@ -9,15 +7,11 @@
  * 	The options accept:
  * 		unique: If set to true will be possible just attach a document in this key
  */
-define([
+define(function(require, exports, module) {
 
-], function(
+  var _log = __debug('view-form-user').defineLevel();
 
-) {
-
-  var _log = __debug('view:form-user');
-
-  var exports = new Class({
+  var User = new Class({
 
     /**
      * [_initContacts description]
@@ -27,7 +21,7 @@ define([
      * @return {[type]}       [description]
      */
     _initUser: function(field, doc, group) {
-      //_log.debug('_initUser', field, doc, group);
+      _log.debug('_initUser', field, doc, group);
 
       group.addClass('group');
 
@@ -50,10 +44,8 @@ define([
      * @return {[type]}       [description]
      */
     _displayUser: function(field, doc, group) {
-      //_log.debug('_displayUser', field, doc, group);
+      _log.debug('_displayUser', field, doc, group);
 
-      var self = this;
-      var type = 'User';
       var source = field.opts.keys.source;
       var display = field.opts.keys.display || [];
       var key = doc[field.name];
@@ -79,7 +71,7 @@ define([
           for (var i = 0; i < source.length; i++) {
             var sourceKey = source[i];
 
-            if (sourceKey === '_id' || display.indexOf(sourceKey) == -1) {
+            if (sourceKey === '_id' || display.indexOf(sourceKey) === -1) {
               continue;
             }
 
@@ -98,8 +90,8 @@ define([
      * @param  {[type]} opts [description]
      * @return {[type]}      [description]
      */
-    _getUser: function(field, cb) {
-      //_log.debug('_getUser', field);
+    _getUser: function(field) {
+      _log.debug('_getUser', field);
       var self = this;
 
       this.sandbox.getUserContact(function(info) {
@@ -119,8 +111,8 @@ define([
           var sourceKeys = field.opts.keys.source;
 
           for (var i = 0; i < sourceKeys.length; i++) {
-            var source = sourceKeys[i],
-              value = info[source];
+            var source = sourceKeys[i];
+            var value = info[source];
 
             self.doc[field.name][source] = value;
           }
@@ -130,8 +122,9 @@ define([
         //self.fireEvent('change', [name, self.doc[name]]);
       });
     }
+
   });
 
-  return exports;
+  module.exports = User;
 
 });
