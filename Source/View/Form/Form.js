@@ -32,7 +32,6 @@ define(function(require, exports, module) {
   var Textarea = require('UI/View/Form/Textarea');
   var Unique = require('UI/View/Form/Unique');
   var Url = require('UI/View/Form/Url');
-  var User = require('UI/View/Form/User');
   var Validator = require('UI/View/Form/Validator');
   var ButtonControl = require('UI/Control/Button');
   var FieldControl = require('UI/Control/Field');
@@ -68,7 +67,6 @@ define(function(require, exports, module) {
       Textarea,
       Unique,
       Url,
-      User,
       Validator
     ],
 
@@ -797,7 +795,7 @@ define(function(require, exports, module) {
      * @return {Mixin} The Value of the given key
      */
     /*get: function(key) {
-    	return this.getValueFromKey(key, this.doc);
+      return this.getValueFromKey(key, this.doc);
     },*/
 
     /**
@@ -822,7 +820,7 @@ define(function(require, exports, module) {
         default: //default will replace the old method see up
           return this.getValueFromKey(prop, this.doc);
           /*case 'model':
-          	return this.getSelectedModel();*/
+            return this.getSelectedModel();*/
       }
     },
 
@@ -964,7 +962,7 @@ define(function(require, exports, module) {
       }
 
       /*if (this.options.container)
-      	this.options.container.focus();*/
+        this.options.container.focus();*/
 
       this.doc = null;
       this.doc = Object.clone(doc);
@@ -1142,7 +1140,7 @@ define(function(require, exports, module) {
       //var currentVal = this.getValueFromKey(key, this.doc);
       //_log.debug('--', currentVal, value);
       /*if (currentVal === value) {
-      	return;
+        return;
       }*/
 
       this.updateDocKey(key, value);
