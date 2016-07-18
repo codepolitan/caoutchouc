@@ -387,7 +387,7 @@ define(function(require, exports, module) {
 
       opts = Object.clone(opts);
 
-      this.attachInfo(opts, function(info) {
+      this.attachInfo(opts, function(err, info) {
         return self._onRelatedSelected(name, opts, info);
       });
     },

@@ -164,7 +164,7 @@ define(function(require, exports, module) {
 
       opts = Object.clone(opts);
 
-      this.attachInfo(opts, function(info) {
+      this.attachInfo(opts, function(err, info) {
         _log.debug('attachInfo choose', info);
         if (info._id === self.doc._id) {
           return;
