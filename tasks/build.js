@@ -24,8 +24,8 @@ module.exports = function(grunt) {
         options: {
           //optimize: 'none',
           preserveLicenseComments: false,
-          baseUrl: 'Source',
-          //appDir: 'Source',
+          baseUrl: 'source',
+          //appDir: 'source',
           dir: 'dist',
           paths: {
             ui: './'
