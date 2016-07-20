@@ -5,7 +5,7 @@ module.exports = function(grunt) {
     less: {
       caoutchouc: {
         files: {
-          'dist/skin/material.css': 'Source/skin/material/material.less',
+          'dist/skin/material.css': 'source/skin/material/material.less',
         }
       }
     }
