@@ -3,15 +3,13 @@
  * @implement Minimal.Form
  * @author Jerome Vial, Bruno Santos
  */
-define([
-  'moment'
-], function(
-  moment
-) {
+define(function(require, exports, module) {
+
+  var moment = require('moment');
 
   var _log = __debug('view:form-logs');
 
-  var exports = new Class({
+  module.exports = new Class({
 
     /**
      * [_initLogs description]
@@ -68,7 +66,5 @@ define([
     }
 
   });
-
-  return exports;
 
 });

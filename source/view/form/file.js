@@ -4,16 +4,13 @@
  * @extends {Minimal.View.Form}
  * @author Jerome Vial
  */
+define(function(require, exports, module) {
 
-define([
-  'UI/Control/Button'
-], function(
-  ButtonControl
-) {
+  var ButtonControl = require('ui/control/button');
 
   var _log = __debug('view:form-file');
 
-  var exports = new Class({
+  module.exports = new Class({
 
     /**
      * [_initFile description]
@@ -96,7 +93,5 @@ define([
     }
 
   });
-
-  return exports;
 
 });

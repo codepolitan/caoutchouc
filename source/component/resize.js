@@ -3,13 +3,10 @@
  * @class UI.Component.Resize
  * @author Bruno Santos, Jerome Vial
  */
-define([
+define(function(require, exports, module) {
 
-], function(
+  module.exports = new Class({
 
-) {
-
-  var exports = new Class({
     options: {
       // Resize options
       resizer: {
@@ -107,7 +104,7 @@ define([
 
       return this;
     }
+
   });
 
-  return exports;
 });

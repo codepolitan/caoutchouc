@@ -3,15 +3,13 @@
  * @implement Minimal.Form
  * @author Jerome Vial, Bruno Santos
  */
-define([
-  'Mustache'
-], function(
-  Mustache
-) {
+define(function(require, exports, module) {
+
+  var mustache = require('mustache');
 
   var _log = __debug('view:form-product');
 
-  var exports = new Class({
+  module.exports = new Class({
 
     /**
      * [_initProductList description]
@@ -39,7 +37,7 @@ define([
         '<span class="net">{{net}}</span>';
 
       doc[field.name].each(function(link, i) {
-        var html = Mustache.render(template, link);
+        var html = mustache.render(template, link);
         var item = new Element('div', {
           html: html,
           'data-id': link._id,
@@ -57,7 +55,5 @@ define([
     }
 
   });
-
-  return exports;
 
 });

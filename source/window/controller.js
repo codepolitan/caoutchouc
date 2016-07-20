@@ -1,37 +1,33 @@
 /*
-	Object: ui.controller.window
-		Window controller. It handles windows cascading position, minimize position, focusing, ...
+  Object: ui.controller.window
+    Window controller. It handles windows cascading position, minimize position, focusing, ...
 
-	Arguments:
-		options - (object)
+  Arguments:
+    options - (object)
 
-	Options:
-		zBase - (integer)
-		zStep - (integer)
-		cascade - (object)
-		stack - (object)
+  Options:
+    zBase - (integer)
+    zStep - (integer)
+    cascade - (object)
+    stack - (object)
 
-	Requires:
-		<UI.Window>
+  Requires:
+    <UI.Window>
 
 
-	Implied global:
-		ui,
-		window
+  Implied global:
+    ui,
+    window
 
-	Discussion:
-		Stacks should be better implemented
+  Discussion:
+    Stacks should be better implemented
 
 */
-define([
-
-], function(
-
-) {
+define(function(require, exports, module) {
 
   var _log = __debug('ui-controller').defineLevel();
 
-  var exports = new Class.Singleton({
+  module.exports = new Class.Singleton({
 
     Implements: [Options, Events],
 
@@ -99,13 +95,13 @@ define([
 
     /*
     Constructor: initialize
-    	Construtor
+      Construtor
 
     Arguments:
-    	options - (object) options
+      options - (object) options
 
     Returns:
-    	(void)
+      (void)
     */
     init: function(container) {
       //_log.debug('init');
@@ -123,13 +119,13 @@ define([
 
     /*
     Function: register
-    	Add passing window to the manage list
+      Add passing window to the manage list
 
     Arguments:
-    	win - (object) the window class instance to register
+      win - (object) the window class instance to register
 
     Returns:
-    	(void)
+      (void)
     */
     register: function(win, group) {
       //_log.debug('register', win);
@@ -161,13 +157,13 @@ define([
 
     /*
     Function: close
-    	Destroy the provided window and focus to next one
+      Destroy the provided window and focus to next one
 
     Arguments:
-    	win - (object) the window class instance to close and destroy
+      win - (object) the window class instance to close and destroy
 
     Returns:
-    	(void)
+      (void)
     */
     close: function(win) {
       win = win || this.active;
@@ -185,13 +181,13 @@ define([
 
     /*
     Function: focus
-    	Increment max z-index and focus provided window
+      Increment max z-index and focus provided window
 
     Arguments:
-    	win - (object) the window class instance to focus
+      win - (object) the window class instance to focus
 
     Returns:
-    	(void)
+      (void)
     */
     focus: function(win) {
       //_log.debug('focus', win);
@@ -242,13 +238,13 @@ define([
 
     /*
     Function: blur
-    	Blur active window
+      Blur active window
 
     Arguments:
-    	win - (object) the window class instance to blur
+      win - (object) the window class instance to blur
 
     Returns:
-    	(void)
+      (void)
     */
     blur: function(win) {
       if ((win !== null) && !win.minimized) {
@@ -271,10 +267,10 @@ define([
 
     /*
     Function: getMinimizedLocation
-    	Return the position of next minimized window
+      Return the position of next minimized window
 
     Returns:
-    	location - (array) Array containing left and top position
+      location - (array) Array containing left and top position
      */
     getcoord: function(etat) {
       var opts = this.options;
@@ -292,9 +288,9 @@ define([
         }
       });
 
-      //	coord.offset = null;
+      //  coord.offset = null;
 
-      //	coord.left = x;
+      //  coord.left = x;
 
       return {
         width: coord.width,
@@ -307,10 +303,10 @@ define([
 
     /*
     Function: resetMinimizedLocation
-    	Replace minimized windows
+      Replace minimized windows
 
     Returns:
-    	(void)
+      (void)
     */
     resetMinimized: function() {
       var etat = 'minimized',
@@ -330,10 +326,10 @@ define([
 
     /*
     Function: resizeMaximizedWindow
-    	Set new maximized size for all mamimized window
+      Set new maximized size for all mamimized window
 
     Returns:
-    	(void)
+      (void)
     */
     resizeMaximizedWindow: function() {
       //_log.debug('resizeMaximizedWindow');
@@ -350,13 +346,13 @@ define([
 
     /*
     Function: getCascadeLocation
-    	Calculate the location of the window in the cascade
+      Calculate the location of the window in the cascade
 
     Arguments:
-    	win - (object) the window class instance to get location
+      win - (object) the window class instance to get location
 
     Returns:
-    	location - (object) location coordinates { left : 100, top : 100 }
+      location - (object) location coordinates { left : 100, top : 100 }
     */
     getCascadeLocation: function(win) {
       var location = {
@@ -375,10 +371,10 @@ define([
 
     /*
     Function: cascade
-    	Move every windows to its position in the cascade
+      Move every windows to its position in the cascade
 
     Returns:
-    	(void)
+      (void)
     */
     cascade: function(group) {
       var start = [51, 101];
@@ -415,10 +411,10 @@ define([
 
     /*
     Function: circle
-    	Move every windows to its position in the cascade
+      Move every windows to its position in the cascade
 
     Returns:
-    	(void)
+      (void)
     */
     circle: function(group) {
       //should be define in the skin sheet
@@ -509,12 +505,12 @@ define([
 
     /*
     Function: buildunderlay
-    	_initElement an overlay for windows
+      _initElement an overlay for windows
 
     Arguments:
 
     Returns:
-    	(void)
+      (void)
     */
     buildunderlay: function(container) {
       var opts = this.options.underlay;
@@ -530,12 +526,12 @@ define([
 
     /*
     Function: buildunderlay
-    	_initElement an overlay for windows
+      _initElement an overlay for windows
 
     Arguments:
 
     Returns:
-    	(void)
+      (void)
     */
     showunderlay: function(win) {
       this.underlay.setStyles({
@@ -545,11 +541,5 @@ define([
     }
 
   });
-
-  // window.addEvent('domready', function() {
-  //     ui.window.init(document.body);
-  // });
-
-  return exports;
 
 });

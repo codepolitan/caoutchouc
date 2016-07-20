@@ -1,15 +1,13 @@
 /**
  * URL related method for Insp
  */
-define([
-  'UI/Control/URL'
-], function(
-  URL
-) {
+define(function(require, exports, module) {
 
-  var _log = __debug('view:form-url');
+  var URL = require('ui/control/url');
 
-  var exports = new Class({
+  var _log = __debug('view-form-url');
+
+  module.exports = new Class({
 
     /**
      * Initialize URL field
@@ -36,8 +34,9 @@ define([
 
       var read = this.isReadOnly(field);
 
-      if (read)
+      if (read) {
         input.input.set('readonly', 'readonly');
+      }
 
       if (field.klss) {
         input.addClass(field.klss);
@@ -56,7 +55,5 @@ define([
     }
 
   });
-
-  return exports;
 
 });

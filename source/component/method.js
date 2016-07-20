@@ -3,13 +3,9 @@
  * @class UI.Component.Location
  * @author Bruno Santos, Jerome Vial
  */
-define([
+define(function(require, exports, module) {
 
-], function(
-
-) {
-
-  var exports = new Class({
+  module.exports = new Class({
 
     /**
      * [toElement description]
@@ -210,7 +206,7 @@ define([
       this.element.destroy();
       return;
     }
+
   });
 
-  return exports;
 });

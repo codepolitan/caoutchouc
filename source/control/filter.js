@@ -6,9 +6,9 @@
  */
 define(function(require, exports, module) {
 
-  var Field = require('UI/Control/Field');
-  var Choice = require('UI/Control/Choice');
-  var Method = require('UI/Component/Method');
+  var Field = require('ui/control/field');
+  var Choice = require('ui/control/choice');
+  var Method = require('ui/component/method');
 
   var _log = __debug('ui-control-filter').defineLevel();
 

@@ -3,17 +3,14 @@
  * @implement Minimal.Form
  * @author Jerome Vial, Bruno Santos
  */
-define([
-  'UI/Control/Button',
-  'UI/Control/Field'
-], function(
-  Button,
-  Field
-) {
+define(function(require, exports, module) {
+
+  var Button = require('ui/control/button');
+  var Field = require('ui/control/field');
 
   var _log = __debug('view:form-items');
 
-  var exports = new Class({
+  module.exports = new Class({
 
     _initItem: function(field, doc, group) {
       var self = this;
@@ -126,7 +123,5 @@ define([
     }
 
   });
-
-  return exports;
 
 });

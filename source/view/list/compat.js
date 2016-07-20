@@ -1,6 +1,5 @@
 /**
  * Compat List.V2 View Class
- *
  * @class View.List.V2.Compat
  * @author Bruno Santos, Jerome Vial
  */

@@ -5,8 +5,8 @@
  */
 define(function(require, exports, module) {
 
-  var Container = require('UI/Container/Container');
-  var Window = require('UI/Window/Window');
+  var Container = require('ui/container/container');
+  var Window = require('ui/window/window');
 
   var _log = __debug('core-view-container').defineLevel();
 

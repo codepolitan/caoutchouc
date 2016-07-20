@@ -46,15 +46,9 @@
 		Should use listView
 
 */
+define(function(require, exports, module) {
 
-
-define([
-
-], function(
-
-) {
-
-  var exports = UI.Tool = new Class({
+  module.exports = new Class({
 
     Extends: UI.Container,
 
@@ -441,5 +435,4 @@ define([
 
   });
 
-  return exports;
 });

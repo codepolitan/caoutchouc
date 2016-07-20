@@ -5,7 +5,7 @@
  */
 define(function(require, exports, module) {
 
-  var TextareaControl = require('UI/Control/Textarea');
+  var TextareaControl = require('ui/control/textarea');
 
   var _log = __debug('view-core-form-textarea').defineLevel();
 

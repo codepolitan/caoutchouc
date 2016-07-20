@@ -3,16 +3,14 @@
  * @implement Minimal.Form
  * @author Jerome Vial
  */
-define([
-  'UI/Control/Currency',
-  'vendor/mootools-pack/iMask/iMask-lib'
-], function(
-  CurrencyControl
-) {
+define(function(require, exports, module) {
 
-  var _log = __debug('view:form-currency').defineLevel();
+  var CurrencyControl = require('ui/control/currency');
+  require('vendor/mootools-pack/iMask/iMask-lib');
 
-  var exports = new Class({
+  var _log = __debug('view-form-currency').defineLevel();
+
+  module.exports = new Class({
 
     /**
      * [_initHour description]
@@ -97,7 +95,5 @@ define([
     }
 
   });
-
-  return exports;
 
 });

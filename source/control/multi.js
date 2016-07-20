@@ -4,13 +4,11 @@
  * @extends {UI.Multi}
  * @type {Class}
  */
-define([
-  "UI/Control/Field"
-], function(
-  Field
-) {
+define(function(require, exports, module) {
 
-  var exports = new Class({
+  var Field = require('ui/control/field');
+
+  module.exports = new Class({
 
     Extends: Field,
 
@@ -133,9 +131,8 @@ define([
       	blur: this.setState.bind(this, 'default'),
       	focus: this.setState.bind(this, 'focus')
       });*/
-    },
+    }
 
   });
 
-  return exports;
 });

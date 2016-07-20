@@ -5,9 +5,9 @@
  */
 define(function(require, exports, module) {
 
-  var Control = require('UI/Control/Control');
+  var Control = require('ui/control/control');
 
-  var _log = __debug('ui:control-field');
+  var _log = __debug('ui-control-field');
 
   var Field = new Class({
 

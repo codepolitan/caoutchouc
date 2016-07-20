@@ -5,9 +5,9 @@
  */
 define(function(require, exports, module) {
 
-  var Container = require('UI/Container/Container');
-  var Component = require('UI/Layout/Component');
-  var Resize = require('UI/Layout/Resize');
+  var Container = require('ui/container/container');
+  var Component = require('ui/layout/component');
+  var Resize = require('ui/layout/resize');
 
   var _log = __debug('ui-layout').defineLevel();
 

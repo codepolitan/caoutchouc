@@ -5,7 +5,7 @@
 define(function(require, exports, module) {
 
   var moment = require('moment');
-  var Field = require('UI/Control/Field');
+  var Field = require('ui/control/field');
   require('DatePicker/Locale.en-US.DatePicker');
   require('DatePicker/Picker.Date');
 

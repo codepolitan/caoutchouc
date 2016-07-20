@@ -3,13 +3,9 @@
  * @class UI.Component.Drag
  * @author Bruno Santos, Jerome Vial
  */
-define([
+define(function(require, exports, module) {
 
-], function(
-
-) {
-
-  var exports = new Class({
+  module.exports = new Class({
 
     options: {
       // Drag options
@@ -33,8 +29,9 @@ define([
     enableDrag: function() {
       var self = this;
 
-      if (this.dragHandlers.length === 0)
+      if (this.dragHandlers.length === 0) {
         this.dragHandlers = [];
+      }
 
       this.dragHandler = new Drag(this.element, {
         handle: this.dragHandlers,
@@ -90,7 +87,7 @@ define([
 
       return this;
     }
+
   });
 
-  return exports;
 });

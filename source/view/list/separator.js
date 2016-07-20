@@ -1,6 +1,5 @@
 /**
  * Separator List.V2 View Class
- *
  * @class View.List.V2.Separator
  * @author Jerome Vial, Bruno Santos
  */
@@ -8,10 +7,9 @@ define(function(require, exports, module) {
 
   var ScrollSpy = require('vendor/ScrollSpy/Source/ScrollSpy');
 
-  var _log = __debug('view-core-listV2-separator').defineLevel('debug');
+  var _log = __debug('view-core-listV2-separator').defineLevel();
 
   var Separator = new Class({
-
 
     _initSeparator: function() {
 

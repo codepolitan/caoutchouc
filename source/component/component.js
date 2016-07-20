@@ -9,23 +9,17 @@
  * @author [moolego,r2d2]
  * @copyright © 1999-2015 - Jerome D. Vial. All Rights reserved.
  */
-define([
-  'UI/Component/Binding',
-  'UI/Component/Method',
-  'UI/Component/Location',
-  'UI/Component/Drag',
-  'UI/Component/Resize'
-], function(
-  Binding,
-  Method,
-  Location,
-  Drag,
-  Resize
-) {
+define(function(require, exports, module) {
 
-  var _log = __debug('ui:component');
+  var Binding = require('ui/component/binding');
+  var Method = require('ui/component/method');
+  var Location = require('ui/component/location');
+  var Drag = require('ui/component/drag');
+  var Resize = require('ui/component/resize');
 
-  var exports = new Class({
+  var _log = __debug('ui-component');
+
+  module.exports = new Class({
 
     Implements: [
       Events,
@@ -351,7 +345,7 @@ define([
 
       return this;
     }
+
   });
 
-  return exports;
 });

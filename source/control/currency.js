@@ -4,13 +4,11 @@
  * @extends {UI.Control}
  * @author Jerome Vial
  */
-define([
-  'UI/Control/Field'
-], function(
-  Field
-) {
+define(function(require, exports, module) {
 
-  var exports = new Class({
+  var Field = require('ui/control/field');
+
+  module.exports = new Class({
 
     Extends: Field,
 
@@ -44,7 +42,5 @@ define([
     }
 
   });
-
-  return exports;
 
 });

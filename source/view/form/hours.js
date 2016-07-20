@@ -3,19 +3,15 @@
  * @implement Minimal.Form
  * @author Jerome Vial, Bruno Santos
  */
-define([
-  'UI/Control/Date',
-  'UI/Control/Hour',
-  'moment'
-], function(
-  DateControl,
-  HourControl,
-  moment
-) {
+define(function(require, exports, module) {
 
-  var _log = __debug('view:form-hours');
+  var DateControl = require('ui/control/date');
+  var HourControl = require('ui/control/hour');
+  var moment = require('moment');
 
-  var exports = new Class({
+  var _log = __debug('view-form-hours');
+
+  module.exports = new Class({
 
     /**
      * [_initHours description]
@@ -117,7 +113,5 @@ define([
     }
 
   });
-
-  return exports;
 
 });

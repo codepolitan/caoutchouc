@@ -10,7 +10,7 @@
  */
 define(function(require, exports, module) {
 
-  var ButtonControl = require('UI/Control/Button');
+  var ButtonControl = require('ui/control/button');
 
   var _log = __debug('view-form-unique').defineLevel();
 

@@ -4,13 +4,11 @@
  * @extends {UI.Control}
  * @type {Class}
  */
-define([
-  "UI/Control/Field"
-], function(
-  Field
-) {
+define(function(require, exports, module) {
 
-  var exports = new Class({
+  var Field = require('ui/control/field');
+
+  module.exports = new Class({
 
     Extends: Field,
 
@@ -48,11 +46,13 @@ define([
 
       //_log.debug(opts.value);
 
-      if (!opts.value)
+      if (!opts.value) {
         opts.value = 1;
+      }
 
-      if (opts.value)
+      if (opts.value) {
         this.input.set('value', opts.value);
+      }
 
     },
 
@@ -141,10 +141,13 @@ define([
       //_log.debug('steps set', value, this.item);
       var item = this.item[value];
 
-      if (!item) return;
+      if (!item) {
+        return;
+      }
 
-      if (this.selected)
+      if (this.selected) {
         this.selected.removeClass('selected');
+      }
 
       item.addClass('selected');
       this.selected = item;
@@ -152,5 +155,4 @@ define([
 
   });
 
-  return exports;
 });

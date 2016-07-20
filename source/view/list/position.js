@@ -1,6 +1,5 @@
 /**
  * Position List.V2 View Class
- *
  * @class View.List.V2.Position
  * @author Jerome Vial, Bruno Santos
  */

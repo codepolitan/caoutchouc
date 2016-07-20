@@ -6,9 +6,9 @@
  */
 define(function(require, exports, module) {
 
-  var Component = require('UI/Component/Component');
-  var ButtonControl = require('UI/Control/Button');
-  var Container = require('UI/Container/Container');
+  var Component = require('ui/component/component');
+  var ButtonControl = require('ui/control/button');
+  var Container = require('ui/container/container');
 
   var Tab = new Class({
 

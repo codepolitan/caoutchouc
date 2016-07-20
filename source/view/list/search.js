@@ -5,7 +5,7 @@
  */
 define(function(require, exports, module) {
 
-  var SearchControl = require('UI/Control/Search');
+  var SearchControl = require('ui/control/search');
   var searchUtil = require('utils/search');
 
   var _log = __debug('view-core-list-search').defineLevel();

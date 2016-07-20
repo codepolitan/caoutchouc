@@ -4,15 +4,13 @@
  * @extends {UI.Control}
  * @type {Class}
  */
-define([
-  'UI/Control/Button'
-], function(
-  Button
-) {
+define(function(require, exports, module) {
+
+  var Button = require('ui/control/button');
 
   var _log = __debug('ui:control-upload');
 
-  var exports = new Class({
+  module.exports = new Class({
 
     Extends: Button,
 
@@ -86,7 +84,5 @@ define([
     }
 
   });
-
-  return exports;
 
 });

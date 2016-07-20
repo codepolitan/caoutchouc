@@ -7,9 +7,9 @@
 define(function(require, exports, module) {
 
   var api = require('utils/api');
-  var Field = require('UI/Control/Field');
-  var ButtonControl = require('UI/Control/Button');
-  var ButtonMenu = require('UI/Control/ButtonMenu');
+  var Field = require('ui/control/field');
+  var ButtonControl = require('ui/control/button');
+  var ButtonMenu = require('ui/control/buttonMenu');
 
   var _log = __debug('ui-control-dropdown').defineLevel();
 

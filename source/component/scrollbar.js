@@ -6,13 +6,11 @@
  * found in upload folder of mootools website
  * @author Bruno Santos, Jerome Vial
  */
-define([
-  'UI/Component/Component'
-], function(
-  Component
-) {
+define(function(require, exports, module) {
 
-  var exports = new Class({
+  var Component = require('ui/component/component');
+
+  module.exports = new Class({
 
     Extends: Component,
 
@@ -266,7 +264,7 @@ define([
         return false;
       }
     }
+
   });
 
-  return exports;
 });

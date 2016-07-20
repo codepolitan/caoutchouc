@@ -4,13 +4,10 @@
  * @extends {UI.Selector}
  * @type {Class}
  */
-define([
+define(function(require, exports, module) {
 
-], function(
+  module.exports = new Class({
 
-) {
-
-  var exports = new Class({
     Implements: [Events, Options],
 
     options: {
@@ -220,7 +217,7 @@ define([
 
       return this;
     }
+
   });
 
-  return exports;
 });

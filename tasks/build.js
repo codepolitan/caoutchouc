@@ -28,7 +28,7 @@ module.exports = function(grunt) {
           //appDir: 'Source',
           dir: 'dist',
           paths: {
-            UI: './'
+            ui: './'
           },
           /**
            * @ignore
@@ -36,12 +36,12 @@ module.exports = function(grunt) {
           onBuildWrite: function(name, path, contents) {
             //console.log('Writing: ' + name);
 
-            /*if (name === 'UI') {
+            /*if (name === 'ui') {
             	contents = contents.replace('define(', "define('" + name + "', ");
             } else {
-            	contents = contents.replace('define(', "define('UI/" + name + "', ");
+            	contents = contents.replace('define(', "define('ui/" + name + "', ");
             }*/
-            contents = contents.replace('define(', "define('UI/" + name + "', ");
+            contents = contents.replace('define(', "define('ui/" + name + "', ");
 
             return contents;
           },

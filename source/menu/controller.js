@@ -23,14 +23,10 @@
 		to be continued....
 
 */
-//var ui = ui || {};
 
-define([
+define(function(require, exports, module) {
 
-], function(
-
-) {
-  var exports = {
+  module.exports = {
     options: {
       version: '0.1',
       zBase: 300,
@@ -112,5 +108,4 @@ define([
     }
   };
 
-  return exports;
 });

@@ -2,15 +2,11 @@
  * Implement collapse
  * @class View.Tree.Collapse
  */
-define([
+define(function(require, exports, module) {
 
-], function(
+  var _log = __debug('view-core-tree-collapse');
 
-) {
-
-  var _log = __debug('view:core-tree-collapse');
-
-  var exports = new Class({
+  module.exports = new Class({
 
     /**
      * Initialize collapse
@@ -73,7 +69,5 @@ define([
     }
 
   });
-
-  return exports;
 
 });

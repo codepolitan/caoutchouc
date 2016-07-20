@@ -10,13 +10,11 @@
  * @extends {UI.Control}
  * @type {Class}
  */
-define([
-  "UI/Control/Choice"
-], function(
-  Choice
-) {
+define(function(require, exports, module) {
 
-  var exports = new Class({
+  var Choice = require('ui/control/choice');
+
+  module.exports = new Class({
 
     Extends: Choice,
 
@@ -89,7 +87,7 @@ define([
         else item.removeClass('selected');
       }
     }
+
   });
 
-  return exports;
 });

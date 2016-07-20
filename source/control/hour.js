@@ -4,15 +4,12 @@
  * @extends {UI.Control}
  * @type {Class}
  */
-define([
-  'moment',
-  'UI/Control/Field'
-], function(
-  moment,
-  Field
-) {
+define(function(require, exports, module) {
 
-  var exports = new Class({
+  var moment = require('moment');
+  var Field = require('ui/control/field');
+
+  module.exports = new Class({
 
     Extends: Field,
 
@@ -217,7 +214,5 @@ define([
     }
 
   });
-
-  return exports;
 
 });

@@ -12,10 +12,10 @@ define(function(require, exports, module) {
 
   var moment = require('moment');
   var array = require('utils/array');
-  var ButtonControl = require('UI/Control/Button');
-  var FieldControl = require('UI/Control/Field');
-  var DropdownControl = require('UI/Control/Dropdown');
-  var CheckControl = require('UI/Control/Check');
+  var ButtonControl = require('ui/control/button');
+  var FieldControl = require('ui/control/field');
+  var DropdownControl = require('ui/control/dropdown');
+  var CheckControl = require('ui/control/check');
 
   var _log = __debug('view:form-related').defineLevel();
 

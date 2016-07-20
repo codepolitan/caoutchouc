@@ -3,21 +3,16 @@
  * @implement Minimal.Form
  * @author Jerome Vial, Bruno Santos
  */
-define([
-  'moment',
-  'UI/Control/Button',
-  'UI/Control/Field',
-  'UI/Window/Dialog',
-], function(
-  moment,
-  Button,
-  Field,
-  Dialog
-) {
+define(function(require, exports, module) {
 
-  var _log = __debug('view:form-charges');
+  var moment = require('moment');
+  var Button = require('ui/control/button');
+  var Field = require('ui/control/field');
+  var Dialog = require('ui/window/dialog');
 
-  var exports = new Class({
+  var _log = __debug('view-form-charges');
+
+  module.exports = new Class({
 
     _initCharges: function(field, doc, group) {
       _log.debug('_initCharges', field.name);
@@ -285,7 +280,5 @@ define([
     }
 
   });
-
-  return exports;
 
 });

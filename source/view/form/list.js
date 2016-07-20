@@ -5,10 +5,10 @@
  */
 define(function(require, exports, module) {
 
-  var Button = require('UI/Control/Button');
-  var Field = require('UI/Control/Field');
+  var Button = require('ui/control/button');
+  var Field = require('ui/control/field');
 
-  var _log = __debug('view:form-list');
+  var _log = __debug('core-module-dragdrop').defineLevel();
 
   var List = new Class({
 

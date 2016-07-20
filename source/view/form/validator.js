@@ -4,9 +4,9 @@
  */
 define(function(require, exports, module) {
 
-  var Dialog = require('UI/Window/Dialog');
+  var Dialog = require('ui/window/dialog');
 
-  var _log = __debug('view:form-validator');
+  var _log = __debug('view-form-validator');
 
   var Validator = new Class({
 

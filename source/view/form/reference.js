@@ -5,15 +5,13 @@
  * @param  {[type]} group) {		var       self [description]
  * @return {[type]}        [description]
  */
-define([
-  'Mustache'
-], function(
-  Mustache
-) {
+define(function(require, exports, module) {
+
+  var mustache = require('mustache');
 
   var _log = __debug('view:form-reference');
 
-  var exports = new Class({
+  module.exports = new Class({
 
     /**
      * Initalize Reference
@@ -51,13 +49,11 @@ define([
       tmpl = tmpl || this.tmpl;
       data = data || this.docs;
 
-      var content = Mustache.render(tmpl, data);
+      var content = mustache.render(tmpl, data);
 
       item.set('html', content);
     }
 
   });
-
-  return exports;
 
 });

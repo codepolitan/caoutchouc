@@ -59,13 +59,9 @@
 
 */
 
-define([
+define(function(require, exports, module) {
 
-], function(
-
-) {
-
-  var exports = UI.ContextTool = new Class({
+  module.exports = new Class({
 
     Extends: UI.Menu,
 
@@ -346,5 +342,4 @@ define([
 
   });
 
-  return exports;
 });

@@ -1,6 +1,5 @@
 /**
  * Sort List.V2 View Class
- *
  * @class View.List.V2.Sort
  * @author Jerome Vial, Bruno Santos
  */

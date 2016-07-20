@@ -3,16 +3,13 @@
  * @class UI.Component.Location
  * @author Bruno Santos, Jerome Vial
  */
-define([
-  'config/ui/control/base',
-  'UI/Component/Component',
-  'UI/Control/Button'
-], function(
-  uiControlBaseConfig,
-  Component
-) {
+define(function(require, exports, module) {
 
-  var exports = UI.Toolbar = new Class({
+  var uiControlBaseConfig = require('config/ui/control/base');
+  var Component = require('ui/component/component');
+  require('ui/control/button');
+
+  module.exports = new Class({
 
     Extends: Component,
 
@@ -88,7 +85,5 @@ define([
     }
 
   });
-
-  return exports;
 
 });

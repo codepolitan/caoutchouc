@@ -5,7 +5,7 @@
  */
 define(function(require, exports, module) {
 
-  var Button = require('UI/Control/Button');
+  var Button = require('ui/control/button');
 
   var _log = __debug('view-core-form-contact').defineLevel();
 

@@ -4,20 +4,15 @@
  * @extends {UI.Component}
  * @author Bruno Santos, Jerome Vial
  */
-define([
-  'UI/Window/controller',
-  'UI/Container/Container',
-  'UI/Control/Button'
-], function(
-  controller,
-  Container,
-  ButtonControl
-) {
+define(function(require, exports, module) {
 
-  var _log = __debug('ui-menu');
-  //	_log.defineLevel();
+  var controller = require('ui/window/controller');
+  var Container = require('ui/container/container');
+  var ButtonControl = require('ui/control/button');
 
-  var exports = new Class({
+  var _log = __debug('ui-menu').defineLevel();
+
+  module.exports = new Class({
 
     Extends: Container,
 
@@ -494,7 +489,5 @@ define([
     }
 
   });
-
-  return exports;
 
 });

@@ -3,27 +3,19 @@
  * @implement Minimal.Form
  * @author Jerome Vial, Bruno Santos
  */
-define([
-  'UI/Control/Button',
-  'UI/Control/Choice',
-  'UI/Control/Steps',
-  'UI/Control/Dropdown',
-  'UI/Control/Multi',
-  'UI/Control/Select',
-  'UI/Control/Check',
-], function(
-  ButtonControl,
-  ChoiceControl,
-  StepsControl,
-  DropdownControl,
-  MultiControl,
-  SelectControl,
-  CheckControl
-) {
+define(function(require, exports, module) {
 
-  var _log = __debug('view:form-control');
+  var ButtonControl = require('ui/control/button');
+  var ChoiceControl = require('ui/control/choice');
+  var StepsControl = require('ui/control/steps');
+  var DropdownControl = require('ui/control/dropdown');
+  var MultiControl = require('ui/control/multi');
+  var SelectControl = require('ui/control/select');
+  var CheckControl = require('ui/control/check');
 
-  var exports = new Class({
+  var _log = __debug('view-form-control');
+
+  module.exports = new Class({
 
     /**
      * [_initButtons description]
@@ -36,9 +28,11 @@ define([
       var self = this;
       var buttons = [];
       //_log.debug('_initButton', list, doc, element);
-      if (typeOf(list) == 'object')
+      if (typeOf(list) == 'object') {
         buttons.push(list);
-      else buttons = list;
+      } else {
+        buttons = list;
+      }
 
       _log.debug(buttons);
       buttons.each(function(b) {
@@ -311,7 +305,5 @@ define([
     }
 
   });
-
-  return exports;
 
 });

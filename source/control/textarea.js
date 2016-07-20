@@ -27,15 +27,13 @@
  * @extends {UI.Control}
  * @type {Class}
  */
-define([
-  "UI/Control/Field"
-], function(
-  Field
-) {
+define(function(require, exports, module) {
 
-  var _log = __debug('ui:textarea');
+  var Field = require('ui/control/field');
 
-  var exports = new Class({
+  var _log = __debug('ui-textarea');
+
+  module.exports = new Class({
 
     Extends: Field,
 
@@ -136,7 +134,7 @@ define([
         focus: this.setState.bind(this, 'focus')
       });
     }
+
   });
 
-  return exports;
 });

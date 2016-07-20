@@ -28,15 +28,15 @@
  */
 define(function(require, exports, module) {
 
-  var options = require('UI/View/Tree/options');
+  var options = require('ui/view/tree/options');
   var array = require('utils/array');
-  var View = require('UI/View/View');
-  var TreeCollapse = require('UI/View/Tree/utils/Collapse');
-  var Tree = require('UI/View/Tree/utils/Tree');
-  var Collapse = require('UI/View/Tree/Collapse');
-  var Count = require('UI/View/Tree/Count');
+  var View = require('ui/view/view');
+  var TreeCollapse = require('ui/view/tree/utils/collapse');
+  var Tree = require('ui/view/tree/utils/Tree');
+  var Collapse = require('ui/view/tree/collapse');
+  var Count = require('ui/view/tree/count');
 
-  var _log = __debug('view:core-tree').defineLevel();
+  var _log = __debug('view-core-tree').defineLevel();
 
   module.exports = new Class({
 

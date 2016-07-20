@@ -1,6 +1,5 @@
 /**
  * Expand List.V2 View Class
- *
  * @class View.List.V2.Expand
  * @author Bruno Santos, Jerome Vial
  */

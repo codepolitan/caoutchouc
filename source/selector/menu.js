@@ -4,16 +4,11 @@
  * @extends {UI.Selector}
  * @type {Class}
  */
-define([
+define(function(require, exports, module) {
 
-], function(
+  var _log = __debug('ui-selector-menu').defineLevel();
 
-) {
-  var _log = __debug('ui-selector-menu');
-  //_log.defineLevel('debug');
-
-  //var Button = require('UI/Control/Button');
-  var exports = new Class({
+  module.exports = new Class({
 
     Implements: [Events, Options],
 
@@ -212,7 +207,7 @@ define([
     show: function() {
       this.element.show();
     }
+
   });
 
-  return exports;
 });

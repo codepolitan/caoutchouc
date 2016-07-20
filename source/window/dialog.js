@@ -5,8 +5,8 @@
  */
 define(function(require, exports, module) {
 
-  var ButtonControl = require('UI/Control/Button');
-  var Window = require('UI/Window/Window');
+  var ButtonControl = require('ui/control/button');
+  var Window = require('ui/window/window');
 
   var _log = __debug('ui-dialog').defineLevel();
 

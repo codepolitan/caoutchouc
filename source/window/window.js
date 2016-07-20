@@ -6,10 +6,10 @@
  */
 define(function(require, exports, module) {
 
-  var Controller = require('UI/Window/controller');
+  var Controller = require('ui/window/controller');
 
-  var Container = require('UI/Container/Container');
-  var ButtonControl = require('UI/Control/Button');
+  var Container = require('ui/container/container');
+  var ButtonControl = require('ui/control/button');
 
   var _log = __debug('ui-window');
 

@@ -7,18 +7,18 @@
 define(function(require, exports, module) {
 
   var viewCtrl = require('./ctrl');
-  var UIContainer = require('UI/Container/Container');
-  var Layout = require('UI/Layout/Layout');
-  var Toolbar = require('UI/Toolbar/Toolbar');
-  var Binding = require('UI/Component/Binding');
-  var Container = require('./Container');
+  var UIContainer = require('ui/container/container');
+  var Layout = require('ui/layout/layout');
+  var Toolbar = require('ui/toolbar/toolbar');
+  var Binding = require('ui/component/binding');
+  var Container = require('./container');
   //var ctrl = require('./ctrl');
-  var Dragging = require('./Dragging');
-  var Limit = require('./Limit');
-  var Loader = require('./Loader');
-  var Scroll = require('./Scroll');
+  var Dragging = require('./dragging');
+  var Limit = require('./limit');
+  var Loader = require('./loader');
+  var Scroll = require('./scroll');
   //var Scrolling = require('./Scrolling');
-  var Zoom = require('./Zoom');
+  var Zoom = require('./zoom');
 
   var _log = __debug('view').defineLevel();
 

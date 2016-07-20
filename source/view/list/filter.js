@@ -6,7 +6,7 @@
 define(function(require, exports, module) {
 
   var filterUtil = require('utils/filter');
-  var FilterControl = require('UI/Control/Filter');
+  var FilterControl = require('ui/control/filter');
 
   var _log = __debug('view-core-list-filter').defineLevel();
 

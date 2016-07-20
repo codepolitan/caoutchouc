@@ -6,7 +6,7 @@ define(function(require, exports, module) {
 
   var array = require('utils/array');
 
-  var _log = __debug('view:core-tree-count').defineLevel();
+  var _log = __debug('view-core-tree-count').defineLevel();
 
   module.exports = new Class({
 

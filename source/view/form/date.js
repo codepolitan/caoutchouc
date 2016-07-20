@@ -3,21 +3,16 @@
  * @implement Minimal.Form
  * @author Jerome Vial, Bruno Santos
  */
-define([
-  'moment',
-  'UI/Control/Date',
-  'UI/Control/Field',
-  'UI/Control/Button'
-], function(
-  moment,
-  DateControl,
-  FieldControl,
-  ButtonControl
-) {
+define(function(require, exports, module) {
+
+  var moment = require('moment');
+  var DateControl = require('ui/control/date');
+  var FieldControl = require('ui/control/field');
+  var ButtonControl = require('ui/control/button');
 
   var _log = __debug('view-form-date').defineLevel();
 
-  var exports = new Class({
+  module.exports = new Class({
 
     /**
      * [_initDate description]
@@ -451,7 +446,5 @@ define([
     }
 
   });
-
-  return exports;
 
 });

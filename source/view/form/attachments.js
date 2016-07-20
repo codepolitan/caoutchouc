@@ -3,15 +3,13 @@
  * @implement Minimal.Form
  * @author Jerome Vial, Bruno Santos
  */
-define([
-  'UI/Control/Button'
-], function(
-  Button
-) {
+define(function(require, exports, module) {
 
-  var _log = __debug('view:form-attachments');
+  var Button = require('ui/control/button');
 
-  var exports = new Class({
+  var _log = __debug('view-form-attachments');
+
+  module.exports = new Class({
 
     /**
      * [_initContacts description]
@@ -122,7 +120,5 @@ define([
     }
 
   });
-
-  return exports;
 
 });

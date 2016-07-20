@@ -4,19 +4,14 @@
  * @extends {UI.Control}
  * @type {Class}
  */
-define([
-  'UI/Control/Field',
-  'UI/Control/Button',
-  'UI/Component/Method',
-  'config/icon/font',
-], function(
-  Field,
-  Button,
-  Method,
-  fontIconConfig
-) {
+define(function(require, exports, module) {
 
-  var exports = new Class({
+  var Field = require('ui/control/field');
+  var Button = require('ui/control/button');
+  var Method = require('ui/Component/method');
+  var fontIconConfig = require('config/icon/font');
+
+  module.exports = new Class({
 
     Extends: Field,
 
@@ -134,7 +129,5 @@ define([
     }
 
   });
-
-  return exports;
 
 });

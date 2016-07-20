@@ -3,13 +3,9 @@
  * @class UI.Control.Tool
  * @type {Class}
  */
-define([
+define(function(require, exports, module) {
 
-], function(
-
-) {
-
-  var exports = UI.Tool = new Class({
+  module.exports = new Class({
 
     Extends: UI.Container,
 
@@ -395,7 +391,5 @@ define([
     }
 
   });
-
-  return exports;
 
 });

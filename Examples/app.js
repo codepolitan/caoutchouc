@@ -1,6 +1,5 @@
 /**
  * Demo App
- *
  * @class App.Demo
  * @extends {App.Demo}
  * @author Jerome Vial
@@ -8,108 +7,108 @@
 define(function(require, exports, module) {
 
 
-	var Binding = require('UI/Component/Binding');
-	var Toolbar = require('UI/Toolbar/Toolbar');
-	var Container = require('UI/Container/Container');
-	var Layout = require('UI/Layout/Layout');
-	var View = require('UI/View/View');
-	var Browser = require('./Browser');
+  var Binding = require('ui/component/binding');
+  var Toolbar = require('ui/toolbar/toolbar');
+  var Container = require('ui/container/container');
+  var Layout = require('ui/layout/layout');
+  var View = require('ui/view/view');
+  var Browser = require('./browser');
 
-	console.log('View', View);
+  console.log('View', View);
 
 
-	var App = new Class({
+  var App = new Class({
 
-		Implements: [Options, Events, Binding, Toolbar],
+    Implements: [Options, Events, Binding, Toolbar],
 
-		name: 'contacts',
+    name: 'contacts',
 
-		options: {
-			container: $(document.body),
-			toolbar: {
-				list: ['view', 'info', 'desk'],
-				view: {
-					container: 'head',
-					section: 'top',
-					list: ['navi']
-				},
-				info: {
-					container: 'head',
-					section: 'top',
-					list: ['title'],
-					title: {
-						clss: 'UI/Component/Text'
-					}
-				},
-				desk: {
-					container: 'head',
-					section: 'top',
-					list: [/*'talk',*/ 'notification', /*'desktop', 'favorite',*/ 'apps', /*'settings',*/ 'user']
-				}
-			},
-			layout: {
-				_name: 'standard',
-				_list: ['navi', 'main', 'side'],
-				main: {
-					flex: '1'
-				},
-				navi: {
-					theme: 'dark'
-				}
-			},
-			binding: {
-				'control.navi': 'test'
-			}
-		},
+    options: {
+      container: $(document.body),
+      toolbar: {
+        list: ['view', 'info', 'desk'],
+        view: {
+          container: 'head',
+          section: 'top',
+          list: ['navi']
+        },
+        info: {
+          container: 'head',
+          section: 'top',
+          list: ['title'],
+          title: {
+            clss: 'ui/component/text'
+          }
+        },
+        desk: {
+          container: 'head',
+          section: 'top',
+          list: [ /*'talk',*/ 'notification', /*'desktop', 'favorite',*/ 'apps', /*'settings',*/ 'user']
+        }
+      },
+      layout: {
+        _name: 'standard',
+        _list: ['navi', 'main', 'side'],
+        main: {
+          flex: '1'
+        },
+        navi: {
+          theme: 'dark'
+        }
+      },
+      binding: {
+        'control.navi': 'test'
+      }
+    },
 
-		test: function() {
-			
-			console.log('test');
-		},
+    test: function() {
 
-		/**
-		 * Contructor
-		 * @return {Object} The Class instance
-		 */
-		initialize: function(options) {
-			this.setOptions(options);
+      console.log('test');
+    },
 
-			this.build();
+    /**
+     * Contructor
+     * @return {Object} The Class instance
+     */
+    initialize: function(options) {
+      this.setOptions(options);
 
-			this._initBinding();
+      this.build();
 
-			console.log(this);
+      this._initBinding();
 
-			return this;
-		},
+      console.log(this);
 
-		/**
-		 * [build description]
-		 * @return {[type]} [description]
-		 */
-		build: function() {
-			console.log('build app');
+      return this;
+    },
 
-			this.container = new Container({
-				klass: 'container-desk',
-				comp: ['head', 'body']
-			}).inject(this.options.container);
+    /**
+     * [build description]
+     * @return {[type]} [description]
+     */
+    build: function() {
+      console.log('build app');
 
-			this.layout = new Layout({
-				theme: 'dark',
-				container: this.container.body,
-				node: this.options.layout
-			});
+      this.container = new Container({
+        klass: 'container-desk',
+        comp: ['head', 'body']
+      }).inject(this.options.container);
 
-			this.browser = new Browser({
-				container: this.layout.main,
-				klass: 'browser'
-			});
+      this.layout = new Layout({
+        theme: 'dark',
+        container: this.container.body,
+        node: this.options.layout
+      });
 
-			this._initToolbar(this.options.toolbar);
-		}
-	});
+      this.browser = new Browser({
+        container: this.layout.main,
+        klass: 'browser'
+      });
 
-	module.exports = App;
+      this._initToolbar(this.options.toolbar);
+    }
+  });
+
+  module.exports = App;
 
 });

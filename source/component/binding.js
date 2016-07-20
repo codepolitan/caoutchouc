@@ -13,7 +13,7 @@
   }
 }(this, function() {
 
-  var _log = __debug('core:module-binding').defineLevel();
+  var _log = __debug('core-module-binding').defineLevel();
 
   if (typeof define !== 'function') {
     Class = require('primish');

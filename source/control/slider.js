@@ -4,13 +4,9 @@
  * @extends {UI.Control}
  * @type {Class}
  */
-define([
+define(function(require, exports, module) {
 
-], function(
-
-) {
-
-  var exports = UI.Slider = new Class({
+  module.exports = new Class({
 
     Extends: UI.Component,
 
@@ -151,7 +147,5 @@ define([
     }
 
   });
-
-  return exports;
 
 });

@@ -4,13 +4,11 @@
  * @extends {UI.Component}
  * @author Bruno Santos, Jerome Vial
  */
-define([
-  "UI/Component/Component",
-], function(
-  Component
-) {
+define(function(require, exports, module) {
 
-  var exports = new Class({
+  var Component = require('ui/component/component');
+
+  module.exports = new Class({
 
     Extends: Component,
 
@@ -59,7 +57,7 @@ define([
       if (property == 'text')
         this.element.set('html', value);
     }
+
   });
 
-  return exports;
 });

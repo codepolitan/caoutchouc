@@ -144,7 +144,7 @@ define(function(require, exports, module) {
       _log.debug('_instanciateComp', name, def, element);
 
       var self = this;
-      var clss = def.clss || 'UI/Control/Button';
+      var clss = def.clss || 'ui/control/button';
 
       //process name and klss for components with ::
       var temp = name.split(/\:\:/);
@@ -159,7 +159,7 @@ define(function(require, exports, module) {
 
       //handle separator
       if (name === 'separator') {
-        clss = 'UI/Control/Separator';
+        clss = 'ui/control/separator';
       }
 
       var icon = def.icon || name;
@@ -187,7 +187,7 @@ define(function(require, exports, module) {
         text = this.langControl[lang][name] || def.text;
       }
 
-      if (clss === 'UI/Control/Button' || clss === 'UI/Control/ButtonMenu') {
+      if (clss === 'ui/control/button' || clss === 'ui/control/buttonMenu') {
         opts.text = this.langControl[lang][name] || Locale.get('control.' + name, name) || text || name;
       }
 
@@ -261,7 +261,7 @@ define(function(require, exports, module) {
         }
       });
 
-      if (clss === 'UI/Control/Button') {
+      if (clss === 'ui/control/button') {
         self.control[name].addEvents({
           /**
            * @ignore
@@ -279,7 +279,7 @@ define(function(require, exports, module) {
         });
       }
 
-      if (clss === 'UI/Control/Upload') {
+      if (clss === 'ui/control/upload') {
         self.control[name].addEvents({
           /**
            * @ignore
@@ -294,7 +294,7 @@ define(function(require, exports, module) {
         });
       }
 
-      if (clss === 'UI/Control/Field') {
+      if (clss === 'ui/control/field') {
         self.control[name].addEvents({
           /**
            * @ignore
@@ -312,7 +312,7 @@ define(function(require, exports, module) {
         });
       }
 
-      if (clss === 'UI/Control/ButtonMenu') {
+      if (clss === 'ui/control/buttonMenu') {
         self.control[name].addEvents({
           /**
            * @ignore

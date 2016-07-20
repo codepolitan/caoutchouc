@@ -4,15 +4,13 @@
  * @extends {UI.Menu}
  * @author Bruno Santos, Jerome Vial
  */
-define([
-  'UI/Menu/Menu'
-], function(
-  Menu
-) {
+define(function(require, exports, module) {
+
+  var Menu = require('ui/menu/menu');
 
   var _log = __debug('ui-menu-context').defineLevel();
 
-  var exports = new Class({
+  module.exports = new Class({
 
     Extends: Menu,
 
@@ -306,7 +304,5 @@ define([
     }
 
   });
-
-  return exports;
 
 });

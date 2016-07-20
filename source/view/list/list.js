@@ -19,21 +19,21 @@
  */
 define(function(require, exports, module) {
 
-  var Mustache = require('Mustache');
-  var DOM = require('utils/DOM');
-  var View = require('UI/View/View');
+  var mustache = require('mustache');
+  var DOM = require('utils/dom');
+  var View = require('ui/view/view');
 
-  var Compat = require('UI/View/List/compat');
-  var Expand = require('UI/View/List/expand');
-  var Filter = require('UI/View/List/filter');
-  var Insert = require('UI/View/List/insert');
-  var Position = require('UI/View/List/position');
-  var Search = require('UI/View/List/search');
-  var Select = require('UI/View/List/select');
-  //var Separator = require('UI/View/List/separator');
-  var Settings = require('UI/View/List/settings');
-  //var Sort = require('UI/View/List/sort');
-  var Virtual = require('UI/View/List/virtual');
+  var Compat = require('ui/view/list/compat');
+  var Expand = require('ui/view/list/expand');
+  var Filter = require('ui/view/list/filter');
+  var Insert = require('ui/view/list/insert');
+  var Position = require('ui/view/list/position');
+  var Search = require('ui/view/list/search');
+  var Select = require('ui/view/list/select');
+  //var Separator = require('ui/view/list/separator');
+  var Settings = require('ui/view/list/settings');
+  //var Sort = require('ui/view/list/sort');
+  var Virtual = require('ui/view/list/virtual');
 
   var _log = __debug('view-core-ListV2').defineLevel();
 
@@ -388,7 +388,7 @@ define(function(require, exports, module) {
       }
 
       return new Element('div', {
-        html: Mustache.render(tmpl, info),
+        html: mustache.render(tmpl, info),
         'data-id': info._id,
         class: _class
       });

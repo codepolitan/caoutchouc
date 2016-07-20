@@ -3,13 +3,11 @@
  * @class UI.Component.Progress
  * @author Bruno Santos, Jerome Vial
  */
-define([
-  "UI/Component/Component"
-], function(
-  Component
-) {
+define(function(require, exports, module) {
 
-  var exports = new Class({
+  var Component = require('ui/component/component');
+
+  module.exports = new Class({
 
     Extends: Component,
 
@@ -63,7 +61,7 @@ define([
         'class': 'progress-bar'
       }).inject(this.element);
     }
+
   });
 
-  return exports;
 });

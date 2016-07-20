@@ -3,19 +3,15 @@
  * @extends {UI.Control}
  * @type {Class}
  */
-define([
-  'UI/Control/Control',
-  'config/icon/font',
-  'config/icon/mdi'
-], function(
-  Control,
-  fontIconConfig,
-  mdiIconConfig
-) {
+define(function(require, exports, module) {
+
+  var Control = require('ui/control/control');
+  var fontIconConfig = require('config/icon/font');
+  var mdiIconConfig = require('config/icon/mdi');
 
   var _log = __debug('ui:control-button');
 
-  var exports = new Class({
+  module.exports = new Class({
 
     Extends: Control,
 
@@ -343,5 +339,4 @@ define([
 
   });
 
-  return exports;
 });

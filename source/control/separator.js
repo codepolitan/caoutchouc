@@ -4,13 +4,11 @@
  * @extends {UI.Control}
  * @type {Class}
  */
-define([
-  "UI/Control/Control"
-], function(
-  Control
-) {
+define(function(require, exports, module) {
 
-  var exports = new Class({
+  var Control = require('ui/control/control');
+
+  module.exports = new Class({
 
     Extends: Control,
 
@@ -105,7 +103,7 @@ define([
         else this.setState('checked');
       }
     }
+
   });
 
-  return exports;
 });

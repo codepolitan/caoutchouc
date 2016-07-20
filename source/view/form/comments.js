@@ -3,19 +3,15 @@
  * @implement Minimal.Form
  * @author Jerome Vial, Bruno Santos
  */
-define([
-  'moment',
-  'UI/Control/Button',
-  'UI/Control/Field'
-], function(
-  moment,
-  Button,
-  Field
-) {
+define(function(require, exports, module) {
+
+  var moment = require('moment');
+  var Button = require('ui/control/button');
+  var Field = require('ui/control/field');
 
   var _log = __debug('view:form-comments');
 
-  var exports = new Class({
+  module.exports = new Class({
 
     /**
      * [_initComments description]
@@ -217,7 +213,5 @@ define([
     }
 
   });
-
-  return exports;
 
 });

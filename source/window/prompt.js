@@ -4,19 +4,13 @@
  * @extends {UI.Container}
  * @type {Class}
  */
-define([
-  'UI/Component/Text',
-  //'UI/Control/Textarea',
-  'UI/Control/Button',
-  'UI/Window/Window'
-], function(
-  UIText,
-  //TextareaControl,
-  ButtonControl,
-  Window
-) {
+define(function(require, exports, module) {
 
-  var exports = new Class({
+  var UIText = require('ui/component/text');
+  var ButtonControl = require('ui/control/button');
+  var Window = require('ui/window/window');
+
+  module.exports = new Class({
 
     Extends: Window,
 
@@ -185,7 +179,5 @@ define([
     }
 
   });
-
-  return exports;
 
 });

@@ -4,18 +4,15 @@
  * @extends {UI.Control}
  * @type {Class}
  */
-define([
-  'UI/Control/Button',
-  'UI/Control/Separator',
-  'config/icon/font',
-], function(
-  Button,
-  fontIconConfig
-) {
+define(function(require, exports, module) {
 
-  var _log = __debug('ui:control-buttonMenu');
+  var Button = require('ui/control/button');
+  var fontIconConfig = require('ui/control/separator');
+  require('config/icon/font');
 
-  var exports = new Class({
+  var _log = __debug('ui-control-buttonMenu');
+
+  module.exports = new Class({
 
     Extends: Button,
 
@@ -122,7 +119,7 @@ define([
      */
     _initItem: function(name, def, element) {
       var self = this;
-      var clss = 'UI/Control/Button';
+      var clss = 'ui/control/button';
       var opts;
 
       def = def || {};
@@ -136,7 +133,7 @@ define([
       //var klss = l.join(' ');
 
       if (name === 'separator') {
-        clss = 'UI/Control/Separator';
+        clss = 'ui/control/separator';
       }
 
       if (def.clss) {
@@ -163,7 +160,7 @@ define([
         return;
       }
 
-      if (clss === 'UI/Control/Button' || clss === 'UI/Control/ButtonMenu') {
+      if (clss === 'ui/control/button' || clss === 'ui/control/buttonMenu') {
         opts.text = def.text || Locale.get('control.' + name, name) || name;
       }
 
@@ -171,7 +168,7 @@ define([
 
         self.control[name] = new Clss(opts).inject(element);
 
-        if (clss === 'UI/Control/Button') {
+        if (clss === 'ui/control/button') {
           self.control[name].addEvents({
             /**
              * @ignore
@@ -233,5 +230,4 @@ define([
 
   });
 
-  return exports;
 });

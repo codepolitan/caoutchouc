@@ -4,13 +4,9 @@
  * @extends {UI.Control}
  * @type {Class}
  */
-define([
+define(function(require, exports, module) {
 
-], function(
-
-) {
-
-  var exports = UI.RadiosGroup = new Class({
+  module.exports = new Class({
 
     Extends: UI.Control,
 
@@ -143,7 +139,5 @@ define([
     }
 
   });
-
-  return exports;
 
 });

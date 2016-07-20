@@ -4,12 +4,12 @@
  */
 define(function(require, exports, module) {
 
-  var Border = require('UI/Selector/Border');
-  var Menu = require('UI/Selector/Menu');
-  var Resizer = require('UI/Selector/Resizer');
-  var Overlay = require('UI/Selector/Overlay');
-  var Mask = require('UI/Selector/Mask');
-  var Status = require('UI/Selector/Status');
+  var Border = require('ui/selector/border');
+  var Menu = require('ui/selector/menu');
+  var Resizer = require('ui/selector/resizer');
+  var Overlay = require('ui/selector/overlay');
+  var Mask = require('ui/selector/mask');
+  var Status = require('ui/selector/status');
 
   module.exports = new Class({
 
@@ -557,4 +557,5 @@ define(function(require, exports, module) {
     }
 
   });
+
 });

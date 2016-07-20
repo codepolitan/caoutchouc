@@ -1,6 +1,5 @@
 /**
  * Insert List.V2 View Class
- *
  * @class View.List.V2.Insert
  * @author Bruno Santos, Jerome Vial
  */

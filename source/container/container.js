@@ -7,10 +7,10 @@
  */
 define(function(require, exports, module) {
 
-  var Component = require('UI/Component/Component');
-  var Display = require('UI/Container/Display');
+  var Component = require('ui/component/component');
+  var Display = require('ui/container/display');
 
-  var _log = __debug('ui:container');
+  var _log = __debug('ui-container');
 
   var Container = new Class({
 

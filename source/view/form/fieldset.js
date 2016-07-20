@@ -1,18 +1,13 @@
 /**
- * [_initFieldset description]
- * @param  {[type]} fieldset [description]
- * @param  {[type]} form)    {		var       self [description]
- * @return {[type]}          [description]
+ * @author Bruno Santos, Jerome Vial
  */
-define([
-  'UI/Control/Button'
-], function(
-  ButtonControl
-) {
+define(function(require, exports, module) {
+
+  var ButtonControl = require('ui/control/button');
 
   var _log = __debug('view:form-fieldset');
 
-  var exports = new Class({
+  module.exports = new Class({
 
     /**
      * Initialize form fieldset
@@ -87,12 +82,8 @@ define([
         //_log.debug(fieldset.menu);
         self.fireEvent(menu.emit, self);
       });
-
-
     }
 
   });
-
-  return exports;
 
 });

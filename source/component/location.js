@@ -3,13 +3,9 @@
  * @class UI.Component.Location
  * @author Bruno Santos, Jerome Vial
  */
-define([
+define(function(require, exports, module) {
 
-], function(
-
-) {
-
-  var exports = new Class({
+  module.exports = new Class({
 
     _initLocation: function() {
       var list = ['left', 'top', 'right', 'bottom'];
@@ -130,7 +126,7 @@ define([
         }
       }
     }
+
   });
 
-  return exports;
 });
