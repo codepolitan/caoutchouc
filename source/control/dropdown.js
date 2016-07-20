@@ -9,7 +9,7 @@ define(function(require, exports, module) {
   var api = require('utils/api');
   var Field = require('ui/control/field');
   var ButtonControl = require('ui/control/button');
-  var ButtonMenu = require('ui/control/buttonMenu');
+  var ButtonMenu = require('ui/control/button-menu');
 
   var _log = __debug('ui-control-dropdown').defineLevel();
 

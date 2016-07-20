@@ -187,7 +187,7 @@ define(function(require, exports, module) {
         text = this.langControl[lang][name] || def.text;
       }
 
-      if (clss === 'ui/control/button' || clss === 'ui/control/buttonMenu') {
+      if (clss === 'ui/control/button' || clss === 'ui/control/button-menu') {
         opts.text = this.langControl[lang][name] || Locale.get('control.' + name, name) || text || name;
       }
 
@@ -312,7 +312,7 @@ define(function(require, exports, module) {
         });
       }
 
-      if (clss === 'ui/control/buttonMenu') {
+      if (clss === 'ui/control/button-menu') {
         self.control[name].addEvents({
           /**
            * @ignore

@@ -32,7 +32,7 @@ define(function(require, exports, module) {
   var array = require('utils/array');
   var View = require('ui/view/view');
   var TreeCollapse = require('ui/view/tree/utils/collapse');
-  var Tree = require('ui/view/tree/utils/Tree');
+  var Tree = require('ui/view/tree/utils/tree');
   var Collapse = require('ui/view/tree/collapse');
   var Count = require('ui/view/tree/count');
 

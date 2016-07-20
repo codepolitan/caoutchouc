@@ -8,7 +8,7 @@ define(function(require, exports, module) {
 
   var Field = require('ui/control/field');
   var Button = require('ui/control/button');
-  var Method = require('ui/Component/method');
+  var Method = require('ui/component/method');
   var fontIconConfig = require('config/icon/font');
 
   module.exports = new Class({

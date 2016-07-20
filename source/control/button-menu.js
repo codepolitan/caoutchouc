@@ -160,7 +160,7 @@ define(function(require, exports, module) {
         return;
       }
 
-      if (clss === 'ui/control/button' || clss === 'ui/control/buttonMenu') {
+      if (clss === 'ui/control/button' || clss === 'ui/control/button-menu') {
         opts.text = def.text || Locale.get('control.' + name, name) || name;
       }
 
