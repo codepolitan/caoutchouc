@@ -9,7 +9,7 @@ define(function(require, exports, module) {
   var Field = require('ui/control/field');
   var Button = require('ui/control/button');
   var Method = require('ui/component/method');
-  var fontIconConfig = require('config/icon/font');
+  var controlIcon = require('config/icon/control');
 
   module.exports = new Class({
 
@@ -72,7 +72,7 @@ define(function(require, exports, module) {
      */
     _initReset: function() {
       var self = this;
-      var icon = fontIconConfig.clear || 'mdi-action-help';
+      var icon = controlIcon.clear || 'mdi-action-help';
 
       this.reset = new Button({
         name: 'clear',

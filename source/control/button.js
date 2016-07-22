@@ -6,8 +6,7 @@
 define(function(require, exports, module) {
 
   var Control = require('ui/control/control');
-  var fontIconConfig = require('config/icon/font');
-  var mdiIconConfig = require('config/icon/mdi');
+  var controlIcon = require('config/icon/control');
 
   var _log = __debug('ui:control-button');
 
@@ -104,15 +103,10 @@ define(function(require, exports, module) {
 
       this.icon = new Element(tag, prop).inject(this.element);
 
-
-      if (mdiIconConfig[name]) {
-        //_log.debug('mdi');
-        klss = 'icon-mdi';
-        code = mdiIconConfig[name];
-      } else if (fontIconConfig[name]) {
-        //_log.debug('iocn font name', name);
+      if (controlIcon[name]) {
+        _log.debug('icon font name', name);
         klss = 'icon-font';
-        code = fontIconConfig[name];
+        code = controlIcon[name];
       }
 
       if (klss) {

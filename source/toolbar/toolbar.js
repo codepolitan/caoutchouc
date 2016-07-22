@@ -5,9 +5,7 @@
  */
 define(function(require, exports, module) {
 
-  //var appIconConfig = require('config/icon/app');
-  var fontIconConfig = require('config/icon/font');
-  var mdiIconConfig = require('config/icon/mdi');
+  var controlIcon = require('config/icon/control');
   var langControlsConfigEn = require('config/sys/lang/control/en');
   var langControlsConfigFr = require('config/sys/lang/control/fr');
 
@@ -165,7 +163,7 @@ define(function(require, exports, module) {
       var icon = def.icon || name;
       var opts = {
         name: name,
-        icon: fontIconConfig[icon] || 'mdi-action-help',
+        icon: controlIcon[icon] || 'mdi-action-help',
         type: 'action',
         klss: klss
       };
@@ -173,7 +171,7 @@ define(function(require, exports, module) {
       if (def.opts) {
         opts = def.opts;
         opts.text = Locale.get('control.' + name, name) || name;
-        opts.icon = mdiIconConfig[icon] || fontIconConfig[icon] || 'mdi-action-help';
+        opts.icon = controlIcon[icon] || 'mdi-action-help';
       }
 
       var lang = this.options.lang;
