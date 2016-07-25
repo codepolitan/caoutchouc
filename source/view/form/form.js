@@ -994,28 +994,26 @@ define(function(require, exports, module) {
     },
 
     /**
-     * [patch description]
-     * @param  {[type]} doc [description]
-     * @return {[type]}     [description]
+     * patch
+     * @param  {Object} info
+     * @return {Object}
      */
-    patch: function(doc) {
-      //_log.debug('patch', doc);
-      // horrible but ...
-      // the mnml dot notation will disapear
+    patch: function(info) {
+      _log.debug('patch', info);
 
-      if (!doc || !doc.type) {
+      if (!info || !info.type) {
         _log.warn('missing info or type');
-        return doc;
+        return info;
       }
 
-      var process = require('config/data/type/' + doc.type + '/_process');
-      if (process[doc.kind] && process[doc.kind].patch) {
-        doc = process[doc.kind].patch(doc);
+      var process = require('config/data/type/' + info.type + '/_process');
+      if (process[info.kind] && process[info.kind].patch) {
+        info = process[info.kind].patch(info);
       } else if (process.patch) {
-        doc = process.patch(doc);
+        info = process.patch(info);
       }
 
-      return doc;
+      return info;
     },
 
     /**
