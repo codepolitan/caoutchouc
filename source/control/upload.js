@@ -1,14 +1,13 @@
 /**
  * UI Control Upload
  * @class UI.Control.Upload
- * @extends {UI.Control}
- * @type {Class}
+ * @extends {ui.button}
  */
 define(function(require, exports, module) {
 
   var Button = require('ui/control/button');
 
-  var _log = __debug('ui:control-upload');
+  var _log = __debug('ui-control-upload').defineLevel();
 
   module.exports = new Class({
 
@@ -31,13 +30,10 @@ define(function(require, exports, module) {
      * @return {void}
      */
     _initElement: function() {
-      _log.debug('upload');
+      _log.debug('_initElement');
 
       this.parent();
-
-      var opts = this.options;
-
-      this._initFile(opts.type);
+      this._initFile();
     },
 
     /**
@@ -55,32 +51,31 @@ define(function(require, exports, module) {
       }).inject(this.element);
 
       file.addEvent('change', function(info) {
-        _log.debug('change mootools', info);
+        _log.debug('change', info);
       });
 
       /**
        * @ignore
        */
       file.onchange = function(info) {
-        _log.debug('onchage native', info, this.files);
+        _log.debug('onchage', info, this.files);
 
         var files = this.files;
 
         if (files) {
-          _log.debug('fireevent uploadFile', files);
+          _log.debug('fireEvent uploadFile', files);
           self.fireEvent('uploadFile', [files]);
         }
       };
 
-
-      this.addEvent('injected', function() {
-        /*var coord = self.icon.getCoordinates();
+      /*this.addEvent('injected', function() {
+        var coord = self.icon.getCoordinates();
 
         coord.top = '0';
         coord.left = '0';
 
-        file.setStyles(coord);*/
-      });
+        file.setStyles(coord);
+      });*/
     }
 
   });

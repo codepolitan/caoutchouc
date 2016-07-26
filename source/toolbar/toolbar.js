@@ -251,8 +251,6 @@ define(function(require, exports, module) {
          * @ignore
          */
         change: function(value) {
-          //var name =  this.options.name;
-          //_log.debug('change', this);
           if (this.isEnable()) {
             self.fireEvent(name, value);
           }
@@ -265,10 +263,7 @@ define(function(require, exports, module) {
            * @ignore
            */
           press: function() {
-            _log.debug('press', name);
             self.fireEvent('control::pressed');
-            //var name =  this.options.name;
-            //_log.debug('press', name, this.isEnable());
             if (this.isEnable()) {
               self.fireEvent('control::' + name, this);
               self.fireEvent(name, [self]);
@@ -283,9 +278,7 @@ define(function(require, exports, module) {
            * @ignore
            */
           uploadFile: function(files) {
-            _log.debug('uploadFile', files);
             if (this.isEnable()) {
-              //self.fireEvent('control::'+name, this);
               self.fireEvent(name, [files]);
             }
           }
@@ -298,10 +291,7 @@ define(function(require, exports, module) {
            * @ignore
            */
           change: function() {
-            //_log.debug('change', name, this.isEnable());
             self.fireEvent('control::pressed');
-            //var name =  this.options.name;
-            //_log.debug('press', name, this.isEnable());
             if (this.isEnable()) {
               self.fireEvent('control::' + name, this);
               self.fireEvent(name, [self]);
@@ -317,8 +307,6 @@ define(function(require, exports, module) {
            */
           press: function(name) {
             self.fireEvent('control::pressed');
-            //var name =  this.options.name;
-            _log.debug('ButtonMenu press', name, this.isEnable());
             if (this.isEnable()) {
               self.fireEvent('control::' + name, this);
               self.fireEvent(name, [self]);
