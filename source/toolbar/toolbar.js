@@ -6,8 +6,8 @@
 define(function(require, exports, module) {
 
   var controlIcon = require('ui/icon/control');
-  var langControlsConfigEn = require('config/lang/control/en');
-  var langControlsConfigFr = require('config/lang/control/fr');
+  var langControlsConfigEn = require('languages/control/en');
+  var langControlsConfigFr = require('languages/control/fr');
 
   var _log = __debug('core-module-toolbar').defineLevel();
 
