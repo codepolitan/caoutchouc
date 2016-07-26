@@ -6,7 +6,7 @@
 define(function(require, exports, module) {
 
   var Control = require('ui/control/control');
-  var controlIcon = require('config/icon/control');
+  var controlIcon = require('ui/icon/control');
 
   var _log = __debug('ui:control-button');
 

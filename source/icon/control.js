@@ -6,8 +6,14 @@
   }
 }(this, function() {
 
+  /**
+   * map control name with ui-icon-
+   */
   return {
+    validator: 'minimal-icon-thumbs-up',
     subcribe: 'mdi-content-mail',
+    resendClosure: 'mdi-content-mail',
+    resendApproval: 'mdi-content-mail',
     beat: 'mdi-image-flash-on',
     invite: 'mdi-maps-local-post-office',
     ticket: 'mdi-action-input',
@@ -44,7 +50,7 @@
     clear: 'mdi-action-highlight-remove',
     navi: 'mdi-navigation-menu',
     list: 'mdi-navigation-menu',
-    side: 'mdi-action-chrome-reader-mode',
+    side: 'mdi-navigation-menu',
     share: 'mdi-social-share',
     info: 'mdi-action-info',
     more: 'mdi-navigation-more-vert',
@@ -55,7 +61,7 @@
     addOne: 'mdi-social-plus-one',
     people: 'mdi-social-group',
     print: 'mdi-action-print',
-    //power: 'mdi-power-settings-new',
+    power: 'mdi-power',
     proforma: 'mdi-action-print',
     user: 'mdi-action-account-circle',
     apps: 'mdi-navigation-apps',
@@ -78,7 +84,7 @@
     preview: 'mdi-image-remove-red-eye',
     code: 'mdi-image-remove-red-eye',
     save: 'icon-envelope',
-    recipients: 'icon-envelope',
+    recipients: 'minimal-icon-list-all',
     move: 'mdi-action-open-with',
     insert: 'mdi-navigation-check',
     publish: 'mdi-editor-publish',
@@ -97,7 +103,7 @@
     properties: 'mdi-action-settings-applications',
     upload: 'mdi-file-cloud-upload',
     searchField: 'mdi-action-search',
-    invoice: 'icon-barcode',
+    invoice: 'minimal-icon-barcode',
     edit: 'mdi-editor-mode-edit',
     filter: 'mdi-content-filter-list',
     trash: 'mdi-action-delete',
@@ -122,6 +128,14 @@
     contact: 'mdi-action-perm-contact-cal',
     collapse: 'mdi-navigation-unfold-less',
     uncollapse: 'mdi-navigation-unfold-more',
+    checked: 'mdi-check-box',
+    sprints: 'mdi-action-run',
+    package: 'mdi-package',
+    planning: 'mdi-calendar-clock',
+    notes: 'mdi-app-notes',
+    files: 'mdi-app-files',
+    news: 'mdi-app-news',
+    template: 'mdi-app-template'
   };
 
 }));

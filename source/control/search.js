@@ -9,7 +9,7 @@ define(function(require, exports, module) {
   var Field = require('ui/control/field');
   var Button = require('ui/control/button');
   var Method = require('ui/component/method');
-  var controlIcon = require('config/icon/control');
+  var controlIcon = require('ui/icon/control');
 
   module.exports = new Class({
 

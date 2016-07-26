@@ -8,7 +8,7 @@ define(function(require, exports, module) {
 
   var Button = require('ui/control/button');
   var fontIconConfig = require('ui/control/separator');
-  require('config/icon/control');
+  require('ui/icon/control');
 
   var _log = __debug('ui-control-buttonMenu');
 
