@@ -1006,7 +1006,7 @@ define(function(require, exports, module) {
         return info;
       }
 
-      var process = require('config/datatype/' + info.type + '/_process');
+      var process = require('datatype/' + info.type + '/_process');
       if (process[info.kind] && process[info.kind].patch) {
         info = process[info.kind].patch(info);
       } else if (process.patch) {
