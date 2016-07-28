@@ -36,7 +36,9 @@ define(function(require, exports, module) {
       var id;
 
       for (var key in count) {
-        if (count.hasOwnProperty(key)) {
+        //check null key because some infos have null in nodes
+        //and the count return a count for nul
+        if (key !== 'null' && count.hasOwnProperty(key)) {
           id = key;
           break;
         }
