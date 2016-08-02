@@ -8,6 +8,8 @@ define(function(require, exports, module) {
 
   var Field = require('ui/control/field');
 
+  var _log = __debug('control-choice').defineLevel();
+
   module.exports = new Class({
 
     Extends: Field,
@@ -18,18 +20,18 @@ define(function(require, exports, module) {
     },
 
     /**
-     * [_initElement description]
-     * @return {[type]} [description]
+     * init element
+     * @return {void}
      */
     _initElement: function() {
+      _log.debug('_initElement');
+
       this.parent();
 
       this.item = {};
 
-      //var self = this;
       var opts = this.options;
 
-      //_log.debug(opts);
       this.input.set('type', 'text');
       this.input.addClass(opts.klss);
       this.element.addClass('ui-choice');
@@ -51,13 +53,12 @@ define(function(require, exports, module) {
     },
 
     /**
-     * [_initList description]
-     * @param  {[type]} list [description]
-     * @return {[type]}      [description]
+     * init list
+     * @param  {Array} list
+     * @return {void}
      */
     _initList: function(list) {
-
-      //var self = this;
+      _log.debug('_initList');
 
       this.list = new Element('ul', {
         'class': 'choice-list'
@@ -73,56 +74,67 @@ define(function(require, exports, module) {
     },
 
     /**
-     * [_initItem description]
-     * @param  {[type]} item [description]
-     * @return {[type]}      [description]
+     * init item
+     * @param  {string} item
+     * @return {void}
      */
     _initItem: function(item) {
-      var self = this,
-        opts = this.options;
+      _log.debug('_initItem');
 
       var li = new Element('li', {
         html: item,
         'data-value': item
-      }).inject(this.list).addEvent('click', function() {
-        if (opts.read) {
-          return;
-        }
-        //_log.debug('click', this);
-        if (self.selected) {
-          self.selected.removeClass('selected');
-        }
+      }).inject(this.list);
 
-        if (self.selected && self.selected === this) {
-          self.selected.removeClass('selected');
-          self.selected = null;
-
-          if (opts.type === 'push') {
-            self.select();
-          }
-        } else {
-          this.addClass('selected');
-          self.selected = this;
-          self.select(item);
-        }
-      });
+      li.addEvent('click', this._itemDidClick.bind(this, li, item));
 
       this.item[item] = li;
 
       this.itemList.push(item);
 
-      if (opts.value === item) {
+      if (this.options.value === item) {
         li.addClass('selected');
-        self.selected = li;
+        this.selected = li;
       }
     },
 
     /**
-     * [toggle_selected description]
-     * @return {[type]} [description]
+     * item did click
+     * @param  {DOMElement} el
+     * @param  {string} item
+     * @return {void}
+     */
+    _itemDidClick: function(el, item) {
+      _log.debug('_itemDidClick');
+
+      var opts = this.options;
+
+      if (opts.read) {
+        return;
+      }
+
+      if (this.selected) {
+        this.selected.removeClass('selected');
+      }
+
+      if (this.selected && this.selected === el) {
+        this.selected.removeClass('selected');
+        this.selected = null;
+
+        this.select();
+      } else {
+        el.addClass('selected');
+        this.selected = el;
+        this.select(item);
+      }
+    },
+
+    /**
+     * toggle selected
+     * @return {void}
      */
     toggle_selected: function() {
-      //_log.debug('toggle_selected', this.element);
+      _log.debug('toggle_selected', this.element);
 
       if (this.selected) {
         this.selected.removeClass('selected');
@@ -138,11 +150,13 @@ define(function(require, exports, module) {
     },
 
     /**
-     * [select description]
-     * @param  {[type]} value [description]
-     * @return {[type]}       [description]
+     * select
+     * @param  {string} value
+     * @return {void}
      */
     select: function(value) {
+      _log.debug('select', value);
+
       var name = this.options.name;
 
       this.input.set('value', value);
@@ -152,12 +166,13 @@ define(function(require, exports, module) {
     },
 
     /**
-     * [select description]
-     * @param  {[type]} value [description]
-     * @return {[type]}       [description]
+     * set
+     * @param  {string} value
+     * @return {void}
      */
     set: function(value) {
-      //_log.debug('choice set', value, this.item);
+      _log.debug('set', value, this.item);
+
       var item = this.item[value];
 
       if (!item) {
@@ -173,34 +188,17 @@ define(function(require, exports, module) {
     },
 
     /**
-     * [_toggle description]
-     * @return {[type]} [description]
+     * _toggle
+     * @return {void}
      */
     _toggle: function() {
+      _log.debug('_toggle');
+
       if (this.element.hasClass('state-open')) {
         this.element.removeClass('state-open');
       } else {
         this.element.addClass('state-open');
       }
-    },
-
-    /**
-     * [_initEvents description]
-     * @return {[type]} [description]
-     */
-    _initEvents: function() {
-      this.parent();
-
-      //var self = this;
-
-      /*this.choice.addEvents({
-        click: this._toggle.bind(this, 'default')
-      });*/
-      /*this.input.addEvents({
-        click: this._toggle.bind(this, 'default'),
-        blur: this.setState.bind(this, 'default'),
-        focus: this.setState.bind(this, 'focus')
-      });*/
     }
 
   });
