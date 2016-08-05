@@ -24,6 +24,7 @@
     "grunt-contrib-requirejs": "^0.4.4",
     "grunt-contrib-uglify": "^0.9.1",
     "grunt-contrib-watch": "^0.6.1",
+    "grunt-git-flow": "*",
     "grunt-jsdoc": "0.5.8",
     "grunt-notify": "^0.4.1",
     "grunt-plato": "^1.2.1"
