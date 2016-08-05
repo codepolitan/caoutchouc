@@ -1,6 +1,6 @@
 {
   "name": "caoutchouc",
-  "version": "1.0.0",
+  "version": "1.4.0",
   "description": " A Set of Mootools UI Components",
   "main": "index.js",
   "scripts": {
@@ -24,6 +24,7 @@
     "grunt-contrib-requirejs": "^0.4.4",
     "grunt-contrib-uglify": "^0.9.1",
     "grunt-contrib-watch": "^0.6.1",
+    "grunt-git-flow": "*",
     "grunt-jsdoc": "0.5.8",
     "grunt-notify": "^0.4.1",
     "grunt-plato": "^1.2.1"

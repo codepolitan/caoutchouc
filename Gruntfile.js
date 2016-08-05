@@ -1,7 +1,8 @@
 module.exports = function(grunt) {
 
-	require('./tasks/watch.js')(grunt);
-	require('./tasks/less.js')(grunt);
-	require('./tasks/deploy.js')(grunt);
+  require('./tasks/build.js')(grunt);
+  require('./tasks/watch.js')(grunt);
+  require('./tasks/less.js')(grunt);
+  require('./tasks/git.js')(grunt);
 
 };

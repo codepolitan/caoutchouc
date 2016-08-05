@@ -1,0 +1,57 @@
+/**
+ * item list message
+ */
+
+.ui-item.item-list.info-message {
+  .ui-text {
+    .order(1);
+    text-align: right;
+    padding-right: 8px;
+    margin-left: 8px;
+    &:last-child {
+      border-bottom: none;
+    }
+    .key-message {
+      padding: 4px 8px;
+      border-radius: 3px;
+      margin-bottom: 4px;
+      margin-top: 4px;
+      background-color: #F8C500;
+    }
+    span {
+      display: inline-block;
+      &.small {
+        font-size: .6em;
+        text-transform: uppercase;
+      }
+    }
+  }
+  .ui-image {
+    .order(2);
+    background-image: url(/app/files/stream/e09c30d689ce4a89aedaa17277003f23);
+  }
+  &.is-selected,
+  &.item-selected,
+  &.selected-prev {
+    .ui-text,
+    .trunc,
+    .text-trunc {
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+  &.message-me {
+    .ui-text {
+      text-align: left;
+      .order(2);
+      .key-message {
+        background-color: #E5E5EA;
+      }
+    }
+    .ui-image {
+      .order(1);
+      background-image: url(/app/files/stream/822ddab9ccd93bb7beb1ec87cc001948);
+    }
+  }
+}
