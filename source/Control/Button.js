@@ -4,9 +4,13 @@
  * @type {Class}
  */
 define([
-	'UI/Control/Control'
+	'UI/Control/Control',
+	'mnml/icon/font',
+	'mnml/icon/mdi'
 ], function(
-	Control
+	Control,
+	fontIconConfig,
+	mdiIconConfig
 ) {
 
 	var _log = __debug('ui:control-button');
@@ -105,14 +109,14 @@ define([
 			this.icon = new Element(tag, prop).inject(this.element);
 
 
-			if (mnml.icon.mdi[name]) {
+			if (mdiIconConfig[name]) {
 				//_log.debug('mdi');
 				klss = 'icon-mdi';
-				code = mnml.icon.mdi[name];
-			} else if (mnml.icon.font[name]) {
+				code = mdiIconConfig[name];
+			} else if (fontIconConfig[name]) {
 				//_log.debug('iocn font name', name);
 				klss = 'icon-font';
-				code = mnml.icon.font[name];
+				code = fontIconConfig[name];
 			}
 
 			if (klss) {

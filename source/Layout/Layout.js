@@ -1,13 +1,11 @@
-
 /**
  * UI Layout Class
  * @class UI.Layout
- * @implements {Events, Options}
  */
 define([
-	"UI/Container/Container",
-	"UI/Layout/Component",
-	"UI/Layout/Resize"
+	'UI/Container/Container',
+	'UI/Layout/Component',
+	'UI/Layout/Resize'
 ], function(
 	Container,
 	Component,
@@ -37,7 +35,7 @@ define([
 		 * @param  {[type]} options [description]
 		 * @return {[type]}         [description]
 		 */
-		initialize: function(options){
+		initialize: function(options) {
 			this.setOptions(options);
 
 			this._initLayout(this.options);
@@ -50,7 +48,7 @@ define([
 		 * @return {[type]} [description]
 		 */
 		_initLayout: function(opts) {
-			//_log.debug('initialize', opts);
+			_log.debug('initialize', opts);
 			var node = opts.node;
 			this.settings = opts.settings || {};
 			this.component = {};
@@ -97,13 +95,18 @@ define([
 				'class': 'ui-layout layout-' + opts.node._name
 			}).inject(opts.container);
 
+			this.mask = new Element('div', {
+				'class': 'layout-mask',
+			}).inject(this.container);
+
 			//_log.debug('Layout container', this.container);
 
 			this.container.addClass('ui-layout');
 			this.container.addClass('layout-' + opts.node._name);
 
-			if (this.options.theme)
+			if (this.options.theme) {
 				this.container.addClass('theme-' + this.options.theme);
+			}
 
 			opts.node.container = this.container;
 		},
@@ -116,28 +119,30 @@ define([
 		_processComponents: function(node, type, level) {
 			//_log.debug('_processComponents', node, type, level || 1);
 			var list = node._list || [];
-				level = level++ || 1;
 
-			//_log.debug('---!!! axis', node._axis);
+			level = level++ || 1;
 
 			if (type !== 'tab') {
-				this._initFlexDirection(node.container, node._axis);
+				node._axis = this._initFlexDirection(node.container, node._axis);
 			}
 
-
-			for (var i = 0, len = list.length; i < list.length; i++) {
+			for (var i = 0; i < list.length; i++) {
 				//_log.debug('--', list[i]);
-				var name = list[i],
-					comp = node[name] || {};
+				var name = list[i];
+				var comp = node[name] || {};
+
 
 				comp.clss = comp.clss || this.options.clss;
 				comp.opts = comp.opts || {};
+
 				comp.opts.name = name;
 				comp.opts.position = i + 1;
+				comp.opts.axis = node._axis;
 				comp.opts.nComp = list.length;
 
-				if (name === "navi")
+				if (name === 'navi') {
 					comp.opts.useUnderlay = true;
+				}
 
 				if (i === list.length - 1) {
 					//_log.debug('last--', name);
@@ -156,13 +161,13 @@ define([
 					node.container.addTab(component);
 				}
 
-				component.element.addClass('container-'+name);
+				component.element.addClass('container-' + name);
 
 				if (comp.node) {
 					comp.node.container = component;
 
 					if (component.options.clss === 'tab') {
-						var c = this._processComponents(comp.node, 'tab', level);
+						this._processComponents(comp.node, 'tab', level);
 					} else {
 						this._processComponents(comp.node, null, level);
 					}
@@ -179,7 +184,9 @@ define([
 		_initFlexDirection: function(container, axis) {
 			//_log.debug('_initFlexDirection', container, axis);
 
-			if (!container) return;
+			if (!container) {
+				return;
+			}
 
 			axis = axis || 'x';
 
@@ -188,6 +195,8 @@ define([
 			} else if (axis === 'y') {
 				container.addClass('flex-vertical');
 			}
+
+			return axis;
 		},
 
 		/**
@@ -200,8 +209,14 @@ define([
 			this.device = device;
 
 			this.fireEvent('device', device);
+		},
+
+		destroy: function() {
+			this.container.destroy();
 		}
+
 	});
 
 	return exports;
+
 });

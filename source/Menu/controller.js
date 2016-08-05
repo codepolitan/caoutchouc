@@ -1,4 +1,3 @@
-
 /*
 	Object: ui.controller.menu
 		Window controller. It handles altitude, list, position and state
@@ -24,14 +23,14 @@
 		to be continued....
 
 */
-var ui = ui || {};
+//var ui = ui || {};
 
 define([
 
 ], function(
 
 ) {
-	var exports =  {
+	var exports = {
 		options: {
 			version: '0.1',
 			zBase: 300,
@@ -56,8 +55,7 @@ define([
 			this.list.push(menu);
 			if (menu.options.zIndex == 'auto') {
 				menu.element.setStyle('zIndex', this.zIndex);
-			}
-			else {
+			} else {
 				menu.element.setStyle('zIndex', menu.options.zIndex);
 			}
 			this.zIndex += this.options.zStep;
@@ -99,8 +97,7 @@ define([
 		Returns:
 			(void)
 		*/
-		focus: function(win) {
-		},
+		focus: function(win) {},
 
 		closeall: function() {
 			this.list.each(function(menu) {
@@ -117,4 +114,3 @@ define([
 
 	return exports;
 });
-

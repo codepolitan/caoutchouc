@@ -11,6 +11,9 @@ define([
 
 ) {
 
+	var _log = __debug('ui:binding');
+		//_log.defineLevel('DEBUG');
+
 	var exports = new Class({
 
 		options: {
@@ -22,22 +25,27 @@ define([
 		/**
 		 * Events communication controller
 		 * Event bindings
-		 * @method _initBinding
-		 * @return {object}      this.bind
+		 * @return {Object} The class instance
 		 */
-		_initBinding: function() {
-			var binding = this.options.binding;
-			//_log.debug('_initBinding', binding);
+		_initBinding: function(binding) {
+			binding = binding || this.options.binding;
+			this.binding = this.binding || {};
+			if (!binding) {
+				return;
+			}
 
-			if (!binding) return;
+			if (!binding._list) {
+				this._bindObject(binding);
 
-			var list = binding._list;
+			} else {
+				var list = binding._list;
 
-			for (var i = 0; list.length > i; i++ ) {
-				var bind = binding[list[i]];
-				this.binding = this.binding || {};
+				for (var i = 0; list.length > i; i++ ) {
+					var bind = binding[list[i]];
+					
 
-				this._bindObject(bind);
+					this._bindObject(bind);
+				}
 			}
 
 			return this.binding;
@@ -45,7 +53,7 @@ define([
 
 		/**
 		 * Bind an object
-		 * @param  {object} obj obj whit key and value to be bound
+		 * @param  {Object} obj obj whit key and value to be bound
 		 * @return {void}
 		 */
 		_bindObject: function(obj) {
@@ -64,7 +72,7 @@ define([
 		/**
 		 * Bind a list of events to a specific object
 		 * @param  {string} key Object path that will listen
-		 * @param  {array} values List if values to bind
+		 * @param  {Array} values List if values to bind
 		 * @return {void}
 		 */
 		_bindList: function(key, values) {
@@ -84,7 +92,7 @@ define([
 		 * @return {void}
 		 */
 		_bindkey: function(key, val) {
-			//_log.debug('_bindkey', key, val);
+			_log.debug('_bindkey', key, val);
 			var eventKeys = key.split('.');
 			var ev = eventKeys[eventKeys.length - 1];
 
@@ -93,7 +101,7 @@ define([
 
 			var valKeys = val.split('.');
 
-			//Check if it's an event
+			//check if it's an event
 			if (valKeys[valKeys.length - 2] == this.options.api.emit) {
 				var emit = valKeys[valKeys.length - 1];
 				this._bindEvent(listenerCtx, ev, emit, val);
@@ -104,14 +112,14 @@ define([
 
 		/**
 		 * Listen to the given event and trigger another
-		 * @param  {object} listenerCtx Object to listen
+		 * @param  {Object} listenerCtx Object to listen
 		 * @param  {string} ev Event that will be listened
 		 * @param  {string} emit Event that will be emitted
 		 * @param  {string} val Method path to be bound
 		 * @return {void}
 		 */
 		_bindEvent: function(listenerCtx, ev, emit, val) {
-			//_log.debug('_bindEvent', listenerCtx, ev, emit, val);
+			_log.debug('_bindEvent', listenerCtx, ev, emit, val);
 			var emitter = this.options.api.emit;
 
 			var valKeys = val.split('.');
@@ -122,8 +130,9 @@ define([
 			if (listenerCtx && listenerCtx.addEvent && boundCtx && boundCtx.fireEvent) {
 				listenerCtx.addEvent(ev, boundCtx.fireEvent.bind(boundCtx, emit));
 				// keep track of the binding
-				//this.binding[key] = event;
+				this.binding[ev] = event;
 			} else if (listenerCtx && listenerCtx.on && boundCtx && boundCtx.fireEvent) {
+				this.binding[ev] = event;
 				listenerCtx.on(ev, boundCtx.fireEvent.bind(boundCtx, emit));
 			} else {
 				_log.debug('Missing context or method', listenerCtx, val);
@@ -132,7 +141,7 @@ define([
 
 		/**
 		 * Listen to the given event and bind to the given method
-		 * @param  {object} listenerCtx Object to listen
+		 * @param  {Object} listenerCtx Object to listen
 		 * @param  {string} ev Event that will be listened
 		 * @param  {string} val Method path to be bound
 		 * @return {void}
@@ -148,8 +157,9 @@ define([
 			if (listenerCtx && listenerCtx.addEvent && method) {
 				listenerCtx.addEvent(ev, method.bind(boundCtx));
 				// keep track of the binding
-				//this.binding[key] = method;
+				this.binding[ev] = method;
 			} else if (listenerCtx && listenerCtx.on && method) {
+				this.binding[ev] = method;
 				listenerCtx.on(ev, method.bind(boundCtx));
 			} else {
 				//_log.debug('Missing context or method', listenerCtx, val);
@@ -159,7 +169,7 @@ define([
 		/**
 		 * Return the last reference to a object
 		 * @param  {string} str Object path for example key1.key2.key3
-		 * @return {object}
+		 * @return {Object}
 		 */
 		_path: function(str) {
 			//_log.debug('_path', str);

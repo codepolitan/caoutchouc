@@ -1,16 +1,13 @@
-
 /**
  * Resize Layout
  * @class UI.Layout.Resize
  * @author Jerome D. Vial
  */
-define([
-	
-], function(
+define(function(require, exports, module) {
 
-) {
+	var _log = __debug('ui-layout-resize').defineLevel();
 
-	var exports = new Class({
+	var Resize = new Class({
 		options: {
 			resizer: {
 				modifier: {
@@ -33,54 +30,60 @@ define([
 		},
 
 		/**
-		 * [_initResizeBorder description]
-		 * @param  {[type]} component [description]
-		 * @param  {[type]} border    [description]
-		 * @return {[type]}           [description]
+		 * init resize border
+		 * @param  {Object} component
+		 * @return {void}
 		 */
 		_initResizer: function(component) {
-			//_log.debug('_initResizer', component.options.name);
+			_log.debug('_initResizer', component);
 
-			var self = this,
-				name = component.options.name,
-				element = component.element,
-				container = component.container,
-				last = component.options.last;
+			var self = this;
+
+			var name = component.options.name;
+			var container = component.container;
+			var last = component.options.last;
 
 			this._initMaximize(component);
 
-
-			if (!container) return;
+			if (!container) {
+				return;
+			}
 
 			var direction = container.getStyle('flex-direction');
-			
-			if (!direction)	return;
+
+			if (!direction) {
+				return;
+			}
 
 			var modifier = this.options.resizer.modifier[direction];
 
-			if (!modifier) return;
+			if (!modifier) {
+				return;
+			}
 
-			//_log.debug('direction', direction, modifier);
-
-			//_log.debug(element, coord);
 			var resizer = this.resizer[name] = new Element('div', {
 				'class': 'ui-resizer',
 				'data-name': component.options.name
 			}).addEvents({
-				click: function(e){
+				click: function(e) {
 					e.stop();
 				},
 				mousedown: function(e) {
 					e.stop();
+					self.mask.setStyle('display', 'block');
+				},
+				mouseup: function(e) {
+					//e.stop();
+					self.mask.setStyle('display', 'none');
 				}
 			}).inject(container);
 
 			if (modifier.size) {
-				resizer.addClass('resizer-'+ modifier.size);
+				resizer.addClass('resizer-' + modifier.size);
 			}
 
 			if (last) {
-				//_log.debug('------last' );
+				_log.debug('------last');
 				//resizer.addClass('resizer-last');
 			}
 
@@ -100,34 +103,37 @@ define([
 			var self = this;
 			//_log.debug('initResizerDrag', resizer, modifier);
 
-			var element = component.element,
-				container = component.container,
-				last = component.options.last;
+			var element = component.element;
+			var container = component.container;
+			var last = component.options.last;
 
 			var drag = new Drag.Move(resizer, {
 				modifiers: modifier.mode,
-			    onStart: function(el){
+				onStart: function(el) {
 					//_log.debug('onStart', el);
 					//self.fireEvent('resizeStart', el);
+					self.mask.setStyle('display', 'block');
 				},
-				onDrag: function(el, ev){
+				onDrag: function(el, ev) {
 					//_log.debug('onDrag', el);
+					self.mask.setStyle('display', 'block');
 					var coord = element.getCoordinates(container);
 					var coordc = container.getCoordinates();
 					var c = resizer.getCoordinates(container);
+
 					//element.setStyle('flex','none');
 					//element.setStyle(modifier.size, c[modifier.from] - coord[modifier.from]);
-					if (last){
+					if (last) {
 						//_log.debug(modifier.size, coordc[modifier.size], c[modifier.from]);
 						element.setStyle(modifier.size, coordc[modifier.size] - c[modifier.from]);
-					}
-					else {
+					} else {
 						element.setStyle(modifier.size, c[modifier.from] - coord[modifier.from]);
 					}
 
 					self.fireEvent('drag');
 				},
-				onComplete: function(el){
+				onComplete: function(el) {
+					self.mask.setStyle('display', 'none');
 					//_log.debug('onComplete', component.main, modifier.size, size);
 					//_log.debug('onComplete', modifier.size, element.getCoordinates(container)[modifier.size]);
 					var coord = element.getCoordinates(container);
@@ -138,6 +144,7 @@ define([
 					//_log.debug('size', modifier, size);
 
 					component[modifier.size] = size;
+					
 				}
 			});
 
@@ -171,7 +178,6 @@ define([
 				},
 				resize: function() {
 					//_log.debug('resize', component.element, resizer);
-					
 					self._updateSize(component, resizer, modifier);
 				}
 			});
@@ -186,17 +192,17 @@ define([
 		 */
 		_updateSize: function(component, resizer, modifier) {
 			//_log.debug('_updazeSize');
-			var container = component.container,
-				element = component.element;
+			var container = component.container;
+			var element = component.element;
 
 			var coord = element.getCoordinates(container);
 			//_log.debug('coord',  coord[modifier.from]);
 			//
 			// the last container doesnt need resizedr
 			if (component.options.last) {
-				resizer.setStyle(modifier.from, coord[modifier.from] -3);
-			} else { 
-				resizer.setStyle(modifier.from, coord[modifier.from] + coord[modifier.size] -3);
+				resizer.setStyle(modifier.from, coord[modifier.from] - 3);
+			} else {
+				resizer.setStyle(modifier.from, coord[modifier.from] + coord[modifier.size] - 3);
 			}
 
 			this.fireEvent('size');
@@ -213,7 +219,9 @@ define([
 			var element = component.element;
 			var container = component.container;
 
-			if (!container) return;
+			if (!container) {
+				return;
+			}
 
 			component.addEvent('max', function() {
 				var name = component.options.name;
@@ -229,14 +237,14 @@ define([
 					element.setStyle('height', element.retrieve('height'));
 
 					self.fireEvent('normalize', component);
-				} else{
+				} else {
 					element.addClass('container-max');
 					element.store('width', element.getStyle('width'));
 					element.store('height', element.getStyle('height'));
 					element.setStyle('width', 'initial');
 					element.setStyle('height', 'initial');
 					container.getChildren('.ui-container').each(function(c) {
-						if (!c.hasClass('container-'+name)) {
+						if (!c.hasClass('container-' + name)) {
 							c.store('display', c.getStyle('display'));
 							c.hide();
 						}
@@ -257,21 +265,20 @@ define([
 			var len = components.length;
 
 			// add resize Border on the right or on the bottom
-			// execpt for the last one 
+			// execpt for the last one
 			for (var i = 0; i < len; i++) {
 				var component = components[i];
 
 				if (component.options.noResizer) {
-					//_log.debug('--', component.main);
 					continue;
 				}
 
 				this._initResizer(component);
-				
 			}
-		},
+		}
 
 	});
 
-	return exports;
+	module.exports = Resize;
+
 });

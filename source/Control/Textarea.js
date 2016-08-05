@@ -35,7 +35,7 @@ define([
 
 	var _log = __debug('ui:textarea');
 
-	var exports = UI.Textarea = new Class({
+	var exports = new Class({
 
 		Extends: Field,
 

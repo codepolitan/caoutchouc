@@ -11,7 +11,7 @@ define([
 	Field
 ) {
 
-	var exports = UI.URL = new Class({
+	var exports = new Class({
 
 		Extends: Field,
 

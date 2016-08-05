@@ -1,8 +1,8 @@
-var UI = UI || {},
+/*var UI = UI || {},
 	Class = Class || function() {},
 	Locale = Locale || {},
 	mnml = mnml || {},
-	floor = floor || {};
+	floor = floor || {};*/
 
 
 /**

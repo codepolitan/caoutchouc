@@ -1,15 +1,7 @@
-/*
-	Class: UI.TabView
-		Creates a tabbar that let you manage inner container.
 
-	Extends:
-	<UI.Container>
-
-	Need refactor
-*/
 /**
  * [initialize description]
- * @class  UI.Container
+ * @class  UI.Container.Tab
  * @extends {UI.Component}
  * @author Jerome Vial
  */
@@ -80,6 +72,7 @@ define([
 				text: text,
 				name: opts.name,
 				onPress: function(e){
+					//console.log('onPress', tab ,container);
 					self.activate(container);
 				}
 			}).inject(this.bar);
@@ -130,6 +123,8 @@ define([
 
 			this.active = container;
 			container.fireEvent('resize');
+
+			this.fireEvent('activate', container);
 
 			return this;
 		},
@@ -191,7 +186,7 @@ define([
 
 
 				self.layout[self.main][container.name] = container;
-				ui.node[self.main][node.name] = container;
+				//ui.node[self.main][node.name] = container;
 
 			});
 

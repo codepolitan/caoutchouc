@@ -10,7 +10,10 @@ define([
 ], function(
 
 ) {
-
+	var _log = __debug('ui-selector-menu');
+		//_log.defineLevel('debug');
+		
+	//var Button = require('UI/Control/Button');
 	var exports = new Class({
 
 		Implements: [Events, Options],
@@ -23,7 +26,12 @@ define([
 			position: 'top left',
 			location: 'outside',
 			offset: [1,1],
-			positionning: 'absolute'
+			positionning: 'absolute',
+			effect: {
+				duration: 100,
+				transition: 'expo:out',
+				link: 'cancel'
+			}
 		},
 
 		initialize: function(container,options){
@@ -54,12 +62,7 @@ define([
 				'zIndex': this.options.zIndex
 			}).inject(container);
 
-			this.fx = new Fx.Morph(this.element, {
-				link: 'cancel',
-				duration: 250,
-				transition: 'expo:out',
-			});
-
+			this.fx = new Fx.Morph(this.element, this.options.effect);
 
 			this.element.addEvents({
 				mouseenter: function(e) {
@@ -79,40 +82,54 @@ define([
 			});
 
 
-			this.buildMenu(this.options.list);
+			//console.log('buildmenu', this.options.list);
+			this.buildMenu();
 		},
 
-		buildMenu: function(list){
+		buildMenu: function(){
+			var self = this;
+			var list = this.options.list;
+			//console.log('buildmenu', typeof list);
+			
+			var size = 0;
 
-			list.each(function(menu){
+			for (var name in list) {
+				//console.log('menu', name);
+				// list.each(function(menu){
+				var menu = list[name];
+
+				//var item = new Button();
 
 				item = new Element('li', {
-					html: menu.text
+					class: 'ui-icon menu-'+name,
+					name: name
+					//html: menu.text
 				}).set(menu.options);
 
-				if (menu.klss)
+				if (menu.klss) {
 					item.addClass(menu.klss);
+				}
 
-				if (menu.type)
+				if (menu.type) {
 					item.addClass('type-'+menu.type);
+				}
 
 				this.menus.push(menu);
+			
+				item.addEvents({
+					click: function(e) {
+						//console.log('clicked', this.get('name'));
+						self.fireEvent('click', this.get('name'));
+					}
+				});
 
-				if (menu.action) {
-					item.addEvents({
-						click: function(e) {
-							e.stop();
-							//_log.debug(menu.action);
-							menu.action();
-
-							//(function() { menu.action() });
-						}
-					});
-				}
 
 				item.inject(this.element);
 
-			},this);
+				size = size + item.getSize().x;
+			};
+
+			this.element.setStyle('width', size);
 		},
 
 		reach: function(el) {
