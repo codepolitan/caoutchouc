@@ -73,7 +73,6 @@ define(function(require, exports, module) {
       var exist = this._getInfoById(info._id);
       if (exist) {
         this.updateInfo(info);
-        //this.processInfos();
         this.select(this.selectedId);
         return;
       }
@@ -88,6 +87,7 @@ define(function(require, exports, module) {
 
       this.element.scrollTop = 0;
       this._scroll();
+      this.processInfos();
     },
 
     /**
