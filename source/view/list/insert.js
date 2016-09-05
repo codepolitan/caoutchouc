@@ -77,6 +77,13 @@ define(function(require, exports, module) {
         return;
       }
 
+      // return if there is a search or filter result in the list
+      // maybe the list should be updated
+      // if the info is part of the search/filter result
+      if (this._tempCache.length) {
+        return;
+      }
+
       this.remove('new');
 
       this.virtualSize++;
@@ -87,7 +94,6 @@ define(function(require, exports, module) {
 
       this.element.scrollTop = 0;
       this._scroll();
-      //this.processInfos();
     },
 
     /**
