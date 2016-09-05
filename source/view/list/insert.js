@@ -87,7 +87,7 @@ define(function(require, exports, module) {
 
       this.element.scrollTop = 0;
       this._scroll();
-      this.processInfos();
+      //this.processInfos();
     },
 
     /**
