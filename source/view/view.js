@@ -6,7 +6,6 @@
  */
 define(function(require, exports, module) {
 
-  var viewCtrl = require('./ctrl');
   var UIContainer = require('ui/container/container');
   var Layout = require('ui/layout/layout');
   var Toolbar = require('ui/toolbar/toolbar');
@@ -189,8 +188,6 @@ define(function(require, exports, module) {
 
       this._initView();
       //this.binding = this._initBinding();
-
-      viewCtrl.register(this);
 
       this.fireEvent('initReady');
     },
