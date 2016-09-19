@@ -280,7 +280,6 @@ define(function(require, exports, module) {
     focus: function() {
       _log.debug('focus');
 
-      viewCtrl.focus(this);
       this.fireEvent('focus');
       this.fireEvent('render');
     },

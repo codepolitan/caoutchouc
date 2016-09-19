@@ -25,7 +25,7 @@ define(function(require, exports, module) {
       var idx = list.indexOf(this.selectedId);
 
       if (idx > 0 && idx < list.length) {
-        this.reveal(list[idx - 1], quiet);
+        this.reveal(list[idx - 1], quiet, true);
       }
     },
 
@@ -45,7 +45,7 @@ define(function(require, exports, module) {
       var idx = list.indexOf(this.selectedId);
 
       if (idx > -1 && idx < list.length - 1) {
-        this.reveal(list[idx + 1], quiet);
+        this.reveal(list[idx + 1], quiet, false);
       }
     },
 

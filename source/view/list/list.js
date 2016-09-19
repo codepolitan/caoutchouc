@@ -469,10 +469,12 @@ define(function(require, exports, module) {
      * reveal item
      * for now just can be used with _selectPrevious and _selectNext
      * @param {string} id
+     * @param {boolean} quiet
+     * @param {boolean} alignToTop param pass to scrollIntoView
      * @return {Object} this
      * @see [description]
      */
-    reveal: function(id, quiet) {
+    reveal: function(id, quiet, alignToTop) {
       _log.debug('reveal', id, quiet);
 
       if (!id) {
@@ -506,7 +508,7 @@ define(function(require, exports, module) {
       this.select(id, quiet);
 
       if (isElementInViewport === false) {
-        el.scrollIntoView();
+        el.scrollIntoView(alignToTop);
       }
     },
 
