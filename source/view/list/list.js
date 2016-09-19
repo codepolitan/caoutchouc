@@ -467,26 +467,47 @@ define(function(require, exports, module) {
 
     /**
      * reveal item
+     * for now just can be used with _selectPrevious and _selectNext
      * @param {string} id
      * @return {Object} this
+     * @see [description]
      */
-    reveal: function(id) {
-      _log.debug('reveal', id);
+    reveal: function(id, quiet) {
+      _log.debug('reveal', id, quiet);
 
-      //find index
-      /*var index = this.list.indexOf(id);
-
-      if (index < 0) {
-        _log.warn('missing index to reveal');
+      if (!id) {
         return;
       }
 
-      this.scrollData(index);
+      var el = this.content.getElement('[data-id="' + id + '"]');
 
-      this.fx.start(0, index * this.itemSize);
-      this.fx.set(0, index * this.itemSize);
+      // when scroll up the el can be missing before scroll to previous range
+      // try to scroll to previous range and get el again
+      if (!el) {
+        this.content.getParent().scrollTo(0, 5);
+        el = this.content.getElement('[data-id="' + id + '"]');
+      }
 
-      return this;*/
+      if (!el) {
+        return;
+      }
+
+      // check if element is in the viewport
+      var rect = el.getBoundingClientRect();
+      var containerRect = this.content.getParent().getBoundingClientRect();
+      var offset = el.getSize().y;
+      var isElementInViewport = (
+        rect.bottom >= containerRect.top + offset &&
+        rect.right >= containerRect.left + offset &&
+        rect.left <= containerRect.right - offset &&
+        rect.top <= containerRect.bottom - offset
+      );
+
+      this.select(id, quiet);
+
+      if (isElementInViewport === false) {
+        el.scrollIntoView();
+      }
     },
 
     /**

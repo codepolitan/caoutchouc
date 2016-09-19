@@ -10,6 +10,46 @@ define(function(require, exports, module) {
   var Select = new Class({
 
     /**
+     * select _selectPrevious
+     * @param  {boolean} quiet
+     * @return {void}
+     */
+    _selectPrevious: function(quiet) {
+      _log.debug('_selectPrevious');
+
+      if (!this.selectedId) {
+        return;
+      }
+
+      var list = this._getIdList();
+      var idx = list.indexOf(this.selectedId);
+
+      if (idx > 0 && idx < list.length) {
+        this.reveal(list[idx - 1], quiet);
+      }
+    },
+
+    /**
+     * select _selectNext
+     * @param  {boolean} quiet
+     * @return {void}
+     */
+    _selectNext: function(quiet) {
+      _log.debug('_selectNext');
+
+      if (!this.selectedId) {
+        return;
+      }
+
+      var list = this._getIdList();
+      var idx = list.indexOf(this.selectedId);
+
+      if (idx > -1 && idx < list.length - 1) {
+        this.reveal(list[idx + 1], quiet);
+      }
+    },
+
+    /**
      * select by element
      * @param  {element} element DOM element
      * @return {void}
@@ -37,6 +77,12 @@ define(function(require, exports, module) {
      */
     select: function(id, quiet) {
       _log.debug('select', id, quiet);
+
+      // handle previous and next
+      if (id === 'previous' || id === 'next') {
+        this['_select' + id.capitalize()](quiet);
+        return;
+      }
 
       var el = this.content.getElement('[data-id="' + id + '"]');
 
