@@ -1,5 +1,7 @@
 define(function(require, exports, module) {
 
+  var _log = __debug('core-view-ctrl').defineLevel('debug');
+
   var ctrl = {
 
     list: [],
@@ -7,38 +9,36 @@ define(function(require, exports, module) {
     /**
      * register
      * @param  {Object} view
-     * @param  {Object} app
      * @return {void}
      */
-    register: function(view, app) {
-      //_log.debug('register', view, app);
-      this.list.push(view);
+    register: function(view) {
+      _log.debug('register', view);
 
-      return;
+      view.element.getParent().addEvent('click', this.focus.bind(this, view));
+
+      this.list.push(view);
     },
 
     /**
      * focus
      * @param  {Object} view
-     * @param  {Object} app
      * @return {void}
      */
-    focus: function(view, app) {
-      //_log.debug('focus', view, app);
-      if (view === null) {
+    focus: function(view) {
+      // if try to focus the focused view
+      if (this.active === view) {
         return;
       }
 
-      if (this.active !== view) {
-        if (this.active) {
-          this.blur(this.active);
-        }
-
-        this.active = view;
-        view.fireEvent('focus');
+      // blur active view
+      if (this.active) {
+        this.blur(this.active);
       }
 
-      return;
+      _log.debug('focus', view);
+
+      this.active = view;
+      view.fireEvent('focus');
     },
 
     /**
@@ -47,10 +47,10 @@ define(function(require, exports, module) {
      * @return {void}
      */
     blur: function(view) {
-      //_log.debug('blur');
-      view.fireEvent('blur', view);
+      _log.debug('blur', view);
 
-      return;
+      this.active = undefined;
+      view.fireEvent('blur');
     }
 
   };
