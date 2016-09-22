@@ -24,16 +24,14 @@ define(function(require, exports, module) {
      */
     _initContainer: function() {
       _log.debug('_initContainer', this.container);
-      var opts = this.options;
       var self = this;
-
+      var opts = this.options;
       var type = typeOf(opts.container);
 
       if (type === 'object') {
         this.container.addEvent('resize', function() {
           self.fireEvent('resize');
         });
-
       } else if (type === 'element') {
         this.container = new Container({
           container: opts.container

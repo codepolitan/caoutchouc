@@ -73,19 +73,22 @@ define(function(require, exports, module) {
       var exist = this._getInfoById(info._id);
       if (exist) {
         this.updateInfo(info);
-        //this.processInfos();
         this.select(this.selectedId);
         return;
       }
 
+      // return if there is a search or filter result in the list
+      // maybe the list should be updated
+      // if the info is part of the search/filter result
+      if (this._tempCache.length !== this.virtualList.length) {
+        return;
+      }
+
       this.remove('new');
-
       this.virtualSize++;
-
       this.virtualList.unshift(info);
-
+      this._tempCache.unshift(info);
       this.renderInfo(info, 1, 'top');
-
       this.element.scrollTop = 0;
       this._scroll();
     },

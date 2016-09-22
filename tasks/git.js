@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
   'use strict';
 
-  grunt.initConfig({
+  grunt.config.merge({
     'git-flow': {
       core: {
         options: {

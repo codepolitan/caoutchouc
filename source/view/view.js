@@ -6,18 +6,15 @@
  */
 define(function(require, exports, module) {
 
-  var viewCtrl = require('./ctrl');
   var UIContainer = require('ui/container/container');
   var Layout = require('ui/layout/layout');
   var Toolbar = require('ui/toolbar/toolbar');
   var Binding = require('ui/component/binding');
   var Container = require('./container');
-  //var ctrl = require('./ctrl');
   var Dragging = require('./dragging');
   var Limit = require('./limit');
   var Loader = require('./loader');
   var Scroll = require('./scroll');
-  //var Scrolling = require('./Scrolling');
   var Zoom = require('./zoom');
 
   var _log = __debug('view').defineLevel();
@@ -31,12 +28,10 @@ define(function(require, exports, module) {
       Toolbar,
 
       Container,
-      //ctrl,
       Dragging,
       Limit,
       Loader,
       Scroll,
-      //Scrolling,
       Zoom
     ],
 
@@ -166,7 +161,8 @@ define(function(require, exports, module) {
      * @private
      */
     _init: function(opts) {
-      //_log.debug('init');
+      _log.debug('init');
+
       opts = this.opts;
 
       this.index = 0;
@@ -193,8 +189,6 @@ define(function(require, exports, module) {
       this._initView();
       //this.binding = this._initBinding();
 
-      viewCtrl.register(this);
-
       this.fireEvent('initReady');
     },
 
@@ -210,31 +204,10 @@ define(function(require, exports, module) {
       this.visible = true;
 
       /*if (this.options.foot) {
-      	this.container._initFoot();
-      }
+        this.container._initFoot();
+      }*/
 
-      this.foot = this.container.foot;*/
-    },
-
-    /**
-     * nitialize options
-     * @param {Object} opts
-     * @return {Object}
-     * @private
-     */
-    _init__Options: function(opts) {
-      //this.name = this.options.name;
-      this.main = opts.main || opts.name;
-
-      ui.node = ui.node || {};
-      ui.node[this.main] = ui.node[this.main] || {};
-
-      this.layout = opts.layout || {};
-      this.layout[this.main] = this.layout[this.main] || {};
-
-      this.dragHandlers = opts.dragHandlers || [];
-
-      return this;
+      //this.foot = this.container.foot;
     },
 
     /**
@@ -264,13 +237,13 @@ define(function(require, exports, module) {
       });
 
       element.addClass('container-body');
-      //element.addClass('view-' + opts.name);
-      // element.addEvents({
-      // 	mouseup: function(e) {
-      // 		//_log.debug('----focus', self.options.name);
-      // 		//self.focus(e);
-      // 	}
-      // });
+      /*element.addClass('view-' + opts.name);
+      element.addEvents({
+        mouseup: function(e) {
+          _log.debug('focus', self.options.name);
+          self.focus(e);
+        }
+      });*/
 
       this.element = element;
       this.content = element;
@@ -304,7 +277,6 @@ define(function(require, exports, module) {
     focus: function() {
       _log.debug('focus');
 
-      viewCtrl.focus(this);
       this.fireEvent('focus');
       this.fireEvent('render');
     },
@@ -331,57 +303,6 @@ define(function(require, exports, module) {
       });
 
       this.container = this.layout.container;
-    },
-
-    /**
-     * This should in
-     * @return {void}
-     * @private
-     */
-    _initConnector: function() {
-      _log.debug('_initConnector');
-
-      var opts = this.opts;
-
-      if (!opts.conn) {
-        return;
-      }
-
-      this.conn = opts.conn;
-      //this.data.get();
-
-      this.conn.addEvents({
-        ready: function(feed) {
-
-        }
-      });
-    },
-
-    /**
-     * _initConnector
-     * @return {void}
-     * @private
-     */
-    _connect: function(conn) {
-      _log.debug('_connect', conn);
-
-      var self = this;
-
-      if (!conn) {
-        _log.warn('missing conn');
-        return;
-      }
-
-      //_log.debug('conn exists');
-
-      this.data = conn;
-      this.data.get();
-
-      this.data.addEvents({
-        ready: function(data) {
-          self.fireEvent('dataReady', data);
-        }
-      });
     },
 
     /**
@@ -414,7 +335,7 @@ define(function(require, exports, module) {
       }
 
       /*if (opts.scrollbar) {
-      	this._initScrollbar();
+        this._initScrollbar();
       }*/
 
       if (opts.dragging) {
@@ -428,10 +349,10 @@ define(function(require, exports, module) {
       /*var self = this;
 
       if (opts.container.component !== 'window') {
-      	this.container.addEvent('resize', function() {
-      		_log.debug('resize from view.initEvents');
-      		self.fireEvent('resize');
-      	});
+        this.container.addEvent('resize', function() {
+          _log.debug('resize from view.initEvents');
+          self.fireEvent('resize');
+        });
       }*/
     },
 
@@ -478,7 +399,7 @@ define(function(require, exports, module) {
       }).delay(200);
 
       /*if (this.container.head) {
-      	this.container.setTitle(text);
+        this.container.setTitle(text);
       }*/
 
       return this;
@@ -542,16 +463,6 @@ define(function(require, exports, module) {
      * @private
      */
     _initStatus: function() {
-
-    },
-
-    /**
-     * initialize data
-     * @return {void}
-     * @private
-     */
-    _initData: function() {
-
 
     },
 
