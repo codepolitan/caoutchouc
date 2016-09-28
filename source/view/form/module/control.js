@@ -128,15 +128,15 @@ define(function(require, exports, module) {
           var text = field.list[idx+1];
 
           if (text) {
-          	input.set(text);
+            input.set(text);
           }*/
 
           //self.updateDocKey(field.name, val);
 
           self.fireEvent('change', [field.name, val]);
           /*self.fireEvent('updated', {
-          	key: field.name,
-          	value: val
+            key: field.name,
+            value: val
           });*/
         });
 
@@ -302,7 +302,39 @@ define(function(require, exports, module) {
         self.fireEvent('change', [field.name, value]);
 
       });
-    }
+    },
+
+
+
+    /**
+     * [enableControl description]
+     * @param  {[type]} str [description]
+     * @return {[type]}     [description]
+     */
+    enableControl: function(str) {
+      var control = this.control[str];
+
+      //_log.debug('enableControl', str, this.control);
+
+      if (control) {
+        control.setState('enabled');
+      }
+    },
+
+    /**
+     * [disableControl description]
+     * @param  {[type]} str [description]
+     * @return {[type]}     [description]
+     */
+    disableControl: function(str) {
+      var control = this.control[str];
+
+      //_log.debug('disableControl', str, this.control);
+
+      if (control) {
+        control.setState('disabled');
+      }
+    },
 
   });
 
