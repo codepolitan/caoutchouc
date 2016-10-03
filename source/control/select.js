@@ -4,45 +4,41 @@
  * @extends {UI.Control}
  * @type {Class}
  */
-define(function(require, exports, module) {
+var Field = require('control/field');
 
-  var Field = require('ui/control/field');
+module.exports = new Class({
 
-  module.exports = new Class({
+  Extends: Field,
 
-    Extends: Field,
+  options: {
+    name: 'select',
+    opts: {
+      type: 'select',
+      showValue: true
+    }
+  },
 
-    options: {
-      name: 'select',
-      opts: {
-        type: 'select',
-        showValue: true
-      }
-    },
+  _initElement: function() {
+    this.parent();
 
-    _initElement: function() {
-      this.parent();
+    var self = this;
 
-      var self = this;
+    this.input.set('type', 'hidden');
+    var opts = this.options.opts;
 
-      this.input.set('type', 'hidden');
-      var opts = this.options.opts;
+    this.menu = new UI.Menu(opts)
+      .addEvents({
+        change: function(value) {
+          self.input.set('value', value);
+          self.fireEvent('change', value);
+          self.setState('close');
+        }
+      }).inject(this.element);
 
-      this.menu = new UI.Menu(opts)
-        .addEvents({
-          change: function(value) {
-            self.input.set('value', value);
-            self.fireEvent('change', value);
-            self.setState('close');
-          }
-        }).inject(this.element);
-
-      if (this.options.value) {
-        self.menu.head.set('html', this.options.value);
-      }
-
+    if (this.options.value) {
+      self.menu.head.set('html', this.options.value);
     }
 
-  });
+  }
 
 });

@@ -3,91 +3,80 @@
  * @class  UI.Control.Color
  * @extends {UI.Control}
  */
+var Choice = require('control/choice');
+
+module.exports = new Class({
+
+  Extends: Choice,
+
+  options: {
+    name: 'choice'
+  },
+
+  /**
+   * [_initElement description]
+   * @return {[type]} [description]
+   */
+  _initElement: function() {
+    this.parent();
 
 
-/**
- * @class UI.Control.Button
- * @extends {UI.Control}
- * @type {Class}
- */
-define(function(require, exports, module) {
+    this.element.addClass('choice-color');
+  },
 
-  var Choice = require('ui/control/choice');
+  /**
+   * [_initItem description]
+   * @param  {[type]} info [description]
+   * @return {[type]}      [description]
+   */
+  _initItem: function(info) {
+    var self = this,
+      opts = this.options;
 
-  module.exports = new Class({
+    var item = new Element('li', {
+      'class': info
+    }).inject(this.list).addEvent('click', function() {
+      //_log.debug('jjj');
+      if (self.selected)
+        self.selected.removeClass('selected');
 
-    Extends: Choice,
-
-    options: {
-      name: 'choice'
-    },
-
-    /**
-     * [_initElement description]
-     * @return {[type]} [description]
-     */
-    _initElement: function() {
-      this.parent();
-
-
-      this.element.addClass('choice-color');
-    },
-
-    /**
-     * [_initItem description]
-     * @param  {[type]} info [description]
-     * @return {[type]}      [description]
-     */
-    _initItem: function(info) {
-      var self = this,
-        opts = this.options;
-
-      var item = new Element('li', {
-        'class': info
-      }).inject(this.list).addEvent('click', function() {
-        //_log.debug('jjj');
-        if (self.selected)
-          self.selected.removeClass('selected');
-
-        if (self.selected && self.selected == this) {
-          self.selected.removeClass('selected');
-          self.selected = null;
-          self.select(null);
-        } else {
-          this.addClass('selected');
-          self.selected = this;
-          self.select(info);
-        }
-      });
-
-      var color = new Element('span', {
-        html: '&nbsp;'
-      }).inject(item);
-
-      this.itemList.push(item);
-
-      if (opts.value == info) {
-        item.addClass('selected');
-        self.selected = item;
+      if (self.selected && self.selected == this) {
+        self.selected.removeClass('selected');
+        self.selected = null;
+        self.select(null);
+      } else {
+        this.addClass('selected');
+        self.selected = this;
+        self.select(info);
       }
-    },
+    });
 
-    /**
-     * [set description]
-     * @param {[type]} color [description]
-     */
-    set: function(color) {
-      //_log.debug(color);
-      var list = this.itemList;
+    var color = new Element('span', {
+      html: '&nbsp;'
+    }).inject(item);
 
-      for (var i = 0; i < list.length; i++) {
-        var item = list[i];
-        if (item.hasClass(color))
-          item.addClass('selected');
-        else item.removeClass('selected');
-      }
+    this.itemList.push(item);
+
+    if (opts.value == info) {
+      item.addClass('selected');
+      self.selected = item;
     }
+  },
 
-  });
+  /**
+   * [set description]
+   * @param {[type]} color [description]
+   */
+  set: function(color) {
+    //_log.debug(color);
+    var list = this.itemList;
+
+    for (var i = 0; i < list.length; i++) {
+      var item = list[i];
+      if (item.hasClass(color))
+        item.addClass('selected');
+      else item.removeClass('selected');
+    }
+  }
 
 });

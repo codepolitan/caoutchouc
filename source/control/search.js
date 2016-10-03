@@ -4,130 +4,126 @@
  * @extends {UI.Control}
  * @type {Class}
  */
-define(function(require, exports, module) {
+var Field = require('control/field');
+var Button = require('control/button');
+var Method = require('component/method');
+var controlIcon = require('icon/control');
 
-  var Field = require('ui/control/field');
-  var Button = require('ui/control/button');
-  var Method = require('ui/component/method');
-  var controlIcon = require('ui/icon/control');
+module.exports = new Class({
 
-  module.exports = new Class({
+  Extends: Field,
 
-    Extends: Field,
+  Implements: [Options, Events, Method],
 
-    Implements: [Options, Events, Method],
+  options: {
+    name: 'search',
+    error: false,
+    label: false,
+    timer: 150
+  },
 
-    options: {
-      name: 'search',
-      error: false,
-      label: false,
-      timer: 150
-    },
+  /**
+   * initialize
+   * @param  {Object} options
+   * @return {Object}
+   */
+  initialize: function(options) {
+    this.setOptions(options);
+    var opts = this.options;
 
-    /**
-     * initialize
-     * @param  {Object} options
-     * @return {Object}
-     */
-    initialize: function(options) {
-      this.setOptions(options);
-      var opts = this.options;
+    this.fireEvent('init');
 
-      this.fireEvent('init');
+    this._initOptions(opts);
+    this._initElement();
+    this._initEvents();
 
-      this._initOptions(opts);
-      this._initElement();
-      this._initEvents();
+    return this;
+  },
 
-      return this;
-    },
+  /**
+   * init element
+   * @return {void}
+   */
+  _initElement: function() {
+    //create a new div as input element
+    this.parent();
 
-    /**
-     * init element
-     * @return {void}
-     */
-    _initElement: function() {
-      //create a new div as input element
-      this.parent();
+    this.element.addClass('ui-search');
 
-      this.element.addClass('ui-search');
+    this._initReset();
+  },
 
-      this._initReset();
-    },
+  /**
+   * initInput
+   * @return {void}
+   */
+  _initInput: function() {
+    //_log.debug('_initInput', this.options);
+    this.parent();
 
-    /**
-     * initInput
-     * @return {void}
-     */
-    _initInput: function() {
-      //_log.debug('_initInput', this.options);
-      this.parent();
+    this.input.set('autocomplete', 'off');
+  },
 
-      this.input.set('autocomplete', 'off');
-    },
+  /**
+   * init reset
+   * @return {void}
+   */
+  _initReset: function() {
+    var self = this;
+    var icon = controlIcon.clear || 'mdi-action-help';
 
-    /**
-     * init reset
-     * @return {void}
-     */
-    _initReset: function() {
-      var self = this;
-      var icon = controlIcon.clear || 'mdi-action-help';
+    this.reset = new Button({
+      name: 'clear',
+      icon: icon,
+    }).inject(this.element).addEvent('press', function() {
+      self.empty();
+    });
+  },
 
-      this.reset = new Button({
-        name: 'clear',
-        icon: icon,
-      }).inject(this.element).addEvent('press', function() {
-        self.empty();
-      });
-    },
+  /**
+   * init events
+   * @return {void}
+   */
+  _initEvents: function() {
+    this.parent();
 
-    /**
-     * init events
-     * @return {void}
-     */
-    _initEvents: function() {
-      this.parent();
+    var self = this;
+    var opts = this.options;
+    var timer;
 
-      var self = this;
-      var opts = this.options;
-      var timer;
+    this.input.addEvents({
+      keyup: function() {
+        clearTimeout(timer);
+        timer = setTimeout(function() {
+          self.fireEvent('search', self.input.get('value'));
+        }, opts.timer);
+      },
+      mousedown: function(e) {
+        e.stopPropagation();
+      }
+    });
+  },
 
-      this.input.addEvents({
-        keyup: function() {
-          clearTimeout(timer);
-          timer = setTimeout(function() {
-            self.fireEvent('search', self.input.get('value'));
-          }, opts.timer);
-        },
-        mousedown: function(e) {
-          e.stopPropagation();
-        }
-      });
-    },
+  /**
+   * focus
+   * @return {Object}
+   */
+  focus: function() {
+    this.input.focus();
+    this.fireEvent('focus');
 
-    /**
-     * focus
-     * @return {Object}
-     */
-    focus: function() {
-      this.input.focus();
-      this.fireEvent('focus');
+    return this;
+  },
 
-      return this;
-    },
+  /**
+   * empty
+   * @return {Object}
+   */
+  empty: function() {
+    this.input.set('value', '');
+    this.fireEvent('reset');
 
-    /**
-     * empty
-     * @return {Object}
-     */
-    empty: function() {
-      this.input.set('value', '');
-      this.fireEvent('reset');
-
-      return this;
-    }
-
-  });
+    return this;
+  }
 
 });

@@ -3,177 +3,173 @@
  * @implement Minimal.View
  * @author Jerome Vial, Bruno Santos
  */
-define(function(require, exports, module) {
+var Container = require('container/container');
+var Window = require('window/window');
 
-  var Container = require('ui/container/container');
-  var Window = require('ui/window/window');
+var _log = __debug('core-view-container').defineLevel();
 
-  var _log = __debug('core-view-container').defineLevel();
+var ContainerModule = new Class({
 
-  var ContainerModule = new Class({
+  options: {
+    containers: {
+      dispose: true
+    }
+  },
 
-    options: {
-      containers: {
-        dispose: true
-      }
-    },
+  /**
+   * Initialize Container
+   * @private
+   */
+  _initContainer: function() {
+    _log.debug('_initContainer', this.container);
+    var self = this;
+    var opts = this.options;
+    var type = typeOf(opts.container);
 
-    /**
-     * Initialize Container
-     * @private
-     */
-    _initContainer: function() {
-      _log.debug('_initContainer', this.container);
-      var self = this;
-      var opts = this.options;
-      var type = typeOf(opts.container);
+    if (type === 'object') {
+      this.container.addEvent('resize', function() {
+        self.fireEvent('resize');
+      });
+    } else if (type === 'element') {
+      this.container = new Container({
+        container: opts.container
+      });
+    } else {
+      if (opts.window) {
+        var win = new Window(opts.window);
 
-      if (type === 'object') {
+        this.content = win.body;
+        this.element = win.body;
+        this.element.addClass('view-' + opts.clss);
+        this.container = win;
+
         this.container.addEvent('resize', function() {
           self.fireEvent('resize');
         });
-      } else if (type === 'element') {
-        this.container = new Container({
-          container: opts.container
-        });
-      } else {
-        if (opts.window) {
-          var win = new Window(opts.window);
-
-          this.content = win.body;
-          this.element = win.body;
-          this.element.addClass('view-' + opts.clss);
-          this.container = win;
-
-          this.container.addEvent('resize', function() {
-            self.fireEvent('resize');
-          });
-        }
       }
+    }
 
-      if (!this.content) {
-        this._initContent();
+    if (!this.content) {
+      this._initContent();
+    }
+
+    this.addEvents({
+      focus: function() {
+        self.container.setState('focus');
+      },
+      blur: function() {
+        self.container.setState();
       }
+    });
 
-      this.addEvents({
-        focus: function() {
-          self.container.setState('focus');
-        },
-        blur: function() {
-          self.container.setState();
-        }
-      });
+    /*this.container.addEvent('resize', function(){
+      self.fireEvent('resize');
+    });*/
+  },
 
-      /*this.container.addEvent('resize', function(){
-      	self.fireEvent('resize');
-      });*/
-    },
+  /**
+   * Add Slide(subview), intect it in the container, resize container and return it
+   * @param {idx} idx
+   */
+  addContainer: function(idx) {
+    var self = this;
+    var opts = this.options.view;
+    var index = idx || this.index;
 
-    /**
-     * Add Slide(subview), intect it in the container, resize container and return it
-     * @param {idx} idx
-     */
-    addContainer: function(idx) {
-      var self = this;
-      var opts = this.options.view;
-      var index = idx || this.index;
+    //var size = this.size;
 
-      //var size = this.size;
+    var container = new Container(opts).inject(this);
 
-      var container = new Container(opts).inject(this);
+    self.addEvent('resize', function() {
+      container.fireEvent('resize');
+    });
 
-      self.addEvent('resize', function() {
-        container.fireEvent('resize');
-      });
+    if (this.views.length === 0) {
+      this.index = 0;
+    }
 
-      if (this.views.length === 0) {
-        this.index = 0;
-      }
+    container.addClass('view' + index);
+    this.views[index] = container;
 
-      container.addClass('view' + index);
-      this.views[index] = container;
+    this.fireEvent('added', container);
 
-      this.fireEvent('added', container);
+    if (!idx) {
+      this.view = container;
+    }
 
-      if (!idx) {
-        this.view = container;
-      }
+    return container;
+  },
 
-      return container;
-    },
+  /**
+   * Set the given view as active and move to it
+   * @param {index} index
+   */
+  moveTo: function(index) {
+    //_log.debug('moveTo', index);
+    var opts = this.options;
 
-    /**
-     * Set the given view as active and move to it
-     * @param {index} index
-     */
-    moveTo: function(index) {
-      //_log.debug('moveTo', index);
-      var opts = this.options;
+    this.index = index;
+    this.last = this.view;
 
-      this.index = index;
-      this.last = this.view;
+    if (!this.views[index]) {
+      this.view = this.addContainer(index);
+    } else {
+      this.view = this.views[index];
 
-      if (!this.views[index]) {
-        this.view = this.addContainer(index);
-      } else {
-        this.view = this.views[index];
-
-        if (opts.containers.dispose) {
-          this.view.element.inject(this.element);
-          this.fireEvent('updateWeekCell');
-        } else {
-          this.view.element.show();
-        }
-      }
-
-      /*hide last element*/
       if (opts.containers.dispose) {
-        this.last.element.dispose();
+        this.view.element.inject(this.element);
+        this.fireEvent('updateWeekCell');
       } else {
-        this.last.element.hide();
+        this.view.element.show();
       }
+    }
 
-      return this.view;
-    },
+    /*hide last element*/
+    if (opts.containers.dispose) {
+      this.last.element.dispose();
+    } else {
+      this.last.element.hide();
+    }
 
-    /**
-     * Find the next view from the list and move to it if exist
-     * @param {unit} unit
-     */
-    next: function(unit) {
-      unit = unit || 1;
+    return this.view;
+  },
 
-      var index = this.index + unit;
+  /**
+   * Find the next view from the list and move to it if exist
+   * @param {unit} unit
+   */
+  next: function(unit) {
+    unit = unit || 1;
 
-      this.moveTo(index, 1);
-    },
+    var index = this.index + unit;
 
-    /**
-     * Find the previous view from the list and move to it if exist
-     * @param {unit} unit
-     */
-    back: function(unit) {
-      unit = unit || 1;
+    this.moveTo(index, 1);
+  },
 
-      var index = this.index - unit;
+  /**
+   * Find the previous view from the list and move to it if exist
+   * @param {unit} unit
+   */
+  back: function(unit) {
+    unit = unit || 1;
 
-      this.moveTo(index, -1);
-    },
+    var index = this.index - unit;
 
-    /**
-     * Go to
-     * @param {unit} unit
-     */
-    /*goto: function(unit){
-    	unit = unit || 1;
+    this.moveTo(index, -1);
+  },
 
-    	var index = this.index + unit;
+  /**
+   * Go to
+   * @param {unit} unit
+   */
+  /*goto: function(unit){
+    unit = unit || 1;
 
-    	this.moveTo(index, 1);
-    }*/
+    var index = this.index + unit;
 
-  });
-
-  module.exports = ContainerModule;
+    this.moveTo(index, 1);
+  }*/
 
 });
+
+module.exports = ContainerModule;
