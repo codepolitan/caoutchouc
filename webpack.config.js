@@ -38,11 +38,10 @@ module.exports = {
   resolve: {
     modulesDirectories: ['source'],
     alias: {
-      vendor: '../vendor',
-      debug: 'utils/debug',
-      'languages-en': 'vendor/minimal-languages/src/control/en.js',
-      'languages-fn': 'vendor/minimal-languages/src/control/fr.js',
-      mustache: 'vendor/mustache.js/mustache.js',
+      vendor: __dirname + '/vendor',
+      'languages-en': 'vendor/minimal-languages/src/control/en',
+      'languages-fn': 'vendor/minimal-languages/src/control/fr',
+      mustache: 'vendor/mustache.js/mustache',
       moment: 'vendor/moment/min/moment-with-langs',
       moment_fr: 'vendor/moment/lang/fr',
       moment_de: 'vendor/moment/lang/de'
