@@ -6,8 +6,11 @@
  */
 'use strict';
 
+//define(function(require, exports, module) {
 (function() {
-  console.log('UI', UI);
+
+  //var UI = require('ui');
+  var UI = window.caoutchouc;
   var Binding = UI.binding;
   var Toolbar = UI.toolbar;
   var Container = UI.container;
@@ -121,3 +124,4 @@
   new App();
 
 }());
+//});
