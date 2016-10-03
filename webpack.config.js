@@ -16,7 +16,7 @@ module.exports = {
     path: 'dist/',
     filename: 'caoutchouc.js',
     libraryTarget: 'umd',
-    //library: 'caoutchouc/[name]',
+    library: 'caoutchouc',
     //umdNamedDefine: true
   },
 
@@ -29,11 +29,7 @@ module.exports = {
     loaders: [{
       test: /\.js$/,
       loader: 'babel-loader',
-      exclude: path.resolve(__dirname, 'node_modules'),
-      include: [__dirname.replace('/tasks', '') + '/source'],
-      query: {
-        presets: ['es2015']
-      }
+      exclude: /(node_modules|bower_components)/
     }]
   },
 
