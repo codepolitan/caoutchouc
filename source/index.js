@@ -1,6 +1,6 @@
 require('debug');
 
-var ui = {
+module.exports = {
   window: require('./window/window'),
   binding: require('./component/binding'),
   toolbar: require('./toolbar/toolbar'),
@@ -8,5 +8,3 @@ var ui = {
   layout: require('./layout/layout'),
   //prompt: require('./window/prompt'),
 };
-
-module.exports = ui;
