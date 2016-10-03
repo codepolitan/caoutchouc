@@ -1,0 +1,26 @@
+{
+  "name": "caoutchouc",
+  "description": "caoutchouc",
+  "main": "./index",
+  "authors": [
+
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendors",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "moment": "https://github.com/moment/moment.git#2.5.1",
+    "js-logger": "https://github.com/jonnyreeves/js-logger.git#v1.2.0",
+    "minimal-languages": "git@git.evok.ch:minimal/minimal-languages.git#master",
+    "mustache.js": "https://github.com/janl/mustache.js.git#2.1.3"
+  }
+}
