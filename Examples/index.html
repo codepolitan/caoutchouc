@@ -1,25 +1,30 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js">
-<!--<![endif]-->
+<html>
 
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title>Caoutchouc Example Page</title>
-	<meta name="description" content="Caoutchouc Example Page">
-	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="/dist/skin/material.css">
-	<link rel="stylesheet" href="./styles.css">
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.20/require.min.js" data-main="main"></script>
-
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Caoutchouc Demo Page</title>
+  <meta name="description" content="Caoutchouc Demo Page">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="../dist/skin/material.css">
+  <link rel="stylesheet" href="./styles.css">
 </head>
 
 <body>
+  <div id="mySidenav" class="sidenav">
+    <a class="closebtn">&times;</a>
+    <a data-name="window">Window</a>
+    <a data-name="list">List View</a>
+    <a data-name="tree">Tree View</a>
+    <a data-name="layout">Form View</a>
+  </div>
+  <div id="main">
+  </div>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mootools/1.5.2/mootools-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mootools-more/1.5.2/mootools-more.js"></script>
+<script src="../dist/caoutchouc.js"></script>
+<script src="./app.js"></script>
 
 </html>

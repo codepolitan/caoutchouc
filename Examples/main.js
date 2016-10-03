@@ -1,28 +1,28 @@
 require.config({
   paths: {
-    UI: '../Source',
-    mnml: '../Source',
+    ui: '../dist/caoutchouc',
+    app: './app',
     dist: '../dist',
-    utils: '../Source/utils'
   },
   shim: {
-    'dist/caoutchouc-min': {
+    app: {
+      deps: ['ui']
+    },
+    ui: {
       deps: [
+        //'dist/vendor',
         'https://cdnjs.cloudflare.com/ajax/libs/mootools/1.5.2/mootools-core.min.js',
-        'https://cdnjs.cloudflare.com/ajax/libs/mootools-more/1.5.2/mootools-more.js',
-        'ui/utils/debug'
+        'https://cdnjs.cloudflare.com/ajax/libs/mootools-more/1.5.2/mootools-more.js'
       ]
     },
     'https://cdnjs.cloudflare.com/ajax/libs/mootools-more/1.5.2/mootools-more.js': {
       deps: [
-        'https://cdnjs.cloudflare.com/ajax/libs/mootools/1.5.2/mootools-core.min.js',
-      ],
-    },
+        'https://cdnjs.cloudflare.com/ajax/libs/mootools/1.5.2/mootools-core.min.js'
+      ]
+    }
   }
 });
 
-require(['dist/caoutchouc-min'], function() {
-  require(['./app'], function(App) {
-    new App();
-  });
+require(['app'], function(App) {
+  new App();
 });

@@ -4,18 +4,14 @@
  * @extends {App.Demo}
  * @author Jerome Vial
  */
-define(function(require, exports, module) {
+'use strict';
 
-
-  var Binding = require('ui/component/binding');
-  var Toolbar = require('ui/toolbar/toolbar');
-  var Container = require('ui/container/container');
-  var Layout = require('ui/layout/layout');
-  var View = require('ui/view/view');
-  var Browser = require('./browser');
-
-  console.log('View', View);
-
+(function() {
+  console.log('UI', UI);
+  var Binding = UI.binding;
+  var Toolbar = UI.toolbar;
+  var Container = UI.container;
+  var Layout = UI.layout;
 
   var App = new Class({
 
@@ -61,21 +57,39 @@ define(function(require, exports, module) {
       }
     },
 
-    test: function() {
-
-      console.log('test');
-    },
-
     /**
-     * Contructor
+     * initialize
      * @return {Object} The Class instance
      */
     initialize: function(options) {
       this.setOptions(options);
 
-      this.build();
+      //this.build();
+      var el = document.getElementById('mySidenav');
+      document.getElementById("main").style.marginLeft = "250px";
+      el.style.width = '250px';
+      el.addEventListener('click', function(ev) {
+        var name = ev.target.dataset.name;
 
-      this._initBinding();
+        new UI[name]({
+          theme: 'dark',
+          container: document.getElementById('main'),
+          node: {
+            _name: 'three',
+            _list: ['navi', 'list', 'info'],
+            _axis: 'x',
+            info: {
+              flex: '1'
+            },
+            navi: {
+              theme: 'dark'
+            }
+          },
+          settings: {}
+        });
+        console.log('---', name);
+      });
+      //this._initBinding();
 
       console.log(this);
 
@@ -100,15 +114,10 @@ define(function(require, exports, module) {
         node: this.options.layout
       });
 
-      this.browser = new Browser({
-        container: this.layout.main,
-        klass: 'browser'
-      });
-
       this._initToolbar(this.options.toolbar);
     }
   });
 
-  module.exports = App;
+  new App();
 
-});
+}());
