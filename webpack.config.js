@@ -1,14 +1,12 @@
 'use strict';
 
 var webpack = require('webpack');
-var path = require('path');
-var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 
 module.exports = {
-  context: __dirname.replace('/tasks', '') + '/source',
+  context: __dirname + '/source',
 
   entry: {
-    caoutchouc: './index.js',
+    caoutchouc: 'index.js',
     //vendor: ['debug']
   },
 
@@ -16,11 +14,11 @@ module.exports = {
     path: 'dist/',
     filename: 'caoutchouc.js',
     libraryTarget: 'umd',
-    library: 'caoutchouc',
-    //umdNamedDefine: true
+    library: 'caoutchouc'
   },
 
   plugins: [
+    //new webpack.optimize.UglifyJsPlugin(),
     //new webpack.optimize.CommonsChunkPlugin('shared', 'shared.js', null, 2)
     //new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js'),
   ],
@@ -29,7 +27,8 @@ module.exports = {
     loaders: [{
       test: /\.js$/,
       loader: 'babel-loader',
-      exclude: /(node_modules|bower_components)/
+      exclude: __dirname + '/node_modules',
+      include: __dirname + '/source'
     }]
   },
 
