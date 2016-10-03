@@ -42,7 +42,15 @@
         desk: {
           container: 'head',
           section: 'top',
-          list: [ /*'talk',*/ 'notification', /*'desktop', 'favorite',*/ 'apps', /*'settings',*/ 'user']
+          list: [
+            //'talk',
+            'notification',
+            //'desktop',
+            //'favorite',
+            'apps',
+            //'settings',
+            'user'
+          ]
         }
       },
       layout: {
