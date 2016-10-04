@@ -42,6 +42,9 @@ module.exports = {
       'languages-en': 'vendor/minimal-languages/src/control/en',
       'languages-fn': 'vendor/minimal-languages/src/control/fr',
       mustache: 'vendor/mustache.js/mustache',
+      utils: 'vendor/minimal-utils/src',
+      ScrollSpy: 'vendor/ScrollSpy/Source/ScrollSpy',
+      DatePicker: 'vendor/mootools-pack/DatePicker',
       moment: 'vendor/moment/min/moment-with-langs',
       moment_fr: 'vendor/moment/lang/fr',
       moment_de: 'vendor/moment/lang/de'
