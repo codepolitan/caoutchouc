@@ -7,7 +7,7 @@
  */
 var moment = require('moment');
 var mustache = require('mustache');
-var settings = require('core/module/settings/settings');
+//var settings = require('core/module/settings/settings');
 
 var ButtonControl = require('control/button');
 var FieldControl = require('control/field');
@@ -185,8 +185,7 @@ module.exports = new Class({
 
     //_log.debug('state',  name, state);
 
-
-    if (opts.collapsable) {
+    /*if (opts.collapsable) {
       var state = settings.get('view.' + opts.name + '.fieldset.' + name);
 
       if (state === 'closed') {
@@ -204,11 +203,11 @@ module.exports = new Class({
 
         self.container.fireEvent('resize');
       });
-    } else {
-      if (this.isCollapsed) {
-        fieldset.addClass('closed');
-      }
+    } else {*/
+    if (this.isCollapsed) {
+      fieldset.addClass('closed');
     }
+    //}
   },
 
   /**

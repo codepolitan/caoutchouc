@@ -311,9 +311,9 @@ var View = new Class({
   _initModules: function(modules, callback) {
     //_log.debug('initModule');
 
-    require(modules, function() {
+    /*require(modules, function() {
       callback();
-    });
+    });*/
   },
 
   /**
