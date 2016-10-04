@@ -6,15 +6,25 @@
  */
 'use strict';
 
-//define(function(require, exports, module) {
-(function() {
+(function(root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    define([], factory);
+  } else if (typeof exports === 'object') {
+    module.exports = factory();
+  } else {
+    root.returnExports = factory();
+  }
+}(this, function() {
 
-  //var UI = require('ui');
-  var UI = window.caoutchouc;
+  var UI = window.caoutchouc || require('ui');
   var Binding = UI.binding;
   var Toolbar = UI.toolbar;
   var Container = UI.container;
   var Layout = UI.layout;
+  var opts = require('./options');
+  var marked = require('marked');
+
+  console.log('marked', marked);
 
   var App = new Class({
 
@@ -76,29 +86,17 @@
       this.setOptions(options);
 
       //this.build();
-      var el = document.getElementById('mySidenav');
-      document.getElementById("main").style.marginLeft = "250px";
+      document.getElementById('main').style.marginLeft = '250px';
+      var el = document.getElementById('navi');
       el.style.width = '250px';
+
+      for (var c in UI) {
+        el.innerHTML = el.innerHTML + '<a data-name="' + c + '">' + c + '</a>';
+      }
+
       el.addEventListener('click', function(ev) {
         var name = ev.target.dataset.name;
-
-        new UI[name]({
-          theme: 'dark',
-          container: document.getElementById('main'),
-          node: {
-            _name: 'three',
-            _list: ['navi', 'list', 'info'],
-            _axis: 'x',
-            info: {
-              flex: '1'
-            },
-            navi: {
-              theme: 'dark'
-            }
-          },
-          settings: {}
-        });
-        console.log('---', name);
+        new UI[name](opts[name]);
       });
       //this._initBinding();
 
@@ -131,5 +129,4 @@
 
   new App();
 
-}());
-//});
+}));

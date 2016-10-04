@@ -12,35 +12,33 @@
 </head>
 
 <body>
-  <div id="mySidenav" class="sidenav">
-    <a class="closebtn">&times;</a>
-    <a data-name="window">Window</a>
-    <a data-name="list">List View</a>
-    <a data-name="tree">Tree View</a>
-    <a data-name="layout">Form View</a>
+  <div id="navi" class="sidenav">
   </div>
   <div id="main">
   </div>
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mootools/1.5.2/mootools-core.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mootools-more/1.5.2/mootools-more.js"></script>
-<script src="../dist/caoutchouc.js"></script>
-<script src="./demo.js"></script>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.20/require.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mootools/1.6.0/mootools-core.min.js"></script>
+<script src="../vendor/mootools-pack/MooTools-More-1.6.0.js"></script>
+<script src="../vendor/mootools-pack/powertools.js"></script>
+<!-- <script src="../dist/caoutchouc.js"></script>
+<script src="./demo.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.20/require.min.js"></script>
 <script>
 require.config({
   paths: {
     ui: '../dist/caoutchouc',
-    demo: './demo'
+    demo: './demo',
+    marked: '../vendor/marked/lib/marked',
+    options: './options'
   },
   shim: {
     demo: {
-      deps: ['ui']
+      deps: ['ui', 'options', 'marked']
     }
   }
 });
 
 require(['demo']);
-</script> -->
+</script>
 
 </html>
