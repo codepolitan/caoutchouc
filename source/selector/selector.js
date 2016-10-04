@@ -468,8 +468,8 @@ module.exports = new Class({
     }
   },
 
-  set: function(name, value, name) {
-    //_log.debug(name, value, name);
+  set: function(name, value) {
+    //_log.debug(name, value);
 
     var self = this;
 
