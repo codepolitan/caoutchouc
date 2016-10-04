@@ -3,7 +3,7 @@ module.exports = function(grunt) {
 
   grunt.config.merge({
     watch: {
-      caoutchouc: {
+      less: {
         files: ['source/skin/**/**/*.less'],
         tasks: ['less:caoutchouc']
       }

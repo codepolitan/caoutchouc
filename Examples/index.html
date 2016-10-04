@@ -1,25 +1,44 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js">
-<!--<![endif]-->
+<html>
 
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title>Caoutchouc Example Page</title>
-	<meta name="description" content="Caoutchouc Example Page">
-	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="/dist/skin/material.css">
-	<link rel="stylesheet" href="./styles.css">
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.20/require.min.js" data-main="main"></script>
-
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Caoutchouc Demo Page</title>
+  <meta name="description" content="Caoutchouc Demo Page">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="../dist/skin/material.css">
+  <link rel="stylesheet" href="./styles.css">
 </head>
 
 <body>
+  <div id="navi" class="sidenav">
+  </div>
+  <div id="main">
+  </div>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mootools/1.6.0/mootools-core.min.js"></script>
+<script src="../vendor/mootools-pack/MooTools-More-1.6.0.js"></script>
+<script src="../vendor/mootools-pack/powertools.js"></script>
+<!-- <script src="../dist/caoutchouc.js"></script>
+<script src="./demo.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.20/require.min.js"></script>
+<script>
+require.config({
+  paths: {
+    ui: '../dist/caoutchouc',
+    demo: './demo',
+    marked: '../vendor/marked/lib/marked',
+    options: './options'
+  },
+  shim: {
+    demo: {
+      deps: ['ui', 'options', 'marked']
+    }
+  }
+});
+
+require(['demo']);
+</script>
 
 </html>

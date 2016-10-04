@@ -4,43 +4,39 @@
  * @extends {UI.Control}
  * @author Jerome Vial
  */
-define(function(require, exports, module) {
+var Field = require('control/field');
 
-  var Field = require('ui/control/field');
+module.exports = new Class({
 
-  module.exports = new Class({
+  Extends: Field,
 
-    Extends: Field,
+  options: {
+    name: 'currency',
+    base: 'control'
+  },
 
-    options: {
-      name: 'currency',
-      base: 'control'
-    },
+  /**
+   * init element
+   * @return {void}
+   */
+  _initElement: function() {
 
-    /**
-     * init element
-     * @return {void}
-     */
-    _initElement: function() {
+    //create a new div as input element
+    this.parent();
 
-      //create a new div as input element
-      this.parent();
+    //_log.debug(this.element);
 
-      //_log.debug(this.element);
+    var alt = '{ "type" : "number", ' +
+      '"groupSymbol": ",", ' +
+      '"groupDigits": 3, ' +
+      '"decSymbol": "", ' +
+      '"decDigits": 0, ' +
+      '"stripMask": false }';
 
-      var alt = '{ "type" : "number", ' +
-        '"groupSymbol": ",", ' +
-        '"groupDigits": 3, ' +
-        '"decSymbol": "", ' +
-        '"decDigits": 0, ' +
-        '"stripMask": false }';
+    this.input.addClass('mask');
+    this.input.set('alt', alt);
 
-      this.input.addClass('mask');
-      this.input.set('alt', alt);
-
-      this.element.addClass('field-currency');
-    }
-
-  });
+    this.element.addClass('field-currency');
+  }
 
 });

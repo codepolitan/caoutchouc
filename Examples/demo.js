@@ -4,18 +4,27 @@
  * @extends {App.Demo}
  * @author Jerome Vial
  */
-define(function(require, exports, module) {
+'use strict';
 
+(function(root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    define([], factory);
+  } else if (typeof exports === 'object') {
+    module.exports = factory();
+  } else {
+    root.returnExports = factory();
+  }
+}(this, function() {
 
-  var Binding = require('ui/component/binding');
-  var Toolbar = require('ui/toolbar/toolbar');
-  var Container = require('ui/container/container');
-  var Layout = require('ui/layout/layout');
-  var View = require('ui/view/view');
-  var Browser = require('./browser');
+  var UI = window.caoutchouc || require('ui');
+  var Binding = UI.binding;
+  var Toolbar = UI.toolbar;
+  var Container = UI.container;
+  var Layout = UI.layout;
+  var opts = require('./options');
+  var marked = require('marked');
 
-  console.log('View', View);
-
+  console.log('marked', marked);
 
   var App = new Class({
 
@@ -43,7 +52,15 @@ define(function(require, exports, module) {
         desk: {
           container: 'head',
           section: 'top',
-          list: [ /*'talk',*/ 'notification', /*'desktop', 'favorite',*/ 'apps', /*'settings',*/ 'user']
+          list: [
+            //'talk',
+            'notification',
+            //'desktop',
+            //'favorite',
+            'apps',
+            //'settings',
+            'user'
+          ]
         }
       },
       layout: {
@@ -61,21 +78,27 @@ define(function(require, exports, module) {
       }
     },
 
-    test: function() {
-
-      console.log('test');
-    },
-
     /**
-     * Contructor
+     * initialize
      * @return {Object} The Class instance
      */
     initialize: function(options) {
       this.setOptions(options);
 
-      this.build();
+      //this.build();
+      document.getElementById('main').style.marginLeft = '250px';
+      var el = document.getElementById('navi');
+      el.style.width = '250px';
 
-      this._initBinding();
+      for (var c in UI) {
+        el.innerHTML = el.innerHTML + '<a data-name="' + c + '">' + c + '</a>';
+      }
+
+      el.addEventListener('click', function(ev) {
+        var name = ev.target.dataset.name;
+        new UI[name](opts[name]);
+      });
+      //this._initBinding();
 
       console.log(this);
 
@@ -100,15 +123,10 @@ define(function(require, exports, module) {
         node: this.options.layout
       });
 
-      this.browser = new Browser({
-        container: this.layout.main,
-        klass: 'browser'
-      });
-
       this._initToolbar(this.options.toolbar);
     }
   });
 
-  module.exports = App;
+  new App();
 
-});
+}));

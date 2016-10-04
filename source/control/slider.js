@@ -4,148 +4,144 @@
  * @extends {UI.Control}
  * @type {Class}
  */
-define(function(require, exports, module) {
+module.exports = new Class({
 
-  module.exports = new Class({
+  Extends: UI.Component,
 
-    Extends: UI.Component,
+  options: {
 
-    options: {
+    // default options
+    name: 'slider',
+    type: 'horizontal',
 
-      // default options
+    // implemented events
+    onStart: function() {},
+    onChange: function() {},
+    onComplete: function() {},
+    onTick: function() {},
+
+    // mootools slider default settings
+    snap: false,
+    offset: 0,
+    range: false,
+    wheel: false,
+    steps: 100
+  },
+
+  /*
+  Constructor: initialize
+    Construtor
+
+  Arguments:
+    options - (object) options
+  */
+
+  initialize: function(options) {
+    this.parent(options);
+  },
+
+  /*
+  Function: _initElement
+    private function
+
+    Call parent method and create a skinned knob element
+
+  Return:
+    (void)
+  */
+
+  _initElement: function() {
+    this.parent();
+
+    this.handler = new UI.Component({
+      skin: this.options.skin,
       name: 'slider',
-      type: 'horizontal',
+      type: 'knob'
+    }).inject(this.element);
+  },
 
-      // implemented events
-      onStart: function() {},
-      onChange: function() {},
-      onComplete: function() {},
-      onTick: function() {},
+  /*
+  Function: inject
+    Create the slider and inject it
 
-      // mootools slider default settings
-      snap: false,
-      offset: 0,
-      range: false,
-      wheel: false,
-      steps: 100
-    },
+  Arguments:
+    target - (mix) See mootools doc
+    position - (string) See mootools doc
 
-    /*
-    Constructor: initialize
-    	Construtor
+  Return:
+    this
+  */
 
-    Arguments:
-    	options - (object) options
-    */
+  inject: function(target, position) {
+    this.fireEvent('inject');
 
-    initialize: function(options) {
-      this.parent(options);
-    },
+    var self = this;
 
-    /*
-    Function: _initElement
-    	private function
+    this.element.inject(target, position);
+    this.element.setStyle('visibility', 'visible');
+    this.setSize();
+    this.setCanvas();
+    //ui.controller.element.register(this);
 
-    	Call parent method and create a skinned knob element
+    this.slider = new Slider(this.paint.canvas, this.handler.element, {
+      snap: this.options.snap,
+      offset: this.options.offset,
+      range: this.options.range,
+      wheel: this.options.wheel,
+      steps: this.options.steps,
+      mode: this.options.type,
 
-    Return:
-    	(void)
-    */
-
-    _initElement: function() {
-      this.parent();
-
-      this.handler = new UI.Component({
-        skin: this.options.skin,
-        name: 'slider',
-        type: 'knob'
-      }).inject(this.element);
-    },
-
-    /*
-    Function: inject
-    	Create the slider and inject it
-
-    Arguments:
-    	target - (mix) See mootools doc
-    	position - (string) See mootools doc
-
-    Return:
-    	this
-    */
-
-    inject: function(target, position) {
-      this.fireEvent('inject');
-
-      var self = this;
-
-      this.element.inject(target, position);
-      this.element.setStyle('visibility', 'visible');
-      this.setSize();
-      this.setCanvas();
-      //ui.controller.element.register(this);
-
-      this.slider = new Slider(this.paint.canvas, this.handler.element, {
-        snap: this.options.snap,
-        offset: this.options.offset,
-        range: this.options.range,
-        wheel: this.options.wheel,
-        steps: this.options.steps,
-        mode: this.options.type,
-
-        onStart: function(step) {
-          self.fireEvent('start', step);
-        },
-        onTick: function(position) {
-          if (this.options.snap) {
-            position = this.toPosition(this.step);
-          }
-          this.knob.setStyle(this.property, position);
-        },
-        onChange: function(step) {
-          self.fireEvent('change', step);
-        },
-        onComplete: function(step) {
-          self.fireEvent('complete', step);
+      onStart: function(step) {
+        self.fireEvent('start', step);
+      },
+      onTick: function(position) {
+        if (this.options.snap) {
+          position = this.toPosition(this.step);
         }
-      });
-      this.fireEvent('injected');
+        this.knob.setStyle(this.property, position);
+      },
+      onChange: function(step) {
+        self.fireEvent('change', step);
+      },
+      onComplete: function(step) {
+        self.fireEvent('complete', step);
+      }
+    });
+    this.fireEvent('injected');
 
-      return this;
-    },
+    return this;
+  },
 
-    /*
-    Function: _initEvents
-    	private function
+  /*
+  Function: _initEvents
+    private function
 
-    	Set behavior relative to slider (complete)
+    Set behavior relative to slider (complete)
 
-    Return:
-    	(void)
-    */
+  Return:
+    (void)
+  */
 
-    _initEvents: function() {
-      this.parent();
-      this.addEvent('complete', function(step) {
-        this.value = step;
-      });
-    },
+  _initEvents: function() {
+    this.parent();
+    this.addEvent('complete', function(step) {
+      this.value = step;
+    });
+  },
 
-    /*
-    Function: set
-    	Set the slider value
+  /*
+  Function: set
+    Set the slider value
 
-    Arguments:
-    	value - (integer) The value to set
+  Arguments:
+    value - (integer) The value to set
 
-    Return:
-    	this
-    */
+  Return:
+    this
+  */
 
-    set: function(value) {
-      return this.slider.set(value);
-    }
-
-  });
+  set: function(value) {
+    return this.slider.set(value);
+  }
 
 });

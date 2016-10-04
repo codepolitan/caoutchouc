@@ -1,19 +1,20 @@
+/* jscs:disable jsDoc */
+
 /**
- * wrapper for js logger
- * @type {Class}
- * @author [Jerome Vial]
- * @since [1.0.0]
+ * wrapper for debug
+ * @type {Object}
+ * @author Bruno Santos, Jerome Vial
  */
 define(function(require, exports, module) {
 
-  var Logger = require('https://rawgit.com/jonnyreeves/js-logger/master/src/logger.min.js');
+  var Logger = require('../../vendor/js-logger/src/logger.min');
 
-  /*handle browser without console*/
+  //handle browser without console
   var console = console || {
     log: function() {}
   };
 
-  /*define global _log*/
+  //define global _log
   window._log = {
     debug: window.console.info.bind(window.console, '%s'),
     info: window.console.info.bind(window.console, '%s'),
@@ -22,10 +23,10 @@ define(function(require, exports, module) {
     fatal: window.console.error.bind(window.console, '%s'),
   };
 
-  /*use default settings for logger*/
+  //use default settings for logger
   Logger.useDefaults();
 
-  /*define global __debug*/
+  //define global __debug
   window.__debug = function(what) {
 
     what = what || 'minimal';
@@ -39,14 +40,18 @@ define(function(require, exports, module) {
     logger.fatal = window.console.error.bind(window.console, '[' + what + '] %s');
 
     logger.defineLevel = function(level) {
-      Logger.get(what).setLevel(Logger[level]);
+      if (level && Logger[level.toUpperCase()]) {
+        Logger.get(what).setLevel(Logger[level.toUpperCase()]);
+      }
+
+      return logger;
     };
 
     return logger;
 
   };
 
-  /*bind _log with console*/
+  //bind _log with console
   function setDebug(isDebug, what) {
     if (isDebug) {
       what = {
