@@ -4,7 +4,6 @@
  * @author Jerome Vial
  */
 var CurrencyControl = require('control/currency');
-require('vendor/mootools-pack/iMask/iMask-lib');
 
 var _log = __debug('view-form-currency').defineLevel();
 

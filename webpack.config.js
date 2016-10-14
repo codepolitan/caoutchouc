@@ -20,7 +20,7 @@ module.exports = {
   plugins: [
     //new webpack.optimize.UglifyJsPlugin(),
     //new webpack.HotModuleReplacementPlugin(),
-    new webpack.optimize.CommonsChunkPlugin('caoutchouc', 'caoutchouc.js', null, 2),
+    new webpack.optimize.CommonsChunkPlugin('index', 'index.js', null, 2),
     //new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js'),
   ],
 
@@ -30,6 +30,9 @@ module.exports = {
       loader: 'babel-loader',
       exclude: __dirname + '/node_modules',
       include: __dirname + '/source'
+    }, {
+      test: __dirname + '/vendor/mootools-pack/iMask',
+      loader: 'exports?iMask'
     }]
   },
 
@@ -40,6 +43,7 @@ module.exports = {
     modulesDirectories: ['source'],
     alias: {
       vendor: __dirname + '/vendor',
+      imask: 'vendor/mootools-pack/iMask/iMask-lib',
       'languages-en': 'vendor/minimal-languages/src/control/en',
       'languages-fn': 'vendor/minimal-languages/src/control/fr',
       mustache: 'vendor/mustache.js/mustache',

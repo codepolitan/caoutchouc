@@ -7,6 +7,7 @@
  */
 var moment = require('moment');
 var mustache = require('mustache');
+var iMask = require('imask');
 //var settings = require('core/module/settings/settings');
 
 var ButtonControl = require('control/button');
