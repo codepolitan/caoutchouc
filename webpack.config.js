@@ -33,6 +33,9 @@ module.exports = {
     }, {
       test: __dirname + '/vendor/mootools-pack/iMask',
       loader: 'exports?iMask'
+    }, {
+      test: __dirname + '/vendor/mootools-pack/DatePicker',
+      loader: 'exports?Picker'
     }]
   },
 

@@ -4,8 +4,10 @@
  */
 var moment = require('moment');
 var Field = require('control/field');
-/*require('DatePicker/Locale.en-US.DatePicker');
-require('DatePicker/Picker.Date');*/
+var Picker = require('DatePicker/Picker');
+require('imports?Picker=DatePicker/Picker!DatePicker/Picker.Attach');
+require('imports?Picker=DatePicker/Picker!DatePicker/Picker.Date');
+require('imports?Picker=DatePicker/Picker!DatePicker/Locale.en-US.DatePicker');
 
 var _log = __debug('ui-control-date').defineLevel();
 
