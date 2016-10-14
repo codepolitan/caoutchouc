@@ -1,25 +1,26 @@
 'use strict';
 
 var webpack = require('webpack');
+var entry = require('./source');
+//entry.vendor = ['debug'];
 
 module.exports = {
   context: __dirname + '/source',
 
-  entry: {
-    caoutchouc: 'index.js',
-    //vendor: ['debug']
-  },
+  entry: entry,
 
   output: {
     path: 'dist/',
-    filename: 'caoutchouc.js',
+    filename: '[name].js',
     libraryTarget: 'umd',
-    library: 'caoutchouc'
+    library: 'ui/[name]',
+    umdNamedDefine: true
   },
 
   plugins: [
     //new webpack.optimize.UglifyJsPlugin(),
-    //new webpack.optimize.CommonsChunkPlugin('shared', 'shared.js', null, 2)
+    //new webpack.HotModuleReplacementPlugin(),
+    new webpack.optimize.CommonsChunkPlugin('caoutchouc', 'caoutchouc.js', null, 2),
     //new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js'),
   ],
 
@@ -47,7 +48,8 @@ module.exports = {
       DatePicker: 'vendor/mootools-pack/DatePicker',
       moment: 'vendor/moment/min/moment-with-langs',
       moment_fr: 'vendor/moment/lang/fr',
-      moment_de: 'vendor/moment/lang/de'
+      moment_de: 'vendor/moment/lang/de',
+      scriptjs: 'vendor/script.js/dist/script'
     }
   }
 

@@ -140,7 +140,7 @@ var Toolbar = new Class({
     _log.debug('_instanciateComp', name, def, element);
 
     var self = this;
-    var clss = def.clss || 'control/button';
+    var clss = def.clss || 'ui/button';
 
     //process name and klss for components with ::
     var temp = name.split(/\:\:/);
@@ -155,7 +155,7 @@ var Toolbar = new Class({
 
     //handle separator
     if (name === 'separator') {
-      clss = 'control/separator';
+      clss = 'ui/separator';
     }
 
     var icon = def.icon || name;
@@ -183,7 +183,7 @@ var Toolbar = new Class({
       text = this.langControl[lang][name] || def.text;
     }
 
-    if (clss === 'control/button' || clss === 'control/button-menu') {
+    if (clss === 'ui/button' || clss === 'ui/button-menu') {
       opts.text = this.langControl[lang][name] || Locale.get('control.' + name, name) || text || name;
     }
 
@@ -255,7 +255,7 @@ var Toolbar = new Class({
       }
     });
 
-    if (clss === 'control/button') {
+    if (clss === 'ui/button') {
       self.control[name].addEvents({
         /**
          * @ignore
@@ -270,7 +270,7 @@ var Toolbar = new Class({
       });
     }
 
-    if (clss === 'control/upload') {
+    if (clss === 'ui/upload') {
       self.control[name].addEvents({
         /**
          * @ignore
@@ -283,7 +283,7 @@ var Toolbar = new Class({
       });
     }
 
-    if (clss === 'control/field') {
+    if (clss === 'ui/field') {
       self.control[name].addEvents({
         /**
          * @ignore
@@ -298,7 +298,7 @@ var Toolbar = new Class({
       });
     }
 
-    if (clss === 'control/button-menu') {
+    if (clss === 'ui/button-menu') {
       self.control[name].addEvents({
         /**
          * @ignore
@@ -386,11 +386,8 @@ var Toolbar = new Class({
       return;
     }
 
-    require([module], function(Class) {
+    requirejs([module], function(Class) {
       cb(Class);
-    }, function(err) {
-      _log.error(module, err);
-      cb();
     });
   }
 

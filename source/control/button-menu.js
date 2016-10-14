@@ -118,7 +118,7 @@ module.exports = new Class({
    */
   _initItem: function(name, def, element) {
     var self = this;
-    var clss = 'control/button';
+    var clss = 'ui/button';
     var opts;
 
     def = def || {};
@@ -132,7 +132,7 @@ module.exports = new Class({
     //var klss = l.join(' ');
 
     if (name === 'separator') {
-      clss = 'control/separator';
+      clss = 'ui/separator';
     }
 
     if (def.clss) {
@@ -159,7 +159,7 @@ module.exports = new Class({
       return;
     }
 
-    if (clss === 'control/button' || clss === 'control/button-menu') {
+    if (clss === 'ui/button' || clss === 'ui/button-menu') {
       opts.text = def.text || Locale.get('control.' + name, name) || name;
     }
 
@@ -167,7 +167,7 @@ module.exports = new Class({
 
       self.control[name] = new Clss(opts).inject(element);
 
-      if (clss === 'control/button') {
+      if (clss === 'ui/button') {
         self.control[name].addEvents({
           /**
            * @ignore
@@ -200,11 +200,8 @@ module.exports = new Class({
       return;
     }
 
-    require([module], function(Class) {
+    requirejs([module], function(Class) {
       cb(Class);
-    }, function(err) {
-      _log.error(err);
-      cb();
     });
   },
 

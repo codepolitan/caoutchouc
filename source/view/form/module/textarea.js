@@ -4,6 +4,7 @@
  * @author Jerome Vial, Bruno Santos
  */
 var TextareaControl = require('control/textarea');
+var scriptjs = require('scriptjs');
 
 var _log = __debug('view-core-form-textarea').defineLevel();
 
@@ -118,10 +119,8 @@ var Textarea = new Class({
 
     var self = this;
 
-    require(['/vendor/ckeditor/ckeditor.js'], function() {
+    scriptjs(['/vendor/ckeditor/ckeditor.js'], function() {
       self._initTextarea(field, doc, group);
-    }, function(err) {
-      _log.error(err);
     });
   },
 
@@ -391,12 +390,8 @@ var Textarea = new Class({
   _initCodeMirror: function(field, textarea) {
     var self = this;
 
-    require([
-      '/vendor/codemirror/lib/codemirror.js'
-    ], function() {
+    scriptjs(['/vendor/codemirror/lib/codemirror.js'], function() {
       self._initCodeMirrorPlugIn(field, textarea);
-    }, function(err) {
-      _log.error(err);
     });
   },
 
@@ -409,13 +404,11 @@ var Textarea = new Class({
   _initCodeMirrorPlugIn: function(field, textarea) {
     var self = this;
 
-    require([
+    scriptjs([
       '/vendor/codemirror/mode/javascript/javascript.js',
       '/vendor/codemirror/mode/htmlmixed/htmlmixed.js'
     ], function() {
       self._initCodeField(field, textarea);
-    }, function(err) {
-      _log.error(err);
     });
   },
 
