@@ -4,7 +4,8 @@
   "description": " A Set of Mootools UI Components",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lessc": "lessc src/skin/material/material.less dist/skin/material.css",
+    "watch": "watch 'npm run lessc' src/skin"
   },
   "repository": {
     "type": "git",
@@ -34,6 +35,7 @@
     "grunt-plato": "^1.2.1",
     "grunt-webpack": "^1.0.11",
     "imports-loader": "^0.6.5",
+    "watch": "^1.0.1",
     "webpack": "^1.13.2"
   }
 }
