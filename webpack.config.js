@@ -6,7 +6,7 @@ var webpack = require('webpack');
 var entry = {};
 var chunks = [];
 var fs = require('fs');
-var data = fs.readFileSync('./source/index.js', 'utf8');
+var data = fs.readFileSync('./src/index.js', 'utf8');
 data = data.split('let ');
 data.shift();
 data.map(function(obj) {
@@ -17,7 +17,7 @@ data.map(function(obj) {
 });
 
 var commonConfig = {
-  context: __dirname + '/source',
+  context: __dirname + '/src',
 
   entry: entry,
 
@@ -45,7 +45,7 @@ var commonConfig = {
       test: /\.js$/,
       loader: 'babel-loader',
       exclude: __dirname + '/node_modules',
-      include: __dirname + '/source',
+      include: __dirname + '/src',
       query: {
         presets: ['es2015']
       }
@@ -62,7 +62,7 @@ var commonConfig = {
   //devtool: 'eval',
 
   resolve: {
-    modulesDirectories: ['node_modules', 'source'],
+    modulesDirectories: ['node_modules', 'src'],
     extensions: ['.jsx', '.js', ''],
     alias: {
       vendor: __dirname + '/vendor',
