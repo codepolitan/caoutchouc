@@ -1,10 +1,22 @@
 'use strict';
 
 var webpack = require('webpack');
-var entry = require('./source');
-//entry.vendor = ['debug'];
 
-module.exports = {
+// get entry and chunks
+var entry = {};
+var chunks = [];
+var fs = require('fs');
+var data = fs.readFileSync('./source/index.js', 'utf8');
+data = data.split('let ');
+data.shift();
+data.map(function(obj) {
+  var key = obj.split(' ')[0];
+  var file = obj.split('\'')[1];
+  entry[key] = [file];
+  chunks.push(key);
+});
+
+var commonConfig = {
   context: __dirname + '/source',
 
   entry: entry,
@@ -13,15 +25,19 @@ module.exports = {
     path: 'dist/',
     filename: '[name].js',
     libraryTarget: 'umd',
-    library: 'ui/[name]',
+    library: ['ui', '[name]'],
     umdNamedDefine: true
   },
 
   plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'index', // chunk name
+      filename: 'index.js', // filename of the commons chunk
+      //minChunks: Infinity, // modules must be shared between * entries
+      chunks: chunks, // only use these entries
+    }),
     //new webpack.optimize.UglifyJsPlugin(),
     //new webpack.HotModuleReplacementPlugin(),
-    new webpack.optimize.CommonsChunkPlugin('index', 'index.js', null, 2),
-    //new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js'),
   ],
 
   module: {
@@ -29,7 +45,10 @@ module.exports = {
       test: /\.js$/,
       loader: 'babel-loader',
       exclude: __dirname + '/node_modules',
-      include: __dirname + '/source'
+      include: __dirname + '/source',
+      query: {
+        presets: ['es2015']
+      }
     }, {
       test: __dirname + '/vendor/mootools-pack/iMask',
       loader: 'exports?iMask'
@@ -43,9 +62,11 @@ module.exports = {
   //devtool: 'eval',
 
   resolve: {
-    modulesDirectories: ['source'],
+    modulesDirectories: ['node_modules', 'source'],
+    extensions: ['.jsx', '.js', ''],
     alias: {
       vendor: __dirname + '/vendor',
+      debug: 'vendor/minimal-debug/dist/debug',
       imask: 'vendor/mootools-pack/iMask/iMask-lib',
       'languages-en': 'vendor/minimal-languages/src/control/en',
       'languages-fn': 'vendor/minimal-languages/src/control/fr',
@@ -59,5 +80,25 @@ module.exports = {
       scriptjs: 'vendor/script.js/dist/script'
     }
   }
-
 };
+
+module.exports = [
+  Object.assign({}, commonConfig, {
+    name: ''
+  }),
+  Object.assign({}, commonConfig, {
+    name: 'all',
+
+    entry: 'index.js',
+
+    output: {
+      path: 'dist/',
+      filename: 'all.js',
+      libraryTarget: 'umd',
+      library: 'ui',
+      umdNamedDefine: true
+    },
+
+    plugins: []
+  })
+];
