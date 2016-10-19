@@ -4,6 +4,7 @@
  * @since 0.0.1
  * @author Jerome Vial, Bruno Santos
  */
+require('debug');
 var UIContainer = require('container/container');
 var Layout = require('layout/layout');
 var Toolbar = require('toolbar/toolbar');
@@ -14,6 +15,7 @@ var Limit = require('view/limit');
 var Loader = require('view/loader');
 var Scroll = require('view/scroll');
 var Zoom = require('view/zoom');
+var scriptjs = require('scriptjs');
 
 var _log = __debug('view').defineLevel();
 
@@ -311,7 +313,7 @@ var View = new Class({
   _initModules: function(modules, callback) {
     //_log.debug('initModule');
 
-    requirejs(modules, function() {
+    scriptjs(modules, function() {
       callback();
     });
   },

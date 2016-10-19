@@ -1,39 +1,35 @@
-//require('./utils/debug');
+export let View = require('view/view');
+export let List = require('view/list/list');
+export let Tree = require('view/tree/tree');
+export let Form = require('view/form/form');
+export let ViewContainer = require('view/container');
 
-module.exports = {
-  view: ['view/view.js'],
-  list: ['view/list/list.js'],
-  tree: ['view/tree/tree.js'],
-  form: ['view/form/form.js'],
-  'view-container': ['view/container.js'],
+export let Container = require('container/container');
+export let Tab = require('container/tab');
 
-  container: ['container/container.js'],
-  tab: ['container/tab.js'],
+export let Window = require('window/window');
+export let Dialog = require('window/dialog');
+export let Prompt = require('window/prompt');
 
-  window: ['window/window.js'],
-  dialog: ['window/dialog.js'],
-  prompt: ['window/prompt.js'],
+export let Text = require('component/text');
+export let Component = require('component/component');
+export let Progress = require('component/progress');
+export let Binding = require('component/binding');
 
-  text: ['component/text.js'],
-  component: ['component/component.js'],
-  progress: ['component/progress.js'],
-  binding: ['component/binding.js'],
+export let Button = require('control/button');
+export let Upload = require('control/upload');
+export let Color = require('control/color');
+export let Date = require('control/date');
+export let ButtonMenu = require('control/button-menu');
+export let Choice = require('control/choice');
+export let Search = require('control/search');
+export let Separator = require('control/separator');
 
-  button: ['control/button.js'],
-  upload: ['control/upload.js'],
-  color: ['control/color.js'],
-  date: ['control/date.js'],
-  'button-menu': ['control/button-menu.js'],
-  choice: ['control/choice.js'],
-  search: ['control/search.js'],
-  separator: ['control/separator.js'],
+export let Border = require('selector/border');
+export let Context = require('menu/context');
+export let Toolbar = require('toolbar/toolbar');
+export let Layout = require('layout/layout');
+export let Selector = require('selector/selector');
 
-  border: ['selector/border.js'],
-  context: ['menu/context.js'],
-  toolbar: ['toolbar/toolbar.js'],
-  layout: ['layout/layout.js'],
-  selector: ['selector/selector.js'],
-
-  control: ['icon/control.js'],
-  app: ['icon/app.js'],
-};
+export let Control = require('icon/control');
+export let App = require('icon/app');

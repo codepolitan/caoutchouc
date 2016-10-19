@@ -12,7 +12,7 @@
     root.returnExports = factory();
   }
 }(this, function() {
-
+  require('debug');
   var _log = __debug('core-module-binding').defineLevel();
 
   if (typeof define !== 'function') {

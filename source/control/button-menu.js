@@ -7,6 +7,7 @@
 
 var Button = require('control/button');
 var fontIconConfig = require('control/separator');
+var scriptjs = require('scriptjs');
 require('icon/control');
 
 var _log = __debug('ui-control-buttonMenu');
@@ -200,7 +201,7 @@ module.exports = new Class({
       return;
     }
 
-    requirejs([module], function(Class) {
+    scriptjs([module], function(Class) {
       cb(Class);
     });
   },

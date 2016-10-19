@@ -6,6 +6,7 @@
 var controlIcon = require('icon/control');
 var langControlsConfigEn = require('../../vendor/minimal-languages/src/control/en');
 var langControlsConfigFr = require('../../vendor/minimal-languages/src/control/fr');
+var scriptjs = require('scriptjs');
 
 var _log = __debug('core-module-toolbar').defineLevel();
 
@@ -386,7 +387,7 @@ var Toolbar = new Class({
       return;
     }
 
-    requirejs([module], function(Class) {
+    scriptjs([module], function(Class) {
       cb(Class);
     });
   }
