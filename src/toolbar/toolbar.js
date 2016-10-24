@@ -1,6 +1,6 @@
 import controlIcon from '../icon/control';
-import langControlsConfigEn from '../../vendor/minimal-languages/src/control/en';
-import langControlsConfigFr from '../../vendor/minimal-languages/src/control/fr';
+import langControlsConfigEn from 'minimal-languages/control/en';
+import langControlsConfigFr from 'minimal-languages/control/fr';
 import * as UI from '../index';
 
 const _log = __debug('core-module-toolbar').defineLevel();

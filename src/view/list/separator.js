@@ -1,4 +1,4 @@
-import ScrollSpy from 'vendor/ScrollSpy/Source/ScrollSpy';
+import ScrollSpy from 'ScrollSpy';
 
 const _log = __debug('view-core-listV2-separator').defineLevel();
 

@@ -7,14 +7,18 @@ var entry = {};
 var chunks = [];
 var fs = require('fs');
 var data = fs.readFileSync('./src/index.js', 'utf8');
-data = data.split('let ');
-data.shift();
-data.map(function(obj) {
-  var key = obj.split(' ')[0];
-  var file = obj.split('\'')[1];
-  entry[key] = [file];
-  chunks.push(key);
+data = data.split(/['']/);
+data.pop();
+data.map(function(obj, idx) {
+  if (obj.indexOf('export') === -1) {
+    var file = obj;
+    var key = data[idx - 1].split('as ')[1].split('\n')[0];
+    entry[key] = [file];
+    chunks.push(key);
+  }
 });
+
+console.log('entry', entry);
 
 var commonConfig = {
   context: __dirname + '/src',
@@ -29,12 +33,16 @@ var commonConfig = {
     umdNamedDefine: true
   },
 
+  externals: {
+    moment: 'moment',
+  },
+
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'index', // chunk name
-      filename: 'index.js', // filename of the commons chunk
-      //minChunks: Infinity, // modules must be shared between * entries
-      chunks: chunks, // only use these entries
+      name: 'index',
+      filename: 'index.js',
+      //minChunks: Infinity,
+      chunks: chunks,
     }),
     //new webpack.optimize.UglifyJsPlugin(),
     //new webpack.HotModuleReplacementPlugin(),
@@ -69,19 +77,18 @@ var commonConfig = {
     extensions: ['.jsx', '.js', ''],
     alias: {
       vendor: __dirname + '/vendor',
-      'js-debugger': 'vendor/js-debugger/dist/js-debugger',
-      imask: 'vendor/mootools-pack/iMask/iMask-lib',
-      'languages-en': 'vendor/minimal-languages/src/control/en',
-      'languages-fn': 'vendor/minimal-languages/src/control/fr',
-      mustache: 'vendor/mustache.js/mustache',
+      'minimal-languages': 'vendor/minimal-languages/dist',
       'minimal-utils': 'vendor/minimal-utils/dist/minimal-utils',
       'minimal-binding': 'vendor/minimal-binding/dist/minimal-binding',
+      'js-debugger': 'vendor/js-debugger/dist/js-debugger',
+      mustache: 'vendor/mustache.js/mustache',
       ScrollSpy: 'vendor/ScrollSpy/Source/ScrollSpy',
-      DatePicker: 'vendor/mootools-pack/DatePicker',
       moment: 'vendor/moment/min/moment-with-langs',
       moment_fr: 'vendor/moment/lang/fr',
       moment_de: 'vendor/moment/lang/de',
-      scriptjs: 'vendor/script.js/dist/script'
+      scriptjs: 'vendor/script.js/dist/script',
+      imask: 'vendor/mootools-pack/iMask/iMask-lib',
+      DatePicker: 'vendor/mootools-pack/DatePicker',
     }
   }
 };

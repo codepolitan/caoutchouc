@@ -23,7 +23,6 @@ export {
 }
 from './view/container';
 
-
 export {
   default as Container
 }
@@ -33,7 +32,6 @@ export {
   default as Tab
 }
 from './container/tab';
-
 
 export {
   default as Window
@@ -50,7 +48,6 @@ export {
 }
 from './window/prompt';
 
-
 export {
   default as Text
 }
@@ -65,7 +62,6 @@ export {
   default as Progress
 }
 from './component/progress';
-
 
 export {
   default as Button
@@ -107,7 +103,6 @@ export {
 }
 from './control/separator';
 
-
 export {
   default as Border
 }
@@ -132,7 +127,6 @@ export {
   default as Selector
 }
 from './selector/selector';
-
 
 export {
   default as controlIcon
