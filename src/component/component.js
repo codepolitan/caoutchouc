@@ -1,22 +1,12 @@
-/**
- * Component Class
- * The base class for all ui components
- * @class UI.Component
- * @extends {UI}
- * @return {parent} Class
- * @example (start code)  new UI.Context(object); (end)
- * @author [moolego,r2d2]
- * @copyright © 1999-2015 - Jerome D. Vial. All Rights reserved.
- */
-var Binding = require('component/binding');
-var Method = require('component/method');
-var Location = require('component/location');
-var Drag = require('component/drag');
-var Resize = require('component/resize');
+import Binding from 'minimal-binding';
+import Method from './method';
+import Location from './location';
+import Drag from './drag';
+import Resize from './resize';
 
-var _log = __debug('ui-component');
+const _log = __debug('ui-component');
 
-module.exports = new Class({
+export default new Class({
 
   Implements: [
     Events,

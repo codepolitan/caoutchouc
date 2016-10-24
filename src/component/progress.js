@@ -1,11 +1,6 @@
-/**
- * UI Component Progress
- * @class UI.Component.Progress
- * @author Bruno Santos, Jerome Vial
- */
-var Component = require('component/component');
+import Component from './component';
 
-module.exports = new Class({
+export default new Class({
 
   Extends: Component,
 
@@ -25,8 +20,9 @@ module.exports = new Class({
 
     var percentage = (ratio[0] * 100) / ratio[1];
 
-    if (percentage > 0)
+    if (percentage > 0) {
       width = this.element.getSize().x * percentage / 100;
+    }
 
     this.bar.setStyle('width', width.toInt());
     this.status.set('html', ratio[0] + ' / ' + ratio[1]);

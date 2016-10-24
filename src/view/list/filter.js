@@ -1,14 +1,9 @@
-/**
- * Filter List.V2 View Class
- * @class View.List.V2.Filter
- * @author Jerome Vial, Bruno Santos
- */
-var filterUtil = require('utils/filter');
-var FilterControl = require('control/filter');
+import { filter as filterUtil } from 'minimal-utils';
+import FilterControl from '../../control/filter';
 
-var _log = __debug('view-core-list-filter').defineLevel();
+const _log = __debug('view-core-list-filter').defineLevel();
 
-var Filter = new Class({
+export default new Class({
 
   /**
    * initialize filter
@@ -139,5 +134,3 @@ var Filter = new Class({
   },
 
 });
-
-module.exports = Filter;

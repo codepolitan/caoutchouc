@@ -1,14 +1,9 @@
-/**
- * Textarea View Form Class
- * @implement View.Form.Textarea
- * @author Jerome Vial, Bruno Santos
- */
-var TextareaControl = require('control/textarea');
-var scriptjs = require('scriptjs');
+import TextareaControl from '../../../control/textarea';
+import scriptjs from 'scriptjs';
 
-var _log = __debug('view-core-form-textarea').defineLevel();
+const _log = __debug('view-core-form-textarea').defineLevel();
 
-var Textarea = new Class({
+export default new Class({
 
   options: {
     codeeditor: {
@@ -478,5 +473,3 @@ var Textarea = new Class({
   }*/
 
 });
-
-module.exports = Textarea;

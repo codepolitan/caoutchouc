@@ -1,207 +1,117 @@
-(function(root, factory) {
-  if (typeof define === 'function' && define.amd) {
-    define([], factory);
-  } else if (typeof exports === 'object') {
-    module.exports = factory();
-  } else {
-    root.returnExports = factory();
-  }
-}(this, function() {
+export default {
 
-  var exports = {
+  /**
+   * Return Something (func) from a given path
+   * @method _pathTo
+   * @param {string} the path in dot notation
+   * @return {Object}
+   * @api {}
+   */
+  _pathTo: function(path, self) {
 
-    /**
-     * Return Something (func) from a given path
-     * @method _pathTo
-     * @param {string} the path in dot notation
-     * @return {Object}
-     * @api {}
-     */
-    _pathTo: function(path, self) {
-
-      //_log.debug('_pathTo', path);
-      // Maybe should not be so restricive
-      if (typeOf(path) === 'function') {
-        return path;
-      }
-
-      var keys = path.split('.');
-
-      var func = null;
-      var context = null;
-
-      for (var i = 0; i < keys.length; i++) {
-        var key = keys[i];
-
-        func = func || self;
-        func = func[key];
-        context = context || self;
-
-        if (typeof context[key] !== 'function') {
-          context = context[key];
-        }
-      }
-
-      /*_log.debug({
-      	func: func,
-      	context: context
-      });*/
-
-      return {
-        func: func,
-        context: context
-      };
-    },
-
-    deref: function(obj, s) {
-      var i = 0;
-      s = s.split('.');
-      while (obj && i < s.length) {
-        obj = obj[s[i++]];
-      }
-      return obj;
-    },
-
-    /**
-     * Get Class From String
-     * @method getClassFromString
-     * @param {string}
-     * @return {clss}
-     * @api public
-     */
-    strToClss: function(str) {
-      if (typeOf(str) === 'class') {
-        return str;
-      }
-
-      var keys = str.split('.');
-
-      var clss = null;
-
-      for (var i = 0; i < keys.length; i++) {
-        var key = keys[i];
-        if (clss) {
-          clss = clss[key];
-        } else {
-          clss = window[key];
-        }
-      }
-
-      return clss;
-    },
-
-    /**
-     * Get Class From String
-     * @method getClassFromString
-     * @param {string}
-     * @return {clss}
-     * @api public
-     */
-    toclss: function(str) {
-      if (typeOf(str) === 'class') {
-        return str;
-      }
-
-      var keys = str.split('.');
-
-      var clss = null;
-
-      for (var i = 0; i < keys.length; i++) {
-        var key = keys[i];
-        if (clss) {
-          clss = clss[key];
-        } else {
-          clss = window[key];
-        }
-      }
-
-      return clss;
+    //_log.debug('_pathTo', path);
+    // Maybe should not be so restricive
+    if (typeOf(path) === 'function') {
+      return path;
     }
 
-  };
+    var keys = path.split('.');
 
-  return exports;
+    var func = null;
+    var context = null;
 
-}));
+    for (var i = 0; i < keys.length; i++) {
+      var key = keys[i];
 
+      func = func || self;
+      func = func[key];
+      context = context || self;
 
+      if (typeof context[key] !== 'function') {
+        context = context[key];
+      }
+    }
 
-//OLD FILE IF NEEDED
+    /*_log.debug({
+      func: func,
+      context: context
+    });*/
 
-/*var mnml = mnml || {};
-mnml.api = mnml.api || {};
+    return {
+      func: func,
+      context: context
+    };
+  },
 
-mnml._pathTo = function(path, self) {
+  /**
+   * [deref description]
+   * @param  {[type]} obj [description]
+   * @param  {[type]} s   [description]
+   * @return {[type]}     [description]
+   */
+  deref: function(obj, s) {
+    var i = 0;
+    s = s.split('.');
+    while (obj && i < s.length) {
+      obj = obj[s[i++]];
+    }
+    return obj;
+  },
 
-	//_log.debug('_pathTo', path);
-	// Maybe should not be so restricive
-	if (typeOf(path) == 'function') return path;
+  /**
+   * Get Class From String
+   * @method getClassFromString
+   * @param {string}
+   * @return {clss}
+   * @api public
+   */
+  strToClss: function(str) {
+    if (typeOf(str) === 'class') {
+      return str;
+    }
 
-	var keys = path.split('.');
+    var keys = str.split('.');
 
-	var func = null,
-		context = null;
+    var clss = null;
 
-	for (var i = 0; i < keys.length; i++) {
-		var key = keys[i];
+    for (var i = 0; i < keys.length; i++) {
+      var key = keys[i];
+      if (clss) {
+        clss = clss[key];
+      } else {
+        clss = window[key];
+      }
+    }
 
-		func = func || self;
-		func = func[key];
-		context = context || self;
+    return clss;
+  },
 
-		if (typeof context[key] !== 'function')
-			context = context[key];
-	}
+  /**
+   * Get Class From String
+   * @method getClassFromString
+   * @param {string}
+   * @return {clss}
+   * @api public
+   */
+  toclss: function(str) {
+    if (typeOf(str) === 'class') {
+      return str;
+    }
 
-	/*_log.debug({
-		func: func,
-		context: context
-	});*
+    var keys = str.split('.');
 
-	return {
-		func: func,
-		context: context
-	};
+    var clss = null;
+
+    for (var i = 0; i < keys.length; i++) {
+      var key = keys[i];
+      if (clss) {
+        clss = clss[key];
+      } else {
+        clss = window[key];
+      }
+    }
+
+    return clss;
+  }
+
 };
-
-mnml.deref = function (obj, s) {
-	var i = 0;
-	s = s.split('.');
-	while (obj && i < s.length)
-		obj = obj[s[i++]];
-	return obj;
-};
-
-mnml.strToClss = function(str) {
-	if (typeOf(str) == 'class') return str;
-
-	var keys = str.split('.');
-
-	var clss = null;
-
-	for (var i = 0; i < keys.length; i++) {
-		var key = keys[i];
-		if (clss) clss = clss[key];
-		else clss = window[key];
-	}
-
-	return clss;
-};
-
-mnml.api.toclss = function(clss) {
-	if (typeOf(str) == 'class') return str;
-
-	var keys = str.split('.');
-
-	var clss = null;
-
-	for (var i = 0; i < keys.length; i++) {
-		var key = keys[i];
-		if (clss) clss = clss[key];
-		else clss = window[key];
-	}
-
-	return clss;
-};
-
-mnml.api.toclss = mnml.strToClss;*/

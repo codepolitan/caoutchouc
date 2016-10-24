@@ -1,12 +1,6 @@
-/**
- * UI Control Steps Class
- * @class UI.Control.Steps
- * @extends {UI.Control}
- * @type {Class}
- */
-var Field = require('control/field');
+import Field from './field';
 
-module.exports = new Class({
+export default new Class({
 
   Extends: Field,
 
@@ -68,10 +62,11 @@ module.exports = new Class({
 
     this.itemList = [];
 
-    if (list && list.length > 0)
+    if (list && list.length > 0) {
       for (var i = 0; i < list.length; i++) {
         this._initItem(list[i], i + 1);
       }
+    }
   },
 
   /**

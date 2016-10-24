@@ -2,7 +2,7 @@
  * Tree View Collapse
  * @see https://github.com/cpojer/mootools-tree
  */
-var Collapse = new Class({
+export default new Class({
 
   Implements: [Options, Class.Single],
 
@@ -139,6 +139,3 @@ var Collapse = new Class({
   }
 
 });
-
-
-module.exports = Collapse;

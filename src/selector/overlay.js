@@ -1,10 +1,4 @@
-/**
- * UI Selector Overlay Class
- * @class UI.Selector.Overlay
- * @extends {UI.Selector}
- * @type {Class}
- */
-module.exports = new Class({
+export default new Class({
 
   Implements: [Events, Options],
 
@@ -19,17 +13,26 @@ module.exports = new Class({
     }
   },
 
+  /**
+   * [initialize description]
+   * @param  {[type]} options [description]
+   * @return {[type]}         [description]
+   */
   initialize: function(options) {
     this.setOptions(options);
     this._initElement();
   },
 
+  /**
+   * [_initElement description]
+   * @return {[type]} [description]
+   */
   _initElement: function() {
     var self = this;
     var position = 'absolute';
     //if (element.isFixed()) position = 'fixed';
     var timer;
-    this.element = new Element("div", {
+    this.element = new Element('div', {
         'class': this.options.clss
       }).setStyles(this.options.styles)
       .setStyle('position', position)
@@ -52,6 +55,11 @@ module.exports = new Class({
       }).inject(this.options.container, 'top');
   },
 
+  /**
+   * [reach description]
+   * @param  {[type]} el [description]
+   * @return {[type]}    [description]
+   */
   reach: function(el) {
     this.el = el;
     var offset = this.options.offset;
@@ -65,18 +73,35 @@ module.exports = new Class({
     });
   },
 
+  /**
+   * [remove description]
+   * @return {[type]} [description]
+   */
   remove: function() {
     this.element.destroy();
   },
 
+  /**
+   * [hide description]
+   * @return {[type]} [description]
+   */
   hide: function() {
     this.element.hide();
   },
 
+  /**
+   * [show description]
+   * @return {[type]} [description]
+   */
   show: function() {
     this.element.show();
   },
 
+  /**
+   * [highlight description]
+   * @param  {[type]} color [description]
+   * @return {[type]}       [description]
+   */
   highlight: function(color) {
     this.element.highlight(color);
   }

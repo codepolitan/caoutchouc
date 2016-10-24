@@ -1,13 +1,8 @@
-/**
- * @class UI.Control.Field
- * @extends {UI.Control}
- * @type {Class}
- */
-var Control = require('control/control');
+import Control from './control';
 
-var _log = __debug('ui-control-field');
+const _log = __debug('ui-control-field');
 
-var Field = new Class({
+export default new Class({
 
   Extends: Control,
 
@@ -424,5 +419,3 @@ var Field = new Class({
   }
 
 });
-
-module.exports = Field;

@@ -1,16 +1,14 @@
+import Component from '../component/component';
+import Display from './display';
+
+const _log = __debug('ui-container');
+
 /**
+ * @description
  * The UI.Container class defines objects manage the content of the container
  * that manage containers use by several object like windows, menus.
- * @class  UI.Container
- * @extends {UI.Component}
- * @author Bruno Santos, Jerome Vial
  */
-var Component = require('component/component');
-var Display = require('container/display');
-
-var _log = __debug('ui-container');
-
-var Container = new Class({
+export default new Class({
 
   Extends: Component,
 
@@ -326,5 +324,3 @@ var Container = new Class({
   }
 
 });
-
-module.exports = Container;

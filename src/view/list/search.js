@@ -1,14 +1,9 @@
-/**
- * Search List.V2 View Class
- * @class View.List.V2.Search
- * @author Jerome Vial, Bruno Santos
- */
-var SearchControl = require('control/search');
-var searchUtil = require('utils/search');
+import SearchControl from '../../control/search';
+import { search as searchUtil } from 'minimal-utils';
 
-var _log = __debug('view-core-list-search').defineLevel();
+const _log = __debug('view-core-list-search').defineLevel();
 
-var Search = new Class({
+export default new Class({
 
   /**
    * Initialize Search
@@ -159,5 +154,3 @@ var Search = new Class({
   },
 
 });
-
-module.exports = Search;

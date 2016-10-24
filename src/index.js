@@ -1,35 +1,145 @@
-export let View = require('view/view');
-export let List = require('view/list/list');
-export let Tree = require('view/tree/tree');
-export let Form = require('view/form/form');
-export let ViewContainer = require('view/container');
+export {
+  default as View
+}
+from './view/view';
 
-export let Container = require('container/container');
-export let Tab = require('container/tab');
+export {
+  default as List
+}
+from './view/list/list';
 
-export let Window = require('window/window');
-export let Dialog = require('window/dialog');
-export let Prompt = require('window/prompt');
+export {
+  default as Tree
+}
+from './view/tree/tree';
 
-export let Text = require('component/text');
-export let Component = require('component/component');
-export let Progress = require('component/progress');
-export let Binding = require('component/binding');
+export {
+  default as Form
+}
+from './view/form/form';
 
-export let Button = require('control/button');
-export let Upload = require('control/upload');
-export let Color = require('control/color');
-export let Date = require('control/date');
-export let ButtonMenu = require('control/button-menu');
-export let Choice = require('control/choice');
-export let Search = require('control/search');
-export let Separator = require('control/separator');
+export {
+  default as ViewContainer
+}
+from './view/container';
 
-export let Border = require('selector/border');
-export let Context = require('menu/context');
-export let Toolbar = require('toolbar/toolbar');
-export let Layout = require('layout/layout');
-export let Selector = require('selector/selector');
 
-export let Control = require('icon/control');
-export let App = require('icon/app');
+export {
+  default as Container
+}
+from './container/container';
+
+export {
+  default as Tab
+}
+from './container/tab';
+
+
+export {
+  default as Window
+}
+from './window/window';
+
+export {
+  default as Dialog
+}
+from './window/dialog';
+
+export {
+  default as Prompt
+}
+from './window/prompt';
+
+
+export {
+  default as Text
+}
+from './component/text';
+
+export {
+  default as Component
+}
+from './component/component';
+
+export {
+  default as Progress
+}
+from './component/progress';
+
+
+export {
+  default as Button
+}
+from './control/button';
+
+export {
+  default as Upload
+}
+from './control/upload';
+
+export {
+  default as Color
+}
+from './control/color';
+
+export {
+  default as Date
+}
+from './control/date';
+
+export {
+  default as ButtonMenu
+}
+from './control/button-menu';
+
+export {
+  default as Choice
+}
+from './control/choice';
+
+export {
+  default as Search
+}
+from './control/search';
+
+export {
+  default as Separator
+}
+from './control/separator';
+
+
+export {
+  default as Border
+}
+from './selector/border';
+
+export {
+  default as Context
+}
+from './menu/context';
+
+export {
+  default as Toolbar
+}
+from './toolbar/toolbar';
+
+export {
+  default as Layout
+}
+from './layout/layout';
+
+export {
+  default as Selector
+}
+from './selector/selector';
+
+
+export {
+  default as controlIcon
+}
+from './icon/control';
+
+export {
+  default as appIcon
+}
+from './icon/app';

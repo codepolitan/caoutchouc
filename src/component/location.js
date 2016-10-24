@@ -1,9 +1,4 @@
-/**
- * UI Component Location
- * @class UI.Component.Location
- * @author Bruno Santos, Jerome Vial
- */
-module.exports = new Class({
+export default new Class({
 
   _initLocation: function() {
     var list = ['left', 'top', 'right', 'bottom'];
@@ -39,9 +34,11 @@ module.exports = new Class({
     var location = {};
     var height = this.options.height;
 
-    if (this.options.height != 'auto')
+    if (this.options.height != 'auto') {
       location.top = (window.getHeight() - height.toInt()) / 2;
-    else location.top = 160;
+    } else {
+      location.top = 160;
+    }
 
     location.left = (window.getWidth() - this.options.width.toInt()) / 2;
 

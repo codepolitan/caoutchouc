@@ -1,17 +1,11 @@
-/**
- * UI Control Dropdown Class
- * @class UI.Control.Dropdown
- * @extends {UI.Control}
- * @type {Class}
- */
-var api = require('utils/api');
-var Field = require('control/field');
-var ButtonControl = require('control/button');
-var ButtonMenu = require('control/button-menu');
+import api from '../utils/api';
+import Field from './field';
+import ButtonControl from './button';
+import ButtonMenu from './button-menu';
 
-var _log = __debug('ui-control-dropdown').defineLevel();
+const _log = __debug('ui-control-dropdown').defineLevel();
 
-var Dropdown = new Class({
+export default new Class({
 
   Extends: Field,
 
@@ -399,5 +393,3 @@ var Dropdown = new Class({
   }
 
 });
-
-module.exports = Dropdown;

@@ -1,14 +1,9 @@
-/**
- * UI Window Dialog Class
- * @extends {UI.Container}
- * @type {Class}
- */
-var ButtonControl = require('control/button');
-var Window = require('window/window');
+import ButtonControl from '../control/button';
+import Window from './window';
 
-var _log = __debug('ui-dialog').defineLevel();
+const _log = __debug('ui-dialog').defineLevel();
 
-var Dialog = new Class({
+export default new Class({
 
   Extends: Window,
 
@@ -169,5 +164,3 @@ var Dialog = new Class({
   }
 
 });
-
-module.exports = Dialog;

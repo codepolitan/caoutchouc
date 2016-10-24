@@ -1,13 +1,6 @@
-/**
- * Fill the form using the given schema(template)]
- * @param  {[type]} field  [description]
- * @param  {[type]} doc    [description]
- * @param  {[type]} group) {    var       self [description]
- * @return {[type]}        [description]
- */
-var _log = __debug('view:form-utils');
+const _log = __debug('view:form-utils');
 
-module.exports = new Class({
+export default new Class({
 
   /**
    * when view apply

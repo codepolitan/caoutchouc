@@ -1,15 +1,9 @@
-/**
- * UI Control Search Class
- * @class UI.Control.Search
- * @extends {UI.Control}
- * @type {Class}
- */
-var Field = require('control/field');
-var Button = require('control/button');
-var Method = require('component/method');
-var controlIcon = require('icon/control');
+import Field from './field';
+import Button from './button';
+import Method from '../component/method';
+import controlIcon from '../icon/control';
 
-module.exports = new Class({
+export default new Class({
 
   Extends: Field,
 

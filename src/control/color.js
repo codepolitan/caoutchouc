@@ -1,11 +1,6 @@
-/**
- * UI Control Color Class
- * @class  UI.Control.Color
- * @extends {UI.Control}
- */
-var Choice = require('control/choice');
+import Choice from './choice';
 
-module.exports = new Class({
+export default new Class({
 
   Extends: Choice,
 
@@ -37,8 +32,9 @@ module.exports = new Class({
       'class': info
     }).inject(this.list).addEvent('click', function() {
       //_log.debug('jjj');
-      if (self.selected)
+      if (self.selected) {
         self.selected.removeClass('selected');
+      }
 
       if (self.selected && self.selected == this) {
         self.selected.removeClass('selected');
@@ -73,9 +69,11 @@ module.exports = new Class({
 
     for (var i = 0; i < list.length; i++) {
       var item = list[i];
-      if (item.hasClass(color))
+      if (item.hasClass(color)) {
         item.addClass('selected');
-      else item.removeClass('selected');
+      } else {
+        item.removeClass('selected');
+      }
     }
   }
 

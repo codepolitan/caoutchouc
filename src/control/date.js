@@ -1,17 +1,13 @@
-/**
- * UI Control Date
- * @class UI.Control.Date
- */
-var moment = require('moment');
-var Field = require('control/field');
-var Picker = require('DatePicker/Picker');
-require('imports?Picker=DatePicker/Picker!DatePicker/Picker.Attach');
+import Field from './field';
+import moment from 'moment';
+import Picker from 'DatePicker/Picker';
+/*require('imports?Picker=DatePicker/Picker!DatePicker/Picker.Attach');
 require('imports?Picker=DatePicker/Picker!DatePicker/Picker.Date');
-require('imports?Picker=DatePicker/Picker!DatePicker/Locale.en-US.DatePicker');
+require('imports?Picker=DatePicker/Picker!DatePicker/Locale.en-US.DatePicker');*/
 
-var _log = __debug('ui-control-date').defineLevel();
+const _log = __debug('ui-control-date').defineLevel();
 
-var DateControl = new Class({
+export default new Class({
 
   Extends: Field,
 
@@ -186,5 +182,3 @@ var DateControl = new Class({
   }
 
 });
-
-module.exports = DateControl;

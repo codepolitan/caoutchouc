@@ -1,13 +1,8 @@
-/**
- * Minimalistic Implement for Minimal.Form Class
- * @implement Minimal.Form
- * @author Jerome Vial, Bruno Santos
- */
-var moment = require('moment');
+import moment from 'moment';
 
-var _log = __debug('view:form-logs');
+const _log = __debug('view:form-logs');
 
-module.exports = new Class({
+export default new Class({
 
   /**
    * [_initLogs description]
@@ -17,11 +12,12 @@ module.exports = new Class({
    * @return {[type]}       [description]
    */
   _initLogs: function(field, doc, group) {
-    var self = this;
 
     group.addClass('group-list');
 
-    if (!doc[field.name]) return;
+    if (!doc[field.name]) {
+      return;
+    }
 
     var list = new Element('div', {
       'class': 'form-list list-logs'

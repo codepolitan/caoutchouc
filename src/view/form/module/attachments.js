@@ -1,13 +1,8 @@
-/**
- * Minimalistic Implement for Minimal.Form Class
- * @implement Minimal.Form
- * @author Jerome Vial, Bruno Santos
- */
-var Button = require('control/button');
+import Button from '../../../control/button';
 
-var _log = __debug('view-form-attachments');
+const _log = __debug('view-form-attachments');
 
-module.exports = new Class({
+export default new Class({
 
   /**
    * [_initContacts description]
@@ -111,7 +106,9 @@ module.exports = new Class({
     this.doc.attachments._ids = this.doc.attachments._ids || [];
 
     var listIdx = this.doc.attachments._ids.indexOf(id);
-    if (listIdx >= 0) this.doc.attachments._ids.splice(listIdx, 1);
+    if (listIdx >= 0) {
+      this.doc.attachments._ids.splice(listIdx, 1);
+    }
 
     this._setInfo(this.doc);
     this.fireEvent('change', [key, this.doc.attachments[key]]);

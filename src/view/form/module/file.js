@@ -1,14 +1,8 @@
-/**
- * View.Form.File
- * @class View.Form.File
- * @extends {Minimal.View.Form}
- * @author Jerome Vial
- */
-var ButtonControl = require('control/button');
+import ButtonControl from '../../../control/button';
 
-var _log = __debug('view:form-file');
+const _log = __debug('view:form-file');
 
-module.exports = new Class({
+export default new Class({
 
   /**
    * [_initFile description]

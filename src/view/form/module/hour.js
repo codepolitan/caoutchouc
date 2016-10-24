@@ -1,15 +1,10 @@
-/**
- * Implement Hour methods for Minimal.Form
- * @implement Minimal.Form
- * @author Jerome Vial
- */
-var moment = require('moment');
-var DateControl = require('control/date');
-var HourControl = require('control/hour');
+import moment from 'moment';
+import DateControl from '../../../control/date';
+import HourControl from '../../../control/hour';
 
-var _log = __debug('view:form-hour');
+const _log = __debug('view:form-hour');
 
-module.exports = new Class({
+export default new Class({
 
   /**
    * [_initHour description]

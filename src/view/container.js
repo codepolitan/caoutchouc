@@ -1,14 +1,9 @@
-/**
- * Minimalistic Implement for Minimal.View Class
- * @implement Minimal.View
- * @author Jerome Vial, Bruno Santos
- */
-var Container = require('container/container');
-var Window = require('window/window');
+import Container from '../container/container';
+import Window from '../window/window';
 
-var _log = __debug('core-view-container').defineLevel();
+const _log = __debug('core-view-container').defineLevel();
 
-var ContainerModule = new Class({
+export default new Class({
 
   options: {
     containers: {
@@ -171,5 +166,3 @@ var ContainerModule = new Class({
   }*/
 
 });
-
-module.exports = ContainerModule;

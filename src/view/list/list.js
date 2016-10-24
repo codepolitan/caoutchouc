@@ -1,8 +1,5 @@
 /**
- * View.List
- * @class View.List
- * @extends View
- * @author Bruno Santos, Jerome Vial
+ * List View
  *
  * # Info Structure:
  *
@@ -17,25 +14,24 @@
  *      selectFirst: select the first node if there is no other node to select
  *
  */
-var mustache = require('mustache');
-var DOM = require('utils/dom');
-var View = require('view/view');
+import mustache from 'mustache';
+import { dom as DOM } from 'minimal-utils';
+import View from '../view';
+import Compat from './compat';
+import Expand from './expand';
+import Filter from './filter';
+import Insert from './insert';
+import Position from './position';
+import Search from './search';
+import Select from './select';
+//import Separator from './separator';
+import Settings from './settings';
+//import Sort from './sort';
+import Virtual from './virtual';
 
-var Compat = require('view/list/compat');
-var Expand = require('view/list/expand');
-var Filter = require('view/list/filter');
-var Insert = require('view/list/insert');
-var Position = require('view/list/position');
-var Search = require('view/list/search');
-var Select = require('view/list/select');
-//var Separator = require('view/list/separator');
-var Settings = require('view/list/settings');
-//var Sort = require('view/list/sort');
-var Virtual = require('view/list/virtual');
+const _log = __debug('view-core-ListV2').defineLevel();
 
-var _log = __debug('view-core-ListV2').defineLevel();
-
-var ListView = new Class({
+export default new Class({
 
   Extends: View,
 
@@ -762,5 +758,3 @@ var ListView = new Class({
   },
 
 });
-
-module.exports = ListView;

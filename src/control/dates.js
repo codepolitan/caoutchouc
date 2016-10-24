@@ -1,11 +1,6 @@
-/**
- * UI Control Dates
- * @extends {UI.Control}
- * @type {Class}
- */
-var Component = require('component/component');
+import Component from '../component/component';
 
-module.exports = new Class({
+export default new Class({
 
   Extends: Component,
 
@@ -14,20 +9,10 @@ module.exports = new Class({
     base: 'control'
   },
 
-  /*
-  Function: _initElement
-    private function
-
-    Create a div and a hidden input to receive the selected value
-
-  Return:
-    (void)
-
-  See also:
-    <UI.Control::_initElement>
-    <UI.Component::_initElement>
-  */
-
+  /**
+   * Create a div and a hidden input to receive the selected value
+   * @return {void}
+   */
   _initElement: function() {
 
     //create a new div as input element
@@ -52,6 +37,9 @@ module.exports = new Class({
     //this._initWheel();
   },
 
+  /**
+   * add controls
+   */
   _addControls: function() {
     var self = this;
 
@@ -95,45 +83,28 @@ module.exports = new Class({
     var h = date.getHours().toString();
     var m = date.getMinutes().toString();
 
-    if (h.length == 1) h = '0' + h;
-    if (m.length == 1) m = m + '0';
+    if (h.length == 1) {
+      h = '0' + h;
+    }
+    if (m.length == 1) {
+      m = m + '0';
+    }
 
     return h + 'h' + m;
   },
 
-
-  /*
-  Function: setState
-    Set element state
-
-  Arguments:
-    state - (string) State name
-
-  Return:
-    (void)
-
-  See also:
-    <UI.Component::setState>
-  */
-
+  /**
+   * Set element state
+   * @param {string} state
+   */
   setState: function(state) {
     this.parent(state);
   },
 
-  /*
-  Function: _initEvents
-    private function
-
-    Set control relative behavior (blur and focus)
-
-  Return:
-    (void)
-
-  See also:
-    <UI.Control::_initEvents>
-    <UI.Component::_initEvents>
-  */
-
+  /**
+   * Set control relative behavior (blur and focus)
+   * @return {void}
+   */
   _initEvents: function() {
     this.parent();
     this.addEvents({
@@ -142,6 +113,11 @@ module.exports = new Class({
     });
   },
 
+  /**
+   * set
+   * @param {[type]} name  [description]
+   * @param {[type]} value [description]
+   */
   set: function(name, value) {
     this.element.set(name, value);
 

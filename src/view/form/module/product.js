@@ -1,13 +1,8 @@
-/**
- * Minimalistic Implement for Minimal.Form Class
- * @implement Minimal.Form
- * @author Jerome Vial, Bruno Santos
- */
-var mustache = require('mustache');
+import mustache from 'mustache';
 
-var _log = __debug('view:form-product');
+const _log = __debug('view:form-product');
 
-module.exports = new Class({
+export default new Class({
 
   /**
    * [_initProductList description]
@@ -19,7 +14,9 @@ module.exports = new Class({
   _initProductList: function(field, doc, group) {
     var self = this;
 
-    if (!doc[field.name]) return;
+    if (!doc[field.name]) {
+      return;
+    }
 
     var list = new Element('div', {
       'class': 'list-content'
@@ -43,8 +40,9 @@ module.exports = new Class({
       }).inject(list);
 
       item.addEvent('click', function() {
-        if (self.list[field.name])
+        if (self.list[field.name]) {
           self.list[field.name].removeClass('ui-selected');
+        }
 
         item.addClass('ui-selected');
         self.list[field.name] = i;

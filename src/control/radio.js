@@ -1,33 +1,19 @@
-/**
- * UI Control RadiosGroup Class
- * @class UI.Control.RadiosGroup
- * @extends {UI.Control}
- * @type {Class}
- */
-module.exports = new Class({
+import Control from './control';
 
-  Extends: UI.Control,
+export default new Class({
+
+  Extends: Control,
 
   options: {
     // default options
-    name: 'radiosgroup',
     name: 'radio'
   },
 
-  /*
-  Constructor: initialize
-    Constructor
-
-  Arguments:
-    options - (object) options
-
-  Returns:
-    this
-
-  See also:
-    <UI.Component::initialize>
-  */
-
+  /**
+   * initialize
+   * @param  {Object} options
+   * @return {Object}
+   */
   initialize: function(options) {
     this.parent(options);
 
@@ -37,20 +23,11 @@ module.exports = new Class({
     return this;
   },
 
-  /*
-  Function: newRadio
-    Create a new radio element and return it
-
-  Arguments:
-    opt - (object) options, see above
-
-  Return:
-    (element) radio element
-
-  Discussion:
-    this method shoul no longer exist.
-  */
-
+  /**
+   * Create a new radio element and return it
+   * @param  {Object} opt
+   * @return {DOMElement}
+   */
   newRadio: function(opt) {
     var radio = new Element('span', {
       'class': 'ui-radio',
@@ -91,19 +68,10 @@ module.exports = new Class({
     return radio;
   },
 
-  /*
-  Function: newRadio
-    private function
-
-    Add event to radio
-
-  Arguments:
-    radio - (element) the radio element where event will be _setEventsed
-
-  Return:
-    (void)
-  */
-
+  /**
+   * Add event to radio
+   * @param {DOMElement} radio [description]
+   */
   addRadioAction: function(radio) {
     radio.addEvents({
       'click': function() {
@@ -117,21 +85,11 @@ module.exports = new Class({
     });
   },
 
-
-  /*
-  Function: setState
-    private function
-
-    set the state for the radio
-
-  Arguments:
-    radio - (element) the radio element
-    state - (string) state
-
-  Return:
-    (void)
-  */
-
+  /**
+   * set the state for the radio
+   * @param {DOMElement} radio
+   * @param {string} state
+   */
   setState: function(radio, state) {
     radio.paint.draw(this.skin[state]);
   }

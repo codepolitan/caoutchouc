@@ -1,14 +1,12 @@
+import Component from './component';
+
 /**
- * Scroll Class
- * @class Scroll
- * Credits:
+ * @description
  * based on Valerio's Mootools scrollbar plugin.
  * found in upload folder of mootools website
  * @author Bruno Santos, Jerome Vial
  */
-var Component = require('component/component');
-
-module.exports = new Class({
+export default new Class({
 
   Extends: Component,
 
@@ -54,8 +52,9 @@ module.exports = new Class({
    * @return {[type]} [description]
    */
   _initElement: function() {
-    if (!this.options.container)
+    if (!this.options.container) {
       return;
+    }
 
     this.options.width = this.options.size;
 
@@ -84,13 +83,15 @@ module.exports = new Class({
     this.trackSize = this.element.offsetHeight.toInt();
     //this.trackSize = this.element.offsetHeight.toInt();_log.debug(this.trackSize);
 
-    if (this.containerScrollSize === 0)
+    if (this.containerScrollSize === 0) {
       return;
+    }
 
-    if (this.visible())
+    if (this.visible()) {
       this.thumb.element.setStyle('visibility', 'visible');
-    else
+    } else {
       this.thumb.element.setStyle('visibility', 'hidden');
+    }
 
     this.containerRatio = this.containerSize / this.containerScrollSize;
     this.thumbSize = this.trackSize * this.containerRatio;
@@ -101,10 +102,11 @@ module.exports = new Class({
       offset = this.trackSize - (this.options.maxThumbSize.toInt() - this.thumbSize);
       this.thumbSize = this.options.maxThumbSize.toInt();
     } else
-    if (this.thumbSize > this.trackSize)
+    if (this.thumbSize > this.trackSize) {
       this.thumbSize = this.options.maxThumbSize.toInt();
-    else
+    } else {
       offset = this.trackSize;
+    }
 
     this.scrollRatio = this.containerScrollSize / offset;
 
@@ -115,10 +117,11 @@ module.exports = new Class({
 
     var el = this.element;
 
-    if (this.options.autoHide)
+    if (this.options.autoHide) {
       this.timer = (function() {
         el.fade(0);
       }).delay(this.options.autoHide);
+    }
   },
 
   /**
@@ -144,11 +147,11 @@ module.exports = new Class({
 
     var el = this.element;
 
-    if (this.options.autoHide)
+    if (this.options.autoHide) {
       this.timer = (function() {
         el.fade(0);
       }).delay(this.options.autoHide);
-
+    }
   },
 
   /**
@@ -192,10 +195,11 @@ module.exports = new Class({
     var opts = this.options,
       container = opts.container;
 
-    if (event.page.y > this.thumb.element.getPosition().y)
+    if (event.page.y > this.thumb.element.getPosition().y) {
       container.scrollTop += container.offsetHeight;
-    else
+    } else {
       container.scrollTop -= container.offsetHeight;
+    }
 
 
     this.updateThumbFromContentScroll();
@@ -243,8 +247,9 @@ module.exports = new Class({
     this.updateContentFromThumbPosition();
     this.updateThumbFromContentScroll();
 
-    if (Math.ceil(this.position.now + this.thumbSize) >= this.trackSize)
+    if (Math.ceil(this.position.now + this.thumbSize) >= this.trackSize) {
       this.options.container.scrollTop = this.containerScrollSize;
+    }
 
     this.fireEvent('drag', event);
 

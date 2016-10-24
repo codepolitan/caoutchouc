@@ -1,14 +1,9 @@
-/**
- * @class UI.Control.Button
- * @extends {UI.Control}
- * @type {Class}
- */
-var Control = require('control/control');
-var controlIcon = require('icon/control');
+import Control from './control';
+import controlIcon from '../icon/control';
 
-var _log = __debug('ui:control-button');
+const _log = __debug('ui:control-button');
 
-module.exports = new Class({
+export default new Class({
 
   Extends: Control,
 

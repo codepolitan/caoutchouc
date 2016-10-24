@@ -1,9 +1,4 @@
-/**
- * UI Component Drag
- * @class UI.Component.Drag
- * @author Bruno Santos, Jerome Vial
- */
-module.exports = new Class({
+export default new Class({
 
   options: {
     // Drag options
@@ -56,7 +51,9 @@ module.exports = new Class({
    * @return {[type]}         [description]
    */
   enableElementDrag: function(element) {
-    if (element === null) return;
+    if (element === null) {
+      return;
+    }
 
     this.dragHandler = new Drag(this.element, {
       handle: element,
@@ -80,8 +77,9 @@ module.exports = new Class({
    * @return {[type]} [description]
    */
   disableDrag: function() {
-    if (this.dragHandler)
+    if (this.dragHandler) {
       this.dragHandler.detach();
+    }
 
     return this;
   }

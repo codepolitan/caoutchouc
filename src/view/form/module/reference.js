@@ -1,15 +1,8 @@
-/**
- * [_initReference description]
- * @param  {[type]} field  [description]
- * @param  {[type]} doc    [description]
- * @param  {[type]} group) {    var       self [description]
- * @return {[type]}        [description]
- */
-var mustache = require('mustache');
+import mustache from 'mustache';
 
-var _log = __debug('view:form-reference');
+const _log = __debug('view:form-reference');
 
-module.exports = new Class({
+export default new Class({
 
   /**
    * Initalize Reference
@@ -19,10 +12,11 @@ module.exports = new Class({
    * @return {[type]}       [description]
    */
   _initReference: function(field, doc, group) {
-    var self = this,
-      opts = this.options;
+    var opts = this.options;
 
-    if (!doc[field.name]) return;
+    if (!doc[field.name]) {
+      return;
+    }
 
     var reference = new Element('div', {
       'class': 'list-content'
@@ -39,8 +33,7 @@ module.exports = new Class({
    * @return {[type]}      [description]
    */
   renderItem: function(item, data, tmpl) {
-    var self = this,
-      opts = this.options;
+    var opts = this.options;
 
     tmpl = tmpl || opts.tmpl;
 

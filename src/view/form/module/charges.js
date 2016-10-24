@@ -1,16 +1,11 @@
-/**
- * Minimalistic Implement for Minimal.Form Class
- * @implement Minimal.Form
- * @author Jerome Vial, Bruno Santos
- */
-var moment = require('moment');
-var Button = require('control/button');
-var Field = require('control/field');
-var Dialog = require('window/dialog');
+import moment from 'moment';
+import Button from '../../../control/button';
+import Field from '../../../control/field';
+import Dialog from '../../../window/dialog';
 
-var _log = __debug('view-form-charges');
+const _log = __debug('view-form-charges');
 
-module.exports = new Class({
+export default new Class({
 
   _initCharges: function(field, doc, group) {
     _log.debug('_initCharges', field.name);

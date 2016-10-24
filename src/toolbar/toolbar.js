@@ -1,16 +1,11 @@
-/**
- * Toolbar Core Module
- * @class Core.Module.Toolbar
- * @author Jerome Vial, Bruno Santos
- */
-var controlIcon = require('icon/control');
-var langControlsConfigEn = require('../../vendor/minimal-languages/src/control/en');
-var langControlsConfigFr = require('../../vendor/minimal-languages/src/control/fr');
-var scriptjs = require('scriptjs');
+import controlIcon from '../icon/control';
+import langControlsConfigEn from '../../vendor/minimal-languages/src/control/en';
+import langControlsConfigFr from '../../vendor/minimal-languages/src/control/fr';
+import * as UI from '../index';
 
-var _log = __debug('core-module-toolbar').defineLevel();
+const _log = __debug('core-module-toolbar').defineLevel();
 
-var Toolbar = new Class({
+export default new Class({
 
   options: {
     lang: 'en',
@@ -387,11 +382,12 @@ var Toolbar = new Class({
       return;
     }
 
-    scriptjs([module], function(Class) {
+    var Class = UI[module.replace('ui/', '').capitalize()];
+    cb(Class);
+
+    /*scriptjs([module], function(Class) {
       cb(Class);
-    });
+    });*/
   }
 
 });
-
-module.exports = Toolbar;

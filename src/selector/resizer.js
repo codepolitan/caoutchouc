@@ -1,10 +1,4 @@
-/**
- * UI Selector Resizer Class
- * @class UI.Selector.Resizer
- * @extends {UI.Selector}
- * @type {Class}
- */
-module.exports = new Class({
+export default new Class({
 
   Implements: [Events, Options],
 
@@ -27,6 +21,12 @@ module.exports = new Class({
     }
   },
 
+  /**
+   * [initialize description]
+   * @param  {[type]} container [description]
+   * @param  {[type]} options   [description]
+   * @return {[type]}           [description]
+   */
   initialize: function(container, options) {
     this.setOptions(options);
 
@@ -40,8 +40,12 @@ module.exports = new Class({
     this._initElement();
   },
 
+  /**
+   * [_initElement description]
+   * @return {[type]} [description]
+   */
   _initElement: function() {
-    var position = 'absolute';
+    //var position = 'absolute';
     //if (el.isFixed()) position = 'fixed';
 
     var i = 0;
@@ -51,6 +55,11 @@ module.exports = new Class({
     }, this);
   },
 
+  /**
+   * [buildHandler description]
+   * @param  {[type]} position [description]
+   * @return {[type]}          [description]
+   */
   buildHandler: function(position) {
     var self = this;
     var pos = 'absolute';
@@ -77,8 +86,15 @@ module.exports = new Class({
     this.handlers.push(handler);
   },
 
+  /**
+   * [reach description]
+   * @param  {[type]} el [description]
+   * @return {[type]}    [description]
+   */
   reach: function(el) {
-    if (!el) return;
+    if (!el) {
+      return;
+    }
     this.el = el;
 
     var c = el.getCoordinates();
@@ -86,11 +102,7 @@ module.exports = new Class({
     c.top = pos.y;
     c.bottom = pos.y + c.height;
 
-
-
-
     var offset = this.options.handler.size;
-
 
     var pos = el.getPosition(this.container);
 
@@ -116,6 +128,11 @@ module.exports = new Class({
     }, this);
   },
 
+  /**
+   * [setHandlerPosition description]
+   * @param {[type]} handler [description]
+   * @param {[type]} coor    [description]
+   */
   setHandlerPosition: function(handler, coor) {
     handler.setStyles({
       'margin-top': coor[0],
@@ -125,18 +142,30 @@ module.exports = new Class({
     });
   },
 
+  /**
+   * [remove description]
+   * @return {[type]} [description]
+   */
   remove: function() {
     this.handlers.each(function(handler) {
       handler.destroy();
     }, this);
   },
 
+  /**
+   * [hide description]
+   * @return {[type]} [description]
+   */
   hide: function() {
     this.handlers.each(function(handler) {
       handler.setStyle('display', 'none');
     }, this);
   },
 
+  /**
+   * [show description]
+   * @return {[type]} [description]
+   */
   show: function() {
     this.handlers.each(function(handler) {
       handler.setStyle('display', 'block');

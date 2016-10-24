@@ -1,12 +1,6 @@
-/**
- * UI Control Separator
- * @class UI.Control.Separator
- * @extends {UI.Control}
- * @type {Class}
- */
-var Control = require('control/control');
+import Control from './control';
 
-module.exports = new Class({
+export default new Class({
 
   Extends: Control,
 
@@ -36,13 +30,11 @@ module.exports = new Class({
    */
   _initElement: function() {
     this.parent();
-    var opts = this.options,
-      type = opts.type;
 
-    if (this.options.clss)
+    if (this.options.clss) {
       this.element.addClass(this.options.clss);
+    }
   },
-
 
   /**
    * [_initClass description]
@@ -52,11 +44,13 @@ module.exports = new Class({
     var opts = this.options;
     //_log.debug(this.name);
 
-    if (this.options.klss)
+    if (this.options.klss) {
       this.element.addClass('button-' + opts.klss);
+    }
 
-    if (this.options.type)
+    if (this.options.type) {
       this.element.addClass('type-' + this.options.type);
+    }
 
     this.element.addClass(opts.prefix + this.name);
   },
@@ -80,13 +74,15 @@ module.exports = new Class({
   _onElementClick: function(e) {
     var opts = this.options;
     e.stopPropagation();
-    if (opts.emit && this.state != 'disabled')
+    if (opts.emit && this.state != 'disabled') {
       this.fireEvent(opts.emit);
+    }
     this.fireEvent('press', opts.emit);
     this.fireEvent('pressed', opts.emit);
 
-    if (opts.call && this.state != 'disabled')
+    if (opts.call && this.state != 'disabled') {
       opts.call();
+    }
   },
 
   /**
@@ -94,11 +90,12 @@ module.exports = new Class({
    * @return {[type]} [description]
    */
   _onElementMouseUp: function() {
-    var opts = this.options;
     if (this.options.type == 'check') {
-      if (this.state == 'checked')
+      if (this.state == 'checked') {
         this.setState(null);
-      else this.setState('checked');
+      } else {
+        this.setState('checked');
+      }
     }
   }
 

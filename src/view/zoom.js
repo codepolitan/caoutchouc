@@ -1,12 +1,6 @@
-/**
- * Minimalistic Implement for Minimal.View Class
- * @extends Minimal.View
- * @class View.Zoom
- * @author Jerome Vial, Bruno Santos
- */
-var _log = __debug('view').defineLevel();
+const _log = __debug('view').defineLevel();
 
-var Zoom = new Class({
+export default new Class({
 
   /**
    * Initialize Zoom
@@ -76,5 +70,3 @@ var Zoom = new Class({
   }
 
 });
-
-module.exports = Zoom;

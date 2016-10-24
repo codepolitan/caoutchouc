@@ -1,15 +1,10 @@
-/**
- * Minimalistic Implement for Minimal.Form Class
- * @implement Minimal.Form
- * @author Jerome Vial, Bruno Santos
- */
-var moment = require('moment');
-var Button = require('control/button');
-var Field = require('control/field');
+import moment from 'moment';
+import Button from '../../../control/button';
+import Field from '../../../control/field';
 
-var _log = __debug('view:form-comments');
+const _log = __debug('view:form-comments');
 
-module.exports = new Class({
+export default new Class({
 
   /**
    * [_initComments description]
@@ -21,8 +16,9 @@ module.exports = new Class({
   _initComments: function(field, doc, group) {
     var self = this;
 
-
-    if (!doc[field.name]) doc[field.name] = [];
+    if (!doc[field.name]) {
+      doc[field.name] = [];
+    }
 
     doc[field.name].each(function(comment, i) {
       self.injectComment(field, doc, group, comment, i);
@@ -113,8 +109,9 @@ module.exports = new Class({
     });
 
 
-    if (add)
+    if (add) {
       text.input.focus();
+    }
 
 
     /*
@@ -157,9 +154,9 @@ module.exports = new Class({
     if (doc.comments && doc.comments.length > 0) {
       i = doc.comments.length;
       comment = {
-        "date": new Date().toJSON(),
-        "user": user.name,
-        'text': ''
+        date: new Date().toJSON(),
+        user: user.name,
+        text: ''
       };
       value.push(comment);
 
@@ -168,9 +165,9 @@ module.exports = new Class({
       var d = new Date().toJSON();
 
       comment = {
-        "date": moment().toISOString(),
-        "user": user.name,
-        'text': ''
+        date: moment().toISOString(),
+        user: user.name,
+        text: ''
       };
       value.push(comment);
     }
@@ -190,9 +187,9 @@ module.exports = new Class({
    * @return {[type]}       [description]
    */
   removeComent: function(field, doc, group, idx, line) {
-    var self = this;
-
-    if (idx === null) return;
+    if (idx === null) {
+      return;
+    }
     //  delete doc.dates[this.session.eventIndex];
 
     var i = this.doc.dates.indexOf(this.doc.dates[idx]);

@@ -1,8 +1,5 @@
 /**
- * View.Tree
- * @class View.Tree
- * @extends View
- * @author Jerome Vial, Bruno Santos
+ * Tree View
  *
  * # Info Structure:
  *
@@ -26,17 +23,17 @@
  *      displayCount: true or false - if the tree display the count element
  *
  */
-var options = require('view/tree/options');
-var array = require('utils/array');
-var View = require('view/view');
-var TreeCollapse = require('view/tree/utils/collapse');
-var Tree = require('view/tree/utils/tree');
-var Collapse = require('view/tree/collapse');
-var Count = require('view/tree/count');
+import options from './options';
+import { array } from 'minimal-utils';
+import View from '../view';
+import TreeCollapse from './utils/collapse';
+import Tree from './utils/tree';
+import Collapse from './collapse';
+import Count from './count';
 
-var _log = __debug('view-core-tree').defineLevel();
+const _log = __debug('view-core-tree').defineLevel();
 
-module.exports = new Class({
+export default new Class({
 
   Extends: View,
 

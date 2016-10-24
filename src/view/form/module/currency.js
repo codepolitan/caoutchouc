@@ -1,13 +1,8 @@
-/**
- * Implement Hour methods for Minimal.Form
- * @implement Minimal.Form
- * @author Jerome Vial
- */
-var CurrencyControl = require('control/currency');
+import CurrencyControl from '../../../control/currency';
 
-var _log = __debug('view-form-currency').defineLevel();
+const _log = __debug('view-form-currency').defineLevel();
 
-module.exports = new Class({
+export default new Class({
 
   /**
    * [_initHour description]

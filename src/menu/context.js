@@ -1,14 +1,8 @@
-/**
- * UI Menu Context Class
- * @class UI.Menu.Context
- * @extends {UI.Menu}
- * @author Bruno Santos, Jerome Vial
- */
-var Menu = require('menu/menu');
+import Menu from './menu';
 
-var _log = __debug('ui-menu-context').defineLevel();
+const _log = __debug('ui-menu-context').defineLevel();
 
-module.exports = new Class({
+export default new Class({
 
   Extends: Menu,
 

@@ -1,15 +1,10 @@
-/**
- * UI Layout Class
- * @class UI.Layout
- * @author Bruno Santos, Jerome Vial
- */
-var Container = require('container/container');
-var Component = require('layout/component');
-var Resize = require('layout/resize');
+import Container from '../container/container';
+import Component from './component';
+import Resize from './resize';
 
-var _log = __debug('ui-layout').defineLevel();
+const _log = __debug('ui-layout').defineLevel();
 
-var Layout = new Class({
+export default new Class({
 
   Implements: [Events, Options, Component, Resize],
 
@@ -226,5 +221,3 @@ var Layout = new Class({
   }
 
 });
-
-module.exports = Layout;

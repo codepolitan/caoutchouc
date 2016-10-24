@@ -1,49 +1,43 @@
-/**
- * Form Management
- * @class View.Form
- * @extends {View}
- * @author Bruno Santos, Jerome Vial
- */
 // base class
-var View = require('view/view');
+import View from '../view';
 
 // core modules
-var component = require('view/form/component');
-var event = require('view/form/event');
-var key = require('view/form/key');
-var utils = require('view/form/utils');
+import component from './component';
+import event from './event';
+import key from './key';
+import utils from './utils';
 
 // ui module
-var DialogWindow = require('window/dialog');
+import DialogWindow from '../../window/dialog';
 
 // plugin modules
-var Attachments = require('view/form/module/attachments');
-var Control = require('view/form/module/control');
-var Charges = require('view/form/module/charges');
-var Collapse = require('view/form/module/collapse');
-var Comments = require('view/form/module/comments');
-var Contact = require('view/form/module/contacts');
-var Currency = require('view/form/module/currency');
-var Date = require('view/form/module/date');
-var File = require('view/form/module/file');
-var Hour = require('view/form/module/hour');
-var Hours = require('view/form/module/hours');
-var Iframe = require('view/form/module/iframe');
-var Items = require('view/form/module/items');
-var List = require('view/form/module/list');
-var Logs = require('view/form/module/logs');
-var Validator = require('view/form/module/validator');
-//var Nodes = require('view/form/nodes');
-var Product = require('view/form/module/product');
-var Reference = require('view/form/module/reference');
-var Related = require('view/form/module/related');
-var Textarea = require('view/form/module/textarea');
-var Unique = require('view/form/module/unique');
-var Url = require('view/form/module/url');
+import Attachments from './module/attachments';
+import Control from './module/control';
+import Charges from './module/charges';
+import Collapse from './module/collapse';
+import Comments from './module/comments';
+import Contact from './module/contacts';
+import Currency from './module/currency';
+import Date from './module/date';
+import File from './module/file';
+import Hour from './module/hour';
+import Hours from './module/hours';
+import Iframe from './module/iframe';
+import Items from './module/items';
+import List from './module/list';
+import Logs from './module/logs';
+import Validator from './module/validator';
+//import Nodes from './nodes';
+import Product from './module/product';
+import Reference from './module/reference';
+import Related from './module/related';
+import Textarea from './module/textarea';
+import Unique from './module/unique';
+import Url from './module/url';
 
-var _log = __debug('view-form').defineLevel();
+const _log = __debug('view-form').defineLevel();
 
-var FormView = new Class({
+export default new Class({
 
   Extends: View,
 
@@ -704,5 +698,3 @@ var FormView = new Class({
   }
 
 });
-
-module.exports = FormView;

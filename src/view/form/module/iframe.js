@@ -1,19 +1,19 @@
-/**
- * Minimalistic Implement for Minimal.Form Class
- * @implement Minimal.Form
- * @author Jerome Vial, Bruno Santos
- */
-var _log = __debug('view:form-iframe');
+const _log = __debug('view:form-iframe');
 
-module.exports = new Class({
+export default new Class({
 
   options: {
     iframe: {}
   },
 
+  /**
+   * [_initIframe description]
+   * @param  {[type]} field [description]
+   * @param  {[type]} doc   [description]
+   * @param  {[type]} group [description]
+   * @return {[type]}       [description]
+   */
   _initIframe: function(field, doc, group) {
-    var self = this;
-
     var value = this.getValueFromKey(field.name, doc);
 
     var iframe = new IFrame({

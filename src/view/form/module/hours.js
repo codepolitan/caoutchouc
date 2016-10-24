@@ -1,15 +1,10 @@
-/**
- * Minimalistic Implement for Minimal.Form Class
- * @implement Minimal.Form
- * @author Jerome Vial, Bruno Santos
- */
-var DateControl = require('control/date');
-var HourControl = require('control/hour');
-var moment = require('moment');
+import DateControl from '../../../control/date';
+import HourControl from '../../../control/hour';
+import moment from 'moment';
 
-var _log = __debug('view-form-hours');
+const _log = __debug('view-form-hours');
 
-module.exports = new Class({
+export default new Class({
 
   /**
    * [_initHours description]
@@ -98,8 +93,9 @@ module.exports = new Class({
 
     var read = this.isReadOnly(field);
 
-    if (read)
+    if (read) {
       dateControl.input.set('readonly', 'readonly');
+    }
 
     if (field.klss) {
       wrap.addClass(field.klss);

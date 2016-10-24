@@ -1,14 +1,8 @@
-/**
- * UI Control Class
- * @class  UI.Control
- * @extends {UI.Component}
- * @author Jerome Vial
- */
-var Component = require('component/component');
+import Component from '../component/component';
 
-var _log = __debug('ui:control');
+const _log = __debug('ui:control');
 
-module.exports = new Class({
+export default new Class({
 
   Extends: Component,
 

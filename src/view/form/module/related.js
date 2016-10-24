@@ -1,6 +1,5 @@
 /**
  * Related information
- * @author Jerome Vial, Bruno Santos
  * @description
  *  Info Structure:
  *    id: Unique info id
@@ -8,16 +7,16 @@
  *    unique: If set to true will be possible
  *            just attach a document in this key
  */
-var moment = require('moment');
-var array = require('utils/array');
-var ButtonControl = require('control/button');
-var FieldControl = require('control/field');
-var DropdownControl = require('control/dropdown');
-var CheckControl = require('control/check');
+import moment from 'moment';
+import { array } from 'minimal-utils';
+import ButtonControl from '../../../control/button';
+import FieldControl from '../../../control/field';
+import DropdownControl from '../../../control/dropdown';
+import CheckControl from '../../../control/check';
 
-var _log = __debug('view:form-related').defineLevel();
+const _log = __debug('view:form-related').defineLevel();
 
-var Related = new Class({
+export default new Class({
 
   /**
    * init related
@@ -487,5 +486,3 @@ var Related = new Class({
   }
 
 });
-
-module.exports = Related;

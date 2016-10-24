@@ -1,12 +1,8 @@
-/**
- * UI Control Slider Class
- * @class UI.Control.Slider
- * @extends {UI.Control}
- * @type {Class}
- */
-module.exports = new Class({
+import { Component } from '../component/component';
 
-  Extends: UI.Component,
+export default new Class({
+
+  Extends: Component,
 
   options: {
 
@@ -28,50 +24,35 @@ module.exports = new Class({
     steps: 100
   },
 
-  /*
-  Constructor: initialize
-    Construtor
-
-  Arguments:
-    options - (object) options
-  */
-
+  /**
+   * initialize
+   * @param  {Object} options
+   * @return {void}
+   */
   initialize: function(options) {
     this.parent(options);
   },
 
-  /*
-  Function: _initElement
-    private function
-
-    Call parent method and create a skinned knob element
-
-  Return:
-    (void)
-  */
-
+  /**
+   * initElement
+   * @return {void}
+   */
   _initElement: function() {
     this.parent();
 
-    this.handler = new UI.Component({
+    this.handler = new Component({
       skin: this.options.skin,
       name: 'slider',
       type: 'knob'
     }).inject(this.element);
   },
 
-  /*
-  Function: inject
-    Create the slider and inject it
-
-  Arguments:
-    target - (mix) See mootools doc
-    position - (string) See mootools doc
-
-  Return:
-    this
-  */
-
+  /**
+   * inject
+   * @param  {[type]} target
+   * @param  {[type]} position
+   * @return {Object}
+   */
   inject: function(target, position) {
     this.fireEvent('inject');
 
@@ -112,16 +93,10 @@ module.exports = new Class({
     return this;
   },
 
-  /*
-  Function: _initEvents
-    private function
-
-    Set behavior relative to slider (complete)
-
-  Return:
-    (void)
-  */
-
+  /**
+   * _initEvents
+   * @return {void}
+   */
   _initEvents: function() {
     this.parent();
     this.addEvent('complete', function(step) {
@@ -129,17 +104,10 @@ module.exports = new Class({
     });
   },
 
-  /*
-  Function: set
-    Set the slider value
-
-  Arguments:
-    value - (integer) The value to set
-
-  Return:
-    this
-  */
-
+  /**
+   * set
+   * @param {integer} value
+   */
   set: function(value) {
     return this.slider.set(value);
   }

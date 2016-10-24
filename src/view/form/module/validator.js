@@ -1,12 +1,8 @@
-/**
- * Manage errors
- * @author Bruno Santos, Jerome Vial
- */
-var Dialog = require('window/dialog');
+import Dialog from '../../../window/dialog';
 
-var _log = __debug('view-form-validator');
+const _log = __debug('view-form-validator');
 
-var Validator = new Class({
+export default new Class({
 
   /**
    * show errors
@@ -81,5 +77,3 @@ var Validator = new Class({
   }
 
 });
-
-module.exports = Validator;

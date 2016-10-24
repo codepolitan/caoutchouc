@@ -1,11 +1,6 @@
-/**
- * Settings List.V2 View Class
- * @class View.List.V2.Settings
- * @author Bruno Santos, Jerome Vial
- */
-var _log = __debug('view-core-list-settings').defineLevel();
+const _log = __debug('view-core-list-settings').defineLevel();
 
-var Settings = new Class({
+export default new Class({
 
   /**
    * when the view request settings
@@ -66,5 +61,3 @@ var Settings = new Class({
   }
 
 });
-
-module.exports = Settings;

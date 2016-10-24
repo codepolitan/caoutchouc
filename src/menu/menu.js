@@ -1,16 +1,10 @@
-/**
- * UI Menu Class
- * @class UI.Menu
- * @extends {UI.Component}
- * @author Bruno Santos, Jerome Vial
- */
-var controller = require('window/controller');
-var Container = require('container/container');
-var ButtonControl = require('control/button');
+import controller from '../window/controller';
+import Container from '../container/container';
+import ButtonControl from '../control/button';
 
-var _log = __debug('ui-menu').defineLevel();
+const _log = __debug('ui-menu').defineLevel();
 
-module.exports = new Class({
+export default new Class({
 
   Extends: Container,
 

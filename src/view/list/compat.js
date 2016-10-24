@@ -1,11 +1,6 @@
-/**
- * Compat List.V2 View Class
- * @class View.List.V2.Compat
- * @author Bruno Santos, Jerome Vial
- */
-//var _log = __debug('view-core-listV2-compat').defineLevel();
+//const _log = __debug('view-core-listV2-compat').defineLevel();
 
-var Compat = new Class({
+export default new Class({
 
   /**
    * for compatibility
@@ -46,5 +41,3 @@ var Compat = new Class({
   }
 
 });
-
-module.exports = Compat;

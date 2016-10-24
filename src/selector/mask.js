@@ -1,10 +1,4 @@
-/**
- * UI Selector Maks Class
- * @class UI.Selector.Mask
- * @extends {UI.Selector}
- * @type {Class}
- */
-module.exports = new Class({
+export default new Class({
 
   Implements: [Events, Options],
 
@@ -19,6 +13,12 @@ module.exports = new Class({
     location: 'outside' // inside or outside
   },
 
+  /**
+   * [initialize description]
+   * @param  {[type]} container [description]
+   * @param  {[type]} options   [description]
+   * @return {[type]}           [description]
+   */
   initialize: function(container, options) {
     this.setOptions(options);
 
@@ -28,6 +28,10 @@ module.exports = new Class({
     this._initElement();
   },
 
+  /**
+   * [_initElement description]
+   * @return {[type]} [description]
+   */
   _initElement: function() {
     var masks = [
       [],
@@ -41,6 +45,10 @@ module.exports = new Class({
     }, this);
   },
 
+  /**
+   * [buildMask description]
+   * @return {[type]} [description]
+   */
   buildMask: function() {
     var self = this;
 
@@ -69,8 +77,15 @@ module.exports = new Class({
     this.masks.push(mask);
   },
 
+  /**
+   * [reach description]
+   * @param  {[type]} el [description]
+   * @return {[type]}    [description]
+   */
   reach: function(el) {
-    if (!el) return;
+    if (!el) {
+      return;
+    }
     this.el = el;
     var infos = [];
     var o = [];
@@ -106,18 +121,32 @@ module.exports = new Class({
     return this;
   },
 
+  /**
+   * [addClass description]
+   * @param {[type]} c [description]
+   */
   addClass: function(c) {
     this.masks.each(function(mask, i) {
       mask.addClass(c);
     }, this);
   },
 
+  /**
+   * [removeClass description]
+   * @param  {[type]} c [description]
+   * @return {[type]}   [description]
+   */
   removeClass: function(c) {
     this.masks.each(function(mask, i) {
       mask.addClass(c);
     }, this);
   },
 
+  /**
+   * [_setMaskPosition description]
+   * @param {[type]} mask [description]
+   * @param {[type]} info [description]
+   */
   _setMaskPosition: function(mask, info) {
 
     /*if (this.options.usefx)
@@ -137,50 +166,72 @@ module.exports = new Class({
 
   },
 
+  /**
+   * [set description]
+   * @param {[type]} name  [description]
+   * @param {[type]} value [description]
+   */
   set: function(name, value) {
-    if (selector)
+    if (selector) {
       self[selector][name](value);
-    else
+    } else {
       this.selectors.each(function(selector) {
         self[selector][name](value);
       });
+    }
 
     return this;
   },
 
-
+  /**
+   * [setColor description]
+   * @param {[type]} color [description]
+   */
   setColor: function(color) {
     this._setStyle('backgroundColor', color);
   },
 
+  /**
+   * [_setStyle description]
+   * @param {[type]} name  [description]
+   * @param {[type]} value [description]
+   */
   _setStyle: function(name, value) {
     var self = this;
     this.masks.each(function(mask) {
-      if (self.options.usefx)
+      if (self.options.usefx) {
         mask.tween(name, value);
-      else
+      } else {
         mask.setStyle(name, value);
+      }
     });
 
     return this;
   },
 
+  /**
+   * [setStyles description]
+   * @param {[type]} styles [description]
+   */
   setStyles: function(styles) {
     var self = this;
 
     this.masks.each(function(mask) {
-      if (self.options.usefx)
+      if (self.options.usefx) {
         mask.morph(styles);
-      else
+      } else {
         mask.setStyles(styles);
+      }
     });
 
     return this;
   },
 
+  /**
+   * [hide description]
+   * @return {[type]} [description]
+   */
   hide: function() {
-    var self = this;
-
     this.masks.each(function(mask) {
       mask.setStyle('display', 'none');
     });
@@ -189,17 +240,23 @@ module.exports = new Class({
 
   },
 
+  /**
+   * [show description]
+   * @return {[type]} [description]
+   */
   show: function() {
-    var self = this;
-
     this.masks.each(function(mask) {
       mask.setStyle('display', 'block');
     });
 
     return this;
-
   },
 
+  /**
+   * [highlight description]
+   * @param  {[type]} color [description]
+   * @return {[type]}       [description]
+   */
   highlight: function(color) {
     this.masks.each(function(mask) {
       mask.highlight(color);
@@ -208,6 +265,10 @@ module.exports = new Class({
     return this;
   },
 
+  /**
+   * [remove description]
+   * @return {[type]} [description]
+   */
   remove: function() {
     this.masks.each(function(mask) {
       mask.destroy();

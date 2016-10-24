@@ -1,11 +1,7 @@
-/**
- * Resize Layout
- * @class UI.Layout.Resize
- * @author Bruno Santos, Jerome Vial
- */
-var _log = __debug('ui-layout-resize').defineLevel();
+const _log = __debug('ui-layout-resize').defineLevel();
 
-var Resize = new Class({
+export default new Class({
+
   options: {
     resizer: {
       modifier: {
@@ -280,5 +276,3 @@ var Resize = new Class({
   }
 
 });
-
-module.exports = Resize;

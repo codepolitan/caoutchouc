@@ -1,14 +1,8 @@
-/**
- * UI Window Prompt Class
- * @class UI.Window.Prompt
- * @extends {UI.Container}
- * @type {Class}
- */
-var UIText = require('component/text');
-var ButtonControl = require('control/button');
-var Window = require('window/window');
+import UIText from '../component/text';
+import ButtonControl from '../control/button';
+import Window from './window';
 
-module.exports = new Class({
+export default new Class({
 
   Extends: Window,
 

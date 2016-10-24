@@ -1,12 +1,6 @@
-/**
- * UI Selector Menu Class
- * @class UI.Selector.Menu
- * @extends {UI.Selector}
- * @type {Class}
- */
-var _log = __debug('ui-selector-menu').defineLevel();
+const _log = __debug('ui-selector-menu').defineLevel();
 
-module.exports = new Class({
+export default new Class({
 
   Implements: [Events, Options],
 
@@ -66,8 +60,9 @@ module.exports = new Class({
 
     });
 
-    if (this.options.klss)
+    if (this.options.klss) {
       this.element.addClass(this.options.klss);
+    }
 
     this.element.addEvent('click', function(e) {
       e.stop();
@@ -78,6 +73,10 @@ module.exports = new Class({
     this.buildMenu();
   },
 
+  /**
+   * [buildMenu description]
+   * @return {[type]} [description]
+   */
   buildMenu: function() {
     var self = this;
     var list = this.options.list;
@@ -92,7 +91,7 @@ module.exports = new Class({
 
       //var item = new Button();
 
-      item = new Element('li', {
+      var item = new Element('li', {
         class: 'ui-icon menu-' + name,
         name: name
           //html: menu.text
@@ -119,16 +118,26 @@ module.exports = new Class({
       item.inject(this.element);
 
       size = size + item.getSize().x;
-    };
+    }
 
     this.element.setStyle('width', size);
   },
 
+  /**
+   * [reach description]
+   * @param  {[type]} el [description]
+   * @return {[type]}    [description]
+   */
   reach: function(el) {
-    if (!el)
-      if (this.el) el = this.el;
-      else return;
-    else this.el = el;
+    if (!el) {
+      if (this.el) {
+        el = this.el;
+      } else {
+        return;
+      }
+    } else {
+      this.el = el;
+    }
 
     //_log.debug(this.options.content, this.options.content.scrollWidth);
 
@@ -177,14 +186,14 @@ module.exports = new Class({
       top = top + this.offset[1];
     }
 
-    if (this.options.usefx)
+    if (this.options.usefx) {
       this.fx.start({
         top: top,
         bottom: bottom,
         left: left,
         right: right
       });
-    else
+    } else {
       this.element.setStyles({
         position: 'absolute',
         top: top,
@@ -192,16 +201,29 @@ module.exports = new Class({
         left: left,
         right: right
       });
+    }
   },
 
+  /**
+   * [getParent description]
+   * @return {[type]} [description]
+   */
   getParent: function() {
     return this.parent;
   },
 
+  /**
+   * [hide description]
+   * @return {[type]} [description]
+   */
   hide: function() {
     this.element.hide();
   },
 
+  /**
+   * [show description]
+   * @return {[type]} [description]
+   */
   show: function() {
     this.element.show();
   }

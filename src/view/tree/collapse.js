@@ -1,14 +1,9 @@
-/**
- * Implement collapse
- * @class View.Tree.Collapse
- */
-var _log = __debug('view-core-tree-collapse');
+const _log = __debug('view-core-tree-collapse');
 
-module.exports = new Class({
+export default new Class({
 
   /**
    * Initialize collapse
-   *
    * @return {void}
    * @private
    */
@@ -36,7 +31,6 @@ module.exports = new Class({
 
   /**
    * When the tree expand
-   *
    * @param  {string} id
    * @return {void}
    * @private
@@ -52,7 +46,6 @@ module.exports = new Class({
 
   /**
    * When the tree collapse
-   *
    * @param  {string} id
    * @return {void}
    * @private

@@ -1,25 +1,14 @@
-/*
-  Class: UI.Context
-    Create a context menu
+import Menu from './menu';
 
-  Extends:
-    <UI.Menu>
-
-  Arguments:
-    options
-
-  Options:
-    contexts - (array) An array containing contexts definition. A context definition is an object composed of following keys :
+/**
+ * Create a context menu
+ * @description
+ *  contexts - (array) An array containing contexts definition. A context definition is an object composed of following keys :
       a name key, who is the context name,
       a target key, who define on wich elements the context menu will be attached. It could be a CSS3 target as well.
       a menu key, who is a menu list as defined in <UI.Menu>.
-
-  Discussion:
-    We must still add methods to set dynamically new contexts, ...
-
-  Example:
-    (start code)
-    var context = new UI.Context({
+ * @example
+ *     var context = new UI.Context({
       contexts : [
         {
           name : 'workspace',
@@ -49,18 +38,10 @@
         }
       ]
     });
-    (end)
+ */
+export default new Class({
 
-  Implied global:
-    UI,ui,
-    $,
-    Class,Event,  Window,
-    document
-
-*/
-module.exports = new Class({
-
-  Extends: UI.Menu,
+  Extends: Menu,
 
   name: 'context',
 
@@ -71,18 +52,11 @@ module.exports = new Class({
     trigger: 'contextmenu'
   },
 
-  /*
-  Constructor: initialize
-    Construtor
-
-  Arguments:
-    options - (object) options
-
-  See also:
-    <UI.Menu::initialize>
-    <UI.Element::initialize>
-  */
-
+  /**
+   * initialize
+   * @param  {Object} options
+   * @return {void}
+   */
   initialize: function(options) {
     this.parent(options);
 
@@ -93,18 +67,10 @@ module.exports = new Class({
     this._initContext();
   },
 
-  /*
-  Function: _initElement
-    private function
-
-    Call UI.Component _initElement, then create a menu wrapper
-
-  Return:
-    (void)
-
-  See also:
-    <UI.Component::_initElement>
-  */
+  /**
+   * Call UI.Component _initElement, then create a menu wrapper
+   * @return {[type]} [description]
+   */
   _initElement: function() {
     var self = this,
       opts = this.options;
@@ -119,11 +85,13 @@ module.exports = new Class({
 
     this.element.addClass('context-' + opts.name);
 
-    if (opts.klss)
+    if (opts.klss) {
       this.element.addClass(opts.klss);
+    }
 
-    if (opts.type)
+    if (opts.type) {
       this.element.addClass('type-' + opts.type);
+    }
 
     this._initHead(opts.head);
 
@@ -146,21 +114,15 @@ module.exports = new Class({
 
     this.element.hide();
   },
-  /*
-  Method: addContexts
-    Attach context to elements (provided by contexts.target)
 
-  Arguments:
-    contexts - (array) an array containing contexts definition. See above in class' options for more details
-
-  Return:
-    this
-  */
-
+  /**
+   * Attach context to elements (provided by contexts.target)
+   * @return {[type]} [description]
+   */
   _initContext: function() {
     var self = this;
-    opts = this.options;
-    scope = opts.scope || $(document.body);
+    var opts = this.options;
+    var scope = opts.scope || $(document.body);
 
     _log.debug(scope, scope.getElements(opts.target));
 
@@ -178,18 +140,28 @@ module.exports = new Class({
       self.show(ev);
     });
 
-
     return this;
   },
 
+  /**
+   * [addList description]
+   */
   addList: function() {
 
   },
 
+  /**
+   * [removeList description]
+   * @return {[type]} [description]
+   */
   removeList: function() {
 
   },
 
+  /**
+   * [_initEvents description]
+   * @return {[type]} [description]
+   */
   _initEvents: function() {
     this.parent();
 
@@ -198,21 +170,12 @@ module.exports = new Class({
         ui.menu.hideAll();
       }
     });
-
-
   },
 
-  /*
-  Method: removeContexts
-    Remove context to elements (defined by target)
-
-  Arguments:
-    target - (string) target defining elements where context will be detached
-
-  Return:
-    this
-  */
-
+  /**
+   * Remove context to elements (defined by target)
+   * @return {[type]} [description]
+   */
   removeContexts: function() {
     //_log.debug('removeContext',this.options.scope);
     this.els.each(function(el) {
@@ -229,30 +192,15 @@ module.exports = new Class({
     return this;
   },
 
-  /*
-  Method: setPosition
-    private function
-
-    Overwrite the setPosition method of UI.Menu to use mouse coordinates to set menu location
-
-  Arguments:
-    x - (integer) X mouse's coordinates
-    y - (integer) Y mouse's coordinates
-
-  Return:
-    (void)
-
-  See also:
-    <UI.Menu::setPosition>
-
-  */
-
+  /**
+   * Overwrite the setPosition method of
+   * UI.Menu to use mouse coordinates to set menu location
+   * @param {[type]} x [description]
+   * @param {[type]} y [description]
+   */
   setPosition: function(x, y) {
-    var self = this;
-    opts = this.options;
-    container = opts.container;
-
-
+    var opts = this.options;
+    var container = opts.container;
 
     if ((x === null) || (y === null)) {
       return;
@@ -281,22 +229,10 @@ module.exports = new Class({
     });
   },
 
-  /*
-    Method: show
-      private function
-
-      Hide 
-
-    Arguments:
-      e - (event) Event who provide cursor's position
-
-    Return:
-      this
-
-    See also:
-      <UI.Menu::show>
-      <UI.Element::show>
-  */
+  /**
+   * [hide description]
+   * @return {[type]} [description]
+   */
   hide: function() {
     clearTimeout(this.timer);
     this.timer = (function() {
@@ -304,33 +240,24 @@ module.exports = new Class({
     }).delay(this.options.timerOnHide, this);
   },
 
-
+  /**
+   * [hideNow description]
+   * @return {[type]} [description]
+   */
   hideNow: function() {
     this.element.hide();
   },
 
-  /*
-    Method: show
-      private function
-
-      Overwrite the show method of UI.Menu to use mouse coordinates
-
-    Arguments:
-      e - (event) Event who provide cursor's position
-
-    Return:
-      this
-
-    See also:
-      <UI.Menu::show>
-      <UI.Element::show>
-  */
-
+  /**
+   * Overwrite the show method of UI.Menu to use mouse coordinates
+   * @param  {[type]} e [description]
+   * @return {[type]}   [description]
+   */
   show: function(e) {
     this.fireEvent('show', e.target);
 
     this.element.show();
-    var coord = this.content.getCoordinates();
+    //var coord = this.content.getCoordinates();
     //this.setSize(coord.width, coord.height);
     this.setPosition(e.client.x, e.client.y);
 

@@ -1,13 +1,8 @@
-/**
- * UI Control Upload
- * @class UI.Control.Upload
- * @extends {ui.button}
- */
-var Button = require('control/button');
+import Button from './button';
 
-var _log = __debug('ui-control-upload').defineLevel();
+const _log = __debug('ui-control-upload').defineLevel();
 
-module.exports = new Class({
+export default new Class({
 
   Extends: Button,
 

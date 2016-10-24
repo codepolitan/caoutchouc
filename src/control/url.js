@@ -1,12 +1,6 @@
-/**
- * UI Control Url
- * @class UI.Control.Url
- * @extends {UI.COntrol}
- * @author Jerome Vial, Bruno Santos
- */
-var Field = require('control/field');
+import Field from './field';
 
-module.exports = new Class({
+export default new Class({
 
   Extends: Field,
 
@@ -19,6 +13,11 @@ module.exports = new Class({
     useTextAsLabel: false
   },
 
+  /**
+   * [initialize description]
+   * @param  {[type]} options [description]
+   * @return {[type]}         [description]
+   */
   initialize: function(options) {
     this.setOptions(options);
 
@@ -32,20 +31,11 @@ module.exports = new Class({
 
     return this;
   },
-  /*
-  Function: _initElement
-    private function
 
-    Create a div and a hidden input to receive the selected value
-
-  Return:
-    (void)
-
-  See also:
-    <UI.Control::_initElement>
-    <UI.Component::_initElement>
-  */
-
+  /**
+   * Create a div and a hidden input to receive the selected value
+   * @return {void}
+   */
   _initElement: function() {
     //create a new div as input element
     this.parent();
@@ -54,26 +44,37 @@ module.exports = new Class({
 
     this.element.addClass('ui-field');
 
-    if (opts.klss)
+    if (opts.klss) {
       this.element.addClass(opts.klss);
+    }
 
-    if (opts.label != false)
+    if (opts.label != false) {
       this._initLabel();
+    }
 
     this._initInput();
   },
 
+  /**
+   * [_initLabel description]
+   * @return {[type]} [description]
+   */
   _initLabel: function() {
     var text = this.options.name;
 
-    if (this.options.useTextAsLabel)
+    if (this.options.useTextAsLabel) {
       text = this.options.text;
+    }
 
     this.label = new Element('label', {
       html: text
     }).inject(this.element);
   },
 
+  /**
+   * [_initInput description]
+   * @return {[type]} [description]
+   */
   _initInput: function() {
     var self = this;
 

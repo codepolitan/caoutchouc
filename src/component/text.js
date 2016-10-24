@@ -1,12 +1,6 @@
-/**
- * UI Component Text
- * @class UI.Text
- * @extends {UI.Component}
- * @author Bruno Santos, Jerome Vial
- */
-var Component = require('component/component');
+import Component from './component';
 
-module.exports = new Class({
+export default new Class({
 
   Extends: Component,
 
@@ -19,23 +13,16 @@ module.exports = new Class({
     selectable: false
   },
 
-  /*
-    Method: _initElement
-      private method
-
-    Make a  Text and set the fade Fx
-
-    Return:
-    (void)
-
-    See also:
-    <UI.Component::_initElement>
-  */
+  /**
+   * Make a  Text and set the fade Fx
+   * @return {void}
+   */
   _initElement: function() {
     this.parent();
 
-    if (this.options.text)
+    if (this.options.text) {
       this.set(this.options.text);
+    }
   },
 
   /**
@@ -52,8 +39,9 @@ module.exports = new Class({
       property = 'text';
     }
 
-    if (property == 'text')
+    if (property == 'text') {
       this.element.set('html', value);
+    }
   }
 
 });

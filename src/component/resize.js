@@ -1,9 +1,4 @@
-/**
- * Resize Component Class
- * @class UI.Component.Resize
- * @author Bruno Santos, Jerome Vial
- */
-module.exports = new Class({
+export default new Class({
 
   options: {
     // Resize options
@@ -44,7 +39,7 @@ module.exports = new Class({
     if (this.options.resizeBorders) {
       this.options.resizeBorders.each(function(border, i) {
         this.resizeHandlers.push(new Element('div', {
-            style: border + ": 0",
+            style: border + ': 0',
             'class': 'ui-resizer-' + border
           })
           .addEvents({
@@ -90,8 +85,12 @@ module.exports = new Class({
       }
     };
 
-    if (i === 1 || i === 3) options.modifiers.x = false;
-    if (i === 2 || i === 4) options.modifiers.y = false;
+    if (i === 1 || i === 3) {
+      options.modifiers.x = false;
+    }
+    if (i === 2 || i === 4) {
+      options.modifiers.y = false;
+    }
 
     if (i === 1 || i === 4) {
       this.dragHandlers.push(this.resizeHandlers[i]);

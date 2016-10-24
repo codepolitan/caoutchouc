@@ -1,12 +1,6 @@
-/**
- * UI Control Currency Class
- * @class UI.Control.Currency
- * @extends {UI.Control}
- * @author Jerome Vial
- */
-var Field = require('control/field');
+import Field from './field';
 
-module.exports = new Class({
+export default new Class({
 
   Extends: Field,
 

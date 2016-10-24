@@ -1,12 +1,8 @@
-/**
- * Implement count
- * @class View.Tree.Count
- */
-var array = require('utils/array');
+import { array } from 'minimal-utils';
 
-var _log = __debug('view-core-tree-count').defineLevel();
+const _log = __debug('view-core-tree-count').defineLevel();
 
-module.exports = new Class({
+export default new Class({
 
   /**
    * Refresh Count

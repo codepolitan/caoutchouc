@@ -1,14 +1,9 @@
-/**
- * Minimalistic Implement for Minimal.Form Class
- * @implement Minimal.Form
- * @author Jerome Vial, Bruno Santos
- */
-var Button = require('control/button');
-var Field = require('control/field');
+import Button from '../../../control/button';
+import Field from '../../../control/field';
 
-var _log = __debug('view:form-items');
+const _log = __debug('view:form-items');
 
-module.exports = new Class({
+export default new Class({
 
   _initItem: function(field, doc, group) {
     var self = this;
@@ -17,7 +12,9 @@ module.exports = new Class({
 
     //_log.debug('_initList', field.name);
 
-    if (!doc[field.name]) doc[field.name] || [];
+    if (!doc[field.name]) {
+      doc[field.name] || [];
+    }
 
     var element = group.getPrevious();
     var name = element.get('html');

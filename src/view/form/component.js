@@ -1,21 +1,14 @@
-/**
- * Fill the form using the given schema(template)]
- * @param  {[type]} field  [description]
- * @param  {[type]} doc    [description]
- * @param  {[type]} group) {    var       self [description]
- * @return {[type]}        [description]
- */
-var moment = require('moment');
-var mustache = require('mustache');
-var iMask = require('imask');
+import moment from 'moment';
+import mustache from 'mustache';
+import iMask from 'imask';
+import ButtonControl from '../../control/button';
+import FieldControl from '../../control/field';
 //var settings = require('core/module/settings/settings');
 
-var ButtonControl = require('control/button');
-var FieldControl = require('control/field');
+const _log = __debug('view:form-reference');
 
-var _log = __debug('view:form-reference');
+export default new Class({
 
-module.exports = new Class({
   /**
    * Initialize form model
    * @return {void}

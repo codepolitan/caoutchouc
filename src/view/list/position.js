@@ -1,11 +1,6 @@
-/**
- * Position List.V2 View Class
- * @class View.List.V2.Position
- * @author Jerome Vial, Bruno Santos
- */
-var _log = __debug('view-core-listV2-position').defineLevel();
+const _log = __debug('view-core-listV2-position').defineLevel();
 
-var Position = new Class({
+export default new Class({
 
   /**
    * initialize
@@ -216,5 +211,3 @@ var Position = new Class({
   },
 
 });
-
-module.exports = Position;

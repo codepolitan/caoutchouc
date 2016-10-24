@@ -1,10 +1,4 @@
-/**
- * UI Selector Status Class
- * @class UI.Selector.Status
- * @extends {UI.Selector}
- * @type {Class}
- */
-module.exports = new Class({
+export default new Class({
 
   Implements: [Events, Options],
 
@@ -23,6 +17,12 @@ module.exports = new Class({
     }
   },
 
+  /**
+   * [initialize description]
+   * @param  {[type]} container [description]
+   * @param  {[type]} options   [description]
+   * @return {[type]}           [description]
+   */
   initialize: function(container, options) {
     this.setOptions(options);
 
@@ -38,6 +38,11 @@ module.exports = new Class({
     this._initElement(container);
   },
 
+  /**
+   * [_initElement description]
+   * @param  {[type]} container [description]
+   * @return {[type]}           [description]
+   */
   _initElement: function(container) {
     //_log.debug('_initElement menu', this.options);
 
@@ -50,11 +55,20 @@ module.exports = new Class({
     this.fx = new Fx.Morph(this.element, this.options.effect);
   },
 
+  /**
+   * [setStatus description]
+   * @param {[type]} status [description]
+   */
   setStatus: function(status) {
     //_log.debug('setStatus', status );
     this.element.set('html', status);
   },
 
+  /**
+   * [getStatus description]
+   * @param  {[type]} el [description]
+   * @return {[type]}    [description]
+   */
   getStatus: function(el) {
     var opts = this.options,
       status = '';
@@ -62,22 +76,32 @@ module.exports = new Class({
     if (opts.dataset) {
       var dataset = el.dataset[opts.dataset];
       var ds = dataset.split('.');
-      if (ds.length > 1)
+      if (ds.length > 1) {
         status += status + ds[1];
-      else status += status + ds;
+      } else {
+        status += status + ds;
+      }
     }
 
-    if (opts.attr)
+    if (opts.attr) {
       status += el.get(opts.attr);
+    }
 
     return status;
   },
 
+  /**
+   * [reach description]
+   * @param  {[type]} el [description]
+   * @return {[type]}    [description]
+   */
   reach: function(el) {
     if (!el) {
       if (this.el) {
         el = this.el;
-      } else return;
+      } else {
+        return;
+      }
     } else {
       this.el = el;
     }
@@ -119,14 +143,14 @@ module.exports = new Class({
       top = top + this.offset[1];
     }
 
-    if (this.options.usefx)
+    if (this.options.usefx) {
       this.fx.start({
         top: top,
         bottom: bottom,
         left: left,
         right: right
       });
-    else
+    } else {
       this.element.setStyles({
         position: 'absolute',
         top: top,
@@ -134,16 +158,29 @@ module.exports = new Class({
         left: left,
         right: right
       });
+    }
   },
 
+  /**
+   * [getParent description]
+   * @return {[type]} [description]
+   */
   getParent: function() {
     return this.parent;
   },
 
+  /**
+   * [hide description]
+   * @return {[type]} [description]
+   */
   hide: function() {
     this.element.hide();
   },
 
+  /**
+   * [show description]
+   * @return {[type]} [description]
+   */
   show: function() {
     this.element.show();
   }

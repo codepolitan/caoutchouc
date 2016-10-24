@@ -1,8 +1,4 @@
-/**
- * Minimalistic Implement for Minimal.View Class
- * @author Jerome Vial, Bruno Santos
- */
-var Dragging = new Class({
+export default new Class({
 
   /**
    * Initialize Dragging - The idea is to allow dragging when content is
@@ -84,5 +80,3 @@ var Dragging = new Class({
   }
 
 });
-
-module.exports = Dragging;

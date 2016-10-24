@@ -1,11 +1,6 @@
-/**
- * Minimalistic Implement for Minimal.Form Class
- * @implement Minimal.Form
- * @author Jerome Vial, Bruno Santos
- */
-var _log = __debug('view-collapse').defineLevel();
+const _log = __debug('view-collapse').defineLevel();
 
-var Collapse = new Class({
+export default new Class({
 
   /**
    * init collapse
@@ -107,5 +102,3 @@ var Collapse = new Class({
   }
 
 });
-
-module.exports = Collapse;

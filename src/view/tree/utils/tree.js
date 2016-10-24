@@ -2,7 +2,7 @@
  * Tree View Core
  * @see https://github.com/cpojer/mootools-tree
  */
-var Tree = new Class({
+export default new Class({
 
   Implements: [Options, Events, Class.Binds, Class.Single],
 
@@ -307,5 +307,3 @@ var Tree = new Class({
   }
 
 });
-
-module.exports = Tree;

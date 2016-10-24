@@ -1,19 +1,14 @@
-/**
- * Minimalistic Implement for Minimal.Form Class
- * @implement Minimal.Form
- * @author Jerome Vial, Bruno Santos
- */
-var ButtonControl = require('control/button');
-var ChoiceControl = require('control/choice');
-var StepsControl = require('control/steps');
-var DropdownControl = require('control/dropdown');
-var MultiControl = require('control/multi');
-var SelectControl = require('control/select');
-var CheckControl = require('control/check');
+import ButtonControl from '../../../control/button';
+import ChoiceControl from '../../../control/choice';
+import StepsControl from '../../../control/steps';
+import DropdownControl from '../../../control/dropdown';
+import MultiControl from '../../../control/multi';
+import SelectControl from '../../../control/select';
+import CheckControl from '../../../control/check';
 
-var _log = __debug('view-form-control');
+const _log = __debug('view-form-control');
 
-module.exports = new Class({
+export default new Class({
 
   /**
    * [_initButtons description]

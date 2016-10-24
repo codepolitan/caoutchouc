@@ -1,12 +1,6 @@
-/**
- * UI Control Multi Class
- * @class UI.Control.Multi
- * @extends {UI.Multi}
- * @type {Class}
- */
-var Field = require('control/field');
+import Field from './field';
 
-module.exports = new Class({
+export default new Class({
 
   Extends: Field,
 
@@ -14,10 +8,13 @@ module.exports = new Class({
     name: 'choice'
   },
 
+  /**
+   * [_initElement description]
+   * @return {[type]} [description]
+   */
   _initElement: function() {
     this.parent();
-    var self = this,
-      opts = this.options;
+    var opts = this.options;
 
     this.value = opts.value || [];
 
@@ -39,22 +36,30 @@ module.exports = new Class({
 
     /*if (opts.value)
       this.input.set('value', opts.value);*/
-
   },
 
-
+  /**
+   * [_initList description]
+   * @param  {[type]} list [description]
+   * @return {[type]}      [description]
+   */
   _initList: function(list) {
-    var self = this;
     this.menu = new Element('ul', {
       'class': 'choice-list'
     }).inject(this.element);
 
-    if (list && list.length > 0)
+    if (list && list.length > 0) {
       for (var i = 0; i < list.length; i++) {
         this._initItem(list[i]);
       }
+    }
   },
 
+  /**
+   * [_initItem description]
+   * @param  {[type]} item [description]
+   * @return {[type]}      [description]
+   */
   _initItem: function(item) {
     var self = this,
       opts = this.options;
@@ -67,8 +72,9 @@ module.exports = new Class({
         this.removeClass('selected');
         var idx = self.value.indexOf(item);
         _log.debug(idx, item);
-        if (idx > -1)
+        if (idx > -1) {
           self.value.splice(idx, 1);
+        }
       } else {
         this.addClass('selected');
         self.value.push(item);
@@ -82,16 +88,21 @@ module.exports = new Class({
       });
     });
 
-    if (this.value && this.value.indexOf(item) > -1)
+    if (this.value && this.value.indexOf(item) > -1) {
       li.addClass('selected');
+    }
   },
 
-
+  /**
+   * [toggle description]
+   * @return {[type]} [description]
+   */
   toggle: function() {
     _log.debug('toggle_selected', this.element);
 
-    if (this.selected)
+    if (this.selected) {
       this.selected.removeClass('selected');
+    }
 
     if (this.selected && this.selected == this) {
       this.selected.removeClass('selected');
@@ -102,6 +113,11 @@ module.exports = new Class({
     }
   },
 
+  /**
+   * [_select description]
+   * @param  {[type]} value [description]
+   * @return {[type]}       [description]
+   */
   _select: function(value) {
     var name = this.options.name;
 
@@ -111,15 +127,24 @@ module.exports = new Class({
     this.fireEvent('change', value, name);
   },
 
+  /**
+   * [_toggle description]
+   * @return {[type]} [description]
+   */
   _toggle: function() {
-    if (this.element.hasClass('state-open'))
+    if (this.element.hasClass('state-open')) {
       this.element.removeClass('state-open');
-    else this.element.addClass('state-open');
+    } else {
+      this.element.addClass('state-open');
+    }
   },
 
+  /**
+   * [_initEvents description]
+   * @return {[type]} [description]
+   */
   _initEvents: function() {
     this.parent();
-    var self = this;
 
     this.choice.addEvents({
       click: this._toggle.bind(this, 'default')

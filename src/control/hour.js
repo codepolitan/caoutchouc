@@ -1,13 +1,7 @@
-/**
- * UI Control Hour Class
- * @class UI.Control.Hour
- * @extends {UI.Control}
- * @type {Class}
- */
-var moment = require('moment');
-var Field = require('control/field');
+import moment from 'moment';
+import Field from './field';
 
-module.exports = new Class({
+export default new Class({
 
   Extends: Field,
 
@@ -98,6 +92,11 @@ module.exports = new Class({
     //_log.debug('plus', self.element, self.minus);
   },
 
+  /**
+   * [convertDateTimeToHour description]
+   * @param  {[type]} dateTime [description]
+   * @return {[type]}          [description]
+   */
   convertDateTimeToHour: function(dateTime) {
     var date = new Date(dateTime);
     var h = date.getHours().toString();
@@ -113,39 +112,18 @@ module.exports = new Class({
     return h + 'h' + m;
   },
 
-
-  /*
-  Function: setState
-    Set element state
-
-  Arguments:
-    state - (string) State name
-
-  Return:
-    (void)
-
-  See also:
-    <UI.Component::setState>
-  */
-
+  /**
+   * Set element state
+   * @param {string} state
+   */
   setState: function(state) {
     this.parent(state);
   },
 
-  /*
-  Function: _initEvents
-    private function
-
-    Set control relative behavior (blur and focus)
-
-  Return:
-    (void)
-
-  See also:
-    <UI.Control::_initEvents>
-    <UI.Component::_initEvents>
-  */
-
+  /**
+   * Set control relative behavior (blur and focus)
+   * @return {void}
+   */
   _initEvents: function() {
     var self = this;
 
@@ -171,8 +149,9 @@ module.exports = new Class({
         //this.focus();
       },
       focus: function(e) {
-        if (!this.get('readonly'))
+        if (!this.get('readonly')) {
           self.setState('focus', e);
+        }
       },
       blur: function(e) {
         self.setState(null, e);
@@ -185,7 +164,12 @@ module.exports = new Class({
     });
   },
 
-  _onKeyUp: function(e) {
+  /**
+   * [_onKeyUp description]
+   * @param  {[type]} e [description]
+   * @return {[type]}   [description]
+   */
+  _onKeyUp: function() {
     //this.fireEvent('change', this.get('value'));
   },
 
@@ -199,6 +183,10 @@ module.exports = new Class({
 
   },
 
+  /**
+   * [set description]
+   * @param {[type]} date [description]
+   */
   set: function(date) {
     //_log.debug('set', date);
 

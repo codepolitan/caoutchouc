@@ -1,11 +1,8 @@
-/**
- * URL related method for Insp
- */
-var URL = require('control/url');
+import URL from '../../../control/url';
 
-var _log = __debug('view-form-url');
+const _log = __debug('view-form-url');
 
-module.exports = new Class({
+export default new Class({
 
   /**
    * Initialize URL field

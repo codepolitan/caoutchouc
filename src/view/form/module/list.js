@@ -1,14 +1,9 @@
-/**
- * Minimalistic Implement for Minimal.Form Class
- * @implement Minimal.Form
- * @author Jerome Vial, Bruno Santos
- */
-var Button = require('control/button');
-var Field = require('control/field');
+import Button from '../../../control/button';
+import Field from '../../../control/field';
 
-var _log = __debug('core-module-dragdrop').defineLevel();
+const _log = __debug('core-module-dragdrop').defineLevel();
 
-var List = new Class({
+export default new Class({
 
   /**
    * To display a list of objects
@@ -271,5 +266,3 @@ var List = new Class({
   }
 
 });
-
-module.exports = List;

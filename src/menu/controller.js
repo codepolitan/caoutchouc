@@ -1,29 +1,5 @@
-/*
-  Object: ui.controller.menu
-    Window controller. It handles altitude, list, position and state
+export default {
 
-  Arguments:
-    options - (object)
-
-  Options:
-    zBase - (integer)
-    zStep - (integer)
-    cascade - (object)
-    stack - (object)
-
-  Requires:
-    <UI.Window>
-
-
-  Implied global:
-    ui,
-    window
-
-  Discussion:
-    to be continued....
-
-*/
-module.exports = {
   options: {
     version: '0.1',
     zBase: 300,
@@ -33,17 +9,11 @@ module.exports = {
   list: [],
   zIndex: 300,
 
-  /*
-  Function: register
-    Add passing menu to list of menus
-
-  Arguments:
-    win - (object) the window class instance to register
-
-  Returns:
-    (void)
-  */
-
+  /**
+   * Add passing menu to list of menus
+   * @param  {Object} menu
+   * @return {void}
+   */
   register: function(menu) {
     this.list.push(menu);
     if (menu.options.zIndex == 'auto') {
@@ -54,17 +24,11 @@ module.exports = {
     this.zIndex += this.options.zStep;
   },
 
-  /*
-  Function: close
-    Destroy the provided window and focus to next one
-
-  Arguments:
-    win - (object) the window class instance to close and destroy
-
-  Returns:
-    (void)
-  */
-
+  /**
+   * Destroy the provided window and focus to next one
+   * @param  {Object} menu
+   * @return {void}
+   */
   close: function(menu) {
     //_log.debug('close...');
     menu = menu || this.active;
@@ -80,24 +44,27 @@ module.exports = {
     this.focus();
   },
 
-  /*
-  Function: focus
-    Increment max z-index and focus provided window
-
-  Arguments:
-    menu - (object) the menu class instance to focus
-
-  Returns:
-    (void)
-  */
+  /**
+   * [focus description]
+   * @param  {[type]} win [description]
+   * @return {[type]}     [description]
+   */
   focus: function(win) {},
 
+  /**
+   * [closeall description]
+   * @return {[type]} [description]
+   */
   closeall: function() {
     this.list.each(function(menu) {
       //menu.hideNow();
     }, this);
   },
 
+  /**
+   * [hideAll description]
+   * @return {[type]} [description]
+   */
   hideAll: function() {
     this.list.each(function(menu) {
       menu.hideNow();

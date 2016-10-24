@@ -1,10 +1,4 @@
-/**
- * View Limit
- * @since 0.1.9.1
- * @description Comes from Minimal View
- * @author Jerome Vial, Bruno Santos
- */
-var Limit = new Class({
+export default new Class({
 
   /**
    * Calculate the limits
@@ -44,5 +38,3 @@ var Limit = new Class({
   }
 
 });
-
-module.exports = Limit;

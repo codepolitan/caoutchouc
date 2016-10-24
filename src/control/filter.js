@@ -1,16 +1,10 @@
-/**
- * UI Control Search Class
- * @class UI.Control.Search
- * @extends {UI.Control}
- * @type {Class}
- */
-var Field = require('control/field');
-var Choice = require('control/choice');
-var Method = require('component/method');
+import Field from './field';
+import Choice from './choice';
+import Method from '../component/method';
 
-var _log = __debug('ui-control-filter').defineLevel();
+const _log = __debug('ui-control-filter').defineLevel();
 
-var Filter = new Class({
+export default new Class({
 
   Extends: Field,
 
@@ -263,8 +257,6 @@ var Filter = new Class({
     }
 
     return this;
-  },
+  }
 
 });
-
-module.exports = Filter;

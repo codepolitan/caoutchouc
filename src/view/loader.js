@@ -1,10 +1,6 @@
-/**
- * Loader Module
- * @author Jerome Vial, Bruno Santos
- */
-var _log = __debug('view-core-loader').defineLevel();
+const _log = __debug('view-core-loader').defineLevel();
 
-var Loader = new Class({
+export default new Class({
 
   options: {
     loader: {
@@ -118,5 +114,3 @@ var Loader = new Class({
   }
 
 });
-
-module.exports = Loader;

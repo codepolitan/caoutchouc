@@ -1,18 +1,15 @@
+import ButtonControl from '../../../control/button';
+
+const _log = __debug('view-form-unique').defineLevel();
+
 /**
- * Related information
- * @extends {Minimal.Form}
- * @author Jerome Vial, Bruno Santos
  * @description
  *  Info Structure:
  *    id: Unique info id
  *  The options accept:
  *    unique: If set to true will be possible just attach a document in this key
  */
-var ButtonControl = require('control/button');
-
-var _log = __debug('view-form-unique').defineLevel();
-
-var Unique = new Class({
+export default new Class({
 
   /**
    * [_displayUnique description]
@@ -187,5 +184,3 @@ var Unique = new Class({
   }
 
 });
-
-module.exports = Unique;

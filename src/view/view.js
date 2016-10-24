@@ -1,25 +1,18 @@
-/**
- * View
- * @class View
- * @since 0.0.1
- * @author Jerome Vial, Bruno Santos
- */
-require('debug');
-var UIContainer = require('container/container');
-var Layout = require('layout/layout');
-var Toolbar = require('toolbar/toolbar');
-var Binding = require('component/binding');
-var Container = require('view/container');
-var Dragging = require('view/dragging');
-var Limit = require('view/limit');
-var Loader = require('view/loader');
-var Scroll = require('view/scroll');
-var Zoom = require('view/zoom');
-var scriptjs = require('scriptjs');
+import UIContainer from '../container/container';
+import Layout from '../layout/layout';
+import Toolbar from '../toolbar/toolbar';
+import Container from './container';
+import Dragging from './dragging';
+import Limit from './limit';
+import Loader from './loader';
+import Scroll from './scroll';
+import Zoom from './zoom';
+import Binding from 'minimal-binding';
+import scriptjs from 'scriptjs';
 
-var _log = __debug('view').defineLevel();
+const _log = __debug('view').defineLevel();
 
-var View = new Class({
+export default new Class({
 
   Implements: [
     Events,
@@ -489,5 +482,3 @@ var View = new Class({
   }
 
 });
-
-module.exports = View;

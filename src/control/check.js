@@ -1,11 +1,6 @@
-/**
- * @class UI.Control.Button
- * @extends {UI.Control}
- * @type {Class}
- */
-var Field = require('control/field');
+import Field from './field';
 
-module.exports = new Class({
+export default new Class({
 
   Extends: Field,
 
@@ -28,14 +23,11 @@ module.exports = new Class({
   _initElement: function() {
     this.parent();
 
-    var self = this,
-      opts = this.options;
+    var opts = this.options;
 
     this.checked = opts.value;
 
     this.input.set('type', 'hidden');
-
-    var options = opts.opts;
 
     this.wrapper = new Element('div', {
       'class': 'check-wrapper'
@@ -46,7 +38,9 @@ module.exports = new Class({
 
     this._initError();
 
-    if (this.checked) this.check.addClass('checked');
+    if (this.checked) {
+      this.check.addClass('checked');
+    }
   },
 
   /**

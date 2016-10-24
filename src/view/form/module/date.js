@@ -1,16 +1,11 @@
-/**
- * Minimalistic Implement for Minimal.Form Class
- * @implement Minimal.Form
- * @author Jerome Vial, Bruno Santos
- */
-var moment = require('moment');
-var DateControl = require('control/date');
-var FieldControl = require('control/field');
-var ButtonControl = require('control/button');
+import moment from 'moment';
+import DateControl from '../../../control/date';
+import FieldControl from '../../../control/field';
+import ButtonControl from '../../../control/button';
 
-var _log = __debug('view-form-date').defineLevel();
+const _log = __debug('view-form-date').defineLevel();
 
-module.exports = new Class({
+export default new Class({
 
   /**
    * [_initDate description]

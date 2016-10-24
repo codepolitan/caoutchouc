@@ -1,11 +1,6 @@
-/**
- * Expand List.V2 View Class
- * @class View.List.V2.Expand
- * @author Bruno Santos, Jerome Vial
- */
-var _log = __debug('view-core-listV2-expand').defineLevel();
+const _log = __debug('view-core-listV2-expand').defineLevel();
 
-var Expand = new Class({
+export default new Class({
 
   /**
    * Initialize Expand
@@ -81,5 +76,3 @@ var Expand = new Class({
   }
 
 });
-
-module.exports = Expand;

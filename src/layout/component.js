@@ -1,13 +1,9 @@
-/**
- * UI Component Drag
- * @class UI.Component.Drag
- * @author Bruno Santos, Jerome Vial
- */
-var api = require('utils/api');
+import api from '../utils/api';
 
-var _log = __debug('ui-layout-component').defineLevel();
+const _log = __debug('ui-layout-component').defineLevel();
 
-var Component = new Class({
+export default new Class({
+
   options: {
     resizer: {
       modifier: {
@@ -216,5 +212,3 @@ var Component = new Class({
   }
 
 });
-
-module.exports = Component;

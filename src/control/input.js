@@ -1,12 +1,6 @@
-/**
- * UI Control Input Class
- * @class UI.Control.Input
- * @extends {UI.Control}
- * @type {Class}
- */
-var Control = require('control/control');
+import Control from './control';
 
-module.exports = new Class({
+export default new Class({
 
   Extends: Control,
 
@@ -17,66 +11,35 @@ module.exports = new Class({
     value: ''
   },
 
-  /*
-    Function: _initElement
-      private function
-
-      Create a div and a hidden input to receive the selected value
-
-    Return:
-      (void)
-
-    See also:
-      <UI.Control::_initElement>
-      <UI.Component::_initElement>
-    */
-
+  /**
+   * Create a div and a hidden input to receive the selected value
+   * @return {void}
+   */
   _initElement: function() {
     //create a new div as input element
     this.parent();
-
 
     _log.debug('_initElement', this);
     //create input
     this.setInput('text');
     this.input.setStyle('width', this.props.width - this.input.getStyle('paddingLeft').toInt() - this.input.getStyle('paddingRight').toInt());
-
-
   },
 
-  /*
-  Function: setState
-    Set element state
-
-  Arguments:
-    state - (string) State name
-
-  Return:
-    (void)
-
-  See also:
-    <UI.Component::setState>
-  */
-
+  /**
+   * Set element state
+   * @param {void} state
+   */
   setState: function(state) {
     this.parent(state);
-    if (this.skin[state]) this.input.set(this.skin[state].components.input.styles);
+    if (this.skin[state]) {
+      this.input.set(this.skin[state].components.input.styles);
+    }
   },
 
-  /*
-  Function: _initEvents
-    private function
-
-    Set control relative behavior (blur and focus)
-
-  Return:
-    (void)
-
-  See also:
-    <UI.Control::_initEvents>
-    <UI.Component::_initEvents>
-  */
-
+  /**
+   * Set control relative behavior (blur and focus)
+   * @return {void}
+   */
   _initEvents: function() {
     this.parent();
     this.addEvents({

@@ -1,8 +1,6 @@
 /* jshint forin:false */
 /**
  * Virtual List.V2 View Class
- * @class View.List.V2.Virtual
- * @author Bruno Santos, Jerome Vial
  * @description
  *    1-receive a list of infos, a range and a count
  *    2-reset all vars
@@ -12,9 +10,9 @@
  *    6-update range el with data
  *    7-render current viewport
  */
-var _log = __debug('view-core-listV2-virtual').defineLevel();
+const _log = __debug('view-core-listV2-virtual').defineLevel();
 
-var Virtual = new Class({
+export default new Class({
 
   /**
    * reset local variables
@@ -514,5 +512,3 @@ var Virtual = new Class({
   getRange: function() {},
 
 });
-
-module.exports = Virtual;

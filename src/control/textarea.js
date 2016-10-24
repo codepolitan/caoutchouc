@@ -1,44 +1,19 @@
-/*
-  Class: UI.Textarea
-    Create a skinnable textarea element
+import Field from './field';
 
-  Extends:
-    <UI.Control>
-
-  Arguments:
-    options
-
-  Options:
-    name - (string) name of hidden input
-    value - (string) value to set on initialize
-
-  Example:
-    (start code)
-      var textarea = new UI.Textarea({
-        name : 'myTextarea',
-        value : 'Hello world!'
-      }).inject(document.body);
-    (end)
-*/
+const _log = __debug('ui-textarea');
 
 /**
- * UI Control Textarea
- * @class UI.Control.Textarea
- * @extends {UI.Control}
- * @type {Class}
+ * @example
+ * var textarea = new UI.Textarea({
+ *   name : 'myTextarea',
+ *   value : 'Hello world!'
+ * }).inject(document.body);
  */
-var Field = require('control/field');
-
-var _log = __debug('ui-textarea');
-
-module.exports = new Class({
+export default new Class({
 
   Extends: Field,
 
   options: {
-    name: 'textarea',
-
-    // default options
     name: 'ui-input',
     value: '',
     binding: {
@@ -75,8 +50,9 @@ module.exports = new Class({
       this.input.set('tabeindex', '-1');
     }
 
-    if (opts.klss)
+    if (opts.klss) {
       this.input.addClass(opts.klss);
+    }
 
     this._initAutogrow(input);
   },
@@ -88,8 +64,6 @@ module.exports = new Class({
    * @return {[type]}       [description]
    */
   _initAutogrow: function(input) {
-    var self = this;
-
     clearTimeout(this.autogrowTimeout);
 
     this.autogrowTimeout = setTimeout(function() {
@@ -115,8 +89,9 @@ module.exports = new Class({
       return;
     }
 
-    if (this._setInk)
+    if (this._setInk) {
       this._setInk(1);
+    }
   },
 
   /**

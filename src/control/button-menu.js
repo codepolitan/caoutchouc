@@ -1,18 +1,11 @@
-/**
- * UI COntrol ButtonMenu Class
- * @class UI.Control.ButtonMenu
- * @extends {UI.Control}
- * @type {Class}
- */
+import Button from './button';
+import fontIconConfig from './separator';
+import scriptjs from 'scriptjs';
+import 'icon/control';
 
-var Button = require('control/button');
-var fontIconConfig = require('control/separator');
-var scriptjs = require('scriptjs');
-require('icon/control');
+const _log = __debug('ui-control-buttonMenu');
 
-var _log = __debug('ui-control-buttonMenu');
-
-module.exports = new Class({
+export default new Class({
 
   Extends: Button,
 

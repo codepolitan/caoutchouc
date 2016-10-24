@@ -1,11 +1,6 @@
-/**
- * Minimalistic Implement for Minimal.View Class
- * @class View.Scroll
- * @author Jerome Vial, Bruno Santos
- */
-var _log = __debug('core-view-scroll').defineLevel();
+const _log = __debug('core-view-scroll').defineLevel();
 
-var Scroll = new Class({
+export default new Class({
 
   /**
    * Initialize Auto Scroll
@@ -95,5 +90,3 @@ var Scroll = new Class({
   }
 
 });
-
-module.exports = Scroll;

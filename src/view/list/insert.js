@@ -1,11 +1,6 @@
-/**
- * Insert List.V2 View Class
- * @class View.List.V2.Insert
- * @author Bruno Santos, Jerome Vial
- */
-var _log = __debug('view-core-listV2-insert').defineLevel();
+const _log = __debug('view-core-listV2-insert').defineLevel();
 
-var Insert = new Class({
+export default new Class({
 
   /**
    * new info
@@ -132,5 +127,3 @@ var Insert = new Class({
   },
 
 });
-
-module.exports = Insert;

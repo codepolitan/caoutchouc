@@ -1,13 +1,8 @@
-/**
- * Minimalistic Implement for Minimal.Form Class
- * @implement Minimal.Form
- * @author Jerome Vial, Bruno Santos
- */
-var Button = require('control/button');
+import Button from '../../../control/button';
 
-var _log = __debug('view-core-form-contact').defineLevel();
+const _log = __debug('view-core-form-contact').defineLevel();
 
-var Contacts = new Class({
+export default new Class({
 
   /**
    * [_initContacts description]
@@ -128,5 +123,3 @@ var Contacts = new Class({
   }
 
 });
-
-module.exports = Contacts;

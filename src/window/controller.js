@@ -1,31 +1,6 @@
-/*
-  Object: ui.controller.window
-    Window controller. It handles windows cascading position, minimize position, focusing, ...
+const _log = __debug('ui-controller').defineLevel();
 
-  Arguments:
-    options - (object)
-
-  Options:
-    zBase - (integer)
-    zStep - (integer)
-    cascade - (object)
-    stack - (object)
-
-  Requires:
-    <UI.Window>
-
-
-  Implied global:
-    ui,
-    window
-
-  Discussion:
-    Stacks should be better implemented
-
-*/
-var _log = __debug('ui-controller').defineLevel();
-
-module.exports = new Class.Singleton({
+export default new Class.Singleton({
 
   Implements: [Options, Events],
 
@@ -84,6 +59,11 @@ module.exports = new Class.Singleton({
     }
   },
 
+  /**
+   * [initialize description]
+   * @param  {[type]} options [description]
+   * @return {[type]}         [description]
+   */
   initialize: function(options) {
     this.setOptions(options);
     //_log.debug('controller window');
@@ -91,16 +71,11 @@ module.exports = new Class.Singleton({
     this.init(this.options.container);
   },
 
-  /*
-  Constructor: initialize
-    Construtor
-
-  Arguments:
-    options - (object) options
-
-  Returns:
-    (void)
-  */
+  /**
+   * [init description]
+   * @param  {[type]} container [description]
+   * @return {[type]}           [description]
+   */
   init: function(container) {
     //_log.debug('init');
     this.container = container;
@@ -115,31 +90,29 @@ module.exports = new Class.Singleton({
     }.bind(this));
   },
 
-  /*
-  Function: register
-    Add passing window to the manage list
-
-  Arguments:
-    win - (object) the window class instance to register
-
-  Returns:
-    (void)
-  */
+  /**
+   * Add passing window to the manage list
+   * @param  {[type]} win   [description]
+   * @param  {[type]} group [description]
+   * @return {[type]}       [description]
+   */
   register: function(win, group) {
     //_log.debug('register', win);
     this.list.push(win);
 
     if (group) {
-      if (this.group[group])
+      if (this.group[group]) {
         this.group[group] = [];
+      }
 
       this.group[group].push(win);
     }
 
     if (win.options.zIndex === 'auto') {
       win.element.setStyle('zIndex', this.zIndex);
-      if (win.underlay)
+      if (win.underlay) {
         win.underlay.setStyle('zIndex', this.zIndex - 1);
+      }
 
       win.altitude = this.zIndex;
     } else {
@@ -153,16 +126,11 @@ module.exports = new Class.Singleton({
     this.zIndex += this.options.zStep;
   },
 
-  /*
-  Function: close
-    Destroy the provided window and focus to next one
-
-  Arguments:
-    win - (object) the window class instance to close and destroy
-
-  Returns:
-    (void)
-  */
+  /**
+   * Destroy the provided window and focus to next one
+   * @param  {[type]} win [description]
+   * @return {[type]}     [description]
+   */
   close: function(win) {
     win = win || this.active;
     win.hide();
@@ -177,16 +145,11 @@ module.exports = new Class.Singleton({
     this.focus();
   },
 
-  /*
-  Function: focus
-    Increment max z-index and focus provided window
-
-  Arguments:
-    win - (object) the window class instance to focus
-
-  Returns:
-    (void)
-  */
+  /**
+   * Increment max z-index and focus provided window
+   * @param  {[type]} win [description]
+   * @return {[type]}     [description]
+   */
   focus: function(win) {
     //_log.debug('focus', win);
     if (!win) {
@@ -215,8 +178,9 @@ module.exports = new Class.Singleton({
       this.zIndex += this.options.zStep;
       win.element.style.zIndex = this.zIndex;
 
-      if (win.underlay)
+      if (win.underlay) {
         win.underlay.style.zIndex = this.zIndex - 1;
+      }
 
       win.element.style.zoom = '1';
 
@@ -234,16 +198,11 @@ module.exports = new Class.Singleton({
     }
   },
 
-  /*
-  Function: blur
-    Blur active window
-
-  Arguments:
-    win - (object) the window class instance to blur
-
-  Returns:
-    (void)
-  */
+  /**
+   * Blur active window
+   * @param  {[type]} win [description]
+   * @return {[type]}     [description]
+   */
   blur: function(win) {
     if ((win !== null) && !win.minimized) {
       win.setState('inactive');
@@ -263,12 +222,10 @@ module.exports = new Class.Singleton({
     w.minimize();
   },
 
-  /*
-  Function: getMinimizedLocation
-    Return the position of next minimized window
-
-  Returns:
-    location - (array) Array containing left and top position
+  /**
+   * getMinimizedLocation
+   * @param  {[type]} etat [description]
+   * @return {[type]}      [description]
    */
   getcoord: function(etat) {
     var opts = this.options;
@@ -299,13 +256,10 @@ module.exports = new Class.Singleton({
     };
   },
 
-  /*
-  Function: resetMinimizedLocation
-    Replace minimized windows
-
-  Returns:
-    (void)
-  */
+  /**
+   * Replace minimized windows
+   * @return {[type]} [description]
+   */
   resetMinimized: function() {
     var etat = 'minimized',
       opts = this.options,
@@ -322,13 +276,10 @@ module.exports = new Class.Singleton({
     });
   },
 
-  /*
-  Function: resizeMaximizedWindow
-    Set new maximized size for all mamimized window
-
-  Returns:
-    (void)
-  */
+  /**
+   * Set new maximized size for all mamimized window
+   * @return {[type]} [description]
+   */
   resizeMaximizedWindow: function() {
     //_log.debug('resizeMaximizedWindow');
 
@@ -342,16 +293,11 @@ module.exports = new Class.Singleton({
     });
   },
 
-  /*
-  Function: getCascadeLocation
-    Calculate the location of the window in the cascade
-
-  Arguments:
-    win - (object) the window class instance to get location
-
-  Returns:
-    location - (object) location coordinates { left : 100, top : 100 }
-  */
+  /**
+   * Calculate the location of the window in the cascade
+   * @param  {[type]} win [description]
+   * @return {[type]}     [description]
+   */
   getCascadeLocation: function(win) {
     var location = {
       left: 71,
@@ -367,13 +313,11 @@ module.exports = new Class.Singleton({
     return location;
   },
 
-  /*
-  Function: cascade
-    Move every windows to its position in the cascade
-
-  Returns:
-    (void)
-  */
+  /**
+   * Move every windows to its position in the cascade
+   * @param  {[type]} group [description]
+   * @return {[type]}       [description]
+   */
   cascade: function(group) {
     var start = [51, 101];
     var offset = [20, 20];
@@ -381,9 +325,11 @@ module.exports = new Class.Singleton({
     var last;
     var list = [];
 
-    if (group)
+    if (group) {
       list = this.group;
-    else list = this.list;
+    } else {
+      list = this.list;
+    }
 
     list.each(function(win) {
       if (win.state === 'minimized') {
@@ -407,13 +353,11 @@ module.exports = new Class.Singleton({
     this.zIndex = zIndex;
   },
 
-  /*
-  Function: circle
-    Move every windows to its position in the cascade
-
-  Returns:
-    (void)
-  */
+  /**
+   * Move every windows to its position in the cascade
+   * @param  {[type]} group [description]
+   * @return {[type]}       [description]
+   */
   circle: function(group) {
     //should be define in the skin sheet
     var center = [200, 300];
@@ -452,7 +396,11 @@ module.exports = new Class.Singleton({
     this.zIndex = zIndex;
   },
 
-
+  /**
+   * [grid description]
+   * @param  {[type]} group [description]
+   * @return {[type]}       [description]
+   */
   grid: function(group) {
     //should be define in the skin sheet
     var size = [160, 240];
@@ -462,8 +410,6 @@ module.exports = new Class.Singleton({
     var row = 0;
     var column = 0;
     var coord = {};
-
-    var length = (this.list.length);
 
     this.list.each(function(win, i) {
       //if (win.state = 'minimized') return;
@@ -495,24 +441,22 @@ module.exports = new Class.Singleton({
     this.zIndex = zIndex;
   },
 
+  /**
+   * [closeall description]
+   * @return {[type]} [description]
+   */
   closeall: function() {
     this.list.each(function(win) {
       this.close(win);
     }, this);
   },
 
-  /*
-  Function: buildunderlay
-    _initElement an overlay for windows
-
-  Arguments:
-
-  Returns:
-    (void)
-  */
+  /**
+   * _initElement an overlay for windows
+   * @param  {[type]} container [description]
+   * @return {[type]}           [description]
+   */
   buildunderlay: function(container) {
-    var opts = this.options.underlay;
-
     // should use ui.builder
 
     this.underlay = new Element('div', {
@@ -522,15 +466,11 @@ module.exports = new Class.Singleton({
     this.underlay.hide();
   },
 
-  /*
-  Function: buildunderlay
-    _initElement an overlay for windows
-
-  Arguments:
-
-  Returns:
-    (void)
-  */
+  /**
+   * _initElement an overlay for windows
+   * @param  {[type]} win [description]
+   * @return {[type]}     [description]
+   */
   showunderlay: function(win) {
     this.underlay.setStyles({
       display: 'block',

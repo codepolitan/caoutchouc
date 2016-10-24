@@ -1,12 +1,6 @@
-/**
- * UI Control Item
- * @class UI.Control.Item
- * @extends {UI.Control}
- * @type {Class}
- */
-var Control = require('control/control');
+import Control from './control';
 
-module.exports = new Class({
+export default new Class({
 
   Extends: Control,
 
@@ -44,30 +38,35 @@ module.exports = new Class({
 
     opts.text = opts.text || opts.n;
 
-    if (type === null)
+    if (type === null) {
       type = 'icon-text';
+    }
 
     /*    if (opts.text && type != 'icon')
           this.element.set('html', opts.text);*/
     //var text = opts.type.match(/text/g);
 
-    if (opts.name)
+    if (opts.name) {
       this.element.set('data-name', opts.name);
+    }
 
     //_log.debug('title', this.element,  opts.text);
     this.element.set('title', opts.text);
 
-    if (opts.icon)
+    if (opts.icon) {
       this._initIcon(type);
+    }
 
-    if (opts.text)
+    if (opts.text) {
       this._initText(type);
+    }
 
-    if (opts.ink)
+    if (opts.ink) {
       this._initSensor();
-    else this.sensor = this.element;
+    } else {
+      this.sensor = this.element;
+    }
   },
-
 
   /**
    * [_initIcon description]
@@ -85,7 +84,7 @@ module.exports = new Class({
 
     this.icon = new Element(tag, prop).inject(this.element);
 
-    var klss = opts.icon.replace("icon-", "fa-");
+    var klss = opts.icon.replace('icon-', 'fa-');
 
     this.icon.addClass('fa');
     this.icon.addClass(klss);
@@ -121,16 +120,19 @@ module.exports = new Class({
     var opts = this.options;
     //_log.debug(this.name);
 
-    if (this.options.klss)
+    if (this.options.klss) {
       this.element.addClass('button-' + opts.klss);
+    }
 
-    if (this.options.type)
+    if (this.options.type) {
       this.element.addClass('type-' + this.options.type);
+    }
 
     this.element.addClass(opts.prefix + this.name);
 
-    if (this.options.clss)
+    if (this.options.clss) {
       this.element.addClass(this.options.clss);
+    }
   },
 
   /**
@@ -139,8 +141,6 @@ module.exports = new Class({
    * @return {[type]}      [description]
    */
   _initSensor: function(type) {
-    var opts = this.options;
-
     var tag = 'div';
 
     this.sensor = new Element(tag, {
@@ -186,7 +186,6 @@ module.exports = new Class({
     }).delay(duration);
   },
 
-
   /**
    * [_onElementMouseDown description]
    * @param  {event} e [description]
@@ -196,15 +195,15 @@ module.exports = new Class({
     _log.debug('_onElementClick', e);
     var opts = this.options;
     e.stopPropagation();
-    if (opts.emit && this.state != 'disabled')
+    if (opts.emit && this.state != 'disabled') {
       this.fireEvent(opts.emit);
+    }
     this.fireEvent('press', opts.emit);
     this.fireEvent('pressed', opts.emit);
 
-    if (opts.call && this.state != 'disabled')
+    if (opts.call && this.state != 'disabled') {
       opts.call();
-
-
+    }
   },
 
   /**
@@ -215,8 +214,9 @@ module.exports = new Class({
   _onDblClick: function(e) {
     var opts = this.options;
     e.stop();
-    if (opts.emit && this.state != 'disabled')
+    if (opts.emit && this.state != 'disabled') {
       this.fireEvent('dblpress', opts.emit);
+    }
     this.fireEvent('dblpressed', opts.emit);
   },
 
@@ -277,11 +277,12 @@ module.exports = new Class({
   _onMouseUp: function(e) {
     _log.debug('_onElementMouseUp', e);
 
-    var opts = this.options;
     if (this.options.type == 'check') {
-      if (this.state == 'checked')
+      if (this.state == 'checked') {
         this.setState(null);
-      else this.setState('checked');
+      } else {
+        this.setState('checked');
+      }
     }
     //this.react.destroy();
   }

@@ -1,14 +1,8 @@
-/**
- * [initialize description]
- * @class  UI.Container.Tab
- * @extends {UI.Component}
- * @author Bruno Santos, Jerome Vial
- */
-var Component = require('component/component');
-var ButtonControl = require('control/button');
-var Container = require('container/container');
+import Component from '../component/component';
+import ButtonControl from '../control/button';
+import Container from './container';
 
-var Tab = new Class({
+export default new Class({
 
   Extends: Container,
 
@@ -260,5 +254,3 @@ var Tab = new Class({
   }
 
 });
-
-module.exports = Tab;

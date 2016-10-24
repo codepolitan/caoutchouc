@@ -1,9 +1,4 @@
-/**
- * scolling view options config
- * @object config.view.scrolling.options
- * @author Jerome Vial, Bruno Santos
- */
-module.exports = {
+export default {
   clss: 'tree',
   autoScroll: true,
   checkbox: false,

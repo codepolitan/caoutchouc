@@ -1,11 +1,6 @@
-/**
- * Select List.V2 View Class
- * @class View.List.V2.Select
- * @author Bruno Santos, Jerome Vial
- */
-var _log = __debug('view-core-listV2-select').defineLevel();
+const _log = __debug('view-core-listV2-select').defineLevel();
 
-var Select = new Class({
+export default new Class({
 
   /**
    * select _selectPrevious
@@ -204,5 +199,3 @@ var Select = new Class({
   },
 
 });
-
-module.exports = Select;

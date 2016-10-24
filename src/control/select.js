@@ -1,12 +1,6 @@
-/**
- * UI Control Select Class
- * @class UI.Control.Select
- * @extends {UI.Control}
- * @type {Class}
- */
-var Field = require('control/field');
+import Field from './field';
 
-module.exports = new Class({
+export default new Class({
 
   Extends: Field,
 
@@ -38,7 +32,6 @@ module.exports = new Class({
     if (this.options.value) {
       self.menu.head.set('html', this.options.value);
     }
-
   }
 
 });

@@ -1,14 +1,8 @@
-/**
- * Choice Control Class
- * @class UI.Control.Choice
- * @extends {UI.Control}
- * @type {Class}
- */
-var Field = require('control/field');
+import Field from 'control/field';
 
-var _log = __debug('control-choice').defineLevel();
+const _log = __debug('control-choice').defineLevel();
 
-module.exports = new Class({
+export default new Class({
 
   Extends: Field,
 

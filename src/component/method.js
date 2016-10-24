@@ -1,9 +1,4 @@
-/**
- * UI Component Location
- * @class UI.Component.Location
- * @author Bruno Santos, Jerome Vial
- */
-module.exports = new Class({
+export default new Class({
 
   /**
    * [toElement description]
@@ -63,10 +58,9 @@ module.exports = new Class({
    */
   getSize: function() {
     //_log.debug('------',typeOf(this.element));
-    if (typeOf(this.element) == 'object')
-    //_log.debug(this.options.name);
-
+    if (typeOf(this.element) == 'object') {
       return this.element.getSize();
+    }
   },
 
   /**
@@ -130,11 +124,13 @@ module.exports = new Class({
     this.element.x = width || this.options.width;
     this.element.y = height || this.options.height;
 
-    if (this.element.x)
+    if (this.element.x) {
       this.element.setStyle('width', this.element.x);
+    }
 
-    if (this.element.y)
+    if (this.element.y) {
       this.element.setStyle('height', this.element.y);
+    }
 
     this.fireEvent('resize');
     return this;

@@ -1,60 +1,14 @@
-/*
-  Class: UI.Menu
-    Creates a new menu, manages submenus and positionning as well
+import { Container } from '../container/container';
 
-  Extends:
-    <UI.Component>
+export default new Class({
 
-  Arguments:
-    options
+  Extends: Container,
 
-  Options:
-    - node
-    - _parent - component
-    - context -
-
-
-    - name - (string) name of the compnent, it is automatically add to the css class
-    - base - (string) base component, if define the name of it will be add the the css class
-
-    - tag - (string) Tag name for menu elements
-
-    - position - (string) Specify where the new menu must be positionned.
-      It could be normal (element will be positionned on parent's side),
-      over (element will be positionned over the parent element, used for <UI.Select>),
-      bottom (element will be positionned on bottom of parent element, used for <UI.Toolbar>)
-
-    - scrollToSelected - (boolean) Determine if a menu (specifically a <UI.Select>) should remember last item selected
-    - scrollMargin - (integer) Determine remaining margin on top and bottom when a menu is too large to feet in window
-    - menu - (array) Array containing menu definition
-
-  Example:
-    (start code)
-    var submenu = new UI.Menu({
-      container : this.container.element,
-      underlay : this.options.underlay,
-      zIndex : 1
-    });
-    (end)
-
-  Implied global:
-    - MooLego - UI,ui,
-    - MooTools - Class, Element, Event, Fx, Window
-    - Javascript - document
-
-  Discussion
-    Should use listView
-
-*/
-module.exports = new Class({
-
-  Extends: UI.Container,
-
-  name: 'menu',
+  name: 'tool',
 
   options: {
     base: 'component',
-    name: 'menu',
+    name: 'tool',
 
     content: true,
 
@@ -74,14 +28,21 @@ module.exports = new Class({
     hideOnCall: true
   },
 
+  /**
+   * [initialize description]
+   * @param  {[type]} options [description]
+   * @return {[type]}         [description]
+   */
   initialize: function(options) {
     this.setOptions(options);
 
     this.timer = null;
 
-    if (this.options.type == 'drop')
+    if (this.options.type == 'drop') {
       this.state = 'close';
-    else this.state = 'open';
+    } else {
+      this.state = 'open';
+    }
 
     this.item = {};
     this.menus = [];
@@ -90,23 +51,15 @@ module.exports = new Class({
     this._initComponent();
     this._initEvents();
 
-    ui.menu.register(this);
+    //ui.menu.register(this);
 
     return this;
   },
 
-  /*
-  Function: _initElement
-    private function
-
-    Call UI.Component _initElement, then create a menu wrapper
-
-  Return:
-    (void)
-
-  See also:
-    <UI.Component::_initElement>
-  */
+  /**
+   * Call UI.Component _initElement, then create a menu wrapper
+   * @return {[type]} [description]
+   */
   _initElement: function() {
     var self = this,
       opts = this.options;
@@ -120,11 +73,13 @@ module.exports = new Class({
 
     this.element.addClass('menu-' + opts.name);
 
-    if (opts.klss)
+    if (opts.klss) {
       this.element.addClass(opts.klss);
+    }
 
-    if (opts.type)
+    if (opts.type) {
       this.element.addClass('type-' + opts.type);
+    }
 
     this._initHead(opts.head);
 
@@ -141,34 +96,29 @@ module.exports = new Class({
       }
     });
 
-    if (opts.open)
+    if (opts.open) {
       this.display = this.content.getStyle('display', 'block');
+    }
 
     this.element.addEvent('click', function(e) {
       e.stop();
     });
   },
 
-  /*
-  Function: _initHead
-    private function
-
-    Call UI.Component _initHead, then create a menu wrapper
-
-  Return:
-    (void)
-
-  See also:
-    <UI.Component::_initHead>
-  */
+  /**
+   * Call UI.Component _initHead, then create a menu wrapper
+   * @return {[type]} [description]
+   */
   _initHead: function() {
-    var self = this,
-      opts = this.options;
-    trigger = opts.trigger;
+    var self = this;
+    var opts = this.options;
+    var trigger = opts.trigger;
 
-    if (!opts.head) return;
+    if (!opts.head) {
+      return;
+    }
 
-    head = new Element('div', {
+    var head = new Element('div', {
       'class': 'menu-head',
       html: opts.head.text
     }).inject(this);
@@ -186,43 +136,36 @@ module.exports = new Class({
       },
       change: function(value) {
         //_log.debug('change',value);
-        if (opts.showValue && self.head)
+        if (opts.showValue && self.head) {
           self.head.set('html', value);
+        }
       }
     });
 
-    if (opts.head.klss)
+    if (opts.head.klss) {
       head.addClass(opts.head.klss);
+    }
 
     this.head = head;
   },
 
-  /*
-  Function: _initComponent
-    private function
-
-    Process the node object and inject the initialized component in the content of the container.
-
-  Return:
-    (void)
-
-  Note:
-    Override UI.Component._initComponent
-
-  See also:
-    <UI.Component::_initHead>
-  */
+  /**
+   * Process the node object and inject the
+   * initialized component in the content of the container.
+   * @return {[type]} [description]
+   */
   _initComponent: function() {
-    var self = this,
-      opts = this.options,
-      node = opts.menu,
-      container = this.content;
+    var self = this;
+    var opts = this.options;
+    var node = opts.menu;
+    var container = this.content;
 
     //_log.debug(node);
 
     node.each(function(comp, i) {
-      if (!comp.text)
+      if (!comp.text) {
         comp.text = null; // comp.name;
+      }
       //comp.text = comp.name;
 
       var component = opts.item.component.capitalize();
@@ -235,20 +178,24 @@ module.exports = new Class({
 
       self.item[comp.name] = item;
 
-      if (comp.klss)
+      if (comp.klss) {
         item.element.addClass(comp.klss);
+      }
 
-      if (comp.type)
+      if (comp.type) {
         item.addClass('type-' + comp.type);
+      }
 
-      if (comp.state)
+      if (comp.state) {
         item.setState(comp.state);
+      }
 
       this.menus.push(comp);
       //this.item[comp.name]
 
-      if (comp.selected)
+      if (comp.selected) {
         self.select(item);
+      }
 
       if (comp.call) {
         item.element.addEvents({
@@ -258,11 +205,13 @@ module.exports = new Class({
 
             self.fireEvent('change', this.get('name'));
             self.fireEvent('select', this);
-            if (opts.type == 'drop' && opts.hideOnCall)
+            if (opts.type == 'drop' && opts.hideOnCall) {
               self.hideNow();
+            }
 
-            if (self.name == 'context')
+            if (self.name == 'context') {
               self.hideNow();
+            }
           }
         });
       } else if (comp.emit) {
@@ -276,7 +225,9 @@ module.exports = new Class({
         item.element.addEvents({
           click: function(e) {
             e.stop();
-            if (self.state == 'disabled') return;
+            if (self.state == 'disabled') {
+              return;
+            }
             //_log.debug('---',opts.type);
             self.value = this.get('name');
             self.fireEvent('change', this.get('name'));
@@ -284,10 +235,11 @@ module.exports = new Class({
 
 
 
-            if (opts.type == 'push')
+            if (opts.type == 'push') {
               self.fireEvent('select', this);
-            else if (opts.type == 'drop')
+            } else if (opts.type == 'drop') {
               self.hideNow();
+            }
           }
         });
       }
@@ -297,11 +249,15 @@ module.exports = new Class({
     }, this);
   },
 
+  /**
+   * [_initEvents description]
+   * @return {[type]} [description]
+   */
   _initEvents: function() {
 
     //_log.debug('_initEvents',this.options.name);
-    var self = this,
-      opts = this.options;
+    var self = this;
+    var opts = this.options;
 
     if (opts.type == 'drop') {
       if (opts.timerOnHide) {
@@ -328,6 +284,11 @@ module.exports = new Class({
     }
   },
 
+  /**
+   * [select description]
+   * @param  {[type]} menu [description]
+   * @return {[type]}      [description]
+   */
   select: function(menu) {
 
     if (menu === false || menu === null) {
@@ -343,15 +304,23 @@ module.exports = new Class({
       menu = this.element.getElement('[name="' + menu + '"]');
     }
 
-    if (!menu) return;
+    if (!menu) {
+      return;
+    }
 
-    if (this.selected)
+    if (this.selected) {
       this.selected.removeClass('state-active');
+    }
 
     menu.addClass('state-active');
     this.selected = menu;
   },
 
+  /**
+   * [unselect description]
+   * @param  {[type]} menu [description]
+   * @return {[type]}      [description]
+   */
   unselect: function(menu) {
 
     var self = this;
@@ -361,26 +330,43 @@ module.exports = new Class({
       menu = this.element.getElement('[name="' + menu + '"]');
     }
 
-    if (!menu) return;
+    if (!menu) {
+      return;
+    }
 
-    if (self.selected)
+    if (self.selected) {
       self.selected = null;
+    }
 
     menu.removeClass('state-active');
     menu.removeClass('state-checked');
   },
 
+  /**
+   * [deselect description]
+   * @return {[type]} [description]
+   */
   deselect: function() {
-    if (!this.selected) return;
+    if (!this.selected) {
+      return;
+    }
 
     this.selected.removeClass('state-active');
     this.selected.removeClass('state-checked');
   },
 
+  /**
+   * [getSelected description]
+   * @return {[type]} [description]
+   */
   getSelected: function() {
 
   },
 
+  /**
+   * [toggle description]
+   * @return {[type]} [description]
+   */
   toggle: function() {
     if (this.state == 'open') {
       this.setState('close');
@@ -391,6 +377,10 @@ module.exports = new Class({
     this.fireEvent('toggle');
   },
 
+  /**
+   * [toggleFold description]
+   * @return {[type]} [description]
+   */
   toggleFold: function() {
     if (this.state == 'folded') {
       this.setState('unfolded');
@@ -401,7 +391,10 @@ module.exports = new Class({
     this.fireEvent('toggle');
   },
 
-
+  /**
+   * [hide description]
+   * @return {[type]} [description]
+   */
   hide: function() {
     clearTimeout(this.timer);
     this.timer = (function() {
@@ -409,22 +402,38 @@ module.exports = new Class({
     }).delay(this.options.timerOnHide, this);
   },
 
+  /**
+   * [hideNow description]
+   * @return {[type]} [description]
+   */
   hideNow: function() {
     this.close();
   },
 
+  /**
+   * [shut description]
+   * @return {[type]} [description]
+   */
   shut: function() {
     this.setState('close');
 
     this.fireEvent('closed');
   },
 
+  /**
+   * [close description]
+   * @return {[type]} [description]
+   */
   close: function() {
     this.setState('close');
 
     this.fireEvent('closed');
   },
 
+  /**
+   * [open description]
+   * @return {[type]} [description]
+   */
   open: function() {
     this.setState('open');
 
