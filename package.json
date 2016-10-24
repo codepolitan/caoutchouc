@@ -1,7 +1,16 @@
 {
   "name": "caoutchouc",
   "version": "1.5.1",
-  "description": " A Set of Mootools UI Components",
+  "description": "A Set of Mootools UI Components",
+  "homepage": "https://github.com/codepolitan/caoutchouc#readme",
+  "license": "MIT",
+  "author": "Code Politan <codepolitan@gmail.com>",
+  "contributors": [
+    "Bruno Santos <santos@evok.com>"
+  ],
+  "bugs": {
+    "url": "https://github.com/codepolitan/caoutchouc/issues"
+  },
   "main": "index.js",
   "scripts": {
     "lessc": "lessc src/skin/material/material.less dist/skin/material.css",
@@ -11,12 +20,6 @@
     "type": "git",
     "url": "git+https://github.com/codepolitan/caoutchouc.git"
   },
-  "author": "Code Politan <codepolitan@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/codepolitan/caoutchouc/issues"
-  },
-  "homepage": "https://github.com/codepolitan/caoutchouc#readme",
   "devDependencies": {
     "babel-core": "^6.16.0",
     "babel-loader": "^6.2.5",

@@ -25,7 +25,7 @@ var commonConfig = {
     path: 'dist/',
     filename: '[name].js',
     libraryTarget: 'umd',
-    library: ['ui', '[name]'],
+    library: ['caoutchouc', '[name]'],
     umdNamedDefine: true
   },
 
@@ -55,6 +55,9 @@ var commonConfig = {
     }, {
       test: __dirname + '/vendor/mootools-pack/DatePicker',
       loader: 'exports?Picker'
+    }, {
+      test: __dirname + '/vendor/mootools-pack/iMask/iMask-lib',
+      loader: 'exports?Imask=imask'
     }]
   },
 
@@ -66,12 +69,13 @@ var commonConfig = {
     extensions: ['.jsx', '.js', ''],
     alias: {
       vendor: __dirname + '/vendor',
-      debug: 'vendor/minimal-debug/dist/debug',
+      'js-debugger': 'vendor/js-debugger/dist/js-debugger',
       imask: 'vendor/mootools-pack/iMask/iMask-lib',
       'languages-en': 'vendor/minimal-languages/src/control/en',
       'languages-fn': 'vendor/minimal-languages/src/control/fr',
       mustache: 'vendor/mustache.js/mustache',
-      utils: 'vendor/minimal-utils/src',
+      'minimal-utils': 'vendor/minimal-utils/dist/minimal-utils',
+      'minimal-binding': 'vendor/minimal-binding/dist/minimal-binding',
       ScrollSpy: 'vendor/ScrollSpy/Source/ScrollSpy',
       DatePicker: 'vendor/mootools-pack/DatePicker',
       moment: 'vendor/moment/min/moment-with-langs',
@@ -89,13 +93,13 @@ module.exports = [
   Object.assign({}, commonConfig, {
     name: 'all',
 
-    entry: 'index.js',
+    entry: ['index.js'],
 
     output: {
       path: 'dist/',
-      filename: 'all.js',
+      filename: 'caoutchouc.js',
       libraryTarget: 'umd',
-      library: 'ui',
+      library: 'caoutchouc',
       umdNamedDefine: true
     },
 
