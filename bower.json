@@ -16,7 +16,6 @@
   ],
   "dependencies": {
     "moment": "https://github.com/moment/moment.git#2.5.1",
-    "js-logger": "https://github.com/jonnyreeves/js-logger.git#v1.2.0",
     "minimal-languages": "git@git.evok.ch:minimal/minimal-languages.git#develop",
     "minimal-utils": "git@git.evok.ch:minimal/minimal-utils.git#develop",
     "minimal-binding": "git@git.evok.ch:minimal/minimal-binding.git#develop",

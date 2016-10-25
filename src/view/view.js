@@ -1,3 +1,4 @@
+import 'js-debugger';
 import UIContainer from '../container/container';
 import Layout from '../layout/layout';
 import Toolbar from '../toolbar/toolbar';

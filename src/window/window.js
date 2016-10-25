@@ -1,16 +1,10 @@
-/**
- * UI Window Class
- * @class UI.Window
- * @extends {UI.Container}
- * @type {Class}
- */
-var Controller = require('window/controller');
-var Container = require('container/container');
-var ButtonControl = require('control/button');
+import Controller from './controller';
+import Container from '../container/container';
+import ButtonControl from '../control/button';
 
-var _log = __debug('ui-window').defineLevel();
+const _log = __debug('ui-window').defineLevel();
 
-var Win = new Class({
+export default new Class({
 
   Extends: Container,
 
@@ -511,5 +505,3 @@ var Win = new Class({
   }
 
 });
-
-module.exports = Win;
