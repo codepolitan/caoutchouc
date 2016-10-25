@@ -1,6 +1,7 @@
 'use strict';
 
 var webpack = require('webpack');
+var prod = process.argv.indexOf('-p') !== -1;
 
 // get entry and chunks
 var entry = {};
@@ -17,8 +18,6 @@ data.map(function(obj, idx) {
     chunks.push(key);
   }
 });
-
-console.log('entry', entry);
 
 var commonConfig = {
   context: __dirname + '/src',
@@ -37,6 +36,8 @@ var commonConfig = {
     moment: 'moment',
   },
 
+  devtool: (prod ? undefined : 'eval-source-map'),
+
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
       name: 'index',
@@ -44,8 +45,6 @@ var commonConfig = {
       //minChunks: Infinity,
       chunks: chunks,
     }),
-    //new webpack.optimize.UglifyJsPlugin(),
-    //new webpack.HotModuleReplacementPlugin(),
   ],
 
   module: {
@@ -69,12 +68,8 @@ var commonConfig = {
     }]
   },
 
-  //debug: true,
-  //devtool: 'eval',
-
   resolve: {
     modulesDirectories: ['node_modules', 'src'],
-    extensions: ['.jsx', '.js', ''],
     alias: {
       vendor: __dirname + '/vendor',
       'minimal-languages': 'vendor/minimal-languages/dist',
