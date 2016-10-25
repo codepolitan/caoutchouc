@@ -13,6 +13,7 @@
   },
   "main": "index.js",
   "scripts": {
+    "uglify": "uglifyjs-folder dist -eo dist",
     "lessc": "lessc src/skin/material/material.less dist/skin/material.css",
     "watch": "watch 'npm run lessc' src/skin"
   },
