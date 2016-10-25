@@ -1,4 +1,4 @@
-import api from '../utils/api';
+import { api } from 'minimal-utils';
 
 const _log = __debug('ui-layout-component').defineLevel();
 

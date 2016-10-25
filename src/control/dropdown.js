@@ -1,4 +1,4 @@
-import api from '../utils/api';
+import { api } from 'minimal-utils';
 import Field from './field';
 import ButtonControl from './button';
 import ButtonMenu from './button-menu';
