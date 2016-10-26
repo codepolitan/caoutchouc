@@ -58,10 +58,10 @@ export default new Class({
       scrollTop: true
     },
 
-    /*options to use mnml template module*/
+    // options to use template module
     useTemplateModule: true,
 
-    /*options to use multiple selection*/
+    // options to use multiple selection
     multipleSelect: false,
 
     selectable: true,
