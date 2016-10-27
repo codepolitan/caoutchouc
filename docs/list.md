@@ -9,6 +9,30 @@ Import the view.
 import { List } from 'caoutchouc';
 ```
 
+## Example
+
+```js
+    new UI.List({
+        container: this.layout.main
+      })
+      .set('list', [{
+        _id: 'item 1',
+        name: 'item 1'
+      }, {
+        _id: 'item 2',
+        name: 'item 2'
+      }, {
+        _id: 'item 3',
+        name: 'item 3'
+      }, {
+        _id: 'item 4',
+        name: 'item 4'
+      }, {
+        _id: 'item 5',
+        name: 'item 5'
+      }]);
+```
+
 ## Options
 
 Object with the following properties.

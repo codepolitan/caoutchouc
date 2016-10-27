@@ -44,6 +44,5 @@ Thumbs.db
 sftp-config.json
 node_modules
 *.codekit
-docs
 dist
 vendor
