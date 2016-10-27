@@ -79,12 +79,14 @@ export default new Class({
   /**
    * used to set a complete list, can't set a range after
    * @param {Array} list
-   * @return {void}
+   * @return {Object} this
    */
   _setList: function(list) {
     _log.debug('_setList', list);
 
     this._makeVirtual(list, 1, list.length);
+
+    return this;
   },
 
   /**
