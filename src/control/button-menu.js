@@ -2,6 +2,7 @@ import Button from './button';
 import fontIconConfig from './separator';
 import scriptjs from 'scriptjs';
 import 'icon/control';
+import * as UI from '../index';
 
 const _log = __debug('ui-control-buttonMenu');
 
@@ -153,7 +154,7 @@ export default new Class({
       return;
     }
 
-    if (clss === 'ui/button' || clss === 'ui/button-menu') {
+    if (clss === 'ui/button' || clss === 'ui/buttonmenu') {
       opts.text = def.text || Locale.get('control.' + name, name) || name;
     }
 
@@ -194,9 +195,8 @@ export default new Class({
       return;
     }
 
-    scriptjs([module], function(Class) {
-      cb(Class);
-    });
+    var Class = UI[module.replace('ui/', '').capitalize()];
+    cb(Class);
   },
 
   /**
