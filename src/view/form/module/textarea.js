@@ -382,7 +382,7 @@ export default new Class({
    * @return {void}
    */
   _initCodeMirror: function(field, textarea) {
-    console.log('_initCodeMirror');
+    _log.debug('_initCodeMirror');
     var self = this;
 
     scriptjs([
@@ -399,7 +399,7 @@ export default new Class({
    * @return {void}
    */
   _initCodeMirrorPlugIn: function(field, textarea) {
-    console.log('_initCodeMirrorPlugIn');
+    _log.debug('_initCodeMirrorPlugIn');
     var self = this;
 
     scriptjs([
