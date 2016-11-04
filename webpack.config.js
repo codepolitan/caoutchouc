@@ -44,7 +44,7 @@ var commonConfig = {
       filename: 'index.js',
       //minChunks: Infinity,
       chunks: chunks,
-    }),
+    })
   ],
 
   module: {
@@ -57,14 +57,14 @@ var commonConfig = {
         presets: ['es2015']
       }
     }, {
-      test: __dirname + '/vendor/mootools-pack/iMask',
-      loader: 'exports?iMask'
+      test: __dirname + '/vendor/mootools-pack/DatePicker/Picker.Attach',
+      loader: 'imports?Picker=Picker'
     }, {
-      test: __dirname + '/vendor/mootools-pack/DatePicker',
-      loader: 'exports?Picker'
+      test: __dirname + '/vendor/mootools-pack/DatePicker/Picker.Date',
+      loader: 'imports?Picker=Picker'
     }, {
-      test: __dirname + '/vendor/mootools-pack/iMask/iMask-lib',
-      loader: 'exports?Imask=imask'
+      test: require.resolve(__dirname + '/vendor/mootools-pack/iMask/iMask-lib'),
+      loader: 'expose-loader?iMask!exports?iMask'
     }]
   },
 
@@ -79,10 +79,9 @@ var commonConfig = {
       mustache: 'vendor/mustache.js/mustache',
       ScrollSpy: 'vendor/ScrollSpy/Source/ScrollSpy',
       moment: 'vendor/moment/min/moment-with-langs',
-      moment_fr: 'vendor/moment/lang/fr',
-      moment_de: 'vendor/moment/lang/de',
+      'moment-lang': 'vendor/moment/lang',
       scriptjs: 'vendor/script.js/dist/script',
-      imask: 'vendor/mootools-pack/iMask/iMask-lib',
+      iMask: 'vendor/mootools-pack/iMask/iMask-lib',
       DatePicker: 'vendor/mootools-pack/DatePicker',
     }
   }

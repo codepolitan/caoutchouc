@@ -25,6 +25,6 @@
     "codemirror": "https://github.com/codemirror/CodeMirror.git#3.19.0",
     "mootools-pack": "git@git.evok.ch:evok-dev/mootools-pack.git#develop",
     "mustache.js": "https://github.com/janl/mustache.js.git#2.1.3",
-    "script.js": "2.5.8"
+    "script.js": "https://github.com/ded/script.js.git#2.5.8"
   }
 }
