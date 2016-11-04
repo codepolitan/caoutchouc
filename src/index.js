@@ -84,7 +84,7 @@ export {
 from './control/date';
 
 export {
-  default as ButtonMenu
+  default as Buttonmenu
 }
 from './control/button-menu';
 
