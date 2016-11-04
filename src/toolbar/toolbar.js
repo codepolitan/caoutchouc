@@ -1,3 +1,4 @@
+import { array } from 'minimal-utils';
 import controlIcon from '../icon/control';
 import langControlsConfigEn from 'minimal-languages/control/en';
 import langControlsConfigFr from 'minimal-languages/control/fr';
@@ -32,6 +33,13 @@ export default new Class({
     if (!obj.list) {
       _log.warn('missing list field');
       return;
+    }
+
+    // more needs to be instantiated first
+    // because other controls depend on it
+    var moreIdx = obj.list.indexOf('more');
+    if (moreIdx > 0) {
+      array.move(obj.list, moreIdx, 0);
     }
 
     this._initToolbarReady(obj);
@@ -179,14 +187,13 @@ export default new Class({
       text = this.langControl[lang][name] || def.text;
     }
 
-    if (clss === 'ui/button' || clss === 'ui/button-menu') {
+    if (clss === 'ui/button' || clss === 'ui/buttonmenu') {
       opts.text = this.langControl[lang][name] || Locale.get('control.' + name, name) || text || name;
     }
 
     var isAllow = this._isAllow(name);
 
     if (isAllow) {
-      _log.debug('require module', name, clss, opts);
       this._requireModule(clss, function(Clss) {
         self._initToolbarControl(Clss, name, clss, opts, element);
       });
@@ -294,7 +301,7 @@ export default new Class({
       });
     }
 
-    if (clss === 'ui/button-menu') {
+    if (clss === 'ui/buttonmenu') {
       self.control[name].addEvents({
         /**
          * @ignore
@@ -384,10 +391,6 @@ export default new Class({
 
     var Class = UI[module.replace('ui/', '').capitalize()];
     cb(Class);
-
-    /*scriptjs([module], function(Class) {
-      cb(Class);
-    });*/
   }
 
 });
