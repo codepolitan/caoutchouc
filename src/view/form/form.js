@@ -467,9 +467,9 @@ export default new Class({
     }
 
     var process = window.datatype[info.type + '/_process'];
-    if (process[info.kind] && process[info.kind].patch) {
+    if (process && process[info.kind] && process[info.kind].patch) {
       info = process[info.kind].patch(info);
-    } else if (process.patch) {
+    } else if (process && process.patch) {
       info = process.patch(info);
     }
 
