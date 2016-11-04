@@ -386,8 +386,8 @@ export default new Class({
     var self = this;
 
     scriptjs([
-      'https://cdnjs.cloudflare.com/ajax/libs/codemirror/3.19.0/codemirror.min.js'
-    ], function(a, b) {
+      'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.20.2/codemirror.min.js'
+    ], function() {
       self._initCodeMirrorPlugIn(field, textarea);
     });
   },
@@ -403,8 +403,8 @@ export default new Class({
     var self = this;
 
     scriptjs([
-      'https://cdnjs.cloudflare.com/ajax/libs/codemirror/3.19.0/mode/javascript/javascript.min.js',
-      'https://cdnjs.cloudflare.com/ajax/libs/codemirror/3.19.0/mode/htmlmixed/htmlmixed.min.js'
+      'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.20.2/mode/javascript/javascript.min.js',
+      'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.20.2/mode/htmlmixed/htmlmixed.min.js'
     ], function() {
       self._initCodeField(field, textarea);
     });
