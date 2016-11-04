@@ -111,7 +111,6 @@ export default new Class({
 
   _initCKEDITOR: function(field, doc, group) {
     _log.debug('_initCKEDITOR');
-
     var self = this;
 
     scriptjs(['/vendor/ckeditor/ckeditor.js'], function() {
@@ -383,9 +382,12 @@ export default new Class({
    * @return {void}
    */
   _initCodeMirror: function(field, textarea) {
+    console.log('_initCodeMirror');
     var self = this;
 
-    scriptjs(['/vendor/codemirror/lib/codemirror.js'], function() {
+    scriptjs([
+      'https://cdnjs.cloudflare.com/ajax/libs/codemirror/3.19.0/codemirror.min.js'
+    ], function(a, b) {
       self._initCodeMirrorPlugIn(field, textarea);
     });
   },
@@ -397,11 +399,12 @@ export default new Class({
    * @return {void}
    */
   _initCodeMirrorPlugIn: function(field, textarea) {
+    console.log('_initCodeMirrorPlugIn');
     var self = this;
 
     scriptjs([
-      '/vendor/codemirror/mode/javascript/javascript.js',
-      '/vendor/codemirror/mode/htmlmixed/htmlmixed.js'
+      'https://cdnjs.cloudflare.com/ajax/libs/codemirror/3.19.0/mode/javascript/javascript.min.js',
+      'https://cdnjs.cloudflare.com/ajax/libs/codemirror/3.19.0/mode/htmlmixed/htmlmixed.min.js'
     ], function() {
       self._initCodeField(field, textarea);
     });
@@ -409,7 +412,6 @@ export default new Class({
 
   /**
    * Initialize html field using CKEDITOR.replace
-   *
    * @todo Make it work
    */
   /*_initHTMLField: function(field, textarea) {

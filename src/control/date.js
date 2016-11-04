@@ -1,9 +1,10 @@
 import Field from './field';
 import moment from 'moment';
-import Picker from 'DatePicker/Picker';
-/*require('imports?Picker=DatePicker/Picker!DatePicker/Picker.Attach');
-require('imports?Picker=DatePicker/Picker!DatePicker/Picker.Date');
-require('imports?Picker=DatePicker/Picker!DatePicker/Locale.en-US.DatePicker');*/
+
+import 'DatePicker/Locale.en-US.DatePicker';
+import 'expose?Picker!exports?Picker!DatePicker/Picker';
+import 'DatePicker/Picker.Attach';
+import 'DatePicker/Picker.Date';
 
 const _log = __debug('ui-control-date').defineLevel();
 

@@ -1,6 +1,5 @@
 import moment from 'moment';
-import mustache from 'mustache';
-import iMask from 'imask';
+import iMask from 'iMask';
 import ButtonControl from '../../control/button';
 import FieldControl from '../../control/field';
 //var settings = require('core/module/settings/settings');
