@@ -16,9 +16,9 @@
   ],
   "dependencies": {
     "moment": "https://github.com/moment/moment.git#2.5.1",
-    "minimal-languages": "git@git.evok.ch:minimal/minimal-languages.git#develop",
-    "minimal-utils": "git@git.evok.ch:minimal/minimal-utils.git#develop",
-    "minimal-binding": "git@git.evok.ch:minimal/minimal-binding.git#develop",
+    "minimal-languages": "git@git.evok.ch:evok-dev/minimal-languages.git#develop",
+    "minimal-utils": "git@git.evok.ch:evok-dev/minimal-utils.git#develop",
+    "minimal-binding": "git@git.evok.ch:evok-dev/minimal-binding.git#develop",
     "js-debugger": "https://github.com/PertapaCode/js-debugger.git#develop",
     "ScrollSpy": "https://github.com/darkwing/ScrollSpy.git#1.5",
     "ckeditor": "https://github.com/ckeditor/ckeditor-releases.git#full/4.5.9",
