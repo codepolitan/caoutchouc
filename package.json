@@ -15,7 +15,8 @@
   "scripts": {
     "uglify": "uglifyjs-folder dist -eo dist",
     "lessc": "lessc src/skin/material/material.less dist/skin/material.css",
-    "watch": "watch 'npm run lessc' src/skin"
+    "watch": "watch 'npm run lessc' src/skin",
+    "build": "rm -rf dist && webpack -p && git add -f dist/* && git commit -am 'build'"
   },
   "repository": {
     "type": "git",
