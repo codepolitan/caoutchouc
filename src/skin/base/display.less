@@ -1,0 +1,64 @@
+.ui-container.container-desk > .container-head {
+  display: none;
+}
+
+.app-planning {
+  .ui-container.container-navi {
+    display: none;
+  }
+  .container-head {
+    display: none;
+  }
+  .ui-container.container-side {
+    display: none;
+  }
+  .container-foot {
+    display: none;
+  }
+  table.planning {
+    .task {
+      font-size: 1em;
+      margin-bottom: 4px;
+      cursor: default;
+      .place,
+      .description {
+        display: none
+      }
+    }
+    .task.special {
+      &:last-child {
+        border: 1px solid rgba(0, 0, 0, .1);
+      }
+    }
+    tr {
+      td.resource {
+        font-size: 13px;
+        color: #000;
+      }
+    }
+    tr {
+      &.hightlight {
+        background: none;
+        border: none;
+        .resource {
+          background: none;
+          border: none;
+          color: #000;
+        }
+      }
+      td.cell {
+        font-size: 12px;
+        &.selected {
+          background-color: transparent;
+        }
+      }
+    }
+    tr.planning-level2 {
+      padding: 0;
+      td.planning-level2-title {
+        font-size: 1em;
+        padding: 2px 2px 2px 8px;
+      }
+    }
+  }
+}

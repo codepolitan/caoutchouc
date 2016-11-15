@@ -14,9 +14,12 @@
   "main": "index.js",
   "scripts": {
     "uglify": "uglifyjs-folder dist -eo dist",
-    "lessc": "lessc src/skin/material/material.less dist/skin/material.css",
-    "watch": "watch 'npm run lessc' src/skin",
-    "build": "rm -rf dist && webpack -p && git add -f dist/* && git commit -am 'build'"
+    "build:js": "rm -rf dist && webpack -p && git add -f dist/* && git commit -am 'build'",
+    "build:less": "npm run build:less:material && npm run build:less:floor && npm run build:less:print",
+    "build:less:material": "lessc src/skin/material/material.less dist/skin/material.css",
+    "build:less:floor": "lessc src/skin/floor/floor.less dist/skin/floor.css",
+    "build:less:print": "lessc src/skin/base/print.less dist/skin/print.css",
+    "watch": "watch 'npm run build:less' src/skin"
   },
   "repository": {
     "type": "git",
