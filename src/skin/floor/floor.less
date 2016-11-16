@@ -1,0 +1,138 @@
+.ui-toolbar .ui-button > .ui-icon {
+  padding: 3px 0;
+  margin: 4px 3px;
+}
+
+.ui-button {
+  //display: inline-block;
+  color: rgb(136, 136, 136);
+  //border: none;
+  //cursor: default;
+  //text-align: center;
+  //padding: 1px 4px;
+  //border-radius: 3px;
+  //background-color: rgba(0, 0, 0, 0);
+  //margin: 4px 2px;
+  line-height: .65em;
+  //vertical-align: bottom;
+  &.type-action .ui-text {
+    display: block;
+    font-size: .7em;
+  }
+  &.type-action {
+    border-radius: 3px;
+  }
+  .ui-icon {
+    font-size: 1.3em;
+    //color: rgb(153, 153, 153);
+    //display: inline-block;
+    //z-index: 2;
+    //padding: 6px 4px;
+  }
+}
+
+.ui-toolbar .is-text {
+  &.ui-toolbar .ui-button > .ui-icon {
+    padding: 0;
+    margin: 1px 3px;
+  }
+  &.ui-button {
+    //color: rgb(136, 136, 136);
+    //line-height: .65em;
+    &.type-action .ui-text {
+      display: inline-block;
+      font-size: 1.1em;
+    }
+    &.type-action {
+      border-radius: 2px;
+    }
+    .ui-icon {
+      //font-size: 1.3em;
+    }
+  }
+}
+
+.ui-toolbar .is-primary {
+  &.ui-toolbar .ui-button > .ui-icon {
+    //padding: 3px 0;
+    //margin: 4px 3px;
+  }
+  &.ui-button {
+    //color: rgb(136, 136, 136);
+    //line-height: .65em;
+    &.type-action .ui-text {
+      display: none;
+      //font-size: .7em;
+    }
+    &.type-action {
+      //border-radius: 3px;
+    }
+    .ui-icon {
+      padding: 0;
+      margin: 1px 3px;
+    }
+  }
+}
+
+.container-foot {
+  .ui-toolbar .ui-button > .ui-icon {
+    padding: 0;
+    margin: 1px 3px;
+  }
+  .ui-button {
+    color: rgb(255, 255, 255);
+    line-height: initial;
+    &.type-action .ui-text {
+      display: none;
+    }
+    &.type-action {
+      border-radius: 50%;
+    }
+    .ui-icon {
+      font-size: 1.7em;
+    }
+  }
+}
+
+
+/*.ui-window {
+	.ui-toolbar .ui-button > .ui-icon {
+		padding: 0;
+		margin: 1px 3px;
+	}
+	.ui-button {
+	    color: rgb(117, 117, 117);
+		line-height: initial;
+		&.type-action .ui-text {
+			//display: none;
+		}
+		&.type-action {
+			//border-radius: 50%;
+		}
+		.ui-icon {
+			font-size: 1.7em;
+		}
+	}
+}*/
+
+.container-desk {
+  >.container-head {
+    .ui-toolbar .ui-button > .ui-icon {
+      padding: 0;
+      margin: 1px 3px;
+    }
+    .ui-button {
+      color: rgb(255, 255, 255);
+      line-height: initial;
+      &.type-action .ui-text {
+        display: none;
+      }
+      &.type-action {
+        border-radius: 50%;
+      }
+      .ui-icon {
+        font-size: 1.7em;
+      }
+    }
+  }
+}

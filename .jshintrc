@@ -4,7 +4,6 @@
   "mootools": true,
   "node": true,
   "globals": {
-    "define": true,
     "_log": true,
     "__debug": true
   }
