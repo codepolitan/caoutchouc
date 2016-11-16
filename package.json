@@ -26,10 +26,13 @@
     "type": "git",
     "url": "git+https://github.com/codepolitan/caoutchouc.git"
   },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
-    "minimal-languages": "git+ssh://git@git.evok.ch:evok-dev/minimal-languages.git#1.3.0",
-    "minimal-utils": "git+ssh://git@git.evok.ch:evok-dev/minimal-utils.git#1.2.0",
-    "minimal-binding": "git+ssh://git@git.evok.ch:evok-dev/minimal-binding.git#1.2.0",
+    "minimal-languages": "git+ssh://git@git.evok.ch:evok-dev/minimal-languages.git#1.3.1",
+    "minimal-utils": "git+ssh://git@git.evok.ch:evok-dev/minimal-utils.git#1.2.1",
+    "minimal-binding": "git+ssh://git@git.evok.ch:evok-dev/minimal-binding.git#1.2.1",
     "mootools-pack": "git+ssh://git@git.evok.ch:evok-dev/mootools-pack.git#v0.1.0",
     "js-debugger": "https://github.com/PertapaCode/js-debugger.git#develop",
     "moment": "https://github.com/moment/moment.git#2.5.1",
