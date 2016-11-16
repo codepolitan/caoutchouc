@@ -57,13 +57,13 @@ var commonConfig = {
         presets: ['es2015']
       }
     }, {
-      test: __dirname + '/vendor/mootools-pack/DatePicker/Picker.Attach',
+      test: __dirname + '/node_modules/mootools-pack/DatePicker/Picker.Attach',
       loader: 'imports?Picker=Picker'
     }, {
-      test: __dirname + '/vendor/mootools-pack/DatePicker/Picker.Date',
+      test: __dirname + '/node_modules/mootools-pack/DatePicker/Picker.Date',
       loader: 'imports?Picker=Picker'
     }, {
-      test: require.resolve(__dirname + '/vendor/mootools-pack/iMask/iMask-lib'),
+      test: require.resolve(__dirname + '/node_modules/mootools-pack/iMask/iMask-lib'),
       loader: 'expose-loader?iMask!exports?iMask'
     }]
   },
@@ -71,18 +71,18 @@ var commonConfig = {
   resolve: {
     modulesDirectories: ['node_modules', 'src'],
     alias: {
-      vendor: __dirname + '/vendor',
-      'minimal-languages': 'vendor/minimal-languages/dist',
-      'minimal-utils': 'vendor/minimal-utils/dist/minimal-utils',
-      'minimal-binding': 'vendor/minimal-binding/dist/minimal-binding',
-      'js-debugger': 'vendor/js-debugger/dist/js-debugger',
-      mustache: 'vendor/mustache.js/mustache',
-      ScrollSpy: 'vendor/ScrollSpy/Source/ScrollSpy',
-      moment: 'vendor/moment/min/moment-with-langs',
-      'moment-lang': 'vendor/moment/lang',
-      scriptjs: 'vendor/script.js/dist/script',
-      iMask: 'vendor/mootools-pack/iMask/iMask-lib',
-      DatePicker: 'vendor/mootools-pack/DatePicker',
+      node_modules: __dirname + '/node_modules',
+      'minimal-languages': 'node_modules/minimal-languages/dist',
+      'minimal-utils': 'node_modules/minimal-utils/dist/minimal-utils',
+      'minimal-binding': 'node_modules/minimal-binding/dist/minimal-binding',
+      'js-debugger': 'node_modules/js-debugger/dist/js-debugger',
+      mustache: 'node_modules/mustache/mustache',
+      ScrollSpy: 'node_modules/ScrollSpy/Source/ScrollSpy',
+      moment: 'node_modules/moment/min/moment-with-langs',
+      'moment-lang': 'node_modules/moment/lang',
+      scriptjs: 'node_modules/scriptjs/dist/script',
+      iMask: 'node_modules/mootools-pack/iMask/iMask-lib',
+      DatePicker: 'node_modules/mootools-pack/DatePicker',
     }
   }
 };
