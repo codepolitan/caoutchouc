@@ -14,7 +14,7 @@ data.map(function(obj, idx) {
   if (obj.indexOf('export') === -1) {
     var file = obj;
     var key = data[idx - 1].split('as ')[1].split('\n')[0];
-    entry[key] = [file];
+    entry[key.toLowerCase()] = [file];
     chunks.push(key);
   }
 });
