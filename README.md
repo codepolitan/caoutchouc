@@ -1,4 +1,4 @@
 caoutchouc
 =======
 
-A Set of Mootools UI Components
+A collection of Mootools UI Components
