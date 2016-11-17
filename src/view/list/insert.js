@@ -73,7 +73,10 @@ export default new Class({
     // return if there is a search or filter result in the list
     // maybe the list should be updated
     // if the info is part of the search/filter result
-    if (this._tempCache.length !== this.virtualList.length) {
+    // this is generating strange behaviors
+    // possible solution (but not complety related):
+    // a new info should be added from outside the list
+    if (this._tempCache.length && this._tempCache.length !== this.virtualList.length) {
       return;
     }
 
