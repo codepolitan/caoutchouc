@@ -3821,6 +3821,228 @@ body ::-webkit-scrollbar-thumb {
 .container-template .view-detail form {
   margin-bottom: 0;
 }
+.ui-container.theme-dark {
+  background-color: #444444;
+}
+.ui-container.theme-dark.container-list {
+  border-right-color: rgba(0, 0, 0, 0.2);
+}
+.ui-container.theme-dark.container-navi {
+  border-right-color: rgba(0, 0, 0, 0.2);
+}
+.ui-container.theme-dark a {
+  color: #888888;
+}
+.ui-container.theme-dark > .container-foot {
+  background-color: transparent;
+}
+.ui-container.theme-dark > .container-head {
+  background-color: transparent;
+}
+.ui-container.theme-dark > .container-head .toolbar-dialog {
+  background-color: #444444;
+}
+.ui-container.theme-dark .head-filter {
+  background-color: rgba(0, 0, 0, 0.01);
+  border-bottom-color: rgba(0, 0, 0, 0.03);
+}
+.ui-container.theme-dark .ui-container {
+  background-color: transparent;
+}
+.ui-container.theme-dark .ui-container > .container-head {
+  background-color: transparent;
+}
+.ui-container.theme-dark .ui-container > .container-body {
+  background-color: transparent;
+}
+.ui-container.theme-dark ul.collapse li .line .label[contenteditable=true] {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+.ui-container.theme-dark ul.tree li.selected > span {
+  color: #ffffff;
+  background-color: rgba(113, 211, 126, 0.5);
+}
+.ui-container.theme-dark ul.tree li.selected > .line .label {
+  color: rgba(255, 255, 255, 0.9);
+}
+.ui-container.theme-dark ul.tree li.selected > .line .count {
+  color: rgba(255, 255, 255, 0.9);
+}
+.ui-container.theme-dark ul.collapse a.expand {
+  color: rgba(113, 211, 126, 0.5);
+}
+.ui-container.theme-dark ul.tree li > span.count {
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.3);
+}
+.ui-container.theme-dark .ui-toolbar.toolbar-cke {
+  background-color: transparent;
+}
+.ui-container.theme-dark .view-form.container-body .form-fieldset .group .ui-field.field-html > div {
+  color: rgba(255, 255, 255, 0.9);
+}
+.ui-container.theme-dark .view-form.container-body .form-fieldset .group .form-list .list-item .ui-key {
+  color: rgba(255, 255, 255, 0.9);
+}
+.ui-container.theme-dark .ui-item {
+  color: #888888;
+}
+.ui-container.theme-dark .ui-item.item-selected,
+.ui-container.theme-dark .ui-item.is-selected {
+  color: #acacac;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.ui-container.theme-dark .ui-item.type-check.item-selected {
+  color: #acacac;
+  background-color: transparent;
+}
+.ui-container.theme-dark .ui-field label {
+  color: #888888;
+}
+.ui-container.theme-dark input {
+  color: rgba(255, 255, 255, 0.9);
+}
+.ui-container.theme-dark .ui-search {
+  color: #888888;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.ui-container.theme-dark textarea,
+.ui-container.theme-dark input[type=text],
+.ui-container.theme-dark input[type=password] {
+  background-color: transparent;
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+.ui-container.theme-dark textarea::-webkit-input-placeholder,
+.ui-container.theme-dark input[type=text]::-webkit-input-placeholder,
+.ui-container.theme-dark input[type=password]::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+.ui-container.theme-dark textarea:-moz-placeholder,
+.ui-container.theme-dark input[type=text]:-moz-placeholder,
+.ui-container.theme-dark input[type=password]:-moz-placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+.ui-container.theme-dark textarea::-moz-placeholder,
+.ui-container.theme-dark input[type=text]::-moz-placeholder,
+.ui-container.theme-dark input[type=password]::-moz-placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+.ui-container.theme-dark textarea:-ms-input-placeholder,
+.ui-container.theme-dark input[type=text]:-ms-input-placeholder,
+.ui-container.theme-dark input[type=password]:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+.ui-container.theme-dark .view-form.container-body .form-fieldset .group .form-list label {
+  color: #888888;
+}
+.ui-container.theme-trans {
+  background-color: transparent;
+}
+.ui-container.theme-trans > .container-head,
+.ui-container.theme-trans .container-foot {
+  background-color: rgba(0, 0, 0, 0.8);
+  background-color: #eaeaea;
+}
+.ui-container.theme-trans.state-focus > .container-head,
+.ui-container.theme-trans.state-focus .container-foot {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.ui-container.theme-trans.state-focus > .minimal-view {
+  background-color: #eaeaea;
+}
+.ui-container.theme-trans .minimal-view {
+  color: rgba(255, 255, 255, 0.9);
+  background-color: #eaeaea;
+}
+.ui-container.theme-trans .minimal-view input[type='text'] {
+  color: #ffffff;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1em;
+}
+.ui-container.theme-trans .minimal-view input[type='text']::-webkit-input-placeholder {
+  color: rgba(0, 0, 0, 0.2);
+}
+.ui-container.theme-trans .minimal-view input[type='text']:-moz-placeholder {
+  color: rgba(0, 0, 0, 0.2);
+}
+.ui-container.theme-trans .minimal-view input[type='text']::-moz-placeholder {
+  color: rgba(0, 0, 0, 0.2);
+}
+.ui-container.theme-trans .minimal-view input[type='text']:-ms-input-placeholder {
+  color: rgba(0, 0, 0, 0.2);
+}
+.ui-container.theme-trans .minimal-view .list-item.item-selected {
+  background-color: rgba(0, 134, 202, 0.5);
+}
+.ui-container.theme-trans ul.tree li.selected > span {
+  color: #ffffff;
+  background-color: rgba(113, 211, 126, 0.5);
+}
+.ui-container.theme-trans .view-tree ul.tree li > span.count {
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.3);
+}
+.ui-container.theme-trans ul.collapse a.expand {
+  display: inline-block;
+  color: rgba(113, 211, 126, 0.5);
+}
+.ui-container.theme-trans ul.collapse a.expand:before {
+  content: "\f0fe";
+}
+.ui-container.theme-trans .ui-window {
+  background-color: #eaeaea;
+}
+.ui-container.theme-trans .ui-window > .container-head {
+  background-color: #eaeaea;
+}
+.ui-container.theme-trans .ui-window > .container-foot {
+  background-color: #eaeaea;
+}
+.ui-container.theme-trans .view-detail .ui-apply.ui-button {
+  background-color: orange;
+}
+.ui-container.theme-trans .view-detail .ui-apply.ui-button.state-active {
+  background-color: orange;
+}
+.ui-container.theme-trans .ui-container > .container-head .ui-search input {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.ui-container.theme-trans .view-detail .fieldset .group .ui-field textarea {
+  color: #ffffff;
+}
+.ui-container.theme-trans .ui-choice {
+  display: inline-block;
+  vertical-align: top;
+}
+.ui-container.theme-trans .ui-choice input {
+  display: none;
+}
+.ui-container.theme-trans .ui-choice .choice-wrapper {
+  display: none;
+}
+.ui-container.theme-trans .ui-choice .choice-list li.selected {
+  color: #ffffff;
+  background-color: rgba(0, 134, 202, 0.5);
+}
+.ui-container.theme-trans .ui-tab .tab-bar .ui-button {
+  margin-left: 3px;
+}
+.ui-container.theme-trans .ui-tab .tab-bar .ui-button.state-active {
+  background-color: #444;
+  border-radius: 3px;
+}
+.ui-container.theme-trans .ui-field input[type=text]::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+.ui-container.theme-trans ui-field input[type=text]:-moz-placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+.ui-container.theme-trans ui-field input[type=text]::-moz-placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+.ui-container.theme-trans .ui-field input[type=text]:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
 .ct-chart .ct-label,
 .ct-chart .ct-label.ct-horizontal {
   display: block;
@@ -8379,6 +8601,14 @@ form .fieldset .group .ui-field {
 .ui-container.container-tree > .container-head {
   display: none;
 }
+.container-list {
+  /*width: @list-width;
+  min-width: @list-min-width;
+  border-right: 1px solid @border;
+  &.container-max {
+   margin: 0 60px;
+  }*/
+}
 .container-three {
   width: 300px;
   min-width: 80px;
@@ -8590,9 +8820,14 @@ form .fieldset .group .ui-field {
   top: 0;
   right: 0;
 }
-.ui-container.state-focus {
-  background-color: #ffffff;
+/*.container-info > .container-head {
+ z-index: 2;
+ box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
+.container-list > .container-head {
+ z-index: 2;
+ box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}*/
 .ui-container.state-focus > .container-head {
   background-color: #d6d6d6;
 }

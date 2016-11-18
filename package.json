@@ -15,7 +15,8 @@
   "scripts": {
     "install": "git clone https://github.com/darkwing/ScrollSpy.git -b 1.5 node_modules/ScrollSpy",
     "uglify": "uglifyjs-folder dist -eo dist",
-    "build:js": "rm -rf dist && webpack -p && git add -f dist/* && git commit -am 'build'",
+    "build": "npm run build:js && npm run build:css && git add -f dist/* && git commit -am 'build'",
+    "build:js": "rm -rf dist && webpack -p",
     "build:css": "npm run build:css:material && npm run build:css:floor && npm run build:css:print",
     "build:css:material": "lessc src/skin/material/material.less dist/skin/material.css",
     "build:css:floor": "lessc src/skin/floor/floor.less dist/skin/floor.css",
