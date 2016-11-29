@@ -128,10 +128,8 @@ export default new Class({
     }
 
     for (var i = 0; i < list.length; i++) {
-      //_log.debug('--', list[i]);
       var name = list[i];
       var comp = node[name] || {};
-
 
       comp.clss = comp.clss || this.options.clss;
       comp.opts = comp.opts || {};
@@ -146,7 +144,6 @@ export default new Class({
       }
 
       if (i === list.length - 1) {
-        //_log.debug('last--', name);
         comp.opts.last = true;
       }
 

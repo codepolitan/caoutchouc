@@ -37,6 +37,7 @@ export default new Class({
     comp.opts.flex = comp.opts.flex || comp.flex;
     comp.opts.hide = comp.opts.hide || comp.hide;
     comp.opts.theme = comp.opts.theme || comp.theme;
+    comp.opts.title = comp.opts.title || comp.title;
 
     _log.debug('comp', comp.clss);
 
@@ -96,7 +97,6 @@ export default new Class({
     _log.debug('_setComponentStyles', component);
 
     if (component.options.flex) {
-      //component.element.setStyle('flex', component.options.flex);
       component.element.addClass('flex-' + component.options.flex);
     }
 
@@ -111,7 +111,8 @@ export default new Class({
    * @return {void}
    */
   _setComponentDisplay: function(component) {
-    //_log.debug('comp opts', component.options);
+    _log.debug('comp opts', component.options);
+
     var display = 'normalized';
 
     if (component.options.hide || component.options.state === 'minimized') {

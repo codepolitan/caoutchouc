@@ -2,6 +2,8 @@ import Component from '../component/component';
 import ButtonControl from '../control/button';
 import Container from './container';
 
+const _log = __debug('container-tab').defineLevel();
+
 export default new Class({
 
   Extends: Container,
@@ -20,46 +22,50 @@ export default new Class({
     }],
     comp: ['body']
   },
+
   /**
-   * [initialize description]
-   * @param  {[type]} options [description]
-   * @return {[type]}         [description]
+   * initialize
+   * @param  {Object} options
+   * @return {void}
    */
   initialize: function(options) {
+    _log.debug('initialize', options);
+
     this.list = [];
     this.components = [];
 
     this.parent(options);
-
-
   },
-  /*
-  Function: setContent
 
-  Set Content of the current container (tab)
-  */
+  /**
+   * Set Content of the current container (tab)
+   * @param {[type]} method  [description]
+   * @param {[type]} source  [description]
+   * @param {[type]} options [description]
+   */
   setContent: function(method, source, options) {
+    _log.debug('setContent', method, source, options);
     this.active.setContent(method, source, options);
   },
 
-  /*
-    Function: add
-
-      Create tab and its related container and addEvent
+  /**
+   * Create tab and its related container and addEvent
+   * @param {[type]} container [description]
+   * @param {[type]} position  [description]
    */
   addTab: function(container, position) {
-    //_log.debug('AddTab', this, container);
+    _log.debug('addTab', container, position);
+
     var self = this;
     var opts = container.options;
 
-    var text = opts.text || opts.name;
+    var text = opts.text || opts.title || opts.name;
 
     var tab = new ButtonControl({
       type: 'tab',
       text: text,
       name: opts.name,
       onPress: function(e) {
-        //_log.debug('onPress', tab ,container);
         self.activate(container);
       }
     }).inject(this.bar);
@@ -81,12 +87,13 @@ export default new Class({
     }
   },
 
-  /*
-  Function: setActive
-
-  Set wich tab should be activated
-  */
+  /**
+   * Set wich tab should be activated
+   * @param {[type]} container [description]
+   * @return {void}
+   */
   setActive: function(container) {
+    _log.debug('setActive', container);
 
     if (typeOf(container) === 'object') {
       var index = this.list.indexOf(container);
@@ -99,6 +106,8 @@ export default new Class({
   },
 
   activate: function(container) {
+    _log.debug('activate', container);
+
     if (typeOf(container) !== 'object') {
       return;
     }
@@ -121,18 +130,19 @@ export default new Class({
   },
 
   _initElement: function() {
-    this.parent();
+    _log.debug('_initElement');
 
+    this.parent();
     this._initBar();
   },
 
-  /*
-    function : _initContainer
-
-      Build the split containers
-
-  */
+  /**
+   * Build the split containers
+   * @return {void}
+   */
   _initComponent: function() {
+    _log.debug('_initComponent');
+
     var self = this;
     var opts = this.options;
 
@@ -143,7 +153,6 @@ export default new Class({
     }
 
     this.node = [];
-
 
     if (!this.layout) {
       this.layout = {};
@@ -196,11 +205,10 @@ export default new Class({
     this.element.addClass('ui-tab');
   },
 
-  /*
-  Function: add
-
-  Create tabbar and add tabs
-  */
+  /**
+   * Create tabbar and add tabs
+   * @return {void}
+   */
   _initBar: function() {
     //var self = this;
 
@@ -215,14 +223,15 @@ export default new Class({
     }.bind(this));
   },
 
-
-  /*
-  Function: _initEvents
-
-  Set some behaviours
-  */
+  /**
+   * Set some behaviours
+   * @return {void}
+   */
   _initEvents: function() {
+    _log.debug('_initEvents');
+
     this.parent();
+
     var self = this;
 
     this.addEvents({

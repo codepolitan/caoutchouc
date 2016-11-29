@@ -2,7 +2,7 @@ import Controller from './controller';
 import Container from '../container/container';
 import ButtonControl from '../control/button';
 
-const _log = __debug('ui-window').defineLevel();
+const _log = __debug('window').defineLevel();
 
 export default new Class({
 
