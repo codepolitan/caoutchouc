@@ -616,7 +616,7 @@ export default new Class({
       tmp[tmp.length - 1] === infos[infos.length - 1]
     ) {
       this._makeVirtual(infos, 1, this._tempCount || infos.length);
-      tmp = [];
+      this._tempCache = [];
       this._tempCount = undefined;
       //set filter/search result
     } else {

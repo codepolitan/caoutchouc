@@ -32,6 +32,18 @@ export default new Class({
       info.nodes.push(this.options.data._id);
     }
 
+    // clean search and filter when insert a new info
+    // maybe instead of cleaning the search/filter
+    // should insert the new one in the current list
+    if (info._id === 'new') {
+      if (this.control.filter && this.control.filter.isActive()) {
+        this.toggleFilter();
+      }
+      if (this.control.search && this.control.search.isActive()) {
+        this.toggleSearch();
+      }
+    }
+
     this.remove('new');
     this._setInfo(info);
 
@@ -83,7 +95,7 @@ export default new Class({
     this.remove('new');
     this.virtualSize++;
     this.virtualList.unshift(info);
-    this._tempCache.unshift(info);
+    //this._tempCache.unshift(info);
     this.renderInfo(info, 1, 'top');
     this.element.scrollTop = 0;
     this._scroll();
