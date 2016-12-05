@@ -114,6 +114,10 @@ export default new Class({
   hideSearch: function() {
     var search = this.control.search;
 
+    if (!search) {
+      return;
+    }
+
     search.setState(null);
     this.search.empty();
     this.search.hide();
@@ -127,6 +131,10 @@ export default new Class({
    */
   showSearch: function() {
     var search = this.control.search;
+
+    if (!search) {
+      return;
+    }
 
     search.setState('active');
     this.search.show();
