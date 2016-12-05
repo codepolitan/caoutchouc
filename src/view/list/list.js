@@ -523,7 +523,7 @@ export default new Class({
       return;
     }
 
-    /*delete element from DOM*/
+    // delete element from DOM
     for (var range in this.rangeEl) {
       if (!this.rangeEl.hasOwnProperty(range)) {
         continue;
@@ -539,12 +539,25 @@ export default new Class({
       }
     }
 
-    /*delete from virtualList*/
+    // delete from virtualList
     for (var i = 0; i < this.virtualList.length; i++) {
       var info = this.virtualList[i] || {};
 
       if (info && info._id === id) {
-        this.virtualList[i] = undefined;
+        this.virtualList.splice(i, 1);
+      } else if (id === 'new' && info && !info._id) {
+        this.virtualList.splice(i, 1);
+      }
+    }
+
+    // delete from _tempCache
+    for (var j = 0; j < this._tempCache.length; j++) {
+      var info = this._tempCache[j] || {};
+
+      if (info && info._id === id) {
+        this._tempCache.splice(j, 1);
+      } else if (id === 'new' && info && !info._id) {
+        this._tempCache.splice(j, 1);
       }
     }
   },
