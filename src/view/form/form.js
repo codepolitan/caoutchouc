@@ -353,6 +353,7 @@ export default new Class({
 
     if (doc._id === 'new') {
       delete doc._id;
+      this.setMode('edit');
     }
 
     this.original = doc;
@@ -387,7 +388,17 @@ export default new Class({
     this.fireEvent('infoSet', doc);
     this.fireEvent('settings', ['infoId', id]);
 
-    //mnml.view.ctrl.focus(this);
+    if (!doc._id) {
+      if (this.control.apply) {
+        this.control.apply.setState('active');
+      }
+      if (this.control.cancel) {
+        this.control.cancel.setState('active');
+      }
+      if (this.toolbar.dialog) {
+        this.toolbar.dialog.show();
+      }
+    }
 
     return this;
   },
@@ -636,7 +647,11 @@ export default new Class({
       this.control.add.setState(null);
     }
 
-    this._setInfo(this.original, this.originalMask);
+    if (this.original && !this.original._id) {
+      this.clear();
+    } else {
+      this._setInfo(this.original, this.originalMask);
+    }
 
     this.fireEvent('canceled');
   },
