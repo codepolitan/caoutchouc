@@ -561,7 +561,7 @@ export default new Class({
             'opacity': '.8',
             'background-repeat': 'no-repeat',
             'background-position': 'center',
-            'background-image': 'url(/vendor/minimal-icon/mdi/svg/checkbox.svg)'
+            'background-image': 'url(/vendor/caoutchouc/icon/mdi/svg/checkbox.svg)'
           },
         }).inject(line);
 
@@ -649,7 +649,7 @@ export default new Class({
   _selectCheckbox: function(id, el, quiet) {
     el.addClass('is-checked');
     /*should use the is-checked class instead of change the background like this*/
-    el.setStyle('background-image', 'url(/vendor/minimal-icon/mdi/svg/checked.svg)');
+    el.setStyle('background-image', 'url(/vendor/caoutchouc/icon/mdi/svg/checked.svg)');
 
     var idx = this.multipleSelect.indexOf(id);
     if (idx === -1) {
@@ -671,7 +671,7 @@ export default new Class({
   _unselectCheckbox: function(id, el, quiet) {
     el.removeClass('is-checked');
     /*should use the is-checked class instead of change the background like this*/
-    el.setStyle('background-image', 'url(/vendor/minimal-icon/mdi/svg/checkbox.svg)');
+    el.setStyle('background-image', 'url(/vendor/caoutchouc/icon/mdi/svg/checkbox.svg)');
 
     var idx = this.multipleSelect.indexOf(id);
     if (idx !== -1) {

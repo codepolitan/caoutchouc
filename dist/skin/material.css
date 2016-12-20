@@ -1,4 +1,4 @@
-@import '/dist/vendor/minimal-icon/font/minimal/styles/minimal.css';
+@import '/dist/vendor/caoutchouc/icon/font/minimal/styles/minimal.css';
 @import url('https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.20.2/codemirror.css');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.20.2/theme/twilight.css');
 body {
@@ -57,7 +57,7 @@ body ::-webkit-scrollbar-thumb {
 }
 @font-face {
   font-family: "Material-Design-Icons";
-  src: url("/dist/vendor/minimal-icon/font/material/Material-Design-Icons.woff?-g7cqhn") format("woff");
+  src: url("/dist/vendor/caoutchouc/icon/font/material/Material-Design-Icons.woff?-g7cqhn") format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -2301,8 +2301,8 @@ body ::-webkit-scrollbar-thumb {
 }
 @font-face {
   font-family: "minimal";
-  src: url("/dist/vendor/minimal-icon/font/minimal/fonts/minimal.eot?b5872f9194b000b29b8c97424345b05b");
-  src: url("/dist/vendor/minimal-icon/font/minimal/fonts/minimal.eot?#iefix") format("embedded-opentype"), url("/dist/vendor/minimal-icon/font/minimal/fonts/minimal.woff?b5872f9194b000b29b8c97424345b05b") format("woff"), url("/dist/vendor/minimal-icon/font/minimal/fonts/minimal.ttf?b5872f9194b000b29b8c97424345b05b") format("truetype");
+  src: url("/dist/vendor/caoutchouc/icon/font/minimal/fonts/minimal.eot?b5872f9194b000b29b8c97424345b05b");
+  src: url("/dist/vendor/caoutchouc/icon/font/minimal/fonts/minimal.eot?#iefix") format("embedded-opentype"), url("/dist/vendor/caoutchouc/icon/font/minimal/fonts/minimal.woff?b5872f9194b000b29b8c97424345b05b") format("woff"), url("/dist/vendor/caoutchouc/icon/font/minimal/fonts/minimal.ttf?b5872f9194b000b29b8c97424345b05b") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -2316,40 +2316,40 @@ body ::-webkit-scrollbar-thumb {
   background-position: center;
 }
 .mdi-maps-local-dining {
-  background-image: url('/dist/vendor/minimal-icon/mdi/maps/local-dining.svg');
+  background-image: url('/dist/vendor/caoutchouc/icon/mdi/maps/local-dining.svg');
 }
 .mdi-action-power {
-  background-image: url('/dist/vendor/minimal-icon/mdi/svg/power.svg');
+  background-image: url('/dist/vendor/caoutchouc/icon/mdi/svg/power.svg');
 }
 .mdi-check-box {
-  background-image: url('/dist/vendor/minimal-icon/mdi/svg/checkbox.svg');
+  background-image: url('/dist/vendor/caoutchouc/icon/mdi/svg/checkbox.svg');
 }
 .mdi-action-chrome-reader-mode {
-  background-image: url('/dist/vendor/minimal-icon/mdi/action/chrome-reader-mode.svg');
+  background-image: url('/dist/vendor/caoutchouc/icon/mdi/action/chrome-reader-mode.svg');
 }
 .mdi-action-run {
-  background-image: url('/dist/vendor/minimal-icon/mdi/action/run.svg');
+  background-image: url('/dist/vendor/caoutchouc/icon/mdi/action/run.svg');
 }
 .mdi-package {
-  background-image: url('/dist/vendor/minimal-icon/mdi/action/package.svg');
+  background-image: url('/dist/vendor/caoutchouc/icon/mdi/action/package.svg');
 }
 .mdi-calendar-clock {
-  background-image: url('/dist/vendor/minimal-icon/mdi/application/planning.svg');
+  background-image: url('/dist/vendor/caoutchouc/icon/mdi/application/planning.svg');
 }
 .mdi-app-notes {
-  background-image: url('/dist/vendor/minimal-icon/mdi/application/note.svg');
+  background-image: url('/dist/vendor/caoutchouc/icon/mdi/application/note.svg');
 }
 .mdi-app-files {
-  background-image: url('/dist/vendor/minimal-icon/mdi/application/files.svg');
+  background-image: url('/dist/vendor/caoutchouc/icon/mdi/application/files.svg');
 }
 .mdi-app-news {
-  background-image: url('/dist/vendor/minimal-icon/mdi/application/news.svg');
+  background-image: url('/dist/vendor/caoutchouc/icon/mdi/application/news.svg');
 }
 .mdi-app-template {
-  background-image: url('/dist/vendor/minimal-icon/mdi/application/template.svg');
+  background-image: url('/dist/vendor/caoutchouc/icon/mdi/application/template.svg');
 }
 .mdi-action-invite {
-  background-image: url('/dist/vendor/minimal-icon/mdi/action/invite.svg');
+  background-image: url('/dist/vendor/caoutchouc/icon/mdi/action/invite.svg');
 }
 /**
  * Layout
@@ -3084,7 +3084,7 @@ body ::-webkit-scrollbar-thumb {
   border-radius: 3px;
 }
 .app-planning .ui-item.item-list.type-simple .icon-meal {
-  background-image: url('/dist/vendor/minimal-icon/mdi/maps/local-dining.svg');
+  background-image: url('/dist/vendor/caoutchouc/icon/mdi/maps/local-dining.svg');
   float: right;
   display: inline-block;
   height: 16px;
@@ -3264,7 +3264,7 @@ body ::-webkit-scrollbar-thumb {
       }*/
 }
 .app-planning table.planning .task .icon-meal {
-  background-image: url('/dist/vendor/minimal-icon/mdi/maps/local-dining.svg');
+  background-image: url('/dist/vendor/caoutchouc/icon/mdi/maps/local-dining.svg');
   float: right;
   display: inline-block;
   height: 16px;
@@ -7341,13 +7341,13 @@ form .fieldset .group .ui-field {
   opacity: .8;
   background-repeat: no-repeat;
   background-position: center;
-  background-image: url('/dist/vendor/minimal-icon/mdi/svg/checkbox.svg');
+  background-image: url('/dist/vendor/caoutchouc/icon/mdi/svg/checkbox.svg');
 }
 .ui-item > .ui-check.item-checked {
-  background-image: url('/dist/vendor/minimal-icon/mdi/svg/checked.svg');
+  background-image: url('/dist/vendor/caoutchouc/icon/mdi/svg/checked.svg');
 }
 .ui-item.is-checked > .ui-check {
-  background-image: url('/dist/vendor/minimal-icon/mdi/svg/checked.svg');
+  background-image: url('/dist/vendor/caoutchouc/icon/mdi/svg/checked.svg');
 }
 .ui-item .item-text {
   -webkit-box-flex: 1;
@@ -7383,13 +7383,13 @@ form .fieldset .group .ui-field {
   opacity: .8;
   background-repeat: no-repeat;
   background-position: center;
-  background-image: url('/dist/vendor/minimal-icon/mdi/svg/checkbox.svg');
+  background-image: url('/dist/vendor/caoutchouc/icon/mdi/svg/checkbox.svg');
 }
 .ui-item.type-check > .ui-check.item-checked {
-  background-image: url('/dist/vendor/minimal-icon/mdi/svg/checked.svg');
+  background-image: url('/dist/vendor/caoutchouc/icon/mdi/svg/checked.svg');
 }
 .ui-item.type-check.is-checked > .ui-check {
-  background-image: url('/dist/vendor/minimal-icon/mdi/svg/checked.svg');
+  background-image: url('/dist/vendor/caoutchouc/icon/mdi/svg/checked.svg');
 }
 .ui-item.type-check.item-selected {
   background-color: none;
