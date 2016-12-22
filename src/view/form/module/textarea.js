@@ -19,11 +19,32 @@ export default new Class({
     },
 
     ckeditor: {
-      customConfig: '/vendor/minimal-ckeditor/minimal.js',
+      //customConfig: '/vendor/minimal-ckeditor/minimal.js',
       allowedContent: 'table; tr; td; th; strong; em; pre; label; form[id]; select[name]; options[value]; input[name,type,value](*); h1; h2; h3; h4; i; p[*](*); div[*](*); span[*](*); a[!href](*); ul(*); li{text-align}(*); img[alt,!src]{width,height}(*)',
+      toolbarGroups: [{
+        name: 'document',
+        groups: ['mode', 'document', 'doctools']
+      }, {
+        name: 'basicstyles',
+        groups: ['basicstyles', 'cleanup']
+      }, {
+        name: 'styles'
+      }, {
+        name: 'colors'
+      }, {
+        name: 'paragraph',
+        groups: ['insertpre', 'list', 'indent', 'blocks', 'align', 'justify']
+      }, {
+        name: 'links'
+      }, {
+        name: 'others'
+      }],
+      autoParagraph: false,
+      startupFocus: false,
+      floatSpaceDockedOffsetY: 10,
       extraPlugins: 'sharedspace', //image,forms,image,forms,sourcearea,insertpre',
       removePlugins: 'floatingspace, resize, spellchecker, pastefromword, pastetext, specialchar, scayt, about',
-      removeButtons: 'Templates,NewPage,Anchor,Subscript,Superscript',
+      removeButtons: 'Templates,NewPage,Anchor,Subscript,Superscript,Strike',
       sharedSpaces: {
         top: 'ck-toolbar'
       }
@@ -113,7 +134,7 @@ export default new Class({
     _log.debug('_initCKEDITOR');
     var self = this;
 
-    scriptjs(['/vendor/ckeditor/ckeditor.js'], function() {
+    scriptjs(['https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.5.9/ckeditor.js'], function() {
       self._initTextarea(field, doc, group);
     });
   },
@@ -196,12 +217,16 @@ export default new Class({
     }
 
     // Loads the sharedspace plugin from /vendor/sharedspace/
-    CKEDITOR.plugins.addExternal('sharedspace', '/vendor/sharedspace/', 'plugin.js');
+    CKEDITOR.plugins.addExternal(
+      'sharedspace',
+      'https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.5.9/plugins/sharedspace/plugin.js',
+      'plugin.js'
+    );
 
     CKEDITOR.inline(input, {
       //allowedContent: ckeditor.allowedContent,
       allowedContent: true,
-      customConfig: ckeditor.customConfig,
+      //customConfig: ckeditor.customConfig,
       extraPlugins: ckeditor.extraPlugins,
       removePlugins: ckeditor.removePlugins,
       removeButtons: ckeditor.removeButtons,
