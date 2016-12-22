@@ -1,28 +1,33 @@
 'use strict';
 
 var webpack = require('webpack');
-var prod = process.argv.indexOf('-p') !== -1;
-
-// get entry and chunks
-var entry = {};
-var chunks = [];
 var fs = require('fs');
+var prod = process.argv.indexOf('--prod') !== -1;
+
 var data = fs.readFileSync('./src/index.js', 'utf8');
 data = data.split(/['']/);
 data.pop();
-data.map(function(obj, idx) {
-  if (obj.indexOf('export') === -1) {
-    var file = obj;
-    var key = data[idx - 1].split('as ')[1].split('\n')[0];
-    entry[key.toLowerCase()] = [file];
-    chunks.push(key);
+
+// get entry and chunks
+var unminifiedEntry = {};
+var minifiedEntry = {};
+var chunks = [];
+for (var i = 0; i < data.length; i++) {
+  var str = data[i];
+  if (str.indexOf('export') !== -1) {
+    continue;
   }
-});
+  var source = str;
+  var dest = data[i - 1].split('as ')[1].split('\n')[0];
+  unminifiedEntry[dest.toLowerCase()] = [source];
+  minifiedEntry[dest.toLowerCase() + '.min'] = [source];
+  chunks.push(dest);
+}
 
 var commonConfig = {
   context: __dirname + '/src',
 
-  entry: entry,
+  entry: unminifiedEntry,
 
   output: {
     path: 'dist/',
@@ -87,12 +92,63 @@ var commonConfig = {
   }
 };
 
-module.exports = [
+module.exports = (prod ? [
   Object.assign({}, commonConfig, {
-    name: ''
+    name: 'chunks-unminified'
   }),
   Object.assign({}, commonConfig, {
-    name: 'all',
+    name: 'all-unminified',
+
+    entry: ['index.js'],
+
+    output: {
+      path: 'dist/',
+      filename: 'caoutchouc.js',
+      libraryTarget: 'umd',
+      library: 'caoutchouc',
+      umdNamedDefine: true
+    },
+
+    plugins: []
+  }),
+  Object.assign({}, commonConfig, {
+    name: 'chunks-minified',
+
+    entry: minifiedEntry,
+
+    plugins: [
+      new webpack.optimize.UglifyJsPlugin({
+        include: /\.min\.js$/,
+        minimize: true
+      })
+    ]
+  }),
+  Object.assign({}, commonConfig, {
+    name: 'all-minified',
+
+    entry: ['index.js'],
+
+    output: {
+      path: 'dist/',
+      filename: 'caoutchouc.min.js',
+      libraryTarget: 'umd',
+      library: 'caoutchouc',
+      umdNamedDefine: true
+    },
+
+    plugins: [
+      new webpack.optimize.UglifyJsPlugin({
+        include: /\.min\.js$/,
+        minimize: true
+      })
+    ]
+  })
+] : [
+  Object.assign({}, commonConfig, {
+    name: 'chunks-unminified'
+  }),
+  Object.assign({}, commonConfig, {
+    name: 'all-unminified',
 
     entry: ['index.js'],
 
@@ -106,4 +162,4 @@ module.exports = [
 
     plugins: []
   })
-];
+]);

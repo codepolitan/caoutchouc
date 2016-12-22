@@ -13,10 +13,10 @@
   },
   "main": "index.js",
   "scripts": {
+    "preinstall": "rm -rf node_modules && mkdir node_modules && for i in js-debugger minimal-languages minimal-utils minimal-binding mootools-pack; do if [ -d ~/node_modules/$i ]; then ln -s ~/node_modules/$i node_modules; fi; done",
     "install": "git clone https://github.com/darkwing/ScrollSpy.git -b 1.5 node_modules/ScrollSpy",
-    "build:dev": "rm -rf dist && webpack && npm run build:css && npm run build:vendor",
-    "build:prod": "rm -rf dist && npm run build:js && npm run build:css && npm run add:dist && build:vendor",
-    "build:js": "webpack -p",
+    "build:dev": "rm -rf dist && npm run build:css && npm run build:vendor && webpack --watch",
+    "build:prod": "rm -rf dist && npm run build:css && npm run build:vendor && webpack --prod",
     "build:vendor": "cp -r src/font dist/font && cp -r src/icon dist/icon",
     "build:css": "npm run build:css:material && npm run build:css:floor && npm run build:css:print",
     "build:css:material": "lessc src/skin/material/material.less dist/skin/material.css",
