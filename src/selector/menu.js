@@ -110,7 +110,7 @@ export default new Class({
       item.addEvents({
         click: function(e) {
           //_log.debug('clicked', this.get('name'));
-          self.fireEvent('click', this.get('name'));
+          self.fireEvent(this.get('name'), self.el);
         }
       });
 

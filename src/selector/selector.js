@@ -60,7 +60,7 @@ export default new Class({
       duration: 365,
       path: '/'
     },
-    usefx: true,
+    //usefx: true,
     enable: true,
     timerOnHide: 0,
     onCatch: {},
@@ -133,14 +133,15 @@ export default new Class({
 
     //_log.debug(delegation, scope);
 
-    scope.addEvent(delegation, function(ev, target) {
-      //_log.debug('reach', el);
-      self.reach(target);
-    });
+    if (scope.addEvent) {
+      scope.addEvent(delegation, function(ev, target) {
+        //_log.debug('reach', el);
+        self.reach(target);
+      });
+    }
 
     /*pages.addEvent('resize', function() {
-      self.reach(self.el);
-    });*/
+      self.reach(self.el);*/
   },
 
   /**
@@ -570,9 +571,10 @@ export default new Class({
    * @return {[type]} [description]
    */
   hide: function() {
+    var self = this;
     clearTimeout(this.timer);
     this.timer = (function() {
-      this.fireEvent('hide');
+      self.fireEvent('hide');
     }).delay(this.options.timerOnHide, this);
   },
 
