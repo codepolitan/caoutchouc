@@ -1,9 +1,3 @@
-@element: 113,
-170,
-211;
-@category: 113,
-170,
-211;
 .ui-layer {
   position: absolute;
   top: 0;
@@ -31,6 +25,7 @@
 }
 
 .selector-border {
+  pointer-events: none;
   position: absolute;
   display: none;
   &.type-dotted {
@@ -59,9 +54,21 @@
 }
 
 .ui-selector .ui-menu {
-  padding: 2px;
+  z-index: 10;
+  display: block;
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  white-space: nowrap;
+  margin-left: -1px;
+  margin-top: -1px;
+  padding: 0;
   li {
-    padding: 3px 4px 3px;
+    display: inline-block;
+    padding: 2px 3px;
+    font-size: .85em;
+    cursor: pointer;
   }
 }
 
@@ -97,4 +104,89 @@
   padding: 4px 6px 3px 5px;
   margin: 0px;
   border-radius: 2px;
+}
+
+.ui-selector .ui-menu {
+  background-color: none;
+  border-bottom-left-radius: 3px;
+}
+
+.ui-selector .ui-menu .ui-icon {
+  color: white;
+  padding: 1px 3px 2px;
+  margin-top: 2px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.ui-selector .ui-menu .ui-icon.menu-edit {
+  background-color: #73abd4;
+}
+
+.ui-selector .ui-menu .ui-icon:hover {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.ui-selector[data-selector=category] .ui-menu .ui-icon {
+  color: white;
+  padding: 1px 3px 2px;
+  margin-top: 2px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.ui-selector[data-selector=category] .ui-menu .ui-icon.menu-edit {
+  background-color: #76D179;
+}
+
+.ui-selector[data-selector=category] .ui-menu .ui-icon:hover {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.ui-selector[data-selector=section] .ui-menu {
+  border-radius: 0;
+}
+
+.ui-selector[data-selector=section] .ui-menu .ui-icon {
+  margin-top: 1px;
+  margin-left: 1px;
+  background-color: orange;
+}
+
+.menu-edit:before {
+  content: "\e796";
+}
+
+.menu-up {
+  border-bottom-left-radius: 1px;
+}
+
+.menu-up:before {
+  content: "\e7b7";
+}
+
+.menu-down:before {
+  content: "\e7b4";
+}
+
+.menu-add:before {
+  content: "\e6fb";
+}
+
+.selector-status {
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #ffffff;
+  color: rgba(0, 0, 0, 0.9);
+  position: absolute;
+  z-index: 20;
+  display: inline-block;
+  white-space: nowrap;
+  padding: 3px 8px 3px 8px;
+  margin: 0;
+  margin-left: 20px;
+  border-radius: 0;
+  border-bottom-right-radius: 1px;
+  background-color: rgba(0, 0, 0, 0.5);
+  background-color: #CCC;
+  background-position: center;
+  background-repeat: no-repeat;
 }
