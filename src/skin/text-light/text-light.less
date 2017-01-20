@@ -1,0 +1,30 @@
+@import "../floor/floor.less";
+@import "../base/base/base.less";
+@import "../base/base/color.less";
+@dark-bg-color: rgb(240, 240, 240);
+.ui-container.theme-dark {
+  background-color: @dark-bg-color;
+  a {
+    color: #888;
+  }
+  > .container-head {
+    .toolbar-dialog {
+      background-color: @dark-bg-color;
+    }
+  }
+  ul.tree li {
+    &.selected {
+      > .line {
+        .label {
+          color: rgba(0, 0, 0, 0.7);
+        }
+        .count {
+          color: rgba(0, 0, 0, 0.7);
+        }
+      }
+    }
+  }
+  ul.collapse a.expand {
+    color: #888;
+  }
+}

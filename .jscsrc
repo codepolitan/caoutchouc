@@ -5,10 +5,16 @@
   "disallowSpaceBeforeComma": true,
 
   "jsDoc": {
+    "checkParamExistence": true,
     "checkParamNames": true,
     "requireParamTypes": true,
+    "checkRedundantParams": true,
+    "requireReturnTypes": true,
     "checkAnnotations": "jsdoc3",
     "checkTypes": "strictNativeCase",
-    "enforceExistence": "exceptExports"
+    "enforceExistence": {
+      "allExcept": ["exports"]
+    },
+    "disallowNewlineAfterDescription": true
   }
 }

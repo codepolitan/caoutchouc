@@ -1,32 +1,59 @@
 {
   "name": "caoutchouc",
-  "version": "1.5.1",
-  "description": " A Set of Mootools UI Components",
+  "version": "1.8.0",
+  "description": "A collection of Mootools UI Components",
+  "homepage": "https://github.com/codepolitan/caoutchouc#readme",
+  "license": "MIT",
+  "author": "Code Politan <codepolitan@gmail.com>",
+  "contributors": [
+    "Bruno Santos <santos@evok.com>"
+  ],
+  "bugs": {
+    "url": "https://github.com/codepolitan/caoutchouc/issues"
+  },
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "install": "git clone https://github.com/darkwing/ScrollSpy.git -b 1.5 node_modules/ScrollSpy",
+    "uglify": "uglifyjs-folder dist -eo dist",
+    "build": "npm run build:js && npm run build:css && git add -f dist/* && git commit -am 'build'",
+    "build:js": "rm -rf dist && webpack -p",
+    "build:css": "npm run build:css:material && npm run build:css:floor && npm run build:css:print",
+    "build:css:material": "lessc src/skin/material/material.less dist/skin/material.css",
+    "build:css:floor": "lessc src/skin/floor/floor.less dist/skin/floor.css",
+    "build:css:print": "lessc src/skin/base/print.less dist/skin/print.css",
+    "watch": "watch 'npm run build:css' src/skin"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/codepolitan/caoutchouc.git"
   },
-  "author": "Code Politan <codepolitan@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/codepolitan/caoutchouc/issues"
+  "files": [
+    "dist",
+    "docs"
+  ],
+  "dependencies": {
+    "minimal-languages": "git+ssh://git@git.evok.ch:evok-dev/minimal-languages.git#1.3.1",
+    "minimal-utils": "git+ssh://git@git.evok.ch:evok-dev/minimal-utils.git#1.2.1",
+    "minimal-binding": "git+ssh://git@git.evok.ch:evok-dev/minimal-binding.git#1.2.1",
+    "mootools-pack": "git+ssh://git@git.evok.ch:evok-dev/mootools-pack.git#v0.1.0",
+    "js-debugger": "https://github.com/PertapaCode/js-debugger.git#develop",
+    "moment": "https://github.com/moment/moment.git#2.5.1",
+    "ckeditor": "https://github.com/ckeditor/ckeditor-releases.git#full/4.5.9",
+    "codemirror": "https://github.com/codemirror/CodeMirror.git#3.19.0",
+    "mustache.js": "https://github.com/janl/mustache.js.git#v2.1.3",
+    "script.js": "https://github.com/ded/script.js.git#v2.5.8"
   },
-  "homepage": "https://github.com/codepolitan/caoutchouc#readme",
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-contrib-clean": "^0.6.0",
-    "grunt-contrib-concat": "^0.5.1",
-    "grunt-contrib-less": "^1.0.1",
-    "grunt-contrib-requirejs": "^0.4.4",
-    "grunt-contrib-uglify": "^0.9.1",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-git-flow": "*",
-    "grunt-jsdoc": "0.5.8",
-    "grunt-notify": "^0.4.1",
-    "grunt-plato": "^1.2.1"
+    "babel-core": "^6.16.0",
+    "babel-loader": "^6.2.5",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-preset-es2015": "^6.16.0",
+    "exports-loader": "^0.6.3",
+    "expose-loader": "^0.7.1",
+    "imports-loader": "^0.6.5",
+    "raw-loader": "^0.5.1",
+    "script-loader": "^0.7.0",
+    "watch": "^1.0.1",
+    "webpack": "^1.13.2"
   }
 }

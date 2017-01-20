@@ -1,0 +1,124 @@
+@dark-bg-color: rgba(68, 68, 68, 1);
+.ui-container.theme-dark {
+  background-color: @dark-bg-color;
+  &.container-list {
+    border-right-color: rgba(0, 0, 0, .2);
+  }
+  &.container-navi {
+    border-right-color: rgba(0, 0, 0, .2);
+  }
+  a {
+    color: rgb(136, 136, 136);
+  }
+  > .container-foot {
+    background-color: transparent;
+  }
+  > .container-head {
+    background-color: transparent;
+    .toolbar-dialog {
+      background-color: @dark-bg-color;
+    }
+  }
+  .head-filter {
+    background-color: rgba(0, 0, 0, 0.01);
+    border-bottom-color: rgba(0, 0, 0, 0.03);
+  }
+  .ui-container {
+    background-color: transparent;
+    >.container-head {
+      background-color: transparent;
+    }
+    >.container-body {
+      background-color: transparent;
+    }
+  }
+  ul.collapse {
+    li {
+      .line {
+        .label {
+          &[contenteditable=true] {
+            background-color: rgba(255, 255, 255, 0.5);
+          }
+        }
+      }
+    }
+  }
+  ul.tree li {
+    &.selected {
+      > span {
+        color: rgba(255, 255, 255, 1);
+        background-color: rgba(113, 211, 126, .5);
+      }
+      > .line {
+        .label {
+          color: rgba(255, 255, 255, .9);
+        }
+        .count {
+          color: rgba(255, 255, 255, .9);
+        }
+      }
+    }
+  }
+  ul.collapse a.expand {
+    color: rgba(113, 211, 126, .5);
+  }
+  ul.tree li > span.count {
+    background-color: transparent;
+    color: rgba(255, 255, 255, .3);
+  }
+  .ui-toolbar.toolbar-cke {
+    background-color: transparent;
+  }
+  .view-form.container-body .form-fieldset .group .ui-field.field-html > div {
+    color: rgba(255, 255, 255, 0.9);
+  }
+  .view-form.container-body .form-fieldset .group .form-list .list-item .ui-key {
+    color: rgba(255, 255, 255, 0.9);
+  }
+  .type-dropdown .ui-menu {}
+  .ui-item {
+    color: rgb(136, 136, 136);
+    &.item-selected,
+    &.is-selected {
+      color: rgb(172, 172, 172);
+      background-color: rgba(0, 0, 0, .1);
+    }
+  }
+  .ui-item.type-check {
+    &.item-selected {
+      color: rgb(172, 172, 172);
+      background-color: transparent;
+    }
+  }
+  .ui-field label {
+    color: rgb(136, 136, 136);
+  }
+  input {
+    color: rgba(255, 255, 255, 0.9);
+  }
+  .ui-search {
+    color: rgb(136, 136, 136);
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  textarea,
+  input[type=text],
+  input[type=password] {
+    background-color: transparent;
+    border-bottom-color: rgba(255, 255, 255, 0.12);
+    &::-webkit-input-placeholder {
+      color: rgba(255, 255, 255, .2);
+    }
+    &:-moz-placeholder {
+      color: rgba(255, 255, 255, .2);
+    }
+    &::-moz-placeholder {
+      color: rgba(255, 255, 255, .2);
+    }
+    &:-ms-input-placeholder {
+      color: rgba(255, 255, 255, .2);
+    }
+  }
+  .view-form.container-body .form-fieldset .group .form-list label {
+    color: rgb(136, 136, 136);
+  }
+}

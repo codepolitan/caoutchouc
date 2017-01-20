@@ -1,0 +1,81 @@
+
+// Default
+// Default values
+@border: rgba(163, 163, 163, .5);
+@font-size: 15px;
+@color: rgba(255,255,255,0.5);
+@background: rgba(135,135,135,.1);
+@font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
+
+
+@icon-size: 1.7em;
+@icon-color: #999;
+
+@item-font-size: 1em;
+@item-font-color: rgb(51, 51, 51); //rgba(0,0,0,.9);
+
+@button-font-family: @font-family;
+
+@primary-bg-color: #4891F4; // rgba(67, 76, 89, 1);
+@primary-font-color: rgba(255, 255, 255, 0.95);
+
+/**
+ * View
+ */
+
+@view-font-size: .95em;
+@view-font-color: rgb(51, 51, 51);
+
+
+@font-color: rgba(33, 33, 33, .3);
+@body-font-size: 14px;
+
+
+@container-head-bg: #e0e0e0;
+
+@menu-color: rgba(113,170,211,.8);
+
+.enableselect {
+	-webkit-user-select: text;
+	-khtml-user-select: text;
+	-moz-user-select: text;
+	-o-user-select: text;
+//	user-select: text;
+}
+
+body {
+	font-family: @font-family;
+	font-size: @font-size;
+	//background-image: url(/vendor/background/src/architecture/508ee0ab28ba0d7fe4000005_galaxy-soho-zaha-hadid-architects_galaxy_soho_zha_12-10_5230.jpg);
+	background-repeat: no-repeat;
+	background-size:100% auto;
+	background-size: cover;
+	background-color: #444;
+	background-position: center;
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased !important;
+	.ui-icon {
+		font-size: @icon-size;
+	}
+	.ui-text  {
+		font-size: 1em;
+	}
+	.button-text  {
+		font-size: 5em;
+	}
+	-webkit-tap-highlight-color: transparent;
+
+
+	/*styles for scrollbar*/
+	::-webkit-scrollbar {
+	    width: 12px;
+	}
+	::-webkit-scrollbar-track {
+	    background-color: rgba(0,0,0,0.03);
+	}
+	::-webkit-scrollbar-thumb {
+	    background-color: rgba(0,0,0,0.1);
+	}
+}
+
