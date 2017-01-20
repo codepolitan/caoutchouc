@@ -66,7 +66,7 @@ define(function(require, exports, module) {
         duration: 365,
         path: '/'
       },
-      usefx: true,
+      //usefx: true,
       enable: true,
       timerOnHide: 0,
       onCatch: {},
@@ -128,13 +128,15 @@ define(function(require, exports, module) {
 
       //_log.debug(delegation, scope);
 
-      scope.addEvent(delegation, function(ev, target) {
-        //_log.debug('reach', el);
-        self.reach(target);
-      });
 
+      if (scope.addEvent) {
+        scope.addEvent(delegation, function(ev, target) {
+          //_log.debug('reach', el);
+          self.reach(target);
+        });
+      }
       /*pages.addEvent('resize', function() {
-      	self.reach(self.el);
+        self.reach(self.el);
       });*/
     },
 
@@ -163,7 +165,7 @@ define(function(require, exports, module) {
       });
 
       /*pages.addEvent('resize', function() {
-      	self.reach(self.el);
+        self.reach(self.el);
       });*/
     },
 
@@ -488,7 +490,7 @@ define(function(require, exports, module) {
 
     /*
 
-    		Note: Should be cool if we can also add and remove selectors
+        Note: Should be cool if we can also add and remove selectors
 
     */
     add: function(type) {
@@ -500,14 +502,17 @@ define(function(require, exports, module) {
     },
 
     hide: function() {
+      var self = this;
       clearTimeout(this.timer);
       this.timer = (function() {
-        this.fireEvent('hide');
+        //console.log('fire hide');
+        self.fireEvent('hide');
       }).delay(this.options.timerOnHide, this);
     },
 
     hideNow: function() {
       clearTimeout(this.timer);
+      //console.log('fire hide now');
       this.fireEvent('hide');
     },
 
