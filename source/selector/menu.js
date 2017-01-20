@@ -28,6 +28,12 @@ define(function(require, exports, module) {
       }
     },
 
+    /**
+     * [initialize description]
+     * @param  {[type]} container [description]
+     * @param  {[type]} options   [description]
+     * @return {[type]}           [description]
+     */
     initialize: function(container, options) {
       this.setOptions(options);
 
@@ -48,6 +54,11 @@ define(function(require, exports, module) {
       this._initElement(container);
     },
 
+    /**
+     * [_initElement description]
+     * @param  {[type]} container [description]
+     * @return {[type]}           [description]
+     */
     _initElement: function(container) {
       //_log.debug('_initElement menu', this.options);
 
@@ -112,8 +123,7 @@ define(function(require, exports, module) {
 
         item.addEvents({
           click: function(e) {
-            //_log.debug('clicked', this.get('name'));
-            self.fireEvent('click', this.get('name'));
+            self.fireEvent(this.get('name'), self.el);
           }
         });
 
