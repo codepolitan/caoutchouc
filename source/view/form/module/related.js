@@ -3,10 +3,10 @@
  * @author Jerome Vial, Bruno Santos
  * @description
  *  Info Structure:
- *  	id: Unique info id
- * 	The options accept:
- * 		unique: If set to true will be possible
- * 						just attach a document in this key
+ *    id: Unique info id
+ *  The options accept:
+ *    unique: If set to true will be possible
+ *            just attach a document in this key
  */
 define(function(require, exports, module) {
 
@@ -29,6 +29,7 @@ define(function(require, exports, module) {
      * @return {void}
      */
     _initRelated: function(field, info, group) {
+      //console.log('_initRelated', field);
       _log.debug('_initRelated', field, info, group);
 
       group.addClass('group-list');
@@ -143,46 +144,55 @@ define(function(require, exports, module) {
       }).inject(list);
 
       // new ButtonControl({
-      // 	name: field.opts.type,
-      // 	icon: mnml.icon.font[field.opts.type],
+      //  name: field.opts.type,
+      //  icon: mnml.icon.font[field.opts.type],
       // }).inject(item, 'top');
 
       var display = field.opts.keys.display || [];
 
-      for (var i = 0; i < display.length; i++) {
-        var displayKey = display[i];
+      if (display === 'image') {
+        item.addClass
 
-        _log.debug('displayKey', displayKey, field.opts.keys[displayKey]);
-
-        var key = info[displayKey] || related.relation[displayKey];
-
-        //if (!key) continue;
-
-        if (key && field.opts.keys[displayKey] && field.opts.keys[displayKey].type === 'date') {
-          var format = field.opts.keys[displayKey].format || 'YYYY-MM-DD HH:mm';
-          key = moment(key).format(format);
-        }
-
-        field.opts.keys[displayKey] = field.opts.keys[displayKey] || {};
-
-        var text = field.opts.keys[displayKey].text || displayKey;
-
-        new FieldControl({
-          type: 'text',
-          name: displayKey,
-          text: text,
-          value: key,
-          read: true
+        new Element('img', {
+          src: 'app/files/stream/' + info._id,
+          height: 100
         }).inject(item);
+      } else {
+        for (var i = 0; i < display.length; i++) {
+          var displayKey = display[i];
 
-        /*new Element('span', {
-        	title: key,
-        	'class': 'ui-key key-' + displayKey,
-        	html: key
-        }).inject(item);*/
+          _log.debug('displayKey', displayKey, field.opts.keys[displayKey]);
+          //console.log('displayKey', displayKey, field.opts.keys[displayKey]);
+          var key = info[displayKey] || related.relation[displayKey];
+
+          //if (!key) continue;
+
+          if (key && field.opts.keys[displayKey] && field.opts.keys[displayKey].type === 'date') {
+            var format = field.opts.keys[displayKey].format || 'YYYY-MM-DD HH:mm';
+            key = moment(key).format(format);
+          }
+
+          field.opts.keys[displayKey] = field.opts.keys[displayKey] || {};
+
+          var text = field.opts.keys[displayKey].text || displayKey;
+
+          new FieldControl({
+            type: 'text',
+            name: displayKey,
+            text: text,
+            value: key,
+            read: true
+          }).inject(item);
+
+          /*new Element('span', {
+            title: key,
+            'class': 'ui-key key-' + displayKey,
+            html: key
+          }).inject(item);*/
+
+          this._initRelatedCustomList(item, related, prop);
+        }
       }
-
-      this._initRelatedCustomList(item, related, prop);
 
       var read = this.isReadOnly(field);
 
